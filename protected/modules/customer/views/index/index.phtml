@@ -1,0 +1,327 @@
+<?php 
+$sex_list=\CustomerInfo::getSex();
+$member_list=\ConfigMembership::getList();
+$map['t.company_id']	= 	array('eq',\Ivy::app()->user->comp_id);
+$map['t.membership_id']	= 	array('eq','0');
+if($this->controller->is_store){
+	$map['t.store_id']		=	array('eq',\Ivy::app()->user->dept_id);
+}
+$membership_off_count=\CustomerInfo::model()->where($map)->count();
+?>
+
+<link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/html5uploader/jquery.html5uploader.js"></script>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r"><!-- span选中添加 button_visit 样式--> 
+			<?php if($this->controller->is_store):?>
+			<span><a href="javascript:" class="fjgl_top_r_03 c_update">批量上传</a></span>
+			<?php endif;?>
+			<span><a href="javascript:" class="fjgl_top_r_08 fpkhn">分配客户</a></span>
+			<span><a href="javascript:" class="fjgl_top_r_01 filter_search">筛选</a></span>
+			<span><a href="<?php echo $this->url('edit') ?>" class="fjgl_top_r_02">添加客户</a></span>
+		</div>
+	<div class="khgl_01"><img src="<?php echo $this->basePath('public') ?>/images/kh_01.png"></div>
+	客户管理
+	</div>
+
+	<!--  模版引擎扩展 -->
+	<?php if ($membership_off_count>0): ?>
+	<div class="tablelist_warning">
+		<div class="tablelist_warning_son" ><span onclick="$(this).parent().parent().remove()" class="tablelist_warning_close"><img src="<?php echo $this->basePath('public') ?>/images/close_ico_1.png" ></span>有 <span style=" color:#ec314b;"><?php echo $membership_off_count; ?></span> 个客户未设定客户等级，将会影响部分统计数据准确性。
+		</div>
+	</div>
+	<?php endif ?>
+
+<?php echo $this->datagrid(array(
+	'id'=>'table-list',
+	'dataProvider'=>$pager,
+	'lastFloat'=>true,
+	'check'=>'id',
+	'columns'=>array(
+		array(
+			'header' => '会员卡号',
+			'name' => 'cardid',
+			'filter'=>'t.cardid',
+		),
+		array(
+			'header' => '姓名',
+			'name' => 'name',
+			'filter'=>'t.name',
+			'value' => '<span class="khgl_xmpic"><img src="{\CustomerInfo::getAvatar($data["id"])}" height="24" width="24" /></span><span class="khgl_03">{$data["name"]}</span>',
+		),
+		array(
+			'header' => '性别',
+			'name' => 'sex',
+			'filter'=>array('t.sex',$sex_list),
+		),
+		array(
+			'header' => '客户等级',
+			'name' => 'lname',
+			'filter'=>array('l.id',$member_list),
+		),
+		array(
+			'header' => '客户类型',
+			'name' => 'cu_type',
+			'filter'=>array('t.cu_type',\CustomerInfo::getCuType()),
+		),
+		array(
+			'header' => '客户状态',
+			'value' => '{\CustomerInfo::getStatus($data["status"])}',
+			'filter'=>array('t.status',\CustomerInfo::getStatus()),
+		),
+		array(
+			'header' => '私人顾问',
+			'name' => 'cnetname',
+			'filter'=>array('t.counselor_id',\EmployUser::getList()),
+		),
+
+		array(
+			'header' => '私人美疗师',
+			'name' => 'onetname',
+			'filter'=>array('t.operator_id',\EmployUser::getList(' AND position_id=7')),
+		),
+		array(
+			'header' => '档案归属部门',
+			'name' => 'dept_name',
+			'filter'=>array('t.store_id',\EmployDept::getList()),
+		),
+		array(
+			'header' => '最近到店日期',
+			'value' => '{date("Y",$data["last_time"])>2000?date("Y-m-d H:i",$data["last_time"]):""}',
+		),
+		array(
+			'header' => '操作',
+			'rel'=>'id',
+			'value'=> '<a href="'.$this->url("view").'&id={$data["id"]}" class="khca"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看</a>',
+		)
+	),
+));?>
+	
+</div>
+<!--content_right_con!end-->
+
+<!--分配客户-->
+<div class="bjxszd_com khfp02" style=" top:100px;" title="分配客户"  id="khfpkf">
+  <div class="classoff">
+     <div class="bjxszd_com_two_in">
+         <p>将<span class="khmun">0</span>位客户分配给</p>
+    	 <?php echo $this->dropDownList('fpkh_user',\EmployUser::getList(' AND (position_id=6 or position_id=7)'),0,array('datatype'=>'*','class'=>'fpkh_user'));?>
+     </div>
+  </div>
+</div>
+
+<!--tjfj03-->
+<div class="update none" title="批量上传">
+	<div class="tjfj_two">
+	<p>请严格按照我们提供的客户格式编辑并上传。<a href="<?php echo SITE_URL . '/upload/customer_template.xls' ?>" target="_new">下载客户信息模板</a></p>
+	<p style=" text-align:center;"><img src="<?php echo $this->basePath('public') ?>/images/pl_02.png" /></p>
+	<p style=" text-align:center;"><div id="upload"></div></p>
+	<p style=" text-align:center; color:#999;">(上传文档必须小于2MB,格式*.xls)</p>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+
+$(function(){
+	/**
+	 * 分配人选择
+	 */
+	$(document).on('change','.fpkh_user', function(event) {
+		if ($(this).val()) {$(this).next('.Validform_wrong').remove()};
+	});
+/**
+ * 分配客户
+ */
+$(document).on('click','.fpkhn',function(){
+	var html=$('#khfpkf').html();
+	var d = Idialog({
+		top:120,
+		width:580,
+		title:'分配客户',
+		content:html,
+		ok:function(obj){
+			var fpkh_user=obj._self.find('.fpkh_user').val();
+			if (fpkh_user=='') {obj._self.find('.fpkh_user').after('<span class="Validform_checktip Validform_wrong">请选择分配人!</span>');}else{
+				var user_ids='';
+				$('input[name="table_check"]').each(function(index, el) {
+					if ($(this).is(':checked')) {
+						if (user_ids=='') {
+							user_ids=$(this).val();
+						}else{
+							user_ids=user_ids+','+$(this).val();
+						}
+					};
+				});
+				$.post('<?php echo $this->url("allot") ?>', {'fpkh_user': fpkh_user,'user_ids':user_ids}, function(data, textStatus, xhr) {
+					var jobj = $.parseJSON(data);
+					if(jobj['code']=='200'){
+						obj._self.remove();
+						var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'分配成功',
+							ok:function(html){
+								window.location.href=window.location.href;
+								return true;
+							},
+							cancel:false,
+						});
+					}else{
+						var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'分配失败',
+							ok:function(obj){
+								return true;
+							},
+							cancel:false,
+						});
+					}
+					return true;
+				});
+			}
+			return false;
+		},
+		init:function(self){
+			var i=0;
+			$('input[name="table_check"]').each(function(index, el) {
+				if ($(this).is(':checked')) {i++};
+			});
+			if (i==0) {self.find('.classoff').html("请选择客户!")}else{
+				self.find('.khmun').html(i);
+			}
+		},
+	});
+});
+
+	$(document).on('click','.delete',function(){
+		var obj = $(this).parent().parent().parent();
+		var id = $(this).parent().attr('rel');
+
+		var d = Idialog({
+			top:120,
+			width:500,
+			title:'通知',
+			content:'您确认删除吗？',
+			ok:function(html){
+				$.get("<?php echo $this->url('delete') ?>", { id: id },function(html){
+					var jobj = $.parseJSON(html);
+					if(jobj['code']=='200'){
+						var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'删除成功',
+							ok:function(html){
+								obj.remove();
+								return true;
+							},
+							cancel:false,
+						});
+					}else{
+						var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'删除失败',
+							ok:function(obj){
+								return true;
+							},
+							cancel:false,
+						});
+					}
+				});
+				return true;
+			},
+			cancel:true,
+		});
+	});
+		//批量上传 
+	$('.c_update').click(function(){
+		<?php if($pager['pagener']['recordsTotal']): ?>
+			Idialog({
+					top:150,
+					width:500,
+					title:'数据警告',
+					content:'确定将追加数据！',
+					ok:function(obj){
+						upload()
+					}
+			})
+		<?php else: ?>
+		upload();
+		<?php endif; ?>
+	});
+	function upload()
+	{
+		var d = Idialog({
+			top:150,
+			width:500,
+			title:'批量上传',
+			content:$('.update'),
+			init:function(obj){
+				obj.find('#upload').html5uploader({
+					auto:true,
+					multi:false,
+					removeTimeout:2000,
+					buttonText:'<img src="<?php echo $this->basePath("public") ?>/images/pl_03.png" />',
+					url:'<?php echo $this->url("upload") ?>',
+					itemTemplate:'',
+					fileTypeExts:'application/vnd.ms-excel',
+					onUploadStart:function(){
+						//alert('开始上传');
+						var _html = "<div id='loading' style='position:fixed;left:0;width:100%;height:100%;top:0;background:rgb(0, 0, 0);opacity:0.5;filter:alpha(opacity=50);z-index: 1000;'><div style='position:absolute;cursor1:wait;left:50%;top:50%;width:auto;height:16px;padding:13px 22px 28px 30px;background: url(<?php echo $this->basePath('public');?>/images/loading.gif) no-repeat scroll 5px 10px;text-indent: -99999px;color:#000;'>正在加载，请等待...</div></div>";
+    					$('body').append(_html);
+						},
+					onInit:function(){
+						//alert('初始化');
+						},
+					onUploadError:function (file,data) {
+						console.log(file);
+						console.log(data);
+					},
+					onUploadComplete:function(){
+						// alert('上传完成');
+						},
+					onUploadSuccess:function(file,json){
+						//console.log(file);
+						json = eval('('+json+')');
+						$('#loading,.idialog').remove();
+						if(json.code==200){
+							Idialog({
+								top:150,
+								width:500,
+								title:'提示',
+								content:json.msg+'一共'+json.data.total+'条,成功导入:'+json.data.success+'条!',
+								init:function(obj){
+									obj.find('.idialog').css('z-index','1001');
+								},
+								ok:function(obj){
+									location.reload();
+								},
+								cancel:false
+							})
+							
+						}
+
+					}
+				});
+				obj.find('.uploadfile').css('width','164px');
+
+			},
+			ok:function(obj){
+				//console.log(obj);
+				
+				return false;
+			},
+			cancel:true
+		});
+	}
+});
+</script>

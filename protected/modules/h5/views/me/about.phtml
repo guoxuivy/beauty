@@ -1,0 +1,76 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+    <title>HOWA</title>
+
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileColor" content="#0e90d2">
+
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/amazeui.min.css">
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/app.css">
+</head>
+<body class="has-header has-nav">
+
+<header class="am-text-center am-padding-sm fixed-top">
+    <div class="am-fl"><i class="am-icon-angle-left am-icon-sm">&nbsp;&nbsp;&nbsp;</i></div>
+    <b>我</b>
+</header>
+
+<div class="am-text-center am-margin-bottom-lg about">
+    <img width="200px" class="logo" src="./<?php echo $this->basePath('public/h5/assets');?>/i/logo.png">
+    <div>V1.0版本</div>
+</div>
+
+<ul class="am-list">
+    <li class="am-padding-sm">官方微信<span class="am-fr">howa</span></li>
+    <li class="am-padding-sm">官方微博<span class="am-fr">HOWA商业技术</span></li>
+    <li class="am-padding-sm">官方网站<a href="http://www.howa.com.cn" class="am-fr link am-padding-0">www.howa.com.cn</a></li>
+    <li class="am-padding-sm">客服电话<a href="tel:027-87050575" class="am-fr link am-padding-0">027-87050575</a></li>
+</ul>
+
+<div class="am-text-center copyright">
+    <div>好哇商业咨询技术</div>
+    <div>Howa Business Technology Copyright</div>
+</div>
+
+<nav>
+    <ul class="am-avg-sm-3">
+        <li class="am-text-center"><i class="am-icon-md am-icon-home"></i><div>首页</div></li>
+        <li class="am-text-center"><i class="am-icon-md am-icon-bar-chart"></i><div>数据报表</div></li>
+        <li class="am-text-center active"><i class="am-icon-md am-icon-user"></i><div>我</div></li>
+    </ul>
+</nav>
+
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/jquery.min.js"></script>
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/amazeui.min.js"></script>
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/my.js"></script>
+<script>
+$(function(){
+    $('.am-fl').click(function(){
+        to_url('<?php echo $this->url("index") ?>')
+    });
+    
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>POS开单><span>卡券兑换</span>
+	</div>
+	
+	<!--pos_cz_fk_top-->
+	<div class="pos_cz_fk_top">
+		<div class="pos_cz_fk_top_02"><a href="javascript:" class="pos_cz_fk_top_04">卡券兑换详情</a></div>卡券兑换<span class="pos_cz_fk_top_01"> 单号：<?php echo $model->o_s->sn; ?></span>
+	
+	</div><!--pos_cz_fk_top!end-->
+	
+	<!--pos_cz_fk_two-->
+	<div class="pos_cz_fk_two" style="display:block">
+		<div class="pos_cz_fk_two_ico">&nbsp;</div>
+		<ul>
+			<li>客户姓名：<?php echo $model->cuName ?></li>
+			<li>兑换时间：<?php echo $model->o_s->create_time ?></li>
+			<li>操作人：<?php echo $model->employName ?></li>
+		</ul>
+		
+	</div><!--pos_cz_fk_two!end-->
+	
+	
+	<!--khgl_shouye-->
+	<?php echo $cu_info ?>
+	<!--khgl_shouye!end-->
+
+	
+	<!--可用卡券-->
+	<div class="pos_cz_tow box_xm">
+		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>兑换卡券</div>
+		<div class="pos_cz_tow_two"> 
+			<!--table_container-->
+			<div class="table_container" style="border:none;"> 
+				<!--table_con-->
+				<div class="table_con" style="border:none; margin-right:0px;"> 
+					<!--table_con_son-->
+					<div class="table_con_son">
+						<div class="table_title">
+							<ul>
+								<li>时效</li>
+								<li>卡券名称</li>
+								<li>卡券数量</li>
+								<li>可用现金金额（元）</li>
+								<li>可用赠送金额（元）</li>
+								<li>可用项目</li>
+								<li>可用产品</li>
+								<li>备注</li>
+							</ul>
+						</div>
+						<?php
+						 	if ($CustomerVoucher): 
+							$pro=\CustomerVoucher::getLastProNames($CustomerVoucher->id);
+						?>
+						<div class="table_list clear">
+							<ul>
+								<li class="li001"><?php echo date('Y/m/d',$CustomerVoucher->stime),'-',date('Y/m/d',$CustomerVoucher->etime) ?></li>
+								<li class="li002"><?php echo $CustomerVoucher->name ?></li>
+								<li class="li003">1</li>
+								<li class="li004"><?php echo \CustomerVoucher::getLastMoney($CustomerVoucher->id) ?></li>
+								<li class="li004"><?php echo \CustomerVoucher::getLastMoneyZS($CustomerVoucher->id) ?></li>
+								<li class="li005"><?php echo $pro['project'] ?></li>
+								<li class="li006"><?php echo $pro['product'] ?></li>
+								<li class="li007"><?php echo $CustomerVoucher->note ?></li>
+							</ul>
+						</div>
+						<?php endif ?>
+					</div>
+					<!--table_con_son!end--> 
+				</div>
+				<!--table_con!end--> 
+			</div>
+			<!--table_containter!end--> 
+			
+		</div>
+	</div>
+	<!--可用卡券!end--> 
+	
+	<!--兑换卡券-->
+	<div class="pos_cz_tow voucher_html">
+		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span><?php echo $CustomerVoucher->name ?> 兑换成</div>
+		<div class="pos_cz_tow_two">
+			<div class="pos_kj_top_top">
+				<ul>
+					<li>兑换现金金额：<?php
+					$capital=\CompanyCapital::model()
+					->field(array("t.name","cc.id",))
+					->join('customer_capital cc on t.id=cc.capital_id')
+					->findByPk($model->o_s->capital_id);
+						echo $model->o_s->capital_id?$capital->name.':'.$model->o_s->money:'无';
+					?>
+					</li>
+					<li>兑换赠送金额：<?php
+					$gift_capital=\CompanyCapital::model()
+					->field(array("t.name","cc.id",))
+					->join('customer_capital cc on t.id=cc.capital_id')
+					->findByPk($model->o_s->gift_capital_id);
+					 echo $model->o_s->gift_capital_id?$gift_capital->name.':'.$model->o_s->gift_money:'无';
+					  ?>
+					</li>
+				</ul>
+			</div>
+
+			<div class="pos_kj_top_two">
+				<div class="pos_kj_top_two_l">项目：</div>
+				<div class="pos_kj_top_two_r"> 
+					<!--table_container-->
+					<div class="table_container"> 
+						<!--table_con-->
+						<div class="table_con"> 
+							
+							<!--table_con_son-->
+							<div class="table_con_son">
+								<div class="table_title">
+									<ul>
+										<li>项目名称</li>
+										<li>兑换次数</li>
+									</ul>
+								</div>
+								<?php 
+									if($model)
+										foreach ($model->pros as $key => $value):
+											if ($value['pro_type']!=1)continue;
+										$pro_num=$value['num'];
+										$pro=\pos\SaleModel::model()->getProInfo($value['pro_id'],$value['pro_type']);
+								 ?>
+								<div class="table_list clear">
+									<ul>
+										<li class="li001"><?php echo $pro->name; ?></li>
+										<li class="li002">
+											<?php echo $pro_num ?>
+										</li>
+									</ul>
+								</div>
+								<?php endforeach; ?>
+							</div>
+							<!--table_con_son!end--> 
+							
+						</div>
+						<!--table_con!end--> 
+					</div>
+					<!--table_containter!end--> 
+					
+				</div>
+			</div>
+			<div class="pos_kj_top_two">
+				<div class="pos_kj_top_two_l">产品：</div>
+				<div class="pos_kj_top_two_r"> 
+					<!--table_container-->
+					<div class="table_container"> 
+						<!--table_con-->
+						<div class="table_con"> 
+							
+							<!--table_con_son-->
+							<div class="table_con_son">
+								<div class="table_title">
+									<ul>
+										<li>产品名称</li>
+										<li>兑换次数</li>
+									</ul>
+								</div>
+								<?php 
+									if($model)
+										foreach ($model->pros as $key => $value):
+											if ($value['pro_type']!=2)continue;
+										$pro_num=$value['num'];
+										$pro=\pos\SaleModel::model()->getProInfo($value['pro_id'],$value['pro_type']);
+								 ?>
+								<div class="table_list clear">
+									<ul>
+										<li class="li001"><?php echo $pro->name; ?></li>
+										<li class="li002">
+											<?php echo $pro_num ?>
+										</li>
+									</ul>
+								</div>
+								<?php endforeach; ?>
+							</div>
+							<!--table_con_son!end--> 
+							
+						</div>
+						<!--table_con!end--> 
+					</div>
+					<!--table_containter!end--> 
+					
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!--兑换卡券!end--> 
+	
+	<!--备注-->
+	<div class="pos_cz_tow pos_cz_for_bz">
+		<div class="pos_cz_for_bz01">备注</div>
+		<div class="pos_cz_for_bz02">
+			<div class="pos_cz_for_bz02_son">
+				<?php echo $model?$model->o_s->note:"" ?>
+			</div>
+		</div>
+	</div>
+	<!--备注!end--> 
+
+	
+</div>
+<!--content_right_con!end--> 
+
+
+{__TOKEN__}
+
+
+<script type="text/javascript">
+$(function(){
+	//收起效果
+	$(".pos_cz_tow_top_r").click(function(){
+		var self=$(this);
+		self.parent().next().slideToggle("fast",function(){
+			//alert("Animation Done.");
+			if(self.hasClass("pos_cz_tow_top_rcl")){
+				self.removeClass("pos_cz_tow_top_rcl");
+			}else{
+				self.addClass("pos_cz_tow_top_rcl");
+			}
+		});
+	});
+})
+</script>

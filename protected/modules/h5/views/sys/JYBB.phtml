@@ -1,0 +1,184 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+    <title>HOWA</title>
+
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileColor" content="#0e90d2">
+
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/amazeui.min.css">
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/app.css">
+    <style type="text/css">
+    .none{display: none;}
+    </style>
+</head>
+<body class="has-header">
+
+<header class="am-text-center am-padding-sm fixed-top">
+    <div class="am-fl out"><i class="am-icon-angle-left am-icon-sm"></i></div>
+    <div class="am-fl in none"><i class="am-icon-angle-left am-icon-sm"></i></div>
+    <b>经营报表</b>
+</header>
+
+<div class="am-text-center am-padding-sm">
+    <!-- am-selected 用法参考 http://amazeui.org/javascript/selected -->
+    <select class="am-round" data-am-selected="{btnWidth:'150px',btnStyle:'select'}">
+        <option value="0" <?php if ($md_ids==0): ?>selected<?php endif ?> >全连锁</option>
+        <?php foreach ($md_list as $v): ?>
+            <option value="<?php echo $v['id'] ?>" <?php if ($md_ids==$v['id']): ?>selected<?php endif ?> ><?php echo $v['dept_name'] ?></option>
+        <?php endforeach ?>
+    </select>
+</div>
+
+<ul class="am-avg-sm-3 datepicker">
+    <li class="am-text-center am-padding-xs am-date-prev" placeholder="<?php echo date('Y-m', strtotime('-1 month',strtotime($date)) ) ?>">前一月</li>
+    <li class="am-text-center">
+        <input type="text" class="am-date" placeholder="<?php echo $date ?>" data-am-datepicker="{format: 'yyyy-mm', viewMode: 'years', minViewMode: 'months'}" readonly />
+    </li>
+    <li class="am-text-center am-padding-xs am-date-prev" placeholder="<?php echo date('Y-m', strtotime('+1 month',strtotime($date)) ) ?>">后一月</li>
+</ul>
+
+<ul class="box am-list my-nav">
+    <li class="am-padding-sm">现金收入<span class="am-fr"><?php echo $model['XJSR'] ?><i class="am-icon-angle-right am-icon-sm am-margin-left-sm"></i></span></li>
+    <li class="am-padding-sm">账户卡扣<span class="am-fr"><?php echo $model['XJKK'] ?><i class="am-icon-angle-right am-icon-sm am-margin-left-sm"></i></span></li>
+    <li class="am-padding-sm">实耗业绩<span class="am-fr"><?php echo $model['XJSHYJ'] ?><i class="am-icon-angle-right am-icon-sm am-margin-left-sm"></i></span></li>
+    <li class="am-padding-sm">到店客流<span class="am-fr"><?php echo $model['DDKL'] ?><i class="am-icon-angle-right am-icon-sm am-margin-left-sm"></i></span></li>
+    <li class="am-padding-sm">成交人头<span class="am-fr"><?php echo $model['CJRT'] ?><i class="am-icon-angle-right am-icon-sm am-margin-left-sm"></i></span></li>
+</ul>
+
+<ul class="box am-list my-xj none">
+    <li class="am-padding-sm">购买项目/疗程<span class="am-fr"><?php echo $model['XJSR_XX']['XMXJ'] ?></span></li>
+    <li class="am-padding-sm">购买产品<span class="am-fr"><?php echo $model['XJSR_XX']['CPXJ'] ?></span></li>
+    <li class="am-padding-sm">购买卡券<span class="am-fr"><?php echo $model['XJSR_XX']['KJXJ'] ?></span></li>
+    <li class="am-padding-sm">会员充值<span class="am-fr"><?php echo $model['XJSR_XX']['CZXJ'] ?></span></li>
+    <li class="am-padding-sm">现金还款<span class="am-fr"><?php echo $model['XJSR_XX']['HKXJ'] ?></span></li>
+    <li class="am-padding-sm">合计<span class="am-fr"><?php echo array_sum($model['XJSR_XX']) ?></span></li>
+</ul>
+
+<div class="box my-kk none">
+    <div class="list-title am-padding-sm">现金账户卡扣</div>
+    <ul class="am-list am-margin-0">
+        <li class="am-padding-sm">购买项目/疗程<span class="am-fr"><?php echo $model['XJKK_XX']['gm_xm'] ?></span></li>
+        <li class="am-padding-sm">购买产品<span class="am-fr"><?php echo $model['XJKK_XX']['gm_cp'] ?></span></li>
+        <li class="am-padding-sm">购买卡券<span class="am-fr"><?php echo $model['XJKK_XX']['gm_kq'] ?></span></li>
+        <li class="am-padding-sm">现金还款<span class="am-fr"><?php echo $model['XJKK_XX']['gm_hk'] ?></span></li>
+        <li class="am-padding-sm">合计<span class="am-fr"><?php echo $model['XJKK_XX']['gm_xm']+$model['XJKK_XX']['gm_cp']+$model['XJKK_XX']['gm_kq']+$model['XJKK_XX']['gm_hk'] ?></span></li>
+    </ul>
+
+    <div class="list-title am-padding-sm">赠送账户卡扣</div>
+    <ul class="am-list am-margin-top-0">
+        <li class="am-padding-sm">购买项目/疗程<span class="am-fr"><?php echo $model['XJKK_XX']['zs_xm'] ?></span></li>
+        <li class="am-padding-sm">购买产品<span class="am-fr"><?php echo $model['XJKK_XX']['zs_cp'] ?></span></li>
+        <li class="am-padding-sm">购买卡券<span class="am-fr"><?php echo $model['XJKK_XX']['zs_kq'] ?></span></li>
+        <li class="am-padding-sm">合计<span class="am-fr"><?php echo $model['XJKK_XX']['zs_xm']+$model['XJKK_XX']['zs_cp']+$model['XJKK_XX']['zs_kq'] ?></span></li>
+    </ul>
+</div>
+
+<ul class="box am-list my-sh none">
+    <li class="am-padding-sm">购买项目消耗<span class="am-fr"><?php echo $model['SHYJ_XX']['gm_xm'] ?></span></li>
+    <li class="am-padding-sm">赠送项目消耗<span class="am-fr"><?php echo $model['SHYJ_XX']['zs_xm'] ?></span></li>
+    <li class="am-padding-sm">卡券内项目消耗<span class="am-fr"><?php echo $model['SHYJ_XX']['kq_xm'] ?></span></li>
+    <li class="am-padding-sm">合计<span class="am-fr"><?php echo array_sum($model['SHYJ_XX']) ?></span></li>
+</ul>
+
+<ul class="box am-list my-kl none">
+    <li class="am-padding-sm">到店总客流<span class="am-fr"><?php echo $model['KL_XX']['ZKL'] ?></span></li>
+    <li class="am-padding-sm">到店有效客流<span class="am-fr"><?php echo $model['KL_XX']['YXKL'] ?></span></li>
+    <li class="am-padding-sm">到店总人头<span class="am-fr"><?php echo $model['KL_XX']['ZRT'] ?></span></li>
+    <li class="am-padding-sm">到店有效人头<span class="am-fr"><?php echo $model['KL_XX']['YXRT'] ?></span></li>
+    <li class="am-padding-sm">成交人头<span class="am-fr"><?php echo $model['KL_XX']['CJRT'] ?></span></li>
+</ul>
+
+<ul class="box am-list my-cj none">
+    <li class="am-padding-sm">到店总客流<span class="am-fr"><?php echo $model['KL_XX']['ZKL'] ?></span></li>
+    <li class="am-padding-sm">到店有效客流<span class="am-fr"><?php echo $model['KL_XX']['YXKL'] ?></span></li>
+    <li class="am-padding-sm">到店总人头<span class="am-fr"><?php echo $model['KL_XX']['ZRT'] ?></span></li>
+    <li class="am-padding-sm">到店有效人头<span class="am-fr"><?php echo $model['KL_XX']['YXRT'] ?></span></li>
+    <li class="am-padding-sm">成交人头<span class="am-fr"><?php echo $model['KL_XX']['CJRT'] ?></span></li>
+</ul>
+
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/jquery.min.js"></script>
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/amazeui.min.js"></script>
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/my.js"></script>
+
+<script>
+$(function(){
+   //底部导航
+    $('.my-nav li').each(function(i){
+        switch(i){
+        case 0:
+            var to = $('.my-xj');
+            break;
+        case 1:
+            var to = $('.my-kk');
+            break;
+        case 2:
+            var to = $('.my-sh');
+            break;
+        case 3:
+            var to = $('.my-kl');
+            break;
+        case 4:
+            var to = $('.my-cj');
+            break;
+        }
+        $(this).click(function(){
+            $('.my-nav').addClass('none');
+            $('.out').addClass('none');
+
+            to.removeClass('none');
+            $('.in').removeClass('none');
+        });
+    });
+
+    $('.in').click(function(){
+        $('.box').addClass('none');
+        $('.my-nav').removeClass('none');
+
+        $(this).addClass('none');
+        $('.out').removeClass('none');
+    });
+
+    $('.out').click(function(){
+        to_url('<?php echo $this->url("index") ?>')
+    });
+
+    $('.am-date').datepicker().on('close.datepicker.amui', function(event) {
+        //$(this).datepicker('close');
+        to_url('<?php echo $this->url("JYBB") ?>&DATE='+$(this).val()+'&md_id='+$('.am-round').val());
+    });
+    $('.am-date-prev,.am-date-next').click(function(){
+        var d = $(this).attr('placeholder');
+        to_url('<?php echo $this->url("JYBB") ?>&DATE='+d+'&md_id='+$('.am-round').val());
+    });
+
+    $('.am-round').on("change",function(){
+        var md = $(this).val();
+        var d = $(".am-date").attr('placeholder');
+        to_url('<?php echo $this->url("JYBB") ?>&DATE='+d+'&md_id='+md);
+    });
+    
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Itime.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Itable2excel.js"></script>
+<?php 
+	$md_list=\EmployDept::getList(true);
+?>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r"><span><a href="#" download="品项业绩报表.xls"class="to_excel fjgl_top_r_05">导出</a></span></div>
+		<div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>
+		数据报表><span>品项业绩报表</span> </div>
+	
+	<!--sjbb_ddkl_one-->
+	<div class="sjbb_ddkl_one">
+		<ul>
+			<li>
+				<div class="sjbb_ddkl_one_l">门店范围：</div>
+				<div class="sjbb_ddkl_one_r">
+					<div class="sjbb_ddkl_one_r_son choose_md"> 
+						<?php if(!$this->controller->is_store):?>
+						<a href="javascript:" rel="0"><span ></span>全连锁</a>
+						<?php endif;?>
+						<?php foreach ($md_list as $key => $value): ?>
+						<a href="javascript:" rel="<?php echo $key ?>"><span></span><?php echo $value ?></a>
+						<?php endforeach ?>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="sjbb_ddkl_one_l">日期：</div>
+				<div class="sjbb_ddkl_one_r">
+					<div class="sjbb_ddkl_one_r_son" id="choose_time"> </div>
+				</div>
+			</li>
+			<li>
+				<div class="sjbb_ddkl_one_l">项目范围： </div>
+				<div class="sjbb_ddkl_one_r">
+					<div class="sjbb_ddkl_one_r_son">
+						<div class="sjbb_khgm_top sjbb_khgm_top_pad box_xm">
+							<div class="sjbb_khgm_top_01 c_add">请选择</div>
+							<ul>
+								<li style="padding: 0;"><!-- 占位用的 --></li>
+								<?php 
+									if($xm_list)
+										foreach ($xm_list as $key => $value):
+								?>
+								<li class="fzxzxm_two_com_09" data-id="<?php echo $key ?>"><span class="spandefa"></span><?php echo $value;?></li>
+								<?php endforeach;?>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="sjbb_ddkl_one_l">产品范围： </div>
+				<div class="sjbb_ddkl_one_r">
+					<div class="sjbb_ddkl_one_r_son">
+						<div class="sjbb_khgm_top sjbb_khgm_top_pad box_cp">
+							<div class="sjbb_khgm_top_01 c_add">请选择</div>
+							<ul>
+								<li style="padding: 0;"><!-- 占位用的 --></li>
+								<?php 
+									if($cp_list)
+										foreach ($cp_list as $key => $value):
+								?>
+								<li class="fzxzxm_two_com_09" data-id="<?php echo $key ?>"><span class="spandefa"></span><?php echo $value;?></li>
+								<?php endforeach;?>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li class="lastli">
+				<div class="sjbb_ddkl_one_l"> </div>
+				<div class="sjbb_ddkl_one_r">
+					<div class="sjbb_ddkl_one_r_son"> <a href="javascript:" class="changa01">搜索</a> </div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+
+	<div id="order-list" class="table_table table_center">
+		<div class="table_hiddle">
+		<table width="100%" cellspacing="0" cellpadding="0" border="0" last-float="false">
+			<thead>
+				<tr class="table_title">
+					<th rowspan="2">品项</th>
+					<th colspan="4">购买</th>
+					<th colspan="4">实操</th>
+				</tr>
+				<tr class="table_title">
+					<th>现金收入</th>
+					<th>现金账户卡扣</th>
+					<th>赠送账户卡扣</th>
+					<th>成交人头</th>
+					<th>购买消耗</th>
+					<th>赠送消耗</th>
+					<th>卡券消耗</th>
+					<th>实耗人头</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php if ($model): ?>
+			<?php foreach ($model as $key => $value): ?>
+				<tr class="table_list clear"> 
+					<td><?php echo $value['name'];?></td>
+					<td><?php echo sprintf("%.2f",$value['XJSR']);?>元</td>
+					<td><?php echo sprintf("%.2f",$value['XJZHKK']);?>元</td>
+					<td><?php echo sprintf("%.2f",$value['ZSZHKK']);?>元</td>
+					<td><?php echo $value['CJRT'];?></td>
+					<td><?php echo sprintf("%.2f",$value['GMXH']);?>元</td>
+					<td><?php echo sprintf("%.2f",$value['ZSXH']);?>元</td>
+					<td><?php echo sprintf("%.2f",$value['KJXH']);?>元</td>
+					<td><?php echo sprintf("%.2f",$value['SHRT']);?></td>
+				</tr>
+				<?php endforeach ?>
+			<?php endif ?>
+			</tbody>
+		</table>
+		</div><!--table_hiddle!end-->
+	</div>
+	<!--table_container-->
+
+
+</div>
+<!--content_right_con!end-->
+<div class="none" id="widget_project"> <?php echo \Ivy::app()->widget('common/selectProject',array('param'=>"rich",'show_del'=>1)); ?> </div>
+<div class="none" id="widget_product"> <?php echo \Ivy::app()->widget('common/selectProduct',array('param'=>"rich",'show_del'=>1)); ?> </div>
+<script type="text/javascript">
+
+$(function(){
+	var t = Itime({
+		content:$('#choose_time'),
+		<?php if (isset($_GET['begin'])): ?>
+		begin:'<?php echo $_GET["begin"]?>', //填充默认时间
+		<?php endif ?>
+		<?php if (isset($_GET['end'])): ?>
+		end:'<?php echo $_GET["end"]?>', //填充默认时间
+		<?php endif ?>
+		//type:'d',  	  // 日 模式
+	})._self.find("a,br").remove();
+	//鼠标移上效果
+	$("body").on('mouseover', '.fzxzxm_two_com_09', function(event) {
+		$(this).addClass('fzxzxm_two_com_010').find('.spandefa').addClass('spandclck');
+	});
+	$("body").on('mouseout', '.fzxzxm_two_com_09', function(event) {
+		$(this).removeClass('fzxzxm_two_com_010').find('.spandefa').removeClass('spandclck');
+	});
+	//删除
+	$("body").on('click', '.spandefa', function(event) {
+		$(this).parent().remove();
+	});
+	//项目的添加
+	$('.box_xm').on('click','.c_add',function(){
+		var self=$(this).closest('.box_xm');//box对象
+		var d = Idialog({
+			top:150,
+			width:800,
+			title:'添加项目',
+			content:$('#widget_project'),
+			cancel:false,
+			ok:function(obj){
+				var _self=obj._self;
+				var has_list = self.find('.fzxzxm_two_com_09');//已经存在的列
+				var pro_k=has_list.length;//当前序号
+				var result_list=_self.find('.result_pro li');
+				$.each( result_list, function(i, pro){
+					pro=$(pro);
+					var p_name=pro.attr('data-name');
+					var p_id=pro.attr('rel');
+					//如果存在 则略过
+					if(has_list.filter("[data-id='"+p_id+"']").length>0) return ;
+					var str  ='<li class="fzxzxm_two_com_09" data-id="'+p_id+'"><span class="spandefa"></span>'+p_name+'</li>';
+					self.find('ul').append(str);
+					pro_k++;
+				});
+			}
+		});
+	});
+	//产品的添加
+	$('.box_cp').on('click','.c_add',function(){
+		var self=$(this).closest('.box_cp');//box对象
+		var d = Idialog({
+			top:150,
+			width:800,
+			title:'添加产品',
+			content:$('#widget_product'),
+			cancel:false,
+			ok:function(obj){
+				var _self=obj._self;
+				var has_list = self.find('.fzxzxm_two_com_09');//已经存在的列
+				var pro_k=has_list.length;//当前序号
+				var result_list=_self.find('.result_pro li');
+				$.each( result_list, function(i, pro){
+					pro=$(pro);
+					var p_name=pro.attr('data-name');
+					var p_id=pro.attr('rel');
+					//如果存在 则略过
+					if(has_list.filter("[data-id='"+p_id+"']").length>0) return ;
+					var str  ='<li class="fzxzxm_two_com_09" data-id="'+p_id+'"><span class="spandefa"></span>'+p_name+'</li>';
+					self.find('ul').append(str);
+					pro_k++;
+				});
+			}
+		});
+	});
+	//门店范围选择
+	$(".choose_md a").click(function(){
+		var rel=$(this).attr("rel");
+		if($(this).find("span").hasClass("span_01")){
+			$(this).find("span").removeClass("span_01");
+			if(rel=="0")
+				$(".choose_md span").removeClass("span_01");
+		}else{
+			$(this).find("span").addClass("span_01");
+			if(rel=="0")
+				$(".choose_md span").addClass("span_01");
+		}
+	});
+
+
+
+<?php if ($this->controller->is_store): ?>
+		$(".choose_md").find("a").trigger("click");
+<?php else: ?>
+//填充默认门店
+<?php if (isset($_GET['md_ids'])): ?>
+	<?php foreach (explode(',', $_GET['md_ids']) as $v): ?>
+		$(".choose_md").find("a[rel='<?php echo $v ?>']").trigger("click");
+	<?php endforeach ?>
+<?php endif ?>
+<?php endif ?>
+
+	//搜索提交
+	$(".changa01").click(function(){
+		var md_ids=getMd();
+		if(md_ids==''){
+			Idialog.tips('门店未选择！',2);
+			return;
+		}
+		var xm=getXMORCP('xm');
+		var cp=getXMORCP('cp');
+		if(xm== '' && cp==''){
+			Idialog.tips('项目、产品未选择！',2);
+			return;
+		}
+
+		var begin=$(".itime").find(".b_y").val()+""+$(".itime").find(".b_m").val()+""+$(".itime").find(".b_d").val();
+		var end  =$(".itime").find(".e_y").val()+""+$(".itime").find(".e_m").val()+""+$(".itime").find(".e_d").val();
+		to_url('<?php echo $this->url("PXYJBB") ?>&md_ids='+md_ids+'&begin='+begin+'&end='+end+'&xm='+xm+'&cp='+cp);
+
+	});
+	function getXMORCP (o) {
+		var list='';
+		list=$('.box_'+o).find('.fzxzxm_two_com_09').map(function(index, elem) {
+			return $(this).attr('data-id');
+		}).get().join(',');
+		return list;
+	}
+	function getMd(){
+		if($(".choose_md a[rel='0']").find("span").hasClass("span_01"))
+			return "0";
+		var l = $(".choose_md a").map(function(){
+			if($(this).find("span").hasClass("span_01"))
+				return $(this).attr("rel");
+		}).get().join(",");
+		return l;
+	}
+
+	$(".to_excel").click(function(event){
+		var t = Itable2excel({
+			worksheet:'数据分析',
+			table: $('#order-list table')
+		});
+		var data64 = t.uri();
+		if(data64==false){
+			return false;
+		}
+		event.currentTarget.href = data64;
+	});
+
+});
+</script> 

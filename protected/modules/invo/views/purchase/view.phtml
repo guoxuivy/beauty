@@ -1,0 +1,95 @@
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+    仓库管理>采购记录>查看采购单
+    </div>
+    <form >
+    <div class="fjgl_two" >
+        <div class="ck_splb_ckjl_01 ck_splb_ckjl_01_l">采购日期： <?php echo date("Y-m-d",$model->create_time) ?></div>
+        <div class="ck_splb_ckjl_01 ck_splb_ckjl_01_m">部门：<?php echo $dept_name ?></div>
+        <div class="ck_splb_ckjl_01 ck_splb_ckjl_01_r">制单人：<?php echo $create_name ?></div>
+    </div>
+  
+    <div class="ck_splb_ckjl_top">
+        <div class="ck_splb_ckjl_top_l">供应商：</div>
+        <div class="ck_splb_ckjl_top_r">
+            <div class="ck_splb_ckjl_top_r_son">
+            <?php echo $supply; ?>
+            </div>
+        </div>
+    </div> 
+ 
+ 
+    <div class="ck_splb_ckjl_top">
+        <div class="ck_splb_ckjl_top_l">采购商品：</div>
+        <div class="ck_splb_ckjl_top_r">
+            <div class="ck_splb_ckjl_top_r_son">
+                <!-- <div class="ck_splb_ckjl_top_03">选择商品</div> -->
+                <!--赠送-->
+                <div class="pos_cz_tow" style="margin-top:0px;border:none">
+                    
+                    <div class="pos_cz_tow_two">
+                    <!--table_container-->  
+                        <div class="table_table">
+                            <div class="table_hiddle">
+                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                <thead>
+                                    <tr class="table_title">
+                                        <th>商品分类</th>
+                                        <th>品牌或系列</th>
+                                        <th>商品名称</th>
+                                        <th>商品编码</th>
+                                        <th>规格</th>
+                                        <th>单位</th>
+                                        <th>采购数量</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($list as $row):?>     
+                                    <tr class="table_list clear">
+                                        <td class=""><?php echo $row['tcname'] ?></td>
+                                        <td class=""><?php echo $row['cname'] ?></td>
+                                        <td class=""><?php echo $row['name'] ?></td>
+                                        <td class=""><?php echo $row['code'] ?></td>
+                                        <td class=""><?php echo $row['specs'] ?></td>
+                                        <td class=""><?php echo $row['unit'] ?></td>
+                                        <td class=""><?php echo $row['num'] ?></td>
+                                    </tr>
+                                    <?php endforeach ?> 
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                        <!--table_containter!end-->
+                    </div>
+                </div><!--赠送!end-->
+            </div>
+        </div>
+    </div> 
+ 
+ 
+    <div class="ck_splb_ckjl_top">
+        <div class="ck_splb_ckjl_top_l">备注：</div>
+        <div class="ck_splb_ckjl_top_r">
+            <div class="ck_splb_ckjl_top_r_son">
+                <textarea name="note" rows="4" disabled="disabled" style=" width:98%;color: #666666;background-color: #fff;"><?php echo $model->note ?></textarea>
+            </div>
+        </div>
+    </div>
+    </form>
+ 
+ 
+    <div class="ck_splb_ckjl_top">
+        <div class="ck_splb_ckjl_top_l"></div>
+        <div class="ck_splb_ckjl_top_r">
+            <div class="ck_splb_ckjl_top_r_son">
+                <a href="javascript:window.history.go(-1);" class="ck_splb_ckjl_top_04 ck_splb_ckjl_top_05">返 回</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--content_right_con!end-->
+
+<script type="text/javascript">
+
+</script>

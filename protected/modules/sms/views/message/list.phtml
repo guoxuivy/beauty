@@ -1,0 +1,24 @@
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top" style="border-bottom: solid 1px #ddd;">消息中心</div>
+	<div class="xufei_page">
+		<?php foreach ($pager['list'] as $value): ?>
+		<div class="plat_xiaoxi_list">
+			<span class="plat_xiaoxi_list_img"><img src="<?php echo $this->basePath('public');?>/images/plat_baojing.png" width="34" height="34" /></span>
+			<dl>
+			<dt>
+				<?php if ($value['status']==0): ?>
+					<span>已读</span>
+				<?php elseif($value['status']==1): ?>
+					<span style='color:green'>未读</span>
+				<?php endif ?>
+			：<a href="<?php echo $this->url('view',array('id'=>$value['id'])) ?>"><?php echo $value['title'] ?></a></dt>
+			<dd><?php echo date("Y-m-d H:i:s",$value['create_time'])  ?></dd>
+			</dl>
+			<div class="clear"></div>
+		</div>
+		<?php endforeach ?>
+	</div>
+	<?php echo $pager['page_code'] ?>
+</div>
+<!--content_right_con!end-->

@@ -1,0 +1,88 @@
+<div class="content_right_con">
+	<div class="content_right_con_top"> 
+		<!--<div class="fjgl_top_r">
+               <a href="javascript:" class="fjgl_top_r_02 tjfjz">新建账户</a>
+             </div>--> 
+		功能设置>销售权限设置 </div>
+	<div class="fjgl_two">
+		<div class="fjgl_two_son" style="color:#666666; background:none; line-height:24px; padding-left:20px;">销售权限说明的文字 </div>
+	</div>
+	<div class="gnsz_gm_top">请选择系统内允许参与销售业绩分配的角色</div>
+	<form>
+	<div class="fjgl_two">
+		<div class="fjgl_two_son" style="color:#666666; background:none; line-height:24px; padding-left:20px;">
+			<input type="hidden" name="manager" value="false"/>
+			<input name="manager" type="checkbox" value="true" <?php if($config['manager']=='true'): ?> checked="checked" <?php endif; ?> />
+			&nbsp;<span <?php if($config['manager']=='true'): ?> class="span" <?php endif; ?>>门店经理</span> 
+		</div>
+	</div>
+	<div class="fjgl_two" style=" margin-top:20px;">
+		<div class="fjgl_two_son" style="color:#666666; background:none; line-height:24px; padding-left:20px;">
+			<input type="hidden" name="counselor" value="false"/>
+			<input name="counselor" type="checkbox" value="true" <?php if($config['counselor']=='true'): ?> checked="checked" <?php endif; ?>/>
+			&nbsp;<span <?php if($config['counselor']=='true'): ?> class="span" <?php endif; ?>>美容顾问</span> 
+		</div>
+	</div>
+	<div class="fjgl_two" style=" margin-top:20px;">
+		<div class="fjgl_two_son" style="color:#666666; background:none; line-height:24px; padding-left:20px;">
+			<input type="hidden" name="operator" value="false"/>
+			<input name="operator" type="checkbox" value="true" <?php if($config['operator']=='true'): ?> checked="checked" <?php endif; ?>/>
+			&nbsp;<span <?php if($config['operator']=='true'): ?> class="span" <?php endif; ?>>美容师</span> 
+		</div>
+	</div>
+	<div class="fjgl_two" style=" margin-top:20px;">
+		<div class="fjgl_two_son" style="color:#666666; background:none; line-height:24px; padding-left:20px;">
+			<input type="hidden" name="reception" value="false"/>
+			<input name="reception" type="checkbox" value="true" <?php if($config['reception']=='true'): ?> checked="checked" <?php endif; ?>/>
+			&nbsp;<span <?php if($config['reception']=='true'): ?> class="span" <?php endif; ?>>前台</span> 
+		</div>
+	</div>
+	</form>
+</div>
+<!--content_right_con!end--> 
+<script type="text/javascript">
+	$('input[type="checkbox"]').change(function(event) {
+		var _data=$(this).parents('form').serialize();
+		$.ajax({
+			url: window.location.href,
+			type: 'POST',
+			data: _data,
+		})
+		.done(function(html) {
+			var jobj = $.parseJSON(html);
+				if(jobj['code']=='200'){
+					var d = Idialog({
+						top:120,
+						width:500,
+						title:'通知',
+						content:'设置成功',
+						ok:function(html){
+							window.location.href=window.location.href;
+							return true;
+						},
+						cancel:false,
+					});
+				}else{
+					var d = Idialog({
+						top:120,
+						width:500,
+						title:'通知',
+						content:'设置失败',
+						ok:function(obj){
+							return true;
+						},
+						cancel:false,
+					});
+				}
+			console.log("success");
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
+		
+	});
+</script>

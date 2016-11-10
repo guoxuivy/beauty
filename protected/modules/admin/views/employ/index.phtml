@@ -1,0 +1,336 @@
+<?php
+
+/**
+ * 获取该公司的所有部门
+ */
+$totaldept = \EmployDept::getDeptList();
+
+/**
+ * 获取员工对应的所有职位
+ */
+$totalposition = \EmployPositionInfo::getPositionList();
+?>
+
+
+<link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
+
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r">
+			<span><a href="javascript:" class="fjgl_top_r_01 filter_search">筛选</a></span>
+			<span><a href="javascript:" class="fjgl_top_r_02 tjfjz">新增员工</a></span>
+		</div>
+		员工管理
+	</div>
+<!--  模版引擎扩展 -->
+<?php echo $this->datagrid(array(
+	'id'=>'order-list',
+	'dataProvider'=>$pager,
+	'columns'=>array(
+		array(
+			'header' => '登录昵称',
+			'name' => 'netname',
+			'filter'=>'t.netname'
+		),
+		array(
+			'header' => '账号',
+			'name' => 'user_name',
+			'filter'=>'t.user_name'
+		),
+		array(
+			'header' => '部门',
+			'name' => 'dname',
+			'filter'=>array("t.dept_id",\EmployDept::getArray(),$_GET['data-col']['t.dept_id'])
+		),
+		array(
+			'header' => '性别',
+			'name' => 'sex',
+			'filter'=>array("t.sex",\EmployUser::getSex(),$_GET['data-col']['t.sex'])
+		),
+		array(
+			'header' => '职位',
+			'name' => 'pname',
+			'filter'=>array("t.position_id",\EmployPositionInfo::getArray(),$_GET['data-col']['t.position_id'])
+		),
+		array(
+			'header' => '当前状态',
+			'name' => 'status',
+			'value'=>'{$data["status"]==1?"启用":"<fone style=\"color:red\">停用</font>"}'
+		),
+		array(
+			'header' => '操作',
+			'rel'=>'id',
+			'template'=> '
+				<a rel="{$data[id]}" href="javascript:" class="change" {$data["status"]==0?"":"style=\"background-color: #ddd;color: #666;\""}>{$data["status"]==0?"启用":"停用"}</a>
+				<a href="javascript:" class="edit">编辑</a>,
+				<a href="javascript:;" class="delete">删除</a>',
+		)
+	),
+));?>
+
+	<?php if(!empty($_GET['yd'])):?>
+		<div class="zhezhao">
+			<div class="zhezhao_center">
+				<span>第二步</span>
+				<a class="zhezhao_center_back" href="<?php echo $this->url('/admin/store/index',array('yd'=>1));?>">返回上一步</a>
+				<a class="zhezhao_center_next" href="<?php echo $this->url('/admin/room/index',array('yd'=>1));?>">进入下一步</a>
+			</div>
+		</div>
+	<?php endif;?>
+
+
+</div>
+
+<div class="add_employ none" title="新增员工">
+	<div class="tjfj_two">
+		<form method="post" action="<?php echo $this->url('add') ?>">
+			<input type="hidden" name="yd" value="<?php echo $_GET['yd'];?>" />
+			<div class="list">
+				<label>登录账号：</label>
+                <div style="margin-left: 100px;"><input type="text" placeholder="手机号" class='inputxt' name="user_name" /></div>
+			</div>
+			<div class="list">
+				<label>性别：</label>
+                <div style="margin-left: 100px;">
+                <select name="sex">
+					<option selected="selected" value="">未填写</option>
+					<option value="男">男</option>
+					<option value="女">女</option>
+				</select>
+                </div>
+			</div>
+			<div class="list">
+				<label>部门：</label>
+                <div style="margin-left: 100px;">
+                <select name="dept_id">
+					<option selected='selected' value="">未填写</option>
+				<?php foreach ($totaldept as $dept): ?>
+					<option value="<?php echo $dept['id']; ?>"><?php echo $dept['dept_name']; ?></option>
+				<?php endforeach ?>
+				</select>
+                </div>
+			</div>
+			<div class="list">
+				<label>职位：</label>
+                <div style="margin-left: 100px;">
+                <select name="position_id">
+					<option selected='selected' value="">未填写</option>
+				<?php foreach ($totalposition as $position): ?>
+				<option value="<?php echo $position['id']; ?>"><?php echo $position['position_name']; ?></option>
+				<?php endforeach ?>
+				</select>
+                </div>
+			</div>
+			<div class="list">
+				<label>登录昵称：</label>
+                <div style="margin-left: 100px;"><input type="text" placeholder="建议使用用户真名，该名称会反映到数据报表中。" class='inputxt' name="netname"></div>
+			</div>
+			<div class="list">
+				<label>登录密码：</label>
+                <div style="margin-left: 100px;"><input type="password" placeholder="默认：123456" style="width: 207px;" class='password inputxt' name="password"><span style="margin-left: 10px; color: #039; cursor: pointer;" class="init">初始化密码</span></div>
+			</div>
+			<input name="comp_id" type="hidden" value="<?php echo $comp_id; ?>" />
+		</form>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+
+	<?php if(!empty($_GET['yd'])):?>
+		$("body").css("padding-bottom","100px");
+		$(".content_left").hide();
+		$(".content_right_son").css('margin-left','20px');
+	<?php endif;?>
+
+	function validate(classname){
+		var nf = classname.Validform({
+			tiptype:3,
+			beforeSubmit:function() {
+				var next = false;
+				var ajax_url = "<?php echo $this->url('add'); ?>";
+				var data = classname.serialize();
+				$.ajax({
+					url : ajax_url,
+					data : data,
+					type : 'post',
+					async : false,
+					dataType : 'json',
+					success : function(json) {
+						if(json.code == '400') {
+							Idialog.tips(json.msg,2);
+						}
+						else {
+							next = true;
+						}
+					},
+					error : function(XMLHttpRequest, textStatus, errorThrown) {
+						Idialog.tips(textStatus,2);
+					}
+				});
+				return next;
+			}
+		});
+
+		nf.addRule([
+		{
+			ele:".new_inputxt:eq(0)",
+			datatype:"m",
+			nullmsg:"请输入手机号！"
+		},
+		{
+			ele:"select:eq(0)",
+			datatype:"*",
+			nullmsg:"请选择性别！"
+		},
+		{
+			ele:"select:eq(1)",
+			datatype:"*",
+			nullmsg:"请选择部门！"
+		},
+		{
+			ele:"select:eq(2)",
+			datatype:"*",
+			nullmsg:"请选择职位！"
+		},
+		{
+			ele:".new_inputxt:eq(1)",
+			datatype:"*",
+			nullmsg:"请输入登陆昵称！"
+		},
+		{
+			ele:".new_inputxt:eq(2)",
+			datatype:"*",
+			nullmsg:"请输入密码！"
+		}
+		]);
+	}
+
+//添加员工
+$(document).on('click','.tjfjz',function(){
+	var d = Idialog({
+		top:120,
+		width:470,
+		title:'新增员工',
+		content:$('.add_employ'),
+		ok:function(obj){
+			obj._self.find('form').submit();
+			return false;
+		},
+		init:function(self){
+			self.find("form").attr("class","newform");
+			self.find(".inputxt").attr("class","new_inputxt");
+
+			validate($('.newform'));
+		}
+	});
+});
+
+/**
+ * 修改员工
+ */
+$(document).on('click','.edit',function(){
+	var obj = $(this).parent().parent().parent();
+	var id = $(this).parent().attr('rel'),yd='<?php echo $_GET['yd'];?>';
+	$.get("<?php echo $this->url('edit') ?>", { id: id },function(html){
+		var d = Idialog({
+			top:120,
+			width:580,
+			title:'编辑员工',
+			content:html,
+			ok:function(obj){
+				validate($('.newform'));
+				obj._self.find('form').submit();
+				return false;
+			},
+			init:function(self){
+				self.find("form").attr("class","newform");
+				self.find(".inputxt").attr("class","new_inputxt");
+				self.find("input[name=password]").attr("class","password inputxt");
+
+				validate($('.newform'));
+			},
+		});
+		$("input[name=yd]").val(yd);
+	});
+});
+
+/**
+ * 修改员工状态
+ */
+$(document).on('click','.change',function(){
+	var id = $(this).attr('rel');
+	var thisobj = $(this);
+	$.get("<?php echo $this->url('change') ?>", { id: id },function(html){
+		var jobj = $.parseJSON(html);
+		if(jobj.code==200){
+			var dataobj = jobj['data'];
+			var status = dataobj['status'];
+			//thisobj.html(status==1?"启用":"<fone style='color:red'>停用</font>");
+			thisobj.html(status==0?"启用":"停用");
+			thisobj.attr('style',status==0?'':'background-color: #ddd;color: #666;');
+			thisobj.parent().prev().attr('title',status==1?"启用":"停用").html(status==1?"启用":'<fone style="color:red">停用</fone>');
+		}else{
+			Idialog.tips(jobj.msg,2);
+		}
+	});
+});
+
+/**
+ * 删除员工
+ */
+$(document).on('click','.delete',function(){
+	var obj = $(this).parent().parent();
+	var id = $(this).parent().attr('rel');
+
+	var d = Idialog({
+		top:120,
+		width:500,
+		title:'通知',
+		content:'您确认删除吗？',
+		ok:function(html){
+			$.get("<?php echo $this->url('delete') ?>", { id: id },function(html){
+				var jobj = $.parseJSON(html);
+				if(jobj['code']=='200'){
+					var d = Idialog({
+						top:120,
+						width:500,
+						title:'通知',
+						content:'删除成功',
+						ok:function(html){
+							obj.remove();
+							return true;
+						},
+						cancel:false,
+					});
+				}else{
+					var d = Idialog({
+						top:120,
+						width:500,
+						title:'通知',
+						content:jobj['msg'],
+						ok:function(obj){
+							return true;
+						},
+						cancel:false,
+					});
+				}
+			});
+			return true;
+		},
+		cancel:true,
+	});
+});
+
+$(document).on('blur','.keyword_name',function(){
+	var keyword =$('.keyword_name').val();
+	//$.get("<?php echo $this->url('index') ?>",{t_search:keyword});
+});
+
+$(document).on('focus','.keyword_name',function(){
+	
+});
+
+
+</script>

@@ -1,0 +1,96 @@
+
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+        <!--<div class="fjgl_top_r">
+          <a href="javascript:" class="khgl_02 fpkhn">分配客户</a><a href="javascript:" class="fjgl_top_r_01">筛选</a><a href="javascript:" class="fjgl_top_r_02 tjfjz">添加客户</a>
+        </div>-->
+        <div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>POS开单><span>寄存领取</span>>订单详细
+    </div>
+
+    <!--khgl_shouye-->
+    <?php echo $cu_info ?>
+    <!--khgl_shouye!end-->
+
+
+    <!--寄存商品-->
+    <div class="pos_cz_tow">
+        <div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>寄存商品</div>
+        <div class="pos_cz_tow_two">
+            <!--table_container-->
+            <div class="table_container" style="border:none;">
+                <!--table_con-->
+                <div class="table_con">
+                    <!--table_con_son-->
+                    <div class="table_con_son">
+                        <div class="table_title">
+                            <ul>
+                                <!--<li><input type="checkbox" /></li>-->
+                                <li>关联订单</li>
+                                <li>商品名称</li>
+                                <li>寄存数量</li>
+                                <li>规格</li>
+                                <li>领取数量</li>
+                                <li>剩余数量</li>
+                            </ul>
+                        </div>
+                        <?php $pnum=0; foreach($storageProducts as $storageProduct):?>
+                            <?php if(array_key_exists($storageProduct['id'],$detail_nums)):?>
+                            <div class="table_list clear">
+                                <ul>
+                                    <!--<li class="li001"><input type="checkbox" /></li>-->
+                                    <li class="li001"><a href="#"><?php $orderSale = \OrderSale::model()->findByPk($storageProduct['order_id']);echo $orderSale->sn?></a></li>
+                                    <li class="li001"><?php $productInfo = \ProductInfo::model()->findByPk($storageProduct['product_id']);echo $productInfo->name?></li>
+                                    <li class="li002"><?php echo $detail_nums[$storageProduct['id']]['before_num'];?></li>
+                                    <li class="li003"><?php echo $productInfo->unit?></li>
+                                    <li class="li004 lq_num"><?php echo $detail_nums[$storageProduct['id']]['num'];?></li>
+                                    <li class="li004 lq_num"><?php echo $detail_nums[$storageProduct['id']]['after_num'];?></li>
+                                </ul>
+                            </div>
+                            <?php $pnum+=$detail_nums[$storageProduct['id']]['num'];endif;?>
+                        <?php endforeach;?>
+
+                    </div><!--table_con_son!end-->
+                </div><!--table_con!end-->
+            </div>
+            <!--table_containter!end-->
+            <div class="pos_cz_tow_two_two pos_cz_qr_top_02">
+                <span class="pos_cz_tow_two04">领取商品小计：<em><?php echo $pnum;?></em></span>
+            </div>
+        </div>
+    </div><!--寄存商品!end-->
+
+    <!--备注-->
+    <div class="pos_cz_tow pos_cz_for_bz">
+        <div class="pos_cz_for_bz01 pos_cz_qr_top_07">备注</div>
+        <div class="pos_cz_for_bz02">
+            <div class="pos_cz_for_bz02_son">
+                <p class="pos_cz_qr_top_06"><?php echo $model->remark ?></p>
+            </div>
+        </div>
+    </div>
+    <!--备注!end-->
+</div>
+<!--content_right_con!end-->
+
+
+{__TOKEN__}
+
+<script type="text/javascript">
+    //table_flash();
+    //收起效果
+    $(".pos_cz_tow_top_r").click(function(){
+        var self=$(this);
+        self.parent().next().slideToggle("fast",function(){
+            //alert("Animation Done.");
+            if(self.hasClass("pos_cz_tow_top_rcl")){
+                self.removeClass("pos_cz_tow_top_rcl");
+            }else{
+                self.addClass("pos_cz_tow_top_rcl");
+            }
+        });
+    });
+
+</script>
+
+

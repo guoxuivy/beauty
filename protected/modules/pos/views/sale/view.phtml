@@ -1,0 +1,478 @@
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/jquery.PrintArea.js"></script>
+<style type="text/css">
+.zszh,.xjzh{color:#0077ff;cursor: pointer;}
+.pos_other{  float: left;font-size: 16px;color: #1eb488; margin-right: -86px;margin-right:30px}
+</style>
+<?php $hd_list = \SaleNoticeInfo::model()->getListOpt();?>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>POS开单>购买项目/产品/卡券 查看
+	</div>
+	<div class="print_show">
+	<div class="jyjl_top jyjl_czda_top">
+		<div class="jyjl_czda_top_l">
+			<div class="jyjl_czda_top_top">交易成功</div>
+			<div class="jyjl_czda_top_two">订单编号：<span><?php echo $model->o_s->sn ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 订单状态：<span class="spanll"><?php echo \OrderSale::getPayStatus($model->o_s->pay_status);?></span>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="spanll"><?php echo $model->o_s->rh_id==0?'':'新客入会订单';?></span>
+			</span></div>
+		</div> 
+		<div class="jyjl_czda_top_r">
+			<a class="aysh01 to_print" href="javascript:">打印订单</a>
+			 
+			<!-- <a class="aysh" href="javascript:">审核订单</a>
+			<a class="aysh02" href="javascript:">审核已订单</a> -->
+		</div>
+	</div>
+
+
+	<!--khgl_shouye-->
+	<?php echo $cu_info ?>
+	<!--khgl_shouye!end-->
+
+	<!--销售人员及业绩比例-->
+	<?php echo $effect ?>
+	<!--销售人员及业绩比例!end-->
+
+	<!--购买项目-->
+	<div class="pos_cz_tow box_xm">
+		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>购买项目</div>
+		<div class="pos_cz_tow_two">
+			<!--table_container-->  
+			<div class="table_container" style="border:none;">
+			<!--table_con-->
+			<div class="table_con" style="border:none; margin-right:0px;">
+				<!--table_con_son-->
+				<div class="table_con_son">
+					<div class="table_title">
+					<ul>
+						<li style="min-width:250px">项目</li>
+						<li>数量（疗次）</li>
+						<li>原价（元）</li>
+						<li>面折率</li>
+						<li>赠送账户抵扣（元）</li>
+						<li>现金账户抵扣（元）</li>
+						<li>欠款（元）</li>
+						<li>应付金额（元）</li>
+						<li style="min-width:80px">活动</li>
+					</ul>
+					</div>
+					<?php if ($model): ?>
+						<?php $project_arrears=0; foreach ($model->pros as $pro): ?>
+							<?php if($pro['pro_type']!=1) continue; ?>
+							<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+
+							<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list clear">
+								<ul>
+									<li class="li001"><?php echo $info->name ?>（<?php echo $info->num*$info->price ?>元/<?php echo $info->num ?>疗次）</li>
+									<li class="li002"><?php echo $pro['num'] ?></li>
+									<li class="li003"><?php echo $pro['price'] ?></li>
+									<li class="li004"><?php echo $pro['rebate'] ?>%</li>
+									<li class="li005 zszh"><?php  echo $pro['card_gift']; ?></li>
+									<li class="li009 xjzh"><?php  echo $pro['card_cash']; ?></li>
+									<li class="li009"><?php $project_arrears+=$pro['arrears']; echo $pro['arrears'] ?></li>
+									<li class="li006"><?php echo $pro['pay_price']; ?></li>
+									<li class="li007"><?php echo $hd_list[$pro['promotion_id']] ?></li>
+								</ul>
+							</div>
+						<?php endforeach ?>
+					<?php endif ?>	
+				</div><!--table_con_son!end-->
+			</div><!--table_con!end-->
+			</div>
+			<!--table_containter!end-->
+			<div class="pos_cz_tow_two_two pos_gm_02_border_top">
+				<span class="pos_cz_tow_two04 ">应付金额：<em class="all_xm_money">0</em>&nbsp;元</span>
+				<span class="pos_gm_01">购买项目<span class="pos_gm_03 all_xm_num">0</span>个</span>
+				<span class="pos_gm_01">总价小计（原价）：<span class="pos_gm_04">￥<font class="all_xm_money_old">0</font></span></span>
+				<span class="pos_gm_01">抵扣小计：<span class="pos_gm_04">-￥<font class="all_xm_money_dk">0</font></span></span>
+				<span class="pos_gm_01">面折率：<span class="pos_gm_04"><font class="all_xm_money_zk">0</font>%</span></span>
+				<span class="pos_gm_01">项目欠款：<span class="pos_gm_04">￥<font><?php echo $project_arrears;?></font></span></span>
+			</div>
+		</div>
+	</div><!--购买项目!end-->
+
+
+	<!--购买产品-->
+	<div class="pos_cz_tow box_cp">
+		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>购买产品</div>
+		<div class="pos_cz_tow_two">
+			<!--table_container-->  
+			<div class="table_container" style="border:none;">
+			<!--table_con-->
+			<div class="table_con" style="border:none; margin-right:0px;">
+				<!--table_con_son-->
+				<div class="table_con_son">
+					<div class="table_title">
+					<ul>
+						<li style="min-width:250px">产品</li>
+						<li>数量</li>
+						<li>原价（元）</li>
+						<li>面折率</li>
+						<li>赠送账户抵扣（元）</li>
+						<li>现金账户抵扣（元）</li>
+						<li>欠款（元）</li>
+						<li>应付金额（元）</li>
+						<li style="min-width:80px">活动</li>
+					</ul>
+					</div>
+
+					<?php if ($model): ?>
+						<?php $product_arrears=0; foreach ($model->pros as $pro): ?>
+						<?php if($pro['pro_type']!=2) continue; ?>
+						<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+
+						<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list clear">
+							<ul>
+							<li class="li001"><?php echo $info->name ?></li>
+							<li class="li002"><?php echo $pro['num'] ?> （<?php echo $info->unit ?>）</li>
+							<li class="li003"><?php echo $pro['price'] ?></li>
+							<li class="li004"><?php echo $pro['rebate'] ?>%</li>
+							<li class="li005 zszh"><?php  echo $pro['card_gift']; ?></li>
+							<li class="li009 xjzh"><?php  echo $pro['card_cash']; ?></li>
+							<li class="li009"><?php $product_arrears+=$pro['arrears']; echo $pro['arrears'] ?></li>
+							<li class="li006"><?php echo $pro['pay_price']; ?></li>
+							<li class="li007"><?php echo $hd_list[$pro['promotion_id']] ?></li>
+							</ul>
+						</div>
+						<?php endforeach ?>
+					<?php endif ?>
+				</div><!--table_con_son!end-->
+			</div><!--table_con!end-->
+			</div>
+			<!--table_containter!end-->
+			<div class="pos_cz_tow_two_two pos_gm_02_border_top">
+				<span class="pos_cz_tow_two04">应付金额：<em class="all_cp_money">0</em>&nbsp;元</span>
+				<span class="pos_gm_01">购买产品<span class="pos_gm_03 all_cp_num">0</span>个</span>
+				<span class="pos_gm_01">总价小计（原价）：<span class="pos_gm_04">￥<font class="all_cp_money_old">0</font></span></span>
+				<span class="pos_gm_01">抵扣小计：<span class="pos_gm_04">-￥<font class="all_cp_money_dk">0</font></span></span>
+				<span class="pos_gm_01">面折率：<span class="pos_gm_04"><font class="all_cp_money_zk">0</font>%</span></span>
+				<span class="pos_gm_01">产品欠款：<span class="pos_gm_04">￥<font><?php echo $product_arrears;?></font></span></span>
+			</div>
+		</div>
+	</div><!--购买产品!end-->
+
+
+	<!--购买卡券-->
+	<div class="pos_cz_tow box_kq">
+		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>购买卡券</div>
+		<div class="pos_cz_tow_two">
+			<!--table_container-->  
+			<div class="table_container" style="border:none;">
+			<!--table_con-->
+			<div class="table_con" style="border:none; margin-right:0px;">
+				<!--table_con_son-->
+				<div class="table_con_son">
+					<div class="table_title">
+						<ul>
+							<li style="min-width:250px">卡券</li>
+							<li>数量</li>
+							<li>原价（元）</li>
+							<li>面折率</li>
+							<li>赠送账户抵扣（元）</li>
+							<li>现金账户抵扣（元）</li>
+							<li>欠款（元）</li>
+							<li>应付金额（元）</li>
+							<li style="min-width:80px">活动</li>
+						</ul>
+					</div>
+
+					<?php if ($model): ?>
+						<?php $voucher_arrears=0; foreach ($model->pros as $pro): ?>
+						<?php if($pro['pro_type']!=3) continue; ?>
+						<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+
+						<div data-sold="<?php echo $info->sold_num ?>" data-num="<?php echo $info->num ?>" data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>"  data-zs="<?php echo $pro['money_str'] ?>" class="table_list clear">
+							<ul>
+								<li class="li001"><?php echo $info->name ?></li>
+								<li class="li002"><?php echo $pro['num'] ?></li>
+								<li class="li003"><?php echo $pro['price'] ?></li>
+								<li class="li004"><?php echo $pro['rebate'] ?>%</li>
+								<li class="li005 zszh"><?php  echo $pro['card_gift']; ?></li>
+								<li class="li009 xjzh"><?php  echo $pro['card_cash']; ?></li>
+								<li class="li009"><?php $voucher_arrears+=$pro['arrears']; echo $pro['arrears'] ?></li>
+								<li class="li006"><?php echo $pro['pay_price'] ?></li>
+								<li class="li007"><?php echo $hd_list[$pro['promotion_id']] ?></li>
+							</ul>
+						</div>
+						<?php endforeach ?>
+					<?php endif ?>
+				</div><!--table_con_son!end-->
+			</div><!--table_con!end-->
+			</div>
+			<!--table_containter!end-->
+			<div class="pos_cz_tow_two_two pos_gm_02_border_top">
+				<span class="pos_cz_tow_two04">应付金额：<em class="all_kq_money">0</em>&nbsp;元</span>
+				<span class="pos_gm_01">购买卡券<span class="pos_gm_03 all_kq_num">0</span>个</span>
+				<span class="pos_gm_01">总价小计（原价）：<span class="pos_gm_04">￥<font class="all_kq_money_old">0</font></span></span>
+				<span class="pos_gm_01">抵扣小计：<span class="pos_gm_04">-￥<font class="all_kq_money_dk">0</font></span></span>
+				<span class="pos_gm_01">面折率：<span class="pos_gm_04"><font class="all_kq_money_zk">0</font>%</span></span>
+				<span class="pos_gm_01">卡券欠款：<span class="pos_gm_04">￥<font><?php echo $voucher_arrears;?></font></span></span>
+			</div>
+		</div>
+	</div><!--购买卡券!end-->
+
+
+	<!--赠送-->
+	<?php echo $gift ?>
+	<!--赠送!end-->
+
+
+
+	<!--备注-->
+	<div class="pos_cz_tow pos_cz_for_bz">
+		<div class="pos_cz_for_bz01">备注</div>
+		<div class="pos_cz_for_bz02">
+			<div class="pos_cz_for_bz02_son"><textarea class="order_note" rows="4"><?php echo $model?$model->o_s->note:"" ?></textarea></div>
+		</div>
+	</div><!--备注!end-->
+
+	<!---->
+	<div class="pos_cz_tow pos_cz_zh">
+	
+		<div class="pos_gm_two">
+			<div class="pos_gm_two_l">购买商品 <font class="order_pro_num">0</font> 件</div>
+			<div class="pos_gm_two_r">
+				<div><span class="span01">总价（原价）：</span><span class="span02">￥<font class="order_old_money">0</font></span></div>
+				<div><span class="span01">抵扣总价：</span><span class="span02">￥<font class="order_dk_money">0</font></span></div>
+				<div><span class="span01">折扣率：</span><span class="span02"><font class="order_rate">100</font>%</span></div>
+			</div>
+		</div>
+		<div class="pos_cz_zh_01">
+			<div style="height:30px; line-height:30px; margin-top:30px; display:block;">
+				应付总金额：<span class="pos_cz_zh_02">￥<font class="order_money">0</font></span>
+			</div>
+			<div class="pos_gm_two_01">已优惠：<span> - ¥<font class="order_yh_money">0</font></span></div>
+		</div>
+
+		<div class="jyjl_fk">
+			<div class="jyjl_fk_l">付款方式</div>
+			<div class="jyjl_fk_r">
+				<?php foreach ($model->getXJList() as $key => $value): ?>
+					<p><?php echo $key ?>卡扣：<span class="jyjl_fk_r_02"> ¥<?php echo $value ?></span></p>
+				<?php endforeach ?>
+				
+				<p><span class="jyjl_fk_r_02">欠款：</span><span class="jyjl_fk_r_06"> ¥<?php echo $model->o_s->current_arrears ?></span></p>
+				<p><span class="jyjl_fk_r_03">实收现金：</span><span class="jyjl_fk_r_04">￥<?php echo $model->o_s->cash+$model->o_s->cash_pos+$model->o_s->cash_tra+$model->o_s->cash_other ?></span></p>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="pos_momey_come">
+			<span>现金支付：￥<?php echo $model->o_s->cash ?></span>
+			<span>POS刷卡：￥<?php echo $model->o_s->cash_pos ?></span>
+			<span>银行转账：￥<?php echo $model->o_s->cash_tra ?></span>
+			<span>其他方式支付：￥<?php echo $model->o_s->cash_other ?></span>
+		</div>
+	</div><!--!end-->
+
+	</div>
+</div>
+<!--content_right_con!end-->
+
+
+
+<!-- 选择账户分配弹出 -->
+<div style="top:100px; display:none" class="tjfj ">
+	<div class="tjfj_top"><span class="fjgb">x</span>赠送账户抵扣</div>
+	<div class="tjfj_two pos_gm_th zszhdk">
+		<div class="pos_gm_th_01" style="margin-left:0px">购买《肽美白》1疗次，原价：1000 元</div>
+
+		<!--table_container-->  
+		<div style="margin-bottom:20px;" class="table_container">
+			<!--table_con-->
+			<div style="margin-right:0px;" class="table_con pos_cz_qr_top_04">
+
+				<!--table_con_son-->
+				<div class="table_con_son" style="min-width: 564px;">
+					<!-- <div class="pos_cz_tow_top pos_cz_qr_02">赠送现金</div>-->
+					<div class="table_title">
+						<ul>
+						<li style="min-width:200px">账户类型</li>
+						<li>余额（元）</li>
+						<li style="min-width: 80px; border-right: medium none;">抵扣金额（元）</li>
+						</ul>
+					</div>
+
+				</div><!--table_con_son!end-->
+
+			</div><!--table_con!end-->
+		</div>
+		<!--table_containter!end-->
+	</div>
+
+</div>
+<!-- 选择账户分配弹出 end-->
+
+{__TOKEN__}
+
+
+
+<script type="text/javascript">
+
+$(function(){
+	change_total();
+	
+	//默认空值收起
+	$(".pos_cz_tow_top_r").each(function(i){
+		var self=$(this);
+		var num = self.parent().next().find('.pos_gm_03').html();
+		if(num=='0'){
+			self.html('展开').addClass("pos_cz_tow_top_rcl");//收起
+			self.parent().next().hide();
+		}
+	});
+
+	//收起效果
+	$(".pos_cz_tow_top_r").click(function(){
+		var self=$(this);
+		self.parent().next().slideToggle("fast",function(){
+			//alert("Animation Done.");
+			if(self.hasClass("pos_cz_tow_top_rcl")){
+				self.html('收起').removeClass("pos_cz_tow_top_rcl");
+			}else{
+				self.html('展开').addClass("pos_cz_tow_top_rcl");
+			}
+		});
+		table_flash();
+	});
+
+	
+
+
+	//项目 赠送账户抵扣分配
+	$('.box_xm,.box_cp,.box_kq').on('click','.zszh',function(){
+		var table_list = $(this).closest('.table_list');
+		var capital_money=table_list.attr("data-zs");
+		var d = Idialog({
+			top:150,
+			width:500,
+			title:'赠送账户抵扣',
+			content:$('.zszhdk'),
+			cancel:false,
+			init:function(content){
+				var titlestr="购买《"+table_list.find('.li001').html()+"》"+table_list.find('.li002').html()+"次，原价："+table_list.find('.li003').html()+" 元"
+				content.find('.pos_gm_th_01').html(titlestr);
+
+				$.each( capital_zs, function(i, capital){
+					var money = str_money(capital_money,capital.id);
+					var s_list ='<div class="table_list clear"><ul>';
+						s_list+='<li class="li001">'+capital.name+'</li>';
+						s_list+='<li class="li002">'+capital.balance+'</li>';
+						s_list+='<li class="li003">'+money+'</li>';
+						s_list+='</ul></div>';
+						content.find('.table_con_son').append(s_list);
+				});
+				table_flash(content);
+			},
+		});
+	});
+
+	//项目 现金账户抵扣分配
+	$('.box_xm,.box_cp,.box_kq').on('click','.xjzh',function(){
+		var table_list = $(this).closest('.table_list');
+		var capital_money=table_list.attr("data-zs");
+		var d = Idialog({
+			top:150,
+			width:500,
+			title:'现金账户抵扣',
+			content:$('.zszhdk'),
+			cancel:false,
+			init:function(content){
+				var titlestr="购买《"+table_list.find('.li001').html()+"》"+table_list.find('.li002').html()+"次，原价："+table_list.find('.li003').html()+" 元"
+				content.find('.pos_gm_th_01').html(titlestr);
+
+				$.each( capital_xj, function(i, capital){
+					var money = str_money(capital_money,capital.id);
+					var s_list ='<div class="table_list clear"><ul>';
+						s_list+='<li class="li001">'+capital.name+'</li>';
+						s_list+='<li class="li002">'+capital.balance+'</li>';
+						s_list+='<li class="li003">'+money+'</li>';
+						s_list+='</ul></div>';
+						content.find('.table_con_son').append(s_list);
+				});
+				table_flash(content);
+			},
+		});
+	});
+
+
+
+	//获取具体账户金额
+	function str_money(money_str,capital_id){
+		var res = 0;
+		if(money_str){
+			var arr=money_str.split(",");
+			$.each( arr, function(i, n){
+				var c_m=this.split("|");
+				if(c_m[0]==capital_id) res = c_m[1];
+			});
+		}
+		return res;
+	}
+
+	//同步修改 box小计
+	function change_total(){
+		//同步修改 box小计
+		$.each( ['xm','cp','kq'], function(i, boxname){
+			$('.all_'+boxname+'_num').html($('.box_'+boxname+' .table_list').length);
+			$('.all_'+boxname+'_money_old').html(eval($('.box_'+boxname+' .li003').map(function(){
+				return $(this).html();
+			}).get().join('+')));
+			$('.all_'+boxname+'_money_dk').html(eval($('.box_'+boxname+' .li005').map(function(){
+				var zs_all=$.isNumeric($(this).html())?$(this).html():0;//赠送抵扣额
+				return zs_all;
+			}).get().join('+')));
+			$('.all_'+boxname+'_money').html(eval($('.box_'+boxname+' .li006').map(function(){
+				return $(this).html();
+			}).get().join('+')));
+			var all_zk=(parseInt($('.all_'+boxname+'_money').html())+parseInt($('.all_'+boxname+'_money_dk').html()))/$('.all_'+boxname+'_money_old').html()*100;
+			if($('.all_'+boxname+'_money_old').html()==0) all_zk=0; //除数为0
+			$('.all_'+boxname+'_money_zk').html( all_zk.toFixed(2) );
+		});
+
+		change_all();
+	}
+	//项目产品卡券价格联动 end
+	
+	//同步整单数据
+	function change_all(){
+		var money=0;//应付总金额
+		money+=parseInt($('.all_xm_money').html());
+		money+=parseInt($('.all_cp_money').html());
+		money+=parseInt($('.all_kq_money').html());
+
+		var dk_money=0;//总抵扣金额
+		dk_money+=parseInt($('.all_xm_money_dk').html());
+		dk_money+=parseInt($('.all_cp_money_dk').html());
+		dk_money+=parseInt($('.all_kq_money_dk').html());
+
+		var old_money=0;//总原价
+		old_money+=parseInt($('.all_xm_money_old').html());
+		old_money+=parseInt($('.all_cp_money_old').html());
+		old_money+=parseInt($('.all_kq_money_old').html());
+
+		var num=0;//总商品数量
+		num+=parseInt($('.all_xm_num').html());
+		num+=parseInt($('.all_cp_num').html());
+		num+=parseInt($('.all_kq_num').html());
+
+		$('.order_old_money').html(old_money);
+		$('.order_money').html(money);
+		$('.order_dk_money').html(dk_money);
+		$('.order_pro_num').html(num);
+		$('.order_yh_money').html(old_money-money);
+		if(old_money==0) return;
+		$('.order_rate').html((money/old_money*100).toFixed(2));
+
+
+		body_resize();//左边高度调整
+	}
+
+
+	$(".to_print").click(function(){
+		$(".print_show").printArea();
+	});
+
+
+});
+</script>

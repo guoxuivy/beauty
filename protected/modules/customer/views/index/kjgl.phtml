@@ -1,0 +1,117 @@
+<?php 
+?>
+
+<link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
+
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="khgl_01"><img src="<?php echo $this->basePath('public') ?>/images/kh_01.png" /></div>客户管理><span><?php echo $model->name; ?></span>><span class="khgl_da_01">卡券管理</span>
+	</div>
+	<?php 
+		$count=(int)\CustomerReProject::model()->getSumByUser($model->id)->sum_re_num;
+		 ?>
+	<div class="khgl_da_top khgl_zhdt_01">
+      		<ul>
+            	<li><a href="<?php echo $this->url('zhdt',array('id'=>$id)) ?>">账户动态</a></li>
+                <li><a href="<?php echo $this->url('sysclc',array('id'=>$id)) ?>">剩余实操疗次（<?php echo $count;?>）</a></li>
+                <li><a href="<?php echo $this->url('score',array('id'=>$id)) ?>">积分记录</a></li>
+                <li><a href="<?php echo $this->url('kjgl',array('id'=>$id)) ?>" class="khgl_da_03">卡券管理</a></li>
+            </ul>
+        
+      </div>
+<!--  模版引擎扩展 -->
+<?php
+ echo $this->datagrid(array(
+		'dataProvider'=>$pager,
+		'columns'=>array(
+			array(
+				'header' => '卡券名称',//暂无逻辑
+				'name' => 'cvname',
+			),
+			array(
+				'header' => '购买时间',
+				'name' => 'ttime',
+			),
+			array(
+				'header' => '时效',
+				'value' => '{date("Y-m-d",$data["stime"])."-".date("Y-m-d",$data["etime"])}',
+			),
+			array(
+				'header' => '可用现金金额',
+				'value'=>'',//暂无逻辑
+			),
+			array(
+				'header' => '可用赠送现金金额',
+				'value' => '{\CustomerVoucher::getLastMoney($data["id"])}',
+			),
+			array(
+				'header' => '可用项目',
+				'value'=>'{\CustomerVoucher::getLastProNames($data["id"],1)}',
+			),
+			array(
+				'header' => '可用产品',
+				'value' => '{\CustomerVoucher::getLastProNames($data["id"],2)}',
+			),
+			array(
+				'header' => '状态',
+				'value' => '{\CustomerVoucher::getStatus($data["status"])}',
+			),			
+		),
+	));?>
+	
+</div>
+<!--content_right_con!end-->
+
+
+
+
+
+<script type="text/javascript">
+
+$(function(){
+	$(document).on('click','.delete',function(){
+		var obj = $(this).parent().parent().parent();
+		var id = $(this).parent().attr('rel');
+
+		var d = Idialog({
+			top:120,
+			width:500,
+			title:'通知',
+			content:'您确认删除吗？',
+			ok:function(html){
+				$.get("<?php echo $this->url('delete') ?>", { id: id },function(html){
+					var jobj = $.parseJSON(html);
+					if(jobj['code']=='200'){
+						var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'删除成功',
+							ok:function(html){
+								obj.remove();
+								return true;
+							},
+							cancel:false,
+						});
+					}else{
+						var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'删除失败',
+							ok:function(obj){
+								return true;
+							},
+							cancel:false,
+						});
+					}
+				});
+				return true;
+			},
+			cancel:true,
+		});
+	});
+});
+</script>

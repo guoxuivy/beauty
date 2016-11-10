@@ -1,0 +1,716 @@
+/* Write your styles */
+html {
+    width: 100%;
+    height: 100%;
+}
+
+html, body {
+    color: #333333;
+    background-color: #f3f3f3;
+}
+
+body.login-page {
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+}
+
+body.has-header {
+    padding-top: 50px;
+}
+
+body.has-nav {
+    padding-bottom: 70px;
+}
+
+body.loading-page {
+    width: 100%;
+    height: 100%;
+    background-color: #1bab70;
+}
+
+body.loading-page .logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 200px;
+    margin: -30px  -100px;
+}
+
+body.loading-page .copyright {
+    color: #ffffff;
+    font-size: 16px;
+    height: 80px;
+}
+
+header {
+    color: #ffffff;
+    background-color: #059459;
+    border-bottom: solid 1px #006d40;
+}
+
+header.fixed-top {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+.copyright {
+    color: #525252;
+}
+
+.copyright.fixed-bottom {
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+}
+
+.logo {
+    margin: 60px auto;
+    max-width: 65%;
+}
+
+#login-form {
+    width: 100%;
+}
+
+#login-form fieldset {
+    padding: 20px 20px 0;
+    background-color: #fff;
+}
+
+#login-form .am-form-icon input {
+    vertical-align: middle;
+}
+
+#login-form input.am-form-field,
+#login-form input.am-form-field:focus,
+#login-form input.am-form-field:hover {
+    margin-left: 10px;
+    padding: 0 0 0 30px!important;
+}
+
+input.am-form-field.no-border,
+input.am-form-field:focus,
+input.am-form-field:hover {
+    border: none!important;
+    outline: none!important;
+    -webkit-box-shadow: none!important;
+    box-shadow: none!important;
+}
+
+#login-form [class*=am-icon-] {
+    width: 24px;
+    height: 24px;
+    background: left top no-repeat;
+    background-size: 24px 24px;
+    vertical-align: middle;
+    margin-top: -12px;
+}
+
+#login-form [class*=am-icon-]:before {
+    content: " ";
+}
+
+#login-form .am-icon-user {
+    background-image: url("../i/icons/user.png");
+}
+
+#login-form .am-icon-lock {
+    background-image: url("../i/icons/lock.png");
+}
+
+#login-form .am-icon-shield {
+    background-image: url("../i/icons/shield.png");
+}
+
+#change-password-form [class*=am-icon-] {
+    height: 16px;
+    background: left top no-repeat;
+    background-size: 16px 16px;
+    vertical-align: middle;
+    padding-left: 18px;
+}
+
+#change-password-form [class*=am-icon-] span {
+    line-height: 16px;
+}
+
+
+#change-password-form [class*=am-icon-]:before {
+    content: " ";
+}
+
+#change-password-form .am-icon-lock {
+    background-image: url("../i/icons/lock_black.png");
+}
+
+nav {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #f9f9f9;
+    border-top: solid 1px #cccccc;
+}
+
+nav li {
+    color: #7d7d7d;
+    padding: 5px 0;
+}
+
+nav li.active {
+    color: #1bab70;
+}
+
+nav li:hover {
+    background-color: #dddddd;
+}
+
+nav [class*=am-icon-] {
+    width: 32px;
+    height: 32px;
+    background: left top no-repeat;
+    background-size: 32px 32px;
+    vertical-align: middle;
+}
+
+nav [class*=am-icon-]:before {
+    content: " ";
+}
+
+nav .am-icon-home {
+    background-image: url("../i/icons/nav_home.png");
+}
+
+nav .active .am-icon-home {
+    background-image: url("../i/icons/nav_home_active.png");
+}
+
+nav .am-icon-bar-chart {
+    background-image: url("../i/icons/nav_chart.png");
+}
+
+nav .active .am-icon-bar-chart {
+    background-image: url("../i/icons/nav_chart_active.png");
+}
+
+nav .am-icon-user {
+    background-image: url("../i/icons/nav_user.png");
+}
+
+nav .active .am-icon-user {
+    background-image: url("../i/icons/nav_user_active.png");
+}
+
+#login-form .captcha {
+    position: relative;
+}
+
+#login-form .captcha img {
+    position: absolute;
+    right: 0;
+    top: -14px;
+    width: 150px;
+    height: 45px;
+}
+
+.am-btn-primary {
+    background-color: #16ba67;
+    border-color: #16ba67;
+}
+
+.am-btn-primary:hover,
+.am-btn-primary:focus,
+.am-btn-primary:active,
+.am-btn-primary.am-active,
+.am-active .am-btn-primary.am-dropdown-toggle {
+    color: #fff;
+    border-color: #16ba67;
+}
+
+.am-btn-primary:hover,
+.am-btn-primary:focus {
+    background-color: #16ba67;
+}
+
+.am-btn-primary:active,
+.am-btn-primary.am-active,
+.am-active .am-btn-primary.am-dropdown-toggle {
+    background-image: none;
+    background-color: #16ba67;
+}
+
+.am-btn-primary.am-disabled,
+.am-btn-primary[disabled],
+fieldset[disabled] .am-btn-primary,
+.am-btn-primary.am-disabled:hover,
+.am-btn-primary[disabled]:hover,
+fieldset[disabled] .am-btn-primary:hover,
+.am-btn-primary.am-disabled:focus,
+.am-btn-primary[disabled]:focus,
+fieldset[disabled] .am-btn-primary:focus,
+.am-btn-primary.am-disabled:active,
+.am-btn-primary[disabled]:active,
+fieldset[disabled] .am-btn-primary:active,
+.am-btn-primary.am-disabled.am-active,
+.am-btn-primary[disabled].am-active,
+fieldset[disabled] .am-btn-primary.am-active {
+    background-color: #16ba67;
+    border-color: #16ba67;
+}
+
+.am-btn-group .am-btn-primary,
+.am-btn-group-stacked .am-btn-primary {
+    border-color: #16ba67;
+}
+
+.am-btn-secondary {
+    color: #333333;
+    background-color: #ffffff;
+    border-color: #cccccc;
+}
+a.am-btn-secondary:visited {
+    color: #fff;
+}
+.am-btn-secondary:hover,
+.am-btn-secondary:focus,
+.am-btn-secondary:active,
+.am-btn-secondary.am-active,
+.am-active .am-btn-secondary.am-dropdown-toggle {
+    color: #333333;
+    border-color: #cccccc;
+}
+.am-btn-secondary:hover,
+.am-btn-secondary:focus {
+    background-color: #dddddd;
+}
+.am-btn-secondary:active,
+.am-btn-secondary.am-active,
+.am-active .am-btn-secondary.am-dropdown-toggle {
+    background-image: none;
+    background-color: #dddddd;
+}
+.am-btn-secondary.am-disabled,
+.am-btn-secondary[disabled],
+fieldset[disabled] .am-btn-secondary,
+.am-btn-secondary.am-disabled:hover,
+.am-btn-secondary[disabled]:hover,
+fieldset[disabled] .am-btn-secondary:hover,
+.am-btn-secondary.am-disabled:focus,
+.am-btn-secondary[disabled]:focus,
+fieldset[disabled] .am-btn-secondary:focus,
+.am-btn-secondary.am-disabled:active,
+.am-btn-secondary[disabled]:active,
+fieldset[disabled] .am-btn-secondary:active,
+.am-btn-secondary.am-disabled.am-active,
+.am-btn-secondary[disabled].am-active,
+fieldset[disabled] .am-btn-secondary.am-active {
+    background-color: #dddddd;
+    border-color: #cccccc;
+}
+.am-btn-group .am-btn-secondary,
+.am-btn-group-stacked .am-btn-secondary {
+    border-color: #cccccc;
+}
+
+
+.am-btn-danger {
+    background-color: #ff5c6f;
+    border-color: #ff5c6f;
+}
+
+.am-btn-danger:hover,
+.am-btn-danger:focus,
+.am-btn-danger:active,
+.am-btn-danger.am-active,
+.am-active .am-btn-danger.am-dropdown-toggle {
+    border-color: #ff5c6f;
+}
+.am-btn-danger:hover,
+.am-btn-danger:focus {
+    background-color: #ff5c6f;
+}
+.am-btn-danger:active,
+.am-btn-danger.am-active,
+.am-active .am-btn-danger.am-dropdown-toggle {
+    background-color: #ff5c6f;
+}
+.am-btn-danger.am-disabled,
+.am-btn-danger[disabled],
+fieldset[disabled] .am-btn-danger,
+.am-btn-danger.am-disabled:hover,
+.am-btn-danger[disabled]:hover,
+fieldset[disabled] .am-btn-danger:hover,
+.am-btn-danger.am-disabled:focus,
+.am-btn-danger[disabled]:focus,
+fieldset[disabled] .am-btn-danger:focus,
+.am-btn-danger.am-disabled:active,
+.am-btn-danger[disabled]:active,
+fieldset[disabled] .am-btn-danger:active,
+.am-btn-danger.am-disabled.am-active,
+.am-btn-danger[disabled].am-active,
+fieldset[disabled] .am-btn-danger.am-active {
+    background-color: #ff5c6f;
+    border-color: #ff5c6f;
+}
+.am-btn-group .am-btn-danger,
+.am-btn-group-stacked .am-btn-danger {
+    border-color: #ff5c6f;
+}
+
+.am-btn-select {
+    color: #333333;
+    background-color: #ffffff;
+    border-color: #cccccc;
+    border-radius: 1000px;
+}
+a.am-btn-select:visited {
+    color: #333333;
+}
+.am-btn-select:hover,
+.am-btn-select:focus,
+.am-btn-select:active,
+.am-btn-select.am-active,
+.am-active .am-btn-select.am-dropdown-toggle {
+    color: #333333;
+    border-color: #cccccc;
+}
+.am-btn-select:hover,
+.am-btn-select:focus {
+    background-color: #ffffff;
+}
+.am-btn-select:active,
+.am-btn-select.am-active,
+.am-active .am-btn-select.am-dropdown-toggle {
+    background-image: none;
+    background-color: #ffffff;
+}
+.am-btn-select.am-disabled,
+.am-btn-select[disabled],
+fieldset[disabled] .am-btn-select,
+.am-btn-select.am-disabled:hover,
+.am-btn-select[disabled]:hover,
+fieldset[disabled] .am-btn-select:hover,
+.am-btn-select.am-disabled:focus,
+.am-btn-select[disabled]:focus,
+fieldset[disabled] .am-btn-select:focus,
+.am-btn-select.am-disabled:active,
+.am-btn-select[disabled]:active,
+fieldset[disabled] .am-btn-select:active,
+.am-btn-select.am-disabled.am-active,
+.am-btn-select[disabled].am-active,
+fieldset[disabled] .am-btn-select.am-active {
+    background-color: #ffffff;
+    border-color: #cccccc;
+}
+.am-btn-group .am-btn-select,
+.am-btn-group-stacked .am-btn-select {
+    border-color: #cccccc;
+}
+
+.am-btn-select .am-selected-icon {
+    color: #1bab70;
+}
+
+.am-btn-select .am-selected-status {
+    text-align: center;
+}
+
+.home-performance {
+    color: #defff1;
+    background-color: #059459;
+}
+
+.home-performance #performance {
+    color: #ffffff;
+    font-size: 30px;
+    line-height: 30px;
+    font-weight: bold;
+    padding: 20px 0;
+}
+
+.sub-nav {
+    color: #ffffff;
+    background-color: #08ab68;
+}
+
+.sub-nav li {
+    border-right: solid 1px #059459;
+}
+.sub-nav li:last-child {
+    border-right: none;
+}
+
+.sub-nav li div:first-child {
+    color: #defff1;
+}
+
+.sub-nav li div:last-child {
+    font-weight: bold;
+}
+
+.box {
+    background-color: #ffffff;
+    border: solid 1px #cccccc;
+}
+
+.box .title {
+    color: #666666;
+}
+
+.box li {
+    color: #333333;
+    border-right: solid 1px #cccccc;
+}
+
+.box li:last-child {
+    border-right: none;
+}
+
+.box li > div:first-child {
+    color: #999999;
+}
+
+.box .title {
+    border-bottom: solid 1px #cccccc;
+}
+
+.spinner {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    border-radius: 50px;
+    background-color: #cccccc;
+}
+
+.spinner .top {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 76px;
+    height: 38px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    background-color: #13cc80;
+}
+
+.spinner .bottom {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 76px;
+    height: 0;
+    border-top: solid 38px #cccccc;
+    border-bottom: solid 38px transparent;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+}
+
+.spinner .bottom.reverse {
+    border-top-color: #13cc80;
+}
+
+.spinner .content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 8px;
+    padding: 14px 0;
+    text-align: center;
+    color: #999999;
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    background-color: #ffffff;
+    line-height: 16px;
+}
+
+.spinner .content div:first-child {
+    color: #08ab68;
+    font-weight: bold;
+}
+
+.datepicker {
+    background-color: #ffffff;
+    border-top: solid 1px #cccccc;
+    border-bottom: solid 1px #cccccc;
+}
+
+.datepicker li {
+    color: #666666;
+    border-right: solid 1px #cccccc;
+}
+
+.datepicker li:last-child {
+    border-right: none;
+}
+
+.datepicker li:nth-child(2) {
+    color: #999999;
+}
+
+.datepicker input {
+    width: 100%;
+    text-align: center;
+    border: none;
+    background-color: transparent;
+    line-height: 35px;
+}
+
+.list-title {
+    color: #999999;
+}
+
+/* ==========================================================================
+   Component: Nav
+ ============================================================================ */
+
+.am-nav.am-round > li:first-child > a {
+    border-top-left-radius: 1000px;
+    border-bottom-left-radius: 1000px;
+}
+
+.am-nav.am-round > li:last-child > a {
+    border-top-right-radius: 1000px;
+    border-bottom-right-radius: 1000px;
+}
+
+.am-nav > li > a {
+    text-decoration: none;
+    background-color: #ffffff;
+    border: solid 1px #1bab70;
+    color: #1bab70;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.am-nav-pills > li + li > a {
+    border-left: 0px;
+}
+
+
+.am-nav > li > a:hover,
+.am-nav > li > a:focus {
+    text-decoration: none;
+    background-color: #ffffff;
+}
+.am-nav > li.am-active > a,
+.am-nav > li.am-active > a:hover,
+.am-nav > li.am-active > a:focus {
+    color: #fff;
+    background-color: #1bab70;
+    cursor: default;
+}
+
+.am-nav-pills > li + li {
+    margin-left: 0px;
+    border-left: 0px;
+}
+
+
+
+.data-table {
+    background-color: #ffffff;
+}
+
+.am-text-primary {
+    color: #1bab70;
+}
+
+.btn-link, .btn-link:hover, .btn-link:focus {
+    text-decoration: none;
+    color: #333333;
+}
+
+.link {
+    color: #1bab70;
+    text-decoration: underline;
+}
+
+.profile li > div {
+    vertical-align: middle;
+}
+
+.profile small {
+    color: #999999;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 1000px;
+}
+
+.about .logo {
+    width: 200px;
+    margin-bottom: 10px
+}
+
+.am-form-field.am-text-right::-webkit-input-placeholder,
+.am-form-field.am-text-right::-moz-placeholder,
+.am-form-field.am-text-right:-ms-input-placeholder
+.am-form-field.am-text-right::placeholder {
+    text-align: right;
+}
+
+.t_num i {
+    width: 24px;
+    height: 30px;
+    display: inline-block;
+    background: url("../i/number.png") no-repeat;
+    background-position: 0 0;
+    text-indent: -999em;
+}
+
+.t_num_dec i {
+    width: 20px;
+    height: 26px;
+    display: inline-block;
+    background: url("../i/number_small.png") no-repeat;
+    background-position: 0 0;
+    text-indent: -999em;
+    vertical-align: bottom;
+}
+
+.filter .am-offcanvas-bar {
+    background-color: #efebef;
+    width:90%;
+}
+
+.filter .filter-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #dedede;
+    color: #666666;
+}
+
+.filter .am-offcanvas-content {
+    color: #333333;
+}
+
+.filter ul li.selected {
+    background-image: url("../i/icons/ok.png");
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 25px 25px;
+}
+
+.filter .filter-value {
+    max-width: 140px;
+}
+
+.am-list li:hover {
+    background-color: #dddddd;
+}
+
+.datepicker li:hover {
+    background-color: #dddddd;
+}
+
+header div:hover {
+    color: #000000;
+}

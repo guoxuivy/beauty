@@ -1,0 +1,98 @@
+<div class="pos_cz_tow box_yjbl">
+	<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>销售人员及业绩比例</div>
+	
+	<div>
+		<?php if (empty($effect_user)): ?>
+	<!-- 添加状态 -->
+			<div class="pos_cz_tow_two">
+				<div class="pos_cz_tow_two_top">销售人员：&nbsp;<select class="effect_user pos_cz_tow_two01">
+				<?php foreach ($employ_list as $employ): ?>
+					<option value="<?php echo $employ['id'] ?>" ><?php echo $employ['netname'] ?></option>
+				<?php endforeach ?>
+				</select>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				业绩比例：&nbsp;
+				<input class="effect_rate" type="text" >%
+				&nbsp;&nbsp;&nbsp;<a href="javascript:" class="pos_cz_tow_two03 c_del_effect_user">删除</a></div>
+			</div>
+			
+		<?php else: ?>
+	<!-- 编辑状态 -->
+			<?php foreach ($effect_user as $key => $user): ?>
+
+				<div class="pos_cz_tow_two">
+					<div class="pos_cz_tow_two_top">销售人员：&nbsp;<select class="effect_user pos_cz_tow_two01">
+					<?php foreach ($employ_list as $employ): ?>
+						<option <?php if($user==$employ['id']): ?>selected="selected"<?php endif ?> value="<?php echo $employ['id'] ?>" ><?php echo $employ['netname'] ?></option>
+					<?php endforeach ?>
+					</select>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					业绩比例：&nbsp;
+					<input class="effect_rate" type="text" value="<?php echo $effect_rate[$key] ?>" >%
+					&nbsp;&nbsp;&nbsp;<a href="javascript:" class="pos_cz_tow_two03 c_del_effect_user">删除</a></div>
+				</div>
+				
+			<?php endforeach ?>
+			
+			
+		<?php endif ?>
+
+		<div class="pos_cz_tow_two_two"><span class="spantj c_add_effect_user">继续添加</span></div>
+		<input type="hidden" name="effect_user" value="<?php echo implode(',',$effect_user) ?>">
+		<input type="hidden" name="effect_rate" value="<?php echo implode(',',$effect_rate) ?>">
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	check_effect();
+	//添加行
+	$('.c_add_effect_user').click(function(){
+		if($('.c_del_effect_user').length<4&&$('.c_del_effect_user').length<'<?php echo count($employ_list)?>'){
+			var user = $("input[name='effect_user']").val();
+			$(this).parent().prev().clone(true).insertBefore($(this).parent());
+			var _select = $(this).parent().prev();
+			$.each(user.split(','), function(key, val) {
+				_select.find('select option[value='+val+']').remove();
+			});
+			check_effect();
+		}
+	});
+	//删除行
+	$('.c_del_effect_user').click(function(){
+		if($('.c_del_effect_user').length>1){
+			$(this).closest('.pos_cz_tow_two').remove();
+			check_effect();
+		}
+	});
+
+	//防止大于100
+	$(".effect_rate").keyup(function(){
+		var nval=$(this).val().replace(/[^0-9]+/,'');
+		if(parseInt(nval)>100){
+			nval=nval.substr(0,2);
+		}
+		$(this).val(nval);
+	});
+
+	$(".effect_user,.effect_rate").change(function(){
+		$(this).parent().parent().nextAll('.pos_cz_tow_two').remove();
+		check_effect();
+	});
+
+	function check_effect(){
+		var user=[],rate=[];
+		$('.effect_user').map(function(){
+			user.push($(this).val());
+		});
+		$('.effect_rate').map(function(){
+			var v=$(this).val();
+			if(v=='') v=0;
+			rate.push(v);
+		});
+		$("input[name='effect_user']").val(user);
+		$("input[name='effect_rate']").val(rate);
+	}
+
+
+});
+</script>

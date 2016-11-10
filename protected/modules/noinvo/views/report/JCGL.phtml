@@ -1,0 +1,56 @@
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r"><span><a class="fjgl_top_r_05" href="javascript:">导出</a></span></div>
+		<span>客户寄存/领取报表</span>
+	</div>
+
+
+
+
+	 <!--  模版引擎扩展 -->
+    <?php echo $this->datagrid(array(
+        'id'=>'list',
+        'dataProvider'=>$pager,
+        'search'=>true,
+        'columns'=>array(
+            array(
+                'header' => '会员卡号',
+                'name'  => 'cardid',
+                'filter'=>"ci.cardid",
+            ),
+            array(
+                'header' => '姓名',
+                'name'  => 'name',
+                'value' => '<span class="khgl_xmpic"><img src="'.$this->basePath('public').'/images/kh_06.png" height="24" width="24" /></span><span class="khgl_03">{$data["name"]}</span>',
+                'filter'=>"ci.name",
+            ),
+            array(
+                'header' => '寄存商品数量',
+                'name'  => 'num',
+            ),
+            array(
+                'header' => '私人顾问',
+                'name' => 'gw_name',
+                'filter'=>array('gw.id',\EmployUser::getList()),
+            ),
+            array(
+                'header' => '私人美容师',
+                'name' => 'mrs_name',
+                'filter'=>array('mrs.id',\EmployUser::getList(' AND position_id=7')),
+            ),
+            array(
+                'header' => '档案归宿部门',
+                'name' => 'dept_name',
+            ),
+             array(
+                'header' => '操作',
+                'rel'=>'cu_id',
+                'value'=> '<a href="'.$this->url("view").'&cu_id={$data["cu_id"]}" class="khca"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看</a>',
+            ),
+           
+        ),
+    ));?>
+</div>
+<!--content_right_con!end-->
+

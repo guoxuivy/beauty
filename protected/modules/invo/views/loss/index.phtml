@@ -1,0 +1,86 @@
+<?php
+$top_cate=\ProCate::getProductTopCate();
+$child_cate=array();
+if(isset($_GET['t_search']['tpc.id']))
+    $tmp_cate=\ProCate::model()->findAll('status=1 AND fid='.(int)$_GET['t_search']['tpc.id']);
+    $child_cate = $this->optArr($tmp_cate,'id','name');
+?>
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+        <div class="fjgl_top_r">
+            <span><a href="javascript:" class="fjgl_top_r_05 c_update">导出</a></span>
+            <!-- <span><a href="javascript:" class="fjgl_top_r_01 filter_search">筛选</a></span> -->
+            <span><a href="<?php echo $this->url('edit') ?>" class="fjgl_top_r_02 c_add">新建损溢</a></span>
+        </div>
+        仓库管理>损溢流水
+    </div>
+
+
+    <!--  模版引擎扩展 -->
+    <?php  echo $this->datagrid(array(
+        'id'=>'list',
+        'dataProvider'=>$pager,
+        'search'=>true,
+        'columns'=>array(
+            array(
+                'header' => '商品分类',
+                'name'  => 'tcname',
+                'filter'=>array("tpc.id",$top_cate,""),
+            ),
+            array(
+                'header' => '商品系列',
+                'name'  => 'cname',
+                'filter'=>array("pc.id",$child_cate,""),
+            ),
+            array(
+                'header' => '商品名称',
+                'name'  => 'name',
+                'filter'=>"pro.name",
+            ),
+            array(
+                'header' => '商品编码',
+                'name' => 'code',
+                'filter'=>"pro.code",
+            ),
+            array(
+                'header' => '损溢日期',
+                'name' => 'ii_time',
+                'value' => '{date("Y-m-d",strtotime($data["create_time"]))}'
+            ),
+            array(
+                'header' => '损溢类型',
+                'name' => 'ii_type',
+                'value' => '{\invo\Loss::getRegular($data["ii_is_regular"])}{\invo\Loss::getType($data["ii_type"])}'
+            ),
+            array(
+                'header' => '出前结存',
+                'name' => 'before_num',
+            ),
+            array(
+                'header' => '损溢数量',
+                'name' => 'num',
+            ),
+            array(
+                'header' => '出后结存',
+                'name' => 'after_num',
+            ),
+            array(
+                'header' => '状态',
+                'name' => 'ii_status',
+                'value' => '{\invo\Loss::getStatus($data["ii_status"])}'
+            ),
+            array(
+                'header' => '操作',
+                'rel' => 'id',
+                'template' => 'view+'
+            ),
+           
+        ),
+    ));?>
+
+
+
+
+</div>
+<!--content_right_con!end-->

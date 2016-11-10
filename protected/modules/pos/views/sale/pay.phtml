@@ -1,0 +1,384 @@
+<?php 
+	//付款配置
+	$config=\CompanyInfo::getConfig('payee');
+?>
+<style type="text/css">
+.rh_gm{height: 40px;line-height: 40px;font-size: 16px;}
+.r_o{background-color:#F3F3F3}
+</style>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>POS开单><span>订单付款</span>
+	</div>
+	
+	<!--pos_cz_fk_top-->
+	<div class="pos_cz_fk_top">
+		<div class="pos_cz_fk_top_02">应付金额：<span class="pos_cz_fk_top_03"><?php echo $model->o_s->pay_price; ?></span>元 <a href="<?php echo $this->url("edit",array("id"=>$model->o_s->id)) ?>" class="pos_cz_fk_top_04">订单详情</a></div>请客户及时付款，以便订单尽快处理！<span class="pos_cz_fk_top_01"> 订单号：<?php echo $model->o_s->sn; ?></span>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="spanll"><?php echo $model->o_s->rh_id==0?'':'新客入会订单';?></span>
+	</div><!--pos_cz_fk_top!end-->
+	
+	<!--pos_cz_fk_two-->
+	<div class="pos_cz_fk_two" style="display:block">
+		<div class="pos_cz_fk_two_ico">&nbsp;</div>
+		<ul>
+			<li>客户姓名：<?php echo $model->cuName ?></li>
+			<li>订单类型：<?php echo $model->orderType ?></li>
+			<li>商品名称：
+			<?php foreach ($model->pros as $key => $pro): ?>
+				<?php $p_info=$model->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+				<?php echo $p_info->name."；"; ?>
+			<?php endforeach ?>
+			</li>
+			<li>交易金额：<?php echo $model->o_s->pay_price ?>元</li>
+			<li>购买时间：<?php echo $model->o_s->create_time ?></li>
+			<li>操作人：<?php echo $model->employName ?></li>
+		</ul>
+		
+	</div><!--pos_cz_fk_two!end-->
+	
+	
+	<!--khgl_shouye-->
+	<?php echo $cu_info ?>
+	<!--khgl_shouye!end-->
+
+	<!--入会购买-->
+	<?php if ($model->o_s->rh_id=='-1'): 
+
+		$info = \CustomerInfo::model()
+		->field('t.*,m.level_name as membership_name')
+		->join("config_membership as m on m.id=t.membership_id")
+		->findByPk($model->o_s->cu_id);
+		$mem_list = \ConfigMembership::model()->findAll("status=1 AND comp_id=".$info->company_id);
+	?>
+		
+		<div class="pos_cz_for_bz rh_gm">
+			当前客户等级：<span class="khgl_shouye_r_top_07"><?php echo $info->membership_name ?></span>
+			<span style="margin-left:40px;">入会后等级：</span><select class="pos_cz_fk_th_two_06 rh" style="margin-left:0px;font-size:14px;width:150px;">
+				<?php foreach ($mem_list as $value): ?>
+					<option value ="<?php echo $value['id'] ?>"><?php echo $value['level_name'] ?></option>
+				<?php endforeach ?>
+			</select>
+		</div>
+	<?php endif ?><!--入会购买!end-->
+	
+	
+	<!--pos_cz_fk_th-->
+	<div class="pos_cz_fk_th">
+		<div class="pos_cz_fk_th_top pos_fk_title">客户付款信息</div>
+		<!--table_container-->  
+		<div class="table_container" id="pay">
+			<!--table_con-->
+			<div class="table_con" >
+				<!--table_con_son-->
+				<div class="table_con_son">
+					<div class="table_title pos_news_zeng">
+					<ul style="font-weight:bold; font-family:'宋体'; color:#666;">
+						<li style="min-width:30%">付款商品</li>
+						<li >应付金额（元）</li>
+						<li class='xj_h' style="min-width:100px">实付现金（元）</li>
+						<li class='qk_h' style="min-width:100px">欠款（元）</li>
+					</ul>
+					</div>
+					<?php foreach ($model->pros as $key => $pro): ?>
+					<div class="table_list clear" pro-detail="<?php echo $pro['id'];?>">
+					<ul>
+						<?php $p_info=$model->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+						<li><?php echo $p_info->name;?></li>
+						<li class="yfje"><?php echo $pro['pay_price'];?></li>
+						<li class='xj_b' pro-type="<?php echo $pro['pro_type'] ?>"><input type="text" class="pos_cz_tow_two05" /></li>
+						<li class='qk_b' pro-type="<?php echo $pro['pro_type'] ?>"><input type="text" readonly  class="pos_cz_tow_two05 r_o" value="<?php echo $pro['pay_price'];?>" /></li>
+						</ul>
+					</div>
+					<?php endforeach ?>
+				</div><!--table_con_son!end-->
+				
+			</div><!--table_con!end-->
+		</div>
+		<!--table_containter!end-->
+	</div>
+	<!--pos_cz_fk_th-->
+	
+	
+	<!--pos_cz_fk_th-->
+	<div class="pos_cz_fk_th">
+		<!-- <div class="pos_cz_fk_th_top pos_fk_title">
+			<div class="pos_cz_fk_th_01">应付现金:<span class="pos_cz_fk_top_03 all_xj">0.00</span>元</div>支付方式            
+		</div> -->
+		<div class="pos_cz_fk_th_top pos_fk_title">
+			<div class="pos_cz_fk_th_01">应付现金:<span class="pos_cz_fk_top_03 all_xj">0.00</span>元</div>
+			<div class="pos_cz_fk_th_01">欠款:<span class="pos_cz_fk_top_03_1 all_qk">0.00</span>元</div>
+			本次应付现金总计为<span class="pos_cz_fk_top_03 all_yf">0.00</span>元，请在相应的支付方式中输入金额：
+		</div>
+		<div class="pos_cz_fk_th_two ">
+			<ul>
+			<?php if ($config['money']['open']=='true'): ?>
+				<li  >  <!-- class="pos_cz_fk_th_two_chan" -->
+					<!-- <span class="pos_cz_fk_th_two_04">支付:<span class="pos_cz_fk_th_two_05">0.00</span>元</span>
+					<span class="pos_cz_fk_th_two_01 pos_cz_fk_th_two_0101"></span> -->
+					<span class="pos_cz_fk_th_two_02">现金</span>
+					<input type="text" name="cash" value="0" class="pos_cz_fk_th_two_03 pos_cz_fk_th_two_chan" />
+				</li>
+			<?php endif ?>
+			<?php if ($config['post']['open']=='true'): ?>
+				<li >
+					<!-- <span class="pos_cz_fk_th_two_04">支付:<span class="pos_cz_fk_th_two_05">0.00</span>元</span>
+					<span class="pos_cz_fk_th_two_01"></span> -->
+					<span class="pos_cz_fk_th_two_02">刷卡</span>
+					<input type="text" name="cash_pos" value="0" class="pos_cz_fk_th_two_03" />
+					<?php echo $this->dropDownList('pos_type',$config['post']['has'],'',array('class'=>'pos_cz_fk_th_two_06')) ?>
+				</li>
+			<?php endif ?>
+			<?php if ($config['bank']['open']=='true'): ?>
+				<li >
+					<!-- <span class="pos_cz_fk_th_two_04">支付:<span class="pos_cz_fk_th_two_05">0.00</span>元</span>
+					<span class="pos_cz_fk_th_two_01"></span> -->
+					<span class="pos_cz_fk_th_two_02">转账</span>
+					<input type="text" name="cash_tra" value="0" class="pos_cz_fk_th_two_03" />
+					<?php echo $this->dropDownList('tra_type',$config['bank']['has'],'',array('class'=>'pos_cz_fk_th_two_06')) ?>
+				</li>
+			<?php endif ?>
+			<?php if ($config['other']['open']=='true'): ?>
+				<li >
+					<!-- <span class="pos_cz_fk_th_two_04">支付:<span class="pos_cz_fk_th_two_05">0.00</span>元</span>
+					<span class="pos_cz_fk_th_two_01"></span> -->
+					<span class="pos_cz_fk_th_two_02">其他</span>
+					<input type="text" name="cash_other" value="0" class="pos_cz_fk_th_two_03" />
+					<?php echo $this->dropDownList('other_type',$config['other']['has'],'',array('class'=>'pos_cz_fk_th_two_06')) ?>
+				</li>
+			<?php endif ?>
+			</ul>
+		</div>
+		<div class="pos_cz_fk_th_top pos_fk_title">
+			<span class="js_all_qk" style="color: red;display: none;">注意：请确保订单商品和折扣正确，各账户抵扣和现金付款信息无误。一旦进行付款，HOWA系统将确保您的业绩及时记录到系统中，且无法对订单进行修改哦。</span>
+		</div>
+		<div class="pos_cz_fk_th_th">
+		<!-- <a href="###" class="pos_cz_fk_th_th_a_no">立即支付</a> -->
+		<a href="###" class="pos_cz_fk_th_th_a_ok c_submit">立即支付</a>
+		</div>
+	</div>
+	<!--pos_cz_fk_th-->
+</div>
+<!--content_right_con!end-->
+
+{__TOKEN__}
+
+
+<script type="text/javascript">
+$(function(){
+	page_init();
+	function page_init(){
+		$.each( capital_xj, function(i, capital){
+			var header='<li class="xjkk_h">'+capital.name+'（元）</li>';
+			var body='<li><input data-max-value="'+capital.balance+'"  rel="'+capital.id+'" type="text" is_project="'+capital.is_project+'" is_product="'+capital.is_product+'" is_voucher="'+capital.is_voucher+'" class="pos_cz_tow_two05 xj" /></li>';
+			$(".qk_h").before(header);
+			$(".qk_b").before(body);
+		});
+		$(".qk_b").each(function(index, el) {
+			 var pro_type=$(this).attr('pro-type');
+			 var _obj=$(this).parents('ul').find('.xj');
+			 _obj.each(function(index, el) {
+			 	var is_project=$(this).attr('is_project');
+				var is_product=$(this).attr('is_product');
+				var is_voucher=$(this).attr('is_voucher');
+				if(pro_type==1){
+					if(is_project==0)
+						$(this).prop('readonly','readonly').addClass('r_o');
+				}else if(pro_type==2){
+					if(is_product==0)
+						$(this).prop('readonly','readonly').addClass('r_o');
+				}else{
+					if(is_voucher==0)
+						$(this).prop('readonly','readonly').addClass('r_o');
+				}
+			 });
+			 
+		});
+		
+		
+		$('.all_qk').html(get_all_qk());
+	}
+
+	//应付现金计算
+	function get_all_xj(){
+		var res=0;
+		$.each( $(".yfje"), function(i, v){
+			res+= parseFloat( $(v).html() );
+		});
+		return res;
+	}
+	//总欠款计算
+	function get_all_qk(){
+		var res=0;
+		$.each( $(".qk_b input"), function(i, v){
+			res+= parseFloat( $(v).val() );
+		});
+		return res;
+	}
+
+
+
+	//提交保存数据构造
+	function submit_data(){
+		var err=false;
+		//非法输入检测 负数检测
+		$(".content_right_con input").each(function(i){
+			var v = $(this).val();
+			if($.isNumeric(v) && v<0){
+				err=true;
+			}
+		});
+		if(err){
+			Idialog.tips("不可输入负值",2);
+			return false; //直接返回
+		}
+		var data={};
+		data.__hash__ = $("input[name='__hash__']").val();//表单令牌
+		//购买项目、产品、卡券相关
+		data.pro=[];
+		var is_next=true;
+		$(".table_list").each(function(i){
+			var detail_id=$(this).attr("pro-detail");
+
+			var capital_money=[];
+			$(this).find(".xj").each(function(k){
+				if (parseFloat($(this).val())<0 || parseFloat($(this).val())>parseFloat($(this).attr('data-max-value')) ) {
+						is_next=false;
+						Idialog.tips("抵扣金额填写错误!",2);
+						return false;
+					};
+				capital_money.push({
+					"capital_id":$(this).attr("rel"),
+					"money":$.isNumeric($(this).val())?$(this).val():0,
+				});
+			});
+			if(is_next==false)
+					return false;
+			data.pro.push({
+				"detail_id":$(this).attr("pro-detail"),
+				"arrears":$.isNumeric( $(this).find(".qk_b input").val() )?$(this).find(".qk_b input").val():0,
+				"capital_money":capital_money,
+			});
+		});
+		if(is_next==false)
+					return false;
+		//现钞
+		data.cash = $.isNumeric( $("input[name='cash']").val() )?parseFloat($("input[name='cash']").val()):0;
+		//pos现金
+		data.cash_pos = $.isNumeric( $("input[name='cash_pos']").val() )?parseFloat($("input[name='cash_pos']").val()):0;
+		data.pos_type = $("select[name=pos_type]").val();
+		if(data.cash_pos>0 && data.pos_type==""){
+			Idialog.tips("POS类型未选择！",2);
+			return false;
+		}
+		//转账现金
+		data.cash_tra = $.isNumeric( $("input[name='cash_tra']").val() )?parseFloat($("input[name='cash_tra']").val()):0;
+		data.tra_type = $("select[name=tra_type]").val();
+		if(data.cash_tra>0 && data.tra_type==""){
+			Idialog.tips("转账类型未选择！",2);
+			return false;
+		}
+		//其他现金
+		data.cash_other = $.isNumeric( $("input[name='cash_other']").val() )?parseFloat($("input[name='cash_other']").val()):0;
+		data.other_type = $("select[name=other_type]").val();
+		if(data.cash_other>0 && data.other_type==""){
+			Idialog.tips("其他类型未选择！",2);
+			return false;
+		}
+		//现金合计计算
+		if(data.cash+data.cash_pos+data.cash_tra+data.cash_other != parseFloat($(".all_xj").html())){
+			Idialog.tips("现金支付错误！",2);
+			return false;
+		}
+
+		<?php if ($model->o_s->rh_id=='-1'): ?>
+			data.rh_id=$(".rh").val();
+		<?php endif ?>
+
+		return data;
+	}
+
+	//数据提交
+	$(".c_submit").click(function(){
+		$('.js_all_qk').hide();
+		if (parseFloat($('.all_qk').text())==<?php echo $model->o_s->pay_price; ?> && parseFloat($('.all_qk').text())>0) {//全欠款
+			$('.js_all_qk').show();
+			Idialog({
+					top:150,
+					width:500,
+					title:'系统警告',
+					content:'您确定顾客本次要全单欠款吗？（应付金额=欠款金额）',
+					ok:function(obj){
+						var post_data=submit_data();
+						if(post_data==false)
+							return;
+						$.post("<?php echo $this->url('paySave',array('id'=>$model->o_s->id)) ?>", post_data,function(data){
+							Idialog.tips(data.msg,2);
+							if(data.code==200){
+								//转到付款界面
+								setTimeout(function(){to_url('<?php echo $this->url("edit");?>&id='+data.data)},3000);
+							}
+						}, "json");
+					},
+					cancel:function(){
+						
+						return false;
+					}
+
+			})
+			return false;
+		}
+		
+		var post_data=submit_data();
+		if(post_data==false)
+			return;
+		$.post("<?php echo $this->url('paySave',array('id'=>$model->o_s->id)) ?>", post_data,function(data){
+			Idialog.tips(data.msg,2);
+			if(data.code==200){
+				//转到付款界面
+				setTimeout(function(){to_url('<?php echo $this->url("edit");?>&id='+data.data)},3000);
+			}
+		}, "json");
+	});
+
+	//记录改变前置 用来回滚
+	var pay_input=0;
+	$("#pay input").focus(function(){
+		pay_input = $(this).val();
+	})
+	//现金变化
+	$("#pay input").change(function(){
+		if($(this).parent().hasClass("qk_b")) return;
+		var yfje = get_all_xj(); //应付金额
+
+		var xj=0;//行现金
+			xj=eval($(this).parent().parent().find("input").map(function(){
+				if($(this).hasClass("r_o")) return 0;
+				return $.isNumeric($(this).val())?$(this).val():0;//赠送抵扣额
+			}).get().join('+'));
+
+		var yf = $(this).parent().parent().find(".yfje").html(); //行应付金额计算
+		
+		var qk=parseFloat(yf)-xj;
+		if(qk<0){
+			$(this).val(pay_input);//回滚
+			return;
+		}
+		$(this).parent().parent().find(".qk_b input").val(qk);
+
+		var yfxj=0;//总应付现金
+			yfxj=eval($(".xj_b input").map(function(){
+				return $.isNumeric($(this).val())?$(this).val():0;
+			}).get().join('+'));
+
+		$(".all_xj").html(yfxj);
+		$(".all_yf").html(yfxj);
+
+		$('.all_qk').html(get_all_qk());//总欠款更新
+
+	});
+
+
+});
+
+</script>

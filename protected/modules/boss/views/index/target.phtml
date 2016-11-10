@@ -1,0 +1,93 @@
+<?php 
+	$month_list=array();
+	$month_list[]=date("Ym");
+	$month_list[]=date("Ym",strtotime("+1 month"));
+	$month_list[]=date("Ym",strtotime("-1 month"));
+	$month_list[]=date("Ym",strtotime("-2 month"));
+	$month_list[]=date("Ym",strtotime("-3 month"));
+	$month_list[]=date("Ym",strtotime("-4 month"));
+	//$_GET['month']="201508";
+?>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r">
+			<select class="pb_qr_01 month" style="width:100px">
+			<?php foreach ($month_list as $m): ?>
+				<option <?php if($_GET['month']==$m) echo "selected='selected'" ?>><?php echo $m ?></option>
+			<?php endforeach ?>
+			</select><span><a href="javascript:" class="fjgl_top_r_02 tjfjz s_add">分配业绩</a></span>
+		</div>
+		业绩分配
+	</div>
+	<div class="yeji_title">
+		<div class="yeji_title_list" style="border-bottom: dotted 1px #eee;">
+			<span style="float:right;">已完成：<font style="font-size:16px; color:#1bab70; font-family:Verdana;">￥<?php echo $target['xj'] ?></font>元 完成率：<font style="font-size:16px; color:#1bab70; font-family:Verdana;"><?php echo round($target['xj']/$target['sale_target'],4)*100 ?>%</font></span>
+			本月业绩销售目标：<font style="color:#f30; font-family:Verdana; font-size:16px;">￥<?php echo $target['sale_target'] ?></font> 元
+		</div>
+		<div class="yeji_title_list">
+			<span style="float:right;">已完成：<font style="font-size:16px; color:#1bab70; font-family:Verdana;">￥<?php echo $target['sc'] ?></font>元 完成率：<font style="font-size:16px; color:#1bab70; font-family:Verdana;"><?php echo round($target['sc']/$target['prac_target'],4)*100 ?>%</font></span>
+			本月业绩实耗目标：<font style="color:#f30; font-family:Verdana; font-size:16px;">￥<?php echo $target['prac_target'] ?></font> 元
+		</div>
+	</div>
+
+	<!--table_container-->
+	<div id="table-list" class="table_table">
+		<div class="table_title_tj">...</div>
+			
+		<div class="table_hiddle">
+			<table width="100%" cellspacing="0" cellpadding="0" border="0">
+			<thead>
+				<tr class="table_title">
+					<th>门店</th><th>门店经理</th><th>销售业绩目标</th><th>实操业绩目标</th><th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php foreach ($list as $row): ?>
+				<tr class="table_list clear">
+					<td><?php echo $row['dept_name'] ?></td><td><span class="khgl_xmpic"><img src="<?php echo $this->basePath('public');?>/images/kh_06.png" height="24" width="24"></span><span class="khgl_03"><?php echo $row['netname'] ?></span></td><td><?php echo $row['sale_target'] ?></td><td><?php echo $row['prac_target'] ?></td><td rel="<?php echo $row['id'] ?>"><a href="javascript:" class="edit">编辑</a></td>
+				</tr>
+			<?php endforeach ?>
+			</tbody>
+		</table>
+		</div><!--table_hiddle!end-->
+    </div>
+	<!--table_containter!end-->
+</div>
+<!--content_right_con!end-->
+
+<script type="text/javascript">
+$(function(){
+	//添加房间
+	$(document).on('click','.s_add',function(){
+		var id = 0;
+		edit(id);
+	});
+	// 修改商品状态
+	$(document).on('click','.edit',function(){
+		var id = $(this).parent().attr('rel');
+		edit(id);
+	});
+
+	function edit(id){
+		$.get("<?php echo $this->url('edit') ?>", { id: id },function(html){
+			var d = Idialog({
+				top:120,
+				width:600,
+				title:'业绩分配',
+				content:html,
+				ok:function(obj){
+					obj._self.find('form').submit();
+					return false;
+				},
+			});
+		});
+	}
+
+	$(".month").change(function(){
+		to_url("<?php echo $this->url('target') ?>&month="+$(this).val())
+	});
+
+});
+
+</script>	

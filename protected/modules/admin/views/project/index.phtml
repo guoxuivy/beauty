@@ -1,0 +1,307 @@
+<?php 
+$top_cate=\ProCate::getProjectTopCate();
+$child_cate=array();
+if(isset($_GET['t_search']['c_t.id']))
+	$tmp_cate=\ProCate::model()->findAll('fid='.(int)$_GET['t_search']['c_t.id']);
+	$child_cate = $this->optArr($tmp_cate,'id','name');
+?>
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/html5uploader/jquery.html5uploader.js"></script>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r"><!-- span选中添加 button_visit 样式--> 
+			<?php if(!$this->controller->is_store):?>
+			<span><a href="javascript:" class="fjgl_top_r_03 c_update">批量上传</a></span>
+			<?php endif;?>
+			<span><a href="javascript:" class="fjgl_top_r_01 filter_search">筛选</a></span>
+			<?php if(!$this->controller->is_store):?>
+			<span><a href="<?php echo $this->url('edit') ?>" class="fjgl_top_r_02">新增项目</a></span>
+			<?php endif;?>
+		</div>
+	项目管理>项目列表
+	</div>
+	<div class="fjgl_two" style=" background:#ffecec;">
+		<div class="fjgl_two_son" style=" background:url(<?php echo $this->basePath('public') ?>/images/xm_01.png) no-repeat 10px 4px; color:#000000;"><span style=" float:right; padding-right:20px;">X</span>有 <span style=" color:#ec314b;"><?php echo $no_num; ?></span> 个项目未配置配方
+		</div>
+	</div>
+	<?php
+		$edit_url = $this->url('edit');
+		$pub_url = $this->basePath("public");
+	?>
+	<!--table_container-->
+	<!--  模版引擎扩展 -->
+	<?php echo $this->datagrid(array(
+		'id'=>'project-list',
+		'dataProvider'=>$pager,
+		'check'=>'id',
+		'search'=>true,
+		'columns'=>array(
+			array(
+				'header' => '项目分类',
+				'name'  => 'fname',
+				'filter'=>array("c_t.id",$top_cate,""),
+			),
+			array(
+				'header' => '品牌系列',
+				'name'  => 'cname',
+				'filter'=>array("t.cate",$child_cate,""),
+			),
+			array(
+				'header' => '项目名称',
+				'name'  => 'name',
+				'headerCss'  => 'width:500px',
+				'filter'=>"t.name",
+			),
+			array(
+				'header' => '项目配方',
+				'name'  => 'formula',
+				'value' => '{$data["formula"]==0?"无":"配方已设"}',
+				//'filter'=>"t.cc",
+			),
+			array(
+				'header' => '项目编码',
+				'name' => 'code',
+			),
+			array(
+				'header' => '项目疗次',
+				'name' => 'num',
+			),
+			array(
+				'header' => '疗次价格',
+				'name' => 'price',
+			),
+			array(
+				'header' => '状态',
+				'headerCss'=>'min-width:60px',
+				'name' => 'status',
+				'value'=>'{$data["status"]==1?"启用":"<fone style=\"color:red\">停用</font>"}'
+			),
+			array(
+				'header' => '操作',
+				'headerCss'=>'min-width:80px',
+				'name' => 'status',
+				'rel'=>'id',
+				'template'=>'<a rel="{$data["id"]}" href="javascript:" class="change" {$data["status"]==0?"":"style=\"background-color: #ddd;color: #666;\""}>{$data["status"]==0?"启用":"停用"}</a>
+					<a class="view khca" href="'.$edit_url.'&id={$data["id"]}">
+						<span class="khca_son"><img src="'.$pub_url.'/images/kh_05.png"></span>查看
+					</a>
+					<a rel="{$data["id"]}" href="javascript:;" class="delete">删除</a>'
+			),
+			/*array(
+				'header' => '操作',
+				'rel'=>'id',
+				'template'=> 'edit+,delete',
+			)*/
+		),
+	));?>
+	<!--table_containter!end-->
+
+	<?php if(!empty($_GET['yd'])):?>
+		<div class="zhezhao">
+			<div class="zhezhao_center">
+				<span>第七步</span>
+				<a class="zhezhao_center_back" href="<?php echo $this->url('/admin/product/index',array('yd'=>1));?>">返回上一步</a>
+				<a class="zhezhao_center_next" href="<?php echo $this->url('/admin/admin/index');?>">配置完成，进入系统</a>
+			</div>
+		</div>
+	<?php endif;?>
+
+</div>
+<!--content_right_con!end-->
+
+
+<!--tjfj-->
+
+<div class="add_prod none" title="新增项目">
+	<div class="tjfj_two" action="#">
+	<form method="post" action="<?php echo $this->url('add') ?>">
+		<p><span class="gysgl_08">必填</span><label>项目分类：</label><select class="top_cate">
+			<option value="">--请选择--</option>
+		<?php foreach ($top_cate as $key => $value): ?>
+			<option value="<?php echo $key ?>"><?php echo $value ?></option>
+		<?php endforeach ?>
+		</select></p>
+		<p><span class="gysgl_08">必填</span><label>品牌系列：</label><select name="cate"></select></p>
+		<p><span class="gysgl_08">必填</span><label>项目名称：</label><input type="text" name="name" /></p>
+		<p><span class="gysgl_08">必填</span><label>项目编码：</label><input type="text" name="code" /></p>
+		<p><label>项目疗次：</label><input type="text" placeholder="" name="num" /></p>
+		<p><span class="gysgl_08">必填</span><label>单价：</label><input type="text" placeholder="" name="price" /></p>
+	</form>
+	</div>
+</div>
+
+
+
+<!--tjfj03-->
+<div class="update none" title="批量上传">
+	<div class="tjfj_two">
+	<p>请严格按照我们提供的项目格式编辑并上传。<a href="<?php echo SITE_URL . '/upload/project_template.xls' ?>" target="_new">下载项目信息模板</a></p>
+	<p style=" text-align:center;"><img src="<?php echo $this->basePath('public') ?>/images/pl_02.png" /></p>
+	<p style=" text-align:center;"><div id="upload"></div></p>
+	<p style=" text-align:center; color:#999;">(上传文档必须小于2MB,格式*.xls)</p>
+	</div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+<?php if($this->controller->is_store):?>
+$('.change,.delete').remove();
+<?php endif;?>
+	<?php if(!empty($_GET['yd'])):?>
+		$("body").css("padding-bottom","100px");
+		$(".content_left").hide();
+		$(".content_right_son").css('margin-left','20px');
+		$(".filter_search").parent().hide();
+		$(".fjgl_top_r_02").parent().hide();
+		$(".fjgl_two").hide();
+	<?php endif;?>
+
+$(function(){
+
+	// 修改商品状态
+	$('.change').click(function(){
+		var id=$(this).attr('rel');
+		var obj = $(this);
+		$.get("<?php echo $this->url('change') ?>", { id: id },function(html){
+			var jobj = $.parseJSON(html);
+			var dataobj = jobj['data'];
+			var status = dataobj['status'];
+			obj.html(status==0?"启用":"停用");
+			obj.attr('style',status==0?'':'background-color: #ddd;color: #666;');
+			obj.parent().prev().attr('title',status==1?"启用":"停用").html(status==1?"启用":'<fone style="color:red">停用</fone>');
+		});
+	});
+
+	$(document).on('click','.delete',function(){
+		var obj = $(this).parent().parent();
+		var id = $(this).parent().attr('rel');
+
+		var d = Idialog({
+			top:120,
+			width:500,
+			title:'通知',
+			content:'您确认删除吗？',
+			ok:function(html){
+				$.get("<?php echo $this->url('delete') ?>", { id: id },function(html){
+					var jobj = $.parseJSON(html);
+					if(jobj['code']=='200'){
+						var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'删除成功',
+							ok:function(html){
+								obj.remove();
+								return true;
+							},
+							cancel:false,
+						});
+					}else{
+						var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'删除失败',
+							ok:function(obj){
+								return true;
+							},
+							cancel:false,
+						});
+					}
+				});
+				return true;
+			},
+			cancel:true,
+		});
+	});
+
+	//批量上传 
+	$('.c_update').click(function(){
+		<?php if($pager['pagener']['recordsTotal']): ?>
+			Idialog({
+					top:150,
+					width:500,
+					title:'数据警告',
+					content:'确定将追加数据！',
+					ok:function(obj){
+						upload()
+					}
+			})
+		<?php else: ?>
+		upload();
+		<?php endif; ?>
+	});
+	function upload()
+	{
+		var d = Idialog({
+			top:150,
+			width:500,
+			title:'批量上传',
+			content:$('.update'),
+			init:function(obj){
+				obj.find('#upload').html5uploader({
+					auto:true,
+					multi:false,
+					removeTimeout:2000,
+					buttonText:'<img src="<?php echo $this->basePath("public") ?>/images/pl_03.png" />',
+					url:'<?php echo $this->url("upload") ?>',
+					itemTemplate:'',
+					fileTypeExts:'application/vnd.ms-excel',
+					onUploadStart:function(){
+						//alert('开始上传');
+						var _html = "<div id='loading' style='position:fixed;left:0;width:100%;height:100%;top:0;background:rgb(0, 0, 0);opacity:0.5;filter:alpha(opacity=50);z-index: 1000;'><div style='position:absolute;cursor1:wait;left:50%;top:50%;width:auto;height:16px;padding:13px 22px 28px 30px;background: url(<?php echo $this->basePath('public');?>/images/loading.gif) no-repeat scroll 5px 10px;text-indent: -99999px;color:#000;'>正在加载，请等待...</div></div>";
+    					$('body').append(_html);
+						},
+					onInit:function(){
+						//alert('初始化');
+						},
+					onUploadError:function (file,data) {
+						console.log(file);
+						console.log(data);
+					},
+					onUploadComplete:function(){
+						// alert('上传完成');
+						},
+					onUploadSuccess:function(file,json){
+						//console.log(file);
+						json = eval('('+json+')');
+						$('#loading,.idialog').remove();
+						if(json.code==200){
+							Idialog({
+								top:150,
+								width:500,
+								title:'提示',
+								content:json.msg+'一共'+json.data.total+'条,成功导入:'+json.data.success+'条!',
+								init:function(obj){
+									obj.find('.idialog').css('z-index','1001');
+								},
+								ok:function(obj){
+									location.reload();
+								},
+								cancel:false
+							})
+							
+						}
+
+					}
+				});
+				obj.find('.uploadfile').css('width','164px');
+
+			},
+			ok:function(obj){
+				//console.log(obj);
+				
+				return false;
+			},
+			cancel:true
+		});
+	}
+
+
+
+});
+
+</script>

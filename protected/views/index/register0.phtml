@@ -1,0 +1,78 @@
+<?php
+	$themePath = $this->basePath('public');
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>HOWA连锁管控平台-注册</title>
+<link href="<?php echo $this->basePath('public'); ?>/css/login.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?php echo $this->basePath('public/js/jquery.js'); ?>"></script>
+<script src="<?php echo $this->basePath('public'); ?>/js/Idialog.js" type="text/javascript"></script>
+<link href="<?php echo $this->basePath('public/js/Validform/Validform_style.css'); ?>" rel="stylesheet">
+<script type="text/javascript" src="<?php echo $this->basePath('public/js/Validform/Validform_v5.3.2_min.js'); ?>"></script>
+
+<!--
+<script id="adLayer" type="text/javascript" src="<?php echo $this->basePath('public/js/King_Chance_Layer.js');?>" data="<?php echo $themePath;?>"></script>
+-->
+<style type="text/css">
+	.idialog_tips {
+		background-color: #fff;
+		border: 1px solid #00dddd;
+		left: 50%;
+		overflow: hidden;
+		padding: 20px;
+		position: fixed;
+		top: 200px;
+		z-index: 999;
+	}
+</style>
+</head>
+<body>
+
+	<div class="top">
+		<div class="top_center">
+			<span id="go_back_home" style="float: right; background-color: #fff; border: solid 1px #ddd; display: inline-block; line-height: 25px; height: 25px; padding-left: 15px; padding-right: 15px; color: #666; font-size: 12px; margin-top: 25px; cursor: pointer;">返回首页</span>
+			<div class="logo">
+				<img src="<?php echo $this->basePath('public'); ?>/images/howa_logo.png" width="170" height="42" />
+			</div>
+			<span class="logo_span">注册</span>
+		</div>
+	</div>
+	<div class="advertising">
+		<div class="advertising_page">
+			<a href="###"><img src="<?php echo $themePath; ?>/images/top.jpg"></a><br><br>
+	    </div>
+	</div>
+	<div class="page">
+		<div class="main">
+			<div class="two_page">
+				<div class="goin_list goin_left">
+					<h2>美容会所注册</h2>
+				    <div class="goin_list_text">成本控制, 过程管控, 流程牵引, 实现连锁标准化和业绩提升.
+HOWA中国美容健康行业管理体系建设专家</div>
+				    <div class="goin_list_button"><a href="<?php echo \Ivy::app()->C('beauty_url'); ?>index.php?r=index/register1" class="mei_button">立即注册</a></div>
+				</div>
+				<div class="goin_list goin_right">
+					<h2>供应商注册</h2>
+				    <div class="goin_list_text">高效数据共享, 打造行业合作共赢生态链
+供应商与美容院合作管理终端消费者, 终端消费一手数据实时获取, 行业整合, 1+1＞2</div>
+				    <div class="goin_list_button"><a href="<?php echo \Ivy::app()->C('supplier_url'); ?>index.php?r=index/register1" class="gong_button">立即注册</a></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			
+		</div>
+	</div>
+	<div class="footer">
+		<div class="footer_center">© Copyright 2011-2015 武汉好哇商业技术有限公司
+			鄂ICP备14003221号</div>
+	</div>
+<script type="text/javascript">
+	$('#go_back_home').click(function() {
+	var url = 'http://www.howa.com.cn';
+	window.location.href = url;
+	});
+</script>
+</body>
+</html>

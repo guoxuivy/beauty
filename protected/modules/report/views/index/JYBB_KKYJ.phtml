@@ -1,0 +1,121 @@
+
+
+<!--table_container-->
+<div class="table_container" style="margin-bottom:10px;">
+	<!--table_con-->
+	<div class="table_con pos_cz_qr_top_04" style="margin-right:0px;">
+		<!--table_con_son-->
+		<div class="table_con_son">
+			<div class="pos_cz_tow_top pos_cz_qr_02" style="color: #07aaff;">现金账户卡扣</div>
+			<div class="table_title">
+				<ul>
+					<li>业务明细</li>
+					<?php foreach ($md_info as $dept_name):?>
+						<li><?php echo $dept_name;?></li>
+					<?php endforeach;?>
+				</ul>
+			</div>
+			<div class="table_list clear">
+				<ul>
+					<li class="li001">购买项目/疗程</li>
+					<?php foreach ($md_info as $dept_id=>$dept_name):?>
+						<li class="li002"><?php echo $data[$dept_id]['gm_xm'];?></li>
+						<?php $gm_total[$dept_id] += $data[$dept_id]['gm_xm'];?>
+					<?php endforeach;?>
+				</ul>
+			</div>
+			<div class="table_list clear">
+				<ul>
+					<li class="li001">购买产品</li>
+					<?php foreach ($md_info as $dept_id=>$dept_name):?>
+						<li class="li002"><?php echo $data[$dept_id]['gm_cp'];?></li>
+						<?php $gm_total[$dept_id] += $data[$dept_id]['gm_cp'];?>
+					<?php endforeach;?>
+				</ul>
+			</div>
+			<div class="table_list clear">
+				<ul>
+					<li class="li001">购买卡券</li>
+					<?php foreach ($md_info as $dept_id=>$dept_name):?>
+						<li class="li002"><?php echo $data[$dept_id]['gm_kq'];?></li>
+						<?php $gm_total[$dept_id] += $data[$dept_id]['gm_kq'];?>
+					<?php endforeach;?>
+				</ul>
+			</div>
+			<div class="table_list clear">
+				<ul>
+					<li class="li001">现金还款</li>
+					<?php foreach ($md_info as $dept_id=>$dept_name):?>
+						<li class="li002"><?php echo $data[$dept_id]['gm_hk'];?></li>
+						<?php $gm_total[$dept_id] += $data[$dept_id]['gm_hk'];?>
+					<?php endforeach;?>
+				</ul>
+			</div>
+			<div class="pos_cz_tow_two_two table_list sjbb_ddkl_tablefoot" style="height: 45px;line-height: 45px;padding: 0px 0px 0px 0px;">
+				<ul>
+					<li class="li001">合计</li>
+					<?php foreach ($md_info as $dept_id=>$dept_name):?>
+						<li class="li002"><?php echo sprintf('%.2f',$gm_total[$dept_id]);?></li>
+					<?php endforeach;?>
+				</ul>
+			</div>
+		</div><!--table_con_son!end-->
+	</div>
+	<!--table_con!end-->
+</div>
+<!--table_containter!end-->
+<!--table_container-->
+<div class="table_container">
+	<!--table_con-->
+	<div class="table_con pos_cz_qr_top_04" style="margin-right:0px;">
+		<!--table_con_son-->
+		<div class="table_con_son">
+			<div class="pos_cz_tow_top pos_cz_qr_02" style="color: #07aaff;">赠送账户卡扣</div>
+			<div class="table_title">
+				<ul>
+					<li>业务明细</li>
+					<?php foreach ($md_info as $dept_name):?>
+						<li><?php echo $dept_name;?></li>
+					<?php endforeach;?>
+				</ul>
+			</div>
+			<div class="table_list clear">
+				<ul>
+					<li class="li001">购买项目/疗程</li>
+					<?php foreach ($md_info as $dept_id=>$dept_name):?>
+						<li class="li002"><?php echo $data[$dept_id]['zs_xm'];?></li>
+						<?php $zs_total[$dept_id] += $data[$dept_id]['zs_xm'];?>
+					<?php endforeach;?>
+				</ul>
+			</div>
+			<div class="table_list clear">
+				<ul>
+					<li class="li001">购买产品</li>
+					<?php foreach ($md_info as $dept_id=>$dept_name):?>
+						<li class="li002"><?php echo $data[$dept_id]['zs_cp'];?></li>
+						<?php $zs_total[$dept_id] += $data[$dept_id]['zs_cp'];?>
+					<?php endforeach;?>
+				</ul>
+			</div>
+			<div class="table_list clear">
+				<ul>
+					<li class="li001">购买卡券</li>
+					<?php foreach ($md_info as $dept_id=>$dept_name):?>
+						<li class="li002"><?php echo $data[$dept_id]['zs_kq'];?></li>
+						<?php $zs_total[$dept_id] += $data[$dept_id]['zs_kq'];?>
+					<?php endforeach;?>
+				</ul>
+			</div>
+			<div class="pos_cz_tow_two_two table_list sjbb_ddkl_tablefoot" style="height: 45px;line-height: 45px;padding: 0px 0px 0px 0px;">
+				<ul>
+					<li class="li001">合计</li>
+					<?php foreach ($md_info as $dept_id=>$dept_name):?>
+						<li class="li002"><?php echo sprintf('%.2f',$zs_total[$dept_id]);?></li>
+					<?php endforeach;?>
+				</ul>
+			</div>
+		</div><!--table_con_son!end-->
+	</div>
+	<!--table_con!end-->
+</div>
+<!--table_containter!end-->

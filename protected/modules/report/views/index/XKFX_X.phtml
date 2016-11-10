@@ -1,0 +1,113 @@
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Itable2excel.js" charset="utf-8"></script>
+<?php 
+	$md_list=\EmployDept::getList(true);
+?>
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+        <div class="fjgl_top_r">
+            <span><a href="#" download="新客分析表_详细.xls"class="to_excel fjgl_top_r_05">导出</a></span>
+        </div>
+        <div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>数据报表><span>新客分析表</span>>详情
+    </div>
+
+    <div class="sjbb_ryyj_top">
+        <span class="one"><?php echo $dept_name?></span> <?php echo $year?>年<?php echo $month?>月 新客成交详情
+    </div>
+
+
+    <!--table_container-->
+    <div id="order-list" class="table_table table_center">
+        <div class="table_hiddle">
+        <table width="100%" cellspacing="0" cellpadding="0" border="0" last-float="false">
+            <thead>
+                <tr class="table_title">
+                    <th>姓名</th>
+                    <th>会员级别</th>
+                    <th>消费类型</th>
+                    <th>消费项目/产品</th>
+                    <th>实收现金</th>
+                    <th>销售人员</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if ($data): ?>
+            <?php $price_total=0; foreach($data as $_data):?>
+                <tr class="table_list clear">
+                    <td><a href="#" class="alinks"><?php echo $_data['cu_name'];?></a></td>
+                    <td><?php echo $_data['level_name'];?></td>
+                    <td><?php echo $_data['type_name'];?></td>
+                    <td><?php echo $_data['pro_info'];?></td>
+                    <td><?php echo $_data['price'];?></td>
+                    <td><?php echo $_data['seller_name'];?></td>
+                </tr>
+                <?php
+                    $price_total+=$_data['price'];
+                ?>
+            <?php endforeach;?>
+                <tr class="table_list table_weight clear">
+                    <td>本月合计</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><?php echo $price_total==0?0:sprintf('%.2f',$price_total);?></td>
+                    <td></td>
+                </tr> 
+            <?php endif ?>
+            </tbody>
+        </table>
+        </div><!--table_hiddle!end-->
+    </div>
+    <!--table_container-->
+
+
+
+</div>
+<!--content_right_con!end-->
+
+<script type="text/javascript">
+$(function(){
+    //门店范围选择
+    $(".choose_md a").click(function(){
+        var rel=$(this).attr("rel");
+        if($(this).find("span").hasClass("span_01")){
+            $(this).find("span").removeClass("span_01");
+            if(rel=="0")
+                $(".choose_md span").removeClass("span_01");
+        }else{
+            $(this).find("span").addClass("span_01");
+            if(rel=="0")
+                $(".choose_md span").addClass("span_01");
+        }
+    });
+
+    $("#search").click(function(){
+        var dept_ids = new Array;
+        $(".choose_md a span").each(function(){
+            if($(this).hasClass('span_01')){
+                dept_ids.push($(this).parent().attr("rel"));
+            }
+        });
+        if(dept_ids.join(',').length<=0){
+            alert('请选择门店！');
+            return false;
+        }
+        var year = $("#year").val();
+        var month = $("#month").val();
+        var url="<?php echo $this->url('XKFX')?>";
+        window.location.href = url+'&dept_ids='+dept_ids+'&year='+year+'&month='+month;
+    });
+
+    
+    $(".to_excel").click(function(event){
+        var t = Itable2excel({
+            worksheet:'数据分析',
+            table: $('#order-list table')
+        });
+        var data64 = t.uri();
+        if(data64==false)
+            return false;
+        event.currentTarget.href = data64;
+    });
+});
+</script>

@@ -1,0 +1,239 @@
+<link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/PCASClass.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/cropbox-min.js"></script>
+<style type="text/css">
+.tjfj_two .mdgl_06{padding:0}
+</style>
+<script src="http://api.map.baidu.com/api?v=1.4"></script>
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+        <div class="fjgl_top_r">
+            <span><a href="javascript:" class="fjgl_top_r_02 stop_store">已停用门店</a></span>
+        </div>
+         门店管理
+    </div>
+    <!--table_container-->    
+    <div class="table_container">
+        
+        <!--table_con-->
+        <div class="table_con">
+            <!--table_con_son-->
+            <div class="table_con_son">
+                <div class="table_title">
+                    <ul>
+                        <li>门店名称</li>
+                        <li>门店地址</li>
+                        <li>状态</li>
+                        <li>操作</li>
+                    </ul>
+                </div>
+                
+                <?php if ($list): ?>
+                    <?php foreach ($list as $store): ?>
+                        <div class="table_list clear" rel="<?php echo $store['id'];?>">
+                            <ul>
+                                <li class="li001"><?php echo $store['dept_name'] ?></li>
+                                <li class="li002"><?php echo $store['address'] ?></li>
+                                <li class="li002"><?php echo $store['status']==1?"启用":"<fone style=\"color:red\">停用</font>" ?></li>
+                                <li class="xmlb_02  li014">
+									<a rel="<?php echo $store['id'] ?>" href="javascript:" class="change" <?php echo $store['status']==0?'':'style="background-color: #ddd;color: #666;"' ?>><?php echo $store['status']==0?"启用":"停用" ?></a>
+									<a href="javascript:" class="edit">修改</a><!-- <a href="javascript:" class="delete">删除</a> -->
+								</li>
+                            </ul>
+                        </div>
+                    <?php endforeach ?>
+                <?php endif ?>
+                    <div class="table_search" style=" background:#FFF; position:relative; height:40px; padding-top:0px; line-height:40px;display:block;">
+            <!-- 标准版最多可创建3家门店，超过3家门店请申请新增门店 --><a href="javascript:" class="md_04 s_add"></a></div>
+                
+            </div><!--table_con!end-->
+            
+        </div><!--table_con!end-->
+        
+    </div>
+    <!--table_containter!end-->
+    
+</div>
+<!--content_right_con!end-->
+
+<?php if(!empty($_GET['yd'])):?>
+<div class="zhezhao">
+	<div class="zhezhao_center">
+		<span>第一步</span>
+		<!--<a class="zhezhao_center_back" href="<?php /*echo $this->url('/admin/admin/index');*/?>">返回首页</a>-->
+		<a class="zhezhao_center_next" href="<?php echo $this->url('/admin/employ/index',array('yd'=>1));?>">进入下一步</a>
+	</div>
+</div>
+<?php endif;?>
+
+<!--tjfj-->
+
+
+<div id="stop_list" style="display:none;">
+<!--  模版引擎扩展 -->
+<?php echo $this->datagrid(array(
+	'id'=>'stop-list',
+	'dataProvider'=>array('list'=>$stop_list),
+	'search'=>$is_store?false:true,
+	'columns'=>array(
+		array(
+			'header' => '门店名称',
+			'name' => 'dept_name',
+		),
+		array(
+			'header' => '地址',
+			'name' => 'address',
+		),
+		array(
+			'header' => '操作',
+			'rel'=>'id',
+			'template'=>'<a href="javascript:;" class="delete">恢复</a>'
+		),
+	),
+));?>
+</div>
+
+<script type="text/javascript">
+	<?php if(!empty($_GET['yd'])):?>
+		$("body").css("padding-bottom","100px");
+		$(".content_left").hide();
+		$(".content_right_son").css('margin-left','20px');
+	<?php endif;?>
+
+	function validate(classname){
+		var nf = classname.Validform({
+			tiptype:3,
+		});
+
+		nf.addRule([
+		{
+			ele:".new_inputxt:eq(0)",
+			datatype:"*",
+			nullmsg:"请输入门店名称！"
+		},
+		{
+			ele:".new_inputxt:eq(1)",
+			datatype:"*",
+			nullmsg:"请输入房间数量！"
+		}
+		]);
+	}
+
+	//已停用门店
+	$(document).on('click','.stop_store',function(){
+		var d = Idialog({
+				top:150,
+				width:600,
+				title:'列表',
+				content:$('#stop_list'),
+				init:function(e){
+					e.find("table").css('min-width','100%');
+				},
+				cancel:false
+			});
+	});
+
+
+	//添加门店
+	$(document).on('click','.s_add',function(){
+		var max_store_num = <?php echo $company->max_store_num ?>;
+		var store_num = <?php echo count($list) ?>;
+		if(store_num<max_store_num){
+		}else{
+			var d = Idialog({
+				top:150,
+				width:500,
+				title:'警告',
+				content:"您最多可创建"+max_store_num+"家门店，超过"+max_store_num+"家门店请向平台管理员申请新增门店。",
+				cancel:false
+			});
+			return;
+		}
+		var yd = '<?php echo $_GET['yd'];?>';
+		var thisobj = $(this);
+		$.get("<?php echo $this->url('edit') ?>", { id: 0 },function(html){
+			var d = Idialog({
+				top:5,
+				width:600,
+				title:'新建门店',
+				content:html,
+				ok:function(obj){
+					obj._self.find('form').submit();
+					return false;
+				},
+				init:function(self){
+					self.find("form").attr("class","newform");
+					self.find(".inputxt").attr("class","new_inputxt");
+
+					validate($('.newform'));
+				},
+			});
+			$("input[name=yd]").val(yd);
+		});
+
+		
+	});
+	
+	//停用恢复
+	$(document).on('click','.delete',function(){
+		var id = $(this).parent().attr('rel');
+
+		var max_store_num = <?php echo $company->max_store_num ?>;
+		var store_num = <?php echo count($list) ?>;
+		if(store_num<max_store_num){
+		}else{
+			var d = Idialog({
+				top:100,
+				width:500,
+				title:'警告',
+				content:"您最多可创建"+max_store_num+"家门店，超过"+max_store_num+"家门店请向平台管理员申请新增门店。",
+				cancel:false
+			});
+			return;
+		}
+
+		$.get("<?php echo $this->url('change') ?>", { id: id },function(html){
+			location.reload();
+		});
+
+		
+	});
+	
+	$(document).on('click','.change',function(){
+		var obj = $(this).parent().parent().parent();
+		var id = obj.attr('rel');
+		var thisobj = $(this);
+		$.get("<?php echo $this->url('change') ?>", { id: id },function(html){
+			location.reload();
+		});
+	});
+	
+	$(document).on('click','.edit',function(){
+		var obj = $(this).parent().parent().parent();
+		var id = obj.attr('rel'),yd = '<?php echo $_GET['yd'];?>';
+		var thisobj = $(this);
+		$.get("<?php echo $this->url('edit') ?>", { id: id },function(html){
+			var d = Idialog({
+				top:5,
+				width:600,
+				title:'编辑门店',
+				content:html,
+				ok:function(obj){
+					obj._self.find('form').submit();
+					return false;
+				},
+				init:function(self){
+					self.find("form").attr("class","newform");
+					self.find(".inputxt").attr("class","new_inputxt");
+
+					validate($('.newform'));
+				},
+			});
+			$("input[name=yd]").val(yd);
+		});
+	});
+	
+
+</script>

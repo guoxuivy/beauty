@@ -1,0 +1,97 @@
+<?php 
+$sex_list=\CustomerInfo::getSex();
+$member_list=\ConfigMembership::getList();
+
+?>
+
+<link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/html5uploader/jquery.html5uploader.js"></script>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r"><!-- span选中添加 button_visit 样式--> 
+			<span><a href="javascript:" class="fjgl_top_r_01 filter_search">筛选</a></span>
+		</div>
+	<div class="khgl_01"><img src="<?php echo $this->basePath('public') ?>/images/kh_01.png"></div>
+	期初开账
+	</div>
+	<div class="jyjl_top">
+		<div class="jyjl_top_com">
+			<a href="<?php echo $this->url('index');?>">待建期初客户 </a>
+			<a href="javascript:void(0);" class="aaddys">待开账客户列表</a>
+		</div>
+	</div>
+	<!--  模版引擎扩展 -->
+
+
+<?php echo $this->datagrid(array(
+	'id'=>'table-list',
+	'dataProvider'=>$pager,
+	'check'=>'id',
+	'columns'=>array(
+		array(
+			'header' => '会员卡号',
+			'name' => 'cardid',
+			'filter'=>'t.cardid',
+		),
+		array(
+			'header' => '姓名',
+			'name' => 'name',
+			'filter'=>'t.name',
+			'value' => '<span class="khgl_xmpic"><img src="'.$this->basePath('public').'/images/kh_06.png" height="24" width="24" /></span><span class="khgl_03">{$data["name"]}</span>',
+		),
+		array(
+			'header' => '性别',
+			'name' => 'sex',
+			'filter'=>array('t.sex',$sex_list),
+		),
+		array(
+			'header' => '客户等级',
+			'name' => 'lname',
+			'filter'=>array('l.id',$member_list),
+		),
+		array(
+			'header' => '客户类型',
+			'name' => 'cu_type',
+			'filter'=>array('t.cu_type',\CustomerInfo::getCuType()),
+		),
+		array(
+			'header' => '客户状态',
+			'value' => '{\CustomerInfo::getStatus($data["status"])}',
+			'filter'=>array('t.status',\CustomerInfo::getStatus()),
+		),
+		array(
+			'header' => '私人顾问',
+			'name' => 'cnetname',
+			'filter'=>array('t.counselor_id',\EmployUser::getList()),
+		),
+
+		array(
+			'header' => '私人美疗师',
+			'name' => 'onetname',
+			'filter'=>array('t.operator_id',\EmployUser::getList(' AND position_id=7')),
+		),
+		array(
+			'header' => '档案归属部门',
+			'name' => 'dept_name',
+			'filter'=>array('t.store_id',\EmployDept::getList()),
+		),
+		array(
+			'header' => '状态',
+			'value' => '未开账',
+		),
+		array(
+			'header' => '操作',
+			'rel'=>'id',
+			'value'=> '{\CustomerInfo::getPayUrlForInit($data["id"])}',
+		)
+	),
+));?>
+	
+</div>
+<!--content_right_con!end-->
+
+<script type="text/javascript">
+
+</script>

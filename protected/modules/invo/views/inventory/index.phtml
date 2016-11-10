@@ -1,0 +1,74 @@
+
+
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+        <div class="fjgl_top_r">
+            <span><a href="javascript:" class="fjgl_top_r_01 filter_search">筛选</a></span>
+            <span><a href="<?php echo $this->url('add');?>" class="fjgl_top_r_06 c_pan">盘库</a></span>
+        </div>
+        仓库管理>库存盘点记录
+    </div>
+
+    <!--  模版引擎扩展 -->
+    <?php echo $this->datagrid(array(
+        'id'=>'product-list',
+        'dataProvider'=>$pager,
+        'search'=>true,
+        'columns'=>array(
+            array(
+                'header' => '盘库日期',
+                'name'  => 'create_time',
+                'filter'=>array("t.create_time",$date,""),
+            ),
+            array(
+                'header' => '类型',
+                'name'  => 'type',
+                'value' => '{$data["type"]==1?"正常盘库":"期初盘库"}',
+                'filter'=>array("t.type",array('0'=>'期初盘库','1'=>'正常盘库'),""),
+            ),
+            array(
+                'header' => '盘库周期',
+                'name'  => 'id',
+                'value' => '{\invo\Inventory::getPkZhouQi($data["id"])}'
+            ),
+            array(
+                'header' => '期初结存商品总数',
+                'name'  => 'curr_num',
+            ),
+            array(
+                'header' => '实时结存商品总数',
+                'name' => 'check_num',
+            ),
+            array(
+                'header' => '盘库商品数',
+                'name' => 'pro_num',
+            ),
+            array(
+                'header' => '盘库盈亏结存',
+                'name' => 'id',
+                'value' => '{$data["check_num"]-$data["curr_num"]}'
+            ),
+            array(
+                'header' => '状态',
+                'name' => 'status',
+                'value' => '{$data["status"]==1?"已入账":"<fone style=\"color:red\">未入账</font>"}'
+            ),
+            array(
+                'header' => '操作人',
+                'name' => 'made_name',
+            ),
+            array(
+                'header' => '操作',
+                'rel'=>'id',
+                'template'=> 'edit+',
+            )
+        ),
+    ));?>
+
+    <script type="text/javascript">
+
+    </script>
+
+</div>
+<!--content_right_con!end-->

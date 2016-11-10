@@ -1,0 +1,102 @@
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+        仓库管理>库存盘点记录>盘库结果
+    </div>
+    <style>
+        .khgl_pk_two .widget_select_on span {
+            background: rgba(0, 0, 0, 0) url("<?php echo $this->basePath("public"); ?>/images/fzxm_04.png") no-repeat scroll 0 0;
+        }
+        .khgl_pk_two span span {
+            background: rgba(0, 0, 0, 0) url("<?php echo $this->basePath("public"); ?>/images/fzxm_03.png") no-repeat scroll 0 0;
+            border-radius: 3px;
+            display: inline-block;
+            height: 16px;
+            margin-bottom: -3px;
+            margin-right: -25px;
+            float: left;
+            margin-top: 5px;
+        }
+        .khgl_pk_two span{
+            padding-right: 44px;
+        }
+    </style>
+    <div class="khgl_pk_two">
+        <span class="box_choose widget_select_on" lang="all">
+            <span></span>
+            <font>显示全部商品</font>
+        </span>
+        <span class="box_choose" lang="pk" style="padding-right: 15px;">
+            <span></span>
+            <font>只显示盘库结果与账面不符商品</font>
+        </span>
+        <div>
+            本次盘库周期为：<?php echo date('Y/m/d',$inventory_model->start_time);?> 至 <?php echo date('Y/m/d',$inventory_model->end_time);?>
+        </div>
+    </div>
+    <!--table_container-->
+    <div class="table_container clear">
+        <!--table_con-->
+        <div class="table_con">
+            <!--table_con_son-->
+            <div class="table_con_son">
+                <div class="table_title">
+                    <ul>
+                        <li>商品名称</li>
+                        <li>商品编码</li>
+                        <li>本期期初库存</li>
+                        <li>本期期初额外数量</li>
+                        <li>本期入库</li>
+                        <li>本期出库</li>
+                        <li>当前库存</li>
+                        <li>当前额外数量</li>
+                        <li>盘库库存</li>
+                        <li>盘库额外数量</li>
+                        <li>盈亏库存</li>
+                    </ul>
+                </div>
+                <div style="max-height:800px; overflow:auto;">
+                    <?php foreach($list as $item):?>
+                        <div class="table_list clear" balance-data="<?php echo $item['balance_num'];?>">
+                            <ul>
+                                <li class="li003"><?php echo $item['name'];?></li>
+                                <li class="li004"><?php echo $item['code'];?></li>
+                                <li class="li004"><?php echo $item['last_num'];?></li>
+                                <li class="li004"><?php echo $item['last_ext_num'];?></li>
+                                <li class="li004"><?php echo $item['in_num'];?></li>
+                                <li class="li004"><?php echo $item['out_num'];?></li>
+                                <li class="li005"><?php echo $item['curr_num'];?></li>
+                                <li class="li005"><?php echo $item['curr_ext_num'];?></li>
+                                <li class="li006"><?php echo $item['check_num'];?></li>
+                                <li class="li006"><?php echo $item['check_ext_num'];?></li>
+                                <li class="li007"><?php echo $item['check_num']-$item['curr_num'];?></li>
+                            </ul>
+                        </div>
+                    <?php endforeach;?>
+                </div>
+            </div>
+            <!--table_con_son!end-->
+        </div>
+        <!--table_con!end-->
+    </div>
+    <!--table_containter!end-->
+</div>
+<!--content_right_con!end-->
+
+<script type="text/javascript">
+    $(".table_title ul li").css('min-width','80px');
+    table_flash();
+    $(".khgl_pk_two .box_choose").click(function(){
+        if($(this).hasClass('widget_select_on')){
+            $(this).removeClass('widget_select_on').siblings().addClass('widget_select_on');
+        }else{
+            $(this).addClass('widget_select_on').siblings().removeClass('widget_select_on');
+        }
+        var lang = $(".khgl_pk_two").find(".widget_select_on").attr('lang');
+        if(lang=='all'){
+            $("div[balance-data=0]").show();
+        }else{
+            $("div[balance-data=0]").hide();
+        }
+    });
+</script>

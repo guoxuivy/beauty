@@ -1,0 +1,337 @@
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Itable2excel.js"></script>
+<?php
+    $md_list=\EmployDept::getList(true);
+    if ($this->controller->is_store)
+        $dept_ids=\Ivy::app()->user->dept_id;
+    $cu_types = \CustomerInfo::model()->getCuType();
+?>
+<style>
+    .sjbb_ddkl_one_r_son_01{
+        text-align: center;
+    }
+</style>
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+        <div class="fjgl_top_r"><span><a href="#" download="客户年消费分析表.xls"class="to_excel fjgl_top_r_05">导出</a></span></div>
+        <div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>数据报表><span>客户年消费分析表</span>
+    </div>
+
+    <!--sjbb_ddkl_one-->
+    <div class="sjbb_ddkl_one">
+        <ul>
+            <li>
+                <div class="sjbb_ddkl_one_l">门店范围：</div>
+                <div class="sjbb_ddkl_one_r">
+                    <div class="sjbb_ddkl_one_r_son choose_md">
+                        <?php if(!$this->controller->is_store):?>
+                            <a href="javascript:" rel="0"><span ></span>全连锁</a>
+                        <?php endif;?>
+                        <?php foreach ($md_list as $key => $value): ?>
+                            <a href="javascript:" rel="<?php echo $key ?>"><span></span><?php echo $value ?></a>
+                        <?php endforeach ?>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="sjbb_ddkl_one_l">客户类型：
+                </div>
+                <div class="sjbb_ddkl_one_r">
+                    <div class="sjbb_ddkl_one_r_son cu_type">
+                        <a href="javascript:" rel="0"><span ></span>全部</a>
+                        <?php foreach($cu_types as $cu_type):?>
+                            <a href="javascript:" rel="<?php echo $cu_type;?>"><span></span><?php echo $cu_type;?></a>
+                        <?php endforeach;?>
+
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="sjbb_ddkl_one_l">年消费范围：
+                </div>
+                <div class="sjbb_ddkl_one_r">
+                    <div class="sjbb_ddkl_one_r_son">
+                        <input value="<?php echo $_GET['xf_begin'];?>" class="sjbb_ddkl_one_r_son_01 xf_begin" />元 -
+                        <input value="<?php echo $_GET['xf_end'];?>" class="sjbb_ddkl_one_r_son_01 xf_end" />元
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="sjbb_ddkl_one_l">年实耗范围：
+                </div>
+                <div class="sjbb_ddkl_one_r">
+                    <div class="sjbb_ddkl_one_r_son">
+                        <input value="<?php echo $_GET['sh_begin'];?>" class="sjbb_ddkl_one_r_son_01 sh_begin" />元 -
+                        <input value="<?php echo $_GET['sh_end'];?>" class="sjbb_ddkl_one_r_son_01 sh_end" />元
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="sjbb_ddkl_one_l">日期：
+                </div>
+                <div class="sjbb_ddkl_one_r">
+                    <div class="sjbb_ddkl_one_r_son">
+                        <select class="sjbb_ddkl_one_r_son_01 year">
+                            <?php for($i=date('Y');$i>date('Y')-5;$i--):?>
+                                <option <?php echo $_GET['year']==$i?'selected="selected"':'';?> value="<?php echo $i;?>"><?php echo $i;?></option>
+                            <?php endfor;?>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li class="lastli">
+                <div class="sjbb_ddkl_one_l">
+                </div>
+                <div class="sjbb_ddkl_one_r">
+                    <div class="sjbb_ddkl_one_r_son">
+                        <a href="javascript:" class="changa01 search">搜索</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div> <!--sjbb_index_onesjbb_ddkl_oneend-->
+
+
+    <!--table_container-->
+    <div id="order-list" class="table_table table_center">
+        <div class="table_hiddle">
+        <table width="100%" cellspacing="0" cellpadding="0" border="0" last-float="false">
+            <thead>
+                <tr class="table_title">
+                    <th>客户姓名</th>
+                    <th>客户类型</th>
+                    <th>属性</th>
+                    <th>合计</th>
+                    <th>1月</th>
+                    <th>2月</th>
+                    <th>3月</th>
+                    <th>4月</th>
+                    <th>5月</th>
+                    <th>6月</th>
+                    <th>7月</th>
+                    <th>8月</th>
+                    <th>9月</th>
+                    <th>10月</th>
+                    <th>11月</th>
+                    <th>12月</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if(!empty($data)):?>
+                <?php $total=0;$total_1=0;$total_2=0;$total_3=0;$total_4=0;$total_5=0;$total_6=0;$total_7=0;$total_8=0;$total_9=0;$total_10=0;$total_11=0;$total_12=0;?>
+                <?php foreach($data as $cu_name=>$cu_info):?>
+
+                <tr class="table_list clear">
+                    <td style="border-right:solid 1px #ddd;" rowspan="3"><a href="<?php echo $this->url('customer/index/view',array('id'=>$cu_info['total']['cu_id']))?>"><?php echo $cu_name;?></a></td>
+                    <td style="border-right:solid 1px #ddd;" rowspan="3"><?php echo $cu_info['total']['cu_type'];?></td>
+                    <td>现金</td>
+                    <td><?php echo $cu_info['total']['cash_money'];?></td>
+                    <td><?php echo empty($cu_info['1']['cash'])?'0.00':$cu_info['1']['cash'];?></td>
+                    <td><?php echo empty($cu_info['2']['cash'])?'0.00':$cu_info['2']['cash'];?></td>
+                    <td><?php echo empty($cu_info['3']['cash'])?'0.00':$cu_info['3']['cash'];?></td>
+                    <td><?php echo empty($cu_info['4']['cash'])?'0.00':$cu_info['4']['cash'];?></td>
+                    <td><?php echo empty($cu_info['5']['cash'])?'0.00':$cu_info['5']['cash'];?></td>
+                    <td><?php echo empty($cu_info['6']['cash'])?'0.00':$cu_info['6']['cash'];?></td>
+                    <td><?php echo empty($cu_info['7']['cash'])?'0.00':$cu_info['7']['cash'];?></td>
+                    <td><?php echo empty($cu_info['8']['cash'])?'0.00':$cu_info['8']['cash'];?></td>
+                    <td><?php echo empty($cu_info['9']['cash'])?'0.00':$cu_info['9']['cash'];?></td>
+                    <td><?php echo empty($cu_info['10']['cash'])?'0.00':$cu_info['10']['cash'];?></td>
+                    <td><?php echo empty($cu_info['11']['cash'])?'0.00':$cu_info['11']['cash'];?></td>
+                    <td><?php echo empty($cu_info['12']['cash'])?'0.00':$cu_info['12']['cash'];?></td>
+                    <td style="border-left:solid 1px #ddd;" rowspan="3"><a href="<?php echo $this->url('customer/index/view',array('id'=>$cu_info['total']['cu_id']))?>">查看档案</a></td>
+                </tr>
+                <tr class="table_list clear">
+                    <td>卡扣</li>
+                    <td><?php echo $cu_info['total']['card_money'];?></td>
+                    <td><?php echo empty($cu_info['1']['card'])?'0.00':$cu_info['1']['card'];?></td>
+                    <td><?php echo empty($cu_info['2']['card'])?'0.00':$cu_info['2']['card'];?></td>
+                    <td><?php echo empty($cu_info['3']['card'])?'0.00':$cu_info['3']['card'];?></td>
+                    <td><?php echo empty($cu_info['4']['card'])?'0.00':$cu_info['4']['card'];?></td>
+                    <td><?php echo empty($cu_info['5']['card'])?'0.00':$cu_info['5']['card'];?></td>
+                    <td><?php echo empty($cu_info['6']['card'])?'0.00':$cu_info['6']['card'];?></td>
+                    <td><?php echo empty($cu_info['7']['card'])?'0.00':$cu_info['7']['card'];?></td>
+                    <td><?php echo empty($cu_info['8']['card'])?'0.00':$cu_info['8']['card'];?></td>
+                    <td><?php echo empty($cu_info['9']['card'])?'0.00':$cu_info['9']['card'];?></td>
+                    <td><?php echo empty($cu_info['10']['card'])?'0.00':$cu_info['10']['card'];?></td>
+                    <td><?php echo empty($cu_info['11']['card'])?'0.00':$cu_info['11']['card'];?></td>
+                    <td><?php echo empty($cu_info['12']['card'])?'0.00':$cu_info['12']['card'];?></td>
+                </tr>
+                <tr class="table_list clear">
+                    <td>实耗</li>
+                    <td><?php echo $cu_info['total']['sh_money'];?></td>
+                    <td><?php echo empty($cu_info['1']['use_money'])?'0.00':$cu_info['1']['use_money'];?></td>
+                    <td><?php echo empty($cu_info['2']['use_money'])?'0.00':$cu_info['2']['use_money'];?></td>
+                    <td><?php echo empty($cu_info['3']['use_money'])?'0.00':$cu_info['3']['use_money'];?></td>
+                    <td><?php echo empty($cu_info['4']['use_money'])?'0.00':$cu_info['4']['use_money'];?></td>
+                    <td><?php echo empty($cu_info['5']['use_money'])?'0.00':$cu_info['5']['use_money'];?></td>
+                    <td><?php echo empty($cu_info['6']['use_money'])?'0.00':$cu_info['6']['use_money'];?></td>
+                    <td><?php echo empty($cu_info['7']['use_money'])?'0.00':$cu_info['7']['use_money'];?></td>
+                    <td><?php echo empty($cu_info['8']['use_money'])?'0.00':$cu_info['8']['use_money'];?></td>
+                    <td><?php echo empty($cu_info['9']['use_money'])?'0.00':$cu_info['9']['use_money'];?></td>
+                    <td><?php echo empty($cu_info['10']['use_money'])?'0.00':$cu_info['10']['use_money'];?></td>
+                    <td><?php echo empty($cu_info['11']['use_money'])?'0.00':$cu_info['11']['use_money'];?></td>
+                    <td><?php echo empty($cu_info['12']['use_money'])?'0.00':$cu_info['12']['use_money'];?></td>
+                </tr>
+                <?php
+                    $total += $cu_info['total']['cash_money']+$cu_info['total']['card_money']+$cu_info['total']['sh_money'];
+                    $total_1 += $cu_info['1']['cash']+$cu_info['1']['card']+$cu_info['1']['use_money'];
+                    $total_2 += $cu_info['2']['cash']+$cu_info['2']['card']+$cu_info['2']['use_money'];
+                    $total_3 += $cu_info['3']['cash']+$cu_info['3']['card']+$cu_info['3']['use_money'];
+                    $total_4 += $cu_info['4']['cash']+$cu_info['4']['card']+$cu_info['4']['use_money'];
+                    $total_5 += $cu_info['5']['cash']+$cu_info['5']['card']+$cu_info['5']['use_money'];
+                    $total_6 += $cu_info['6']['cash']+$cu_info['6']['card']+$cu_info['6']['use_money'];
+                    $total_7 += $cu_info['7']['cash']+$cu_info['7']['card']+$cu_info['7']['use_money'];
+                    $total_8 += $cu_info['8']['cash']+$cu_info['8']['card']+$cu_info['8']['use_money'];
+                    $total_9 += $cu_info['9']['cash']+$cu_info['9']['card']+$cu_info['9']['use_money'];
+                    $total_10 += $cu_info['10']['cash']+$cu_info['10']['card']+$cu_info['10']['use_money'];
+                    $total_11 += $cu_info['11']['cash']+$cu_info['11']['card']+$cu_info['11']['use_money'];
+                    $total_12 += $cu_info['12']['cash']+$cu_info['12']['card']+$cu_info['12']['use_money'];
+                ?>
+                <?php endforeach ?>
+                <tr class="table_list table_weight clear">
+                    <td>合计</td>
+                    <td></td>
+                    <td></td>
+                    <td><?php echo sprintf('%.2f',$total);?></td>
+                    <td><?php echo sprintf('%.2f',$total_1);?></td>
+                    <td><?php echo sprintf('%.2f',$total_2);?></td>
+                    <td><?php echo sprintf('%.2f',$total_3);?></td>
+                    <td><?php echo sprintf('%.2f',$total_4);?></td>
+                    <td><?php echo sprintf('%.2f',$total_5);?></td>
+                    <td><?php echo sprintf('%.2f',$total_6);?></td>
+                    <td><?php echo sprintf('%.2f',$total_7);?></td>
+                    <td><?php echo sprintf('%.2f',$total_8);?></td>
+                    <td><?php echo sprintf('%.2f',$total_9);?></td>
+                    <td><?php echo sprintf('%.2f',$total_10);?></td>
+                    <td><?php echo sprintf('%.2f',$total_11);?></td>
+                    <td><?php echo sprintf('%.2f',$total_12);?></td>
+                    <td></td>
+                </tr> 
+            <?php endif ?>
+            </tbody>
+        </table>
+        </div><!--table_hiddle!end-->
+    </div>
+    <!--table_container-->
+
+
+
+</div>
+<!--content_right_con!end-->
+
+<script type="text/javascript">
+    //门店范围选择
+    $(".choose_md a").click(function(){
+        var rel=$(this).attr("rel");
+        if($(this).find("span").hasClass("span_01")){
+            $(this).find("span").removeClass("span_01");
+            if(rel=="0")
+                $(".choose_md span").removeClass("span_01");
+        }else{
+            $(this).find("span").addClass("span_01");
+            if(rel=="0")
+                $(".choose_md span").addClass("span_01");
+        }
+    });
+
+    <?php if ($this->controller->is_store): ?>
+        $(".choose_md").find("a").trigger("click");
+    <?php else: ?>
+    //填充默认门店
+        <?php if (isset($_GET['dept_id'])): ?>
+            <?php foreach (explode(',', $_GET['dept_id']) as $v): ?>
+                $(".choose_md").find("a[rel='<?php echo $v ?>']").trigger("click");
+            <?php endforeach ?>
+        <?php endif ?>
+    <?php endif ?>
+    //获取客户门店
+    function getMd(){
+        if($(".choose_md a[rel='0']").find("span").hasClass("span_01"))
+            return "0";
+        var l = $(".choose_md a").map(function(){
+            if($(this).find("span").hasClass("span_01"))
+                return $(this).attr("rel");
+        }).get().join(",");
+        return l;
+    }
+
+    //客户类型选择
+    $(".cu_type a").click(function(){
+        var rel=$(this).attr("rel");
+        if($(this).find("span").hasClass("span_01")){
+            $(this).find("span").removeClass("span_01");
+            if(rel=="0")
+                $(".cu_type span").removeClass("span_01");
+        }else{
+            $(this).find("span").addClass("span_01");
+            if(rel=="0")
+                $(".cu_type span").addClass("span_01");
+        }
+    });
+    //填充默认客户类型
+    <?php if (isset($_GET['cu_type'])): ?>
+        <?php foreach (explode(',', $_GET['cu_type']) as $v): ?>
+            $(".cu_type").find("a[rel='<?php echo $v ?>']").trigger("click");
+        <?php endforeach ?>
+    <?php endif ?>
+    //获取客户类型
+    function getCuType(){
+        if($(".cu_type a[rel='0']").find("span").hasClass("span_01"))
+            return "0";
+        var cu = $(".cu_type a").map(function(){
+            if($(this).find("span").hasClass("span_01"))
+                return $(this).attr("rel");
+        }).get().join(",");
+        return cu;
+    }
+    //消费范围整数验证
+    $("input.sjbb_ddkl_one_r_son_01").keyup(function(){
+        var val = $(this).val();
+        var reg = /^\d+$/;
+        if(val!=''&&!reg.test(val)){
+            Idialog.tips("请输入整数",2);
+            $(this).val('');
+        }
+    });
+    //点击搜索
+    $(".search").click(function(){
+        var dept_id = getMd();
+        if(dept_id==''){
+            Idialog.tips('门店未选择！',2);
+            return;
+        }
+        var cu_type = getCuType();
+        if(cu_type==''){
+            Idialog.tips('客户类型未选择！',2);
+            return;
+        }
+        var xf_begin = $(".xf_begin").val();
+        var xf_end = $(".xf_end").val();
+        if(xf_begin!=''&&xf_end!=''&&parseInt(xf_begin)>parseInt(xf_end)){
+            Idialog.tips('年消费范围输入有误！',2);
+            return;
+        }
+        var sh_begin = $(".sh_begin").val();
+        var sh_end = $(".sh_end").val();
+        if(sh_begin!=''&&sh_end!=''&&parseInt(sh_begin)>parseInt(sh_end)){
+            Idialog.tips('年实耗范围输入有误！',2);
+            return;
+        }
+        var year = $(".year").val();
+        window.location.href = '<?php echo $this->url('KHNXFFX');?>&dept_id='+dept_id+'&cu_type='+cu_type
+            +'&xf_begin='+xf_begin+'&xf_end='+xf_end+'&sh_begin='+sh_begin+'&sh_end='+sh_end+'&year='+year;
+    });
+
+    $(".to_excel").click(function(event){
+        var t = Itable2excel({
+            worksheet:'数据分析',
+            table: $('#order-list table')
+        });
+        var data64 = t.uri();
+        if(data64==false)
+            return false;
+        event.currentTarget.href = data64;
+    });
+
+</script>

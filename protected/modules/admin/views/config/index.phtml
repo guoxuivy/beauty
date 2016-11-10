@@ -1,0 +1,76 @@
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r"> 
+			<!--<a href="javascript:" class="fjgl_top_r_03">批量上传</a><a href="javascript:" class="fjgl_top_r_01">筛选</a>--><!-- <a href="javascript:" class="fjgl_top_r_02 tjfjz">新建账户</a> --> </div>
+		功能设置>单据显示设置 </div>
+	<div class="fjgl_two">
+		<div class="fjgl_two_son" style="color:#666666; background:none; padding-left:20px;">说明文档 </div>
+	</div>
+	<div class="gnsz_xs_01"> 请选择单据显示样式 </div>
+	<form>
+	<!--gnsz_xs-->
+	<div class="gnsz_xs">
+		<div class="gnsz_xs_l">
+			<div class="gnsz_xs_02">
+				<input name="order_show" type="radio" value="true" <?php if($config=='true'): ?> checked="checked" <?php endif; ?>/>
+				<span <?php if($config=='true'): ?>class="span"<?php endif; ?>>显示客户账户变化</span></div>
+			<div class="gnsz_xs_03">示例：</div>
+		</div>
+		<div class="gnsz_xs_r">
+			<div class="gnsz_xs_02">
+				<input name="order_show" type="radio" value="false" <?php if($config=='false'): ?> checked="checked" <?php endif; ?>/>
+				<span <?php if($config=='false'): ?>class="span"<?php endif; ?>>显示客户账户变化</span></div>
+			<div class="gnsz_xs_03">示例：</div>
+		</div>
+	</div>
+	<!--gnsz_xs!end--> 
+	</form>
+</div>
+<!--content_right_con!end-->
+<script type="text/javascript">
+	$('input[name="order_show"]').change(function(event) {
+		var _data=$(this).parents('form').serialize();
+		$.ajax({
+			url: window.location.href,
+			type: 'POST',
+			data: _data,
+		})
+		.done(function(html) {
+			var jobj = $.parseJSON(html);
+				if(jobj['code']=='200'){
+					var d = Idialog({
+						top:120,
+						width:500,
+						title:'通知',
+						content:'设置成功',
+						ok:function(html){
+							window.location.href=window.location.href;
+							return true;
+						},
+						cancel:false,
+					});
+				}else{
+					var d = Idialog({
+						top:120,
+						width:500,
+						title:'通知',
+						content:'设置失败',
+						ok:function(obj){
+							return true;
+						},
+						cancel:false,
+					});
+				}
+			console.log("success");
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
+		
+	});
+</script>

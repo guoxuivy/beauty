@@ -1,0 +1,249 @@
+@charset "utf-8";
+/* CSS Document */
+body, div, dl, dt, dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote，th,td{margin:0;padding:0;list-style-type: none;}
+fieldset,img {border:0;}
+address,caption, cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}
+ol,ul {list-style:none;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+
+*{font-family:"微软雅黑";}
+.clear{ clear:both; height:1px; line-height:1px; font-size:1px;}
+body{ text-align:center; background-color:#fff; font-family:"微软雅黑";}
+.border_none{ border:none;}
+a {text-decoration:none;}
+a:hover{ text-decoration:underline;}
+input{outline:none;}
+
+.blue{ color:#07f;}
+.plat_color{ color:#999999;}
+body{ background-color:#f3f3f3;}
+.top{ height:80px; width:auto; display:block; background-color:#fff; border-bottom:solid 1px #ccc;}
+.top_center{width:1100px;height:80px;text-align:left;margin-top:0;margin-right:auto;margin-bottom:0;margin-left:auto;}
+.logo{width:159px;height:45px;margin-top:17px;float:left;}
+.logo_span{font-size:24px;float:left;line-height:30px;height:30px;color:#999;display:block;padding-top:25px;padding-left:15px}
+
+
+/*进入系统*/
+.goin_left{ float:left;}
+.goin_right{ float:right;}
+.goin_list{width:350px; height:440px; background-color:#fff; border:solid 1px #ddd; cursor:default;}
+.goin_list:hover{ border:solid 1px #62bbff; background-color:#fafafa;}
+.goin_list h2{ font-size:24px; text-align:center; display:block; height:100px; line-height:100px;}
+.goin_list_text{ font-size:14px; color:#333; line-height:28px; height:220px; border-top: dotted 1px #ddd; padding:10px 0px 10px 0px; margin:0px 14px 0px 14px;}
+.goin_list_button{ height:100px; display:block; text-align:center;border-top: dotted 1px #ddd;}
+.mei_button{ width:240px; height:50px; margin-top:25px; line-height:50px; font-size:16px; color:#fff; text-align:center; background-color:#0ed676; display:inline-block;}
+.mei_button:hover{ text-decoration:none; background-color:#00c164;}
+.gong_button{ width:240px; height:50px; margin-top:25px; line-height:50px; font-size:16px; color:#fff; text-align:center; background-color:#28c5ff; display:inline-block;}
+.gong_button:hover{ text-decoration:none; background-color:#0badf8;}
+
+
+/*注册步骤*/
+.page{background-color:#fff;width:1100px;min-height:600px;border:solid 1px #ddd;margin-top:30px;margin-right:auto;margin-bottom:30px;margin-left:auto;}
+.page_tit{height:44px;border-bottom:solid 1px #ddd;}
+.page_tit li{ height:44px; float:left;}
+.buzhou_1{background-image:url(../images/buzhou_bj1.jpg); background-repeat:no-repeat;}
+.buzhou_2{ background-image:url(../images/buzhou_bj2.jpg); background-repeat:no-repeat;}
+.buzhou_3{ background-image:url(../images/buzhou_bj3.jpg); background-repeat:no-repeat;}
+.buzhou_4{ background-image:url(../images/buzhou_bj4.jpg); background-repeat:no-repeat;}
+.buzhou_1_li{width:25%;text-align:center;color:#fff;font-size:14px;line-height:44px;}
+.buzhou_visit{width:25%;text-align:center;color:#666;font-size:14px;line-height:44px;}
+
+/*第一步*/
+
+/*基本资料框架*/
+.main{text-align:left;}
+.main_left{width:600px;border-right:1px solid #e7e7eb;float:left;padding-right:70px;padding-bottom:70px;padding-left:70px;margin-top:50px;}
+.main_right{color:#333;font-size:14px;float:left;text-align:center;display:block;padding:20px;line-height:24px;width:260px;margin-top:50px;}
+.main_right p{display:block;padding-bottom:20px;}
+.main_right p a{text-decoration:none;color:#07f;font-size:14px;}
+
+/*弹窗内容-表单*/
+.plat_list{display:block;padding-bottom:25px}
+.plat_list_left{width:100px;text-align:right;font-size:14px;float:left;line-height:40px;color:#333;}
+.plat_list_right{margin-left:115px;font-size:12px;color:#999;}
+.plat_list_right input:hover{border:solid 1px #62bbff !important;}
+.plat_list_right select:hover{border:solid 1px #62bbff !important;}
+
+.input_1{height:32px;line-height:32px;padding:4px;background-color:#fff;border:solid 1px #ddd;width:352px;font-size:14px; float:left;}
+.input_2{height:32px;line-height:32px;padding:4px;background-color:#fff;border:solid 1px #ddd;width:230px;font-size:14px;float:left;}
+.input_3{height:34px;line-height:34px;padding:4px;background-color:#0ed676;width:104px; margin-left:10px; cursor:pointer;border-radius: 4px; color:#fff;font-size:14px;float:left; text-align:center;}/*验证码*/
+.input_3:hover{background-color:#06c66a;}
+.input_4{height:34px;line-height:34px;padding:4px;background-color:#ccc;width:104px; margin-left:10px; cursor:default;border-radius: 4px; color:#fff;font-size:14px;float:left; text-align:center;}/*验证码120秒后可重发*/
+
+/*表单项提示及错误提示*/
+.plat_list_right p{display:block;color:#aaa;font-size:14px;line-height:20px;padding-top:5px;clear:both;}/*正常提示*/
+.plat_list_right p a{ color:#07f;}
+.red_text{ color:#f00 !important;}/*错误提示*/
+.red_border{border:solid 1px #f00 !important;}
+
+/*协议*/
+.plat_xieyi{display:block;padding-left:130px;font-size:14px;color:#bbb;line-height:24px;height:24px;padding-bottom:20px;}
+.plat_xieyi p{ cursor:pointer;}
+.plat_xieyi a{ color:#07f; margin-left:5px;}
+
+/*注册-按钮*/
+.start_goto{height:55px;display:block;text-align:center;padding-top:15px;border-top:solid 1px #eee;}
+
+/*可提交按钮*/
+.xiayibu_a{display:block;height:50px;line-height:50px;color:#fff;font-size:18px;background-color:#0ed676;text-decoration:none;border-radius:3px;width:360px;text-align:center;margin-left:115px;}
+.xiayibu_a:hover{ background-color:#06c66a; text-decoration:none;}
+
+/*不可提交按钮*/
+.no_xiayibu_a{display:block;height:50px;line-height:50px;color:#bbb;font-size:18px;background-color:#e5e5e5;text-decoration:none;border-radius:3px;width:360px;text-align:center;margin-left:130px;}
+.no_xiayibu_a:hover{ text-decoration:none; cursor:default;}
+
+/*注册时提醒弹窗*/
+.yanzheng_tan{width:550px;background-color:#fff;position:fixed;z-index:99999;text-align:left;border-radius:4px; left:50%; margin-left:-225px; top:50%; margin-top:-134px;}
+.yanzheng_tan_tit{ height:45px; line-height:45px; padding-left:15px; font-size:14px; color:#333; font-weight:bold; border-bottom:solid 1px #ddd;}
+.yanzheng_tan_tit span{width:50px;height:50px;display:block;float:right;cursor:pointer;background-image:url(../images/close_x.png);background-repeat:no-repeat;background-position:center center;filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity: 0.5;opacity: 0.5;}
+.yanzheng_tan_tit span:hover{filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8;opacity: 0.8;}
+.yanzheng_tan_page{ padding:15px;line-height: 2em; font-size:12px; color:#666;}
+
+/*第二步-选择类型*/
+.two_page{ padding:50px 110px 50px 110px;}
+
+.style_left{ float:left;}
+.style_right{ float:right;}
+.style_list{width:400px; height:520px; background-color:#fff; border:solid 1px #ddd; cursor:pointer;}
+.style_list:hover{ border:solid 1px #62bbff; background-color:#fafafa;}
+.style_list:hover .style_list_button{ color:#07f;}
+.style_list h2{display:block; height:46px; line-height:46px; padding-top:20px; padding-bottom:30px; padding-left:90px; font-size:24px;}
+.style_list h2 span{width:46px;height:46px;display:block;border-radius:25px;text-align:center;color:#fff;font-family:Arial,Helvetica,sans-serif;text-transform:uppercase; font-size:12px; float:left; margin-right:10px;}
+.style_list_text{ height:90px; font-size:14px; color:#999; line-height:24px; padding:0 12px 0 12px;}
+.style_list_text1{border-bottom:solid 1px #eee;color:#333;font-size:14px;margin-right:12px;margin-left:12px;line-height:20px;padding-bottom:7px;}
+.style_list_text2{color:#333;font-size:14px;padding: 12px;}
+.style_list_text2 ul li{ line-height:28px;}
+.style_list_text2 p{ display:block; padding-top:15px;}
+.style_list_text2 p a{ color:#07f;}
+.style_list_button{height:50px;line-height:50px;border-top:solid 1px #eee;font-size:14px;color:#333;}
+.style_list_button span{display:block;text-align:right;background-image:url(../images/login_you.png);background-repeat:no-repeat;background-position:right center; margin-right:12px; padding-right:15px;}
+
+/*第二步-选择类型-弹窗*/
+.two_tan{ width:660px; height:420px; background-color:#fff; position:fixed; z-index:99999; text-align:left;left:50%; margin-left:-330px; top:50%; margin-top:-210px;}
+.two_tan_tit{ height:50px; line-height:50px; background-color:#f4f5f9; color:#333; font-size:16px; padding-left:20px;}
+.two_tan_tit span{width:50px;height:50px;display:block;float:right;cursor:pointer;background-image:url(../images/close_x.png);background-repeat:no-repeat;background-position:center center;filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity: 0.5;opacity: 0.5;}
+.two_tan_tit span:hover{filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8;opacity: 0.8;}
+.two_tan_page{ height:305px;}
+.two_tan_page_text{height:50px;padding-top: 70px;margin-left: 165px;}
+.two_tan_page_text span{ background-color:#ff8686; width:50px; height:50px; margin-right:10px; line-height:50px; text-align:center; color:#fff; font-size:36px; font-family:Arial; float:left;border-radius:25px;}
+.two_tan_page_text p{ display:block; font-size:14px;}
+.two_tan_page_text1{font-size:14px;text-align:center;color:#999;margin-top:30px;margin-right:50px;margin-left:50px;}
+.two_tan_page_text1 p{line-height: 24px; display:block;}
+.two_tan_button{ height:70px; background-color:#f4f5f9; text-align:center;}
+.two_tan_button_ok{ width:120px; height:36px; line-height:36px; text-align:center; display:inline-block; background-color:#0ed676; color:#fff; font-size:14px;border-radius:2px; margin-top:17px; margin-right:10px;}
+.two_tan_button_ok:hover{ text-decoration:none; background-color:#06c66a;}
+.two_tan_button_no{ width:120px; height:34px; line-height:34px; text-align:center; display:inline-block; background-color:#fff; border:solid 1px #ddd; color:#666; font-size:14px;border-radius:2px; margin-top:17px;}
+.two_tan_button_no:hover{ color:#333; border:solid 1px #ccc; text-decoration:none;}
+
+/*第三步*/
+.main_left_pp{padding-right:70px;padding-bottom:70px;padding-left:70px;margin-top:50px;}
+.plat_list_tit{line-height:30px;font-size:14px;color:#333;margin-bottom:35px;border-bottom:solid 1px #eee;}
+.plat_list_tit span{ float:right;}
+.plat_list_tit span a{ color:#07f;}
+
+.select_1{ width:170px; margin-right:10px; height:40px; border:solid 1px #ddd;}
+.select_2{ width:360px;  height:40px; border:solid 1px #ddd;}
+
+.three_you{width:44%;display:inline-block;margin-right:20px;font-size:14px;line-height:24px;padding-top:8px;color:#333;}
+.three_you span{ cursor:pointer;}
+.serv_biao{ border:solid 1px #ddd; padding-top:20px;}
+.zhizhao{ width:150px; height:150px; border:solid 1px #ddd; float:left;}
+.zhizhao_update{ width:100px; height:40px; line-height:40px; font-size:14px; margin-left:12px; cursor:pointer; text-align:center; color:#fff; background-color:#17a5f7; float:left;}
+.zhizhao_update:hover{background-color:#03b5ff;}
+
+/*提交按钮-返回上一步*/
+.next_button{display:block;height:50px;line-height:50px;color:#fff;font-size:18px;background-color:#0ed676;text-decoration:none;border-radius:3px;width:210px;text-align:center; display:inline-block;}
+.next_button:hover{ background-color:#06c66a; text-decoration:none;}
+
+.go_back{display:block;height:48px;line-height:48px;color:#666;font-size:18px;background-color:#fff; border:solid 1px #eee;text-decoration:none;border-radius:3px;width:210px;text-align:center; margin-right:20px; display:inline-block;}
+.go_back:hover{ background-color:#fff; border:solid 1px #ccc; color:#333; text-decoration:none;}
+
+
+/*注册成功，等待审核*/
+.zc_ok_tit{font-size:30px;color:#0ac006;line-height:40px;height:40px;margin-top:110px;padding-left: 330px;}
+.zc_ok_tit span{width:38px;height:38px;display:block;float:left;background-image:url(../images/zc_ok.png);background-repeat:no-repeat;margin-right:10px}
+.zc_ok_page{color:#666;font-size:16px;line-height:30px;text-align:center;padding-top: 30px;	padding-bottom:20px;}
+.zc_ok_weixin{ border-top:dashed 1px #ddd; margin:0 100px 0 100px; padding-top:30px; text-align:center; display:block; line-height:40px; font-size:14px; color:#07f;}
+
+
+/*进入系统指引-返回上一步*/
+.back_up{ display:inline-block; padding:0px 20px 0px 20px; min-width:100px; height:40px; line-height:40px; color:#fff; font-size:14px; background-color:#47b8f3; border:solid 1px #2da5e4; margin:0 20px; text-decoration:none; border-radius:3px;}
+.back_up a:hover{background-color:#2ad8c6; border:solid 1px #19bfae;}
+
+/*底部*/
+.footer{ height:80px; display:block; background-color:#666;}
+.footer_center{width:1000px;line-height:40px;font-size:12px;color:#fff;margin-right:auto;margin-left:auto;height:40px;padding-top:20px}
+
+
+/*登录*/
+.denglu_body{display:block;min-height:700px;background-image:url(../images/login_bj.jpg);background-repeat:no-repeat;background-position:center top;padding-top:80px;padding-right:0;padding-left:0;}
+.login_page{width:1000px;background-color:#fff;min-height:550px;margin-right:auto;margin-left:auto;}
+.login_page_main{padding:50px;text-align:left}
+.login_page_left{width:600px;float:left;border-right:solid 1px #eee}
+.login_page_left_tit{display:block;padding-bottom:25px}
+.login_page_left_tit span{ width:180px; text-align:center; line-height:40px; font-size:18px; height:40px; display:inline-block; margin-right:15px; cursor:pointer;}
+.login_mei{ border:solid 1px #21c16c; background-color:#21c16c; color:#fff;}
+.login_gong{ border:solid 1px #eee; background-color:#fff; color:#999;}
+.login_gong:hover{ border:solid 1px #21c16c; background-color:#fff; color:#21c16c;}
+
+
+.login_page_right{float:left;color:#333;font-size:12px;float:left;text-align:left;display:block;line-height:30px;width:250px;padding-top:60px;padding-right:20px;padding-bottom:20px;padding-left:20px}
+.login_page_right_a{text-decoration:none;color:#fff;background-color:#21c16c;border-bottom:solid 3px #0ba855;width:200px;line-height:40px;height:40px;font-size:18px;display:block;padding-left:20px;padding-right:20px;text-align:center;margin-left:30px}
+.login_page_right_a:hover{ background-color:#04cb62;}
+.login_list{ padding-bottom:25px; display:block;}
+.input_login{height:30px;line-height:30px;border:solid 1px #ddd;background-color:#fff;padding:9px;width:80%;font-size:16px;font-family:"微软雅黑";display:inline-block}
+.input_login:hover{ border:solid 1px #07f;}
+
+.login_img{display:inline-block;border:solid 1px #ddd;float:left;margin-right:10px}
+
+.login_jizhu{font-size:14px; color:#666; cursor:pointer;}
+.login_jizhu:hover{ color:#333;}
+
+.login_button{width:185px;background-color:#00baff;height:48px;line-height:48px;display:inline-block;border-bottom:solid 3px #00a6e4;border-left:none;border-right:none;border-top:none;font-size:18px;cursor:pointer;color:#FFF;font-family:"微软雅黑";padding-right:20px;padding-left:20px}
+.login_button:hover{ background-color:#1bb1ff;}
+
+.forget_password{ font-size:14px; text-decoration:underline; margin-left:30px; color:#666;}
+.forget_password:hover{ color:#07f;}
+
+/*忘记密码步骤*/
+.forget_page{background-color:#fff;width:1000px;min-height:600px;border:solid 1px #ddd;margin-top:30px;margin-right:auto;margin-bottom:30px;margin-left:auto;}
+.forget_page_tit{height:44px;border-bottom:solid 1px #ddd;}
+.forget_page_tit li{ height:44px; float:left;}
+.forget_buzhou_1{background-image:url(../images/forget_bj1.jpg); background-repeat:no-repeat;}
+.forget_buzhou_2{ background-image:url(../images/forget_bj2.jpg); background-repeat:no-repeat;}
+.forget_buzhou_3{ background-image:url(../images/forget_bj3.jpg); background-repeat:no-repeat;}
+.forget_li{width:33.33%;text-align:center;color:#fff;font-size:14px;line-height:44px;}
+.forget_visit{width:33.33%;text-align:center;color:#666;font-size:14px;line-height:44px;}
+
+/*第一步*/
+.forget_pp{padding-bottom:80px;margin-top:80px;width:620px;margin-right:auto;margin-left:auto;}
+
+/*第二步*/
+.forget_two_text{ font-size:14px; color:#999; line-height:30px; padding-bottom:25px; padding-left:50px;}
+.forget_two_text1{ color:#999; font-size:14px; text-align:center; line-height:40px;}
+.forget_two_text1 a{ color:#07f;}
+
+
+
+
+/*广告位*/
+
+/*注册-top*/
+.advertising{ background-color:#ddd; display:block;box-shadow: 0px 2px 4px #ccc inset;}
+.advertising_page{ width:1100px; padding-top:15px; display:block; margin-top: 0; margin-right: auto; margin-bottom: 0; margin-left: auto; }
+.advertising_page img{ border:none; }
+
+/*注册-right*/
+.advertising_right{float: left;display: block;margin-left:40px;text-align:center;width: 220px;}
+.advertising_right img{ width:200px; height:350px;}
+
+/*右下角*/
+.King_Chance_Layer { position:fixed; right:0; bottom:0; width:0; height:0; z-index:999;}
+.King_Chance_LayerCont { position:absolute; width:400px; height:300px;font-size:12px; right:0; bottom:0; display:none; background-color:#ccc;}
+.King_Chance_Layer_Close { width:60px; height:16px; line-height:16px;  position:absolute; font-size:12px; right:0px; top:-16px; color:#fff;cursor:pointer;text-shadow:0 0 1px #000, 0 0 1px #000, 0 0 1px #000, 0 0 1px #000, 0 0 0px #000; text-align:center;}
+.King_Chance_Layer_Close span{ width:16px; height:16px; background-color:#a5a5a5; color:#fff; float:right;}
+.King_Chance_LayerCont img{ width:400px; height:300px;}
+
+/*登录-right*/
+.advertising_login{float:left;display:block;margin-left:30px;text-align:center;width:240px;margin-top:20px;}
+.advertising_login img{width:240px;height:200px;}

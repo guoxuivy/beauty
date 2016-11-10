@@ -1,0 +1,135 @@
+<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span><?php echo $CustomerVoucher->name; ?> 兑换 </div>
+<input name="vo_id"  type="hidden" value="<?php echo $id; ?>" class="vo_id"/>
+
+<div class="pos_cz_tow_two">
+	<div class="pos_kj_top" style="border:none;">
+		<div class="pos_kj_top_top">
+			<ul>
+				<li>可用现金金额：<?php echo $lastMoney;?>
+					<?php echo $this->dropDownList('capital_id',\CustomerCapital::getListArr($CustomerVoucher->cu_id,1),$model?$model->o_s->capital_id:'',array('class'=>'pos_kj_top_top_01 capital_id')) ?>
+					<input name="money" max_value="<?php echo $lastMoney;?>" type="text" value="<?php echo $model?$model->o_s->money:''; ?>" class="pos_kj_top_top_02 money"/>
+				</li>
+				<li>可用赠送金额：<?php echo $lastMoneyZS;?>
+					<?php echo $this->dropDownList('gift_capital_id',\CustomerCapital::getListArr($CustomerVoucher->cu_id,2),$model?$model->o_s->gift_capital_id:'',array('class'=>'pos_kj_top_top_01 gift_capital_id')) ?>
+					<input name="gift_money" max_value="<?php echo $lastMoneyZS;?>" type="text" value="<?php echo $model?$model->o_s->gift_money:''; ?>" class="pos_kj_top_top_02 gift_money"/>
+				</li>
+			</ul>
+		</div>
+		<div class="pos_kj_top_two">
+			<div class="pos_kj_top_two_l">可用项目：</div>
+			<div class="pos_kj_top_two_r"> 
+				<!--table_container-->
+				<div class="table_container"> 
+					<!--table_con-->
+					<div class="table_con"> 
+						
+						<!--table_con_son-->
+						<div class="table_con_son">
+							<div class="table_title">
+								<ul>
+									<li>项目名称</li>
+									<li>疗次</li>
+									<li>兑换次数</li>
+								</ul>
+							</div>
+							<?php 
+								if($lastPro)
+									foreach ($lastPro as $key => $value):
+										if ($value->pro_type!=1)continue;
+									$pro_num='';
+									if($model)
+										foreach ($model->pros as $pro) {
+											if($pro['pro_type']==$value->pro_type && $pro['pro_id']==$value->pro_id)
+											{
+												$pro_num=$pro['num'];
+												break;
+											}
+										}
+							 ?>
+							<div class="table_list clear">
+								<ul>
+									<li class="li001"><?php echo $value->name; ?></li>
+									<li class="li002 pro_num"><?php echo $value->num; ?></li>
+									<li class="li003">
+										<input type="text" max_value="<?php echo $value->num; ?>" pro_id="<?php echo $value->pro_id; ?>" pro_type="<?php echo $value->pro_type ?>" pro_price="<?php echo $value->price?>" value="<?php echo $pro_num; ?>" class="pos_cz_tow_two05 pro_num" />
+									</li>
+								</ul>
+							</div>
+							<?php endforeach; ?>
+						</div>
+						<!--table_con_son!end--> 
+						
+					</div>
+					<!--table_con!end--> 
+				</div>
+				<!--table_containter!end--> 
+				
+			</div>
+		</div>
+		<div class="pos_kj_top_two">
+			<div class="pos_kj_top_two_l">可用产品：</div>
+			<div class="pos_kj_top_two_r"> 
+				<!--table_container-->
+				<div class="table_container"> 
+					<!--table_con-->
+					<div class="table_con"> 
+						<!--table_con_son-->
+						<div class="table_con_son">
+							<div class="table_title">
+								<ul>
+									<li>产品名称</li>
+									<li>数量</li>
+									<li>兑换数量</li>
+								</ul>
+							</div>
+							<?php
+								if($lastPro)
+									foreach ($lastPro as $key => $value):
+										if ($value->pro_type!=2)continue;
+									$pro_num='';
+									if($model)
+										foreach ($model->pros as $pro) {
+											if($pro['pro_type']==$value->pro_type && $pro['pro_id']==$value->pro_id)
+											{
+												$pro_num=$pro['num'];
+												break;
+											}
+										}
+							 ?>
+							<div class="table_list clear">
+								<ul>
+									<li class="li001"><?php echo $value->name; ?></li>
+									<li class="li002 pro_num"><?php echo $value->num; ?></li>
+									<li class="li003">
+										<input type="text" max_value="<?php echo $value->num; ?>" pro_id="<?php echo $value->pro_id; ?>" pro_type="<?php echo $value->pro_type ?>" pro_price="<?php echo $value->price?>" value="<?php echo $pro_num; ?>" class="pos_cz_tow_two05 pro_num" />
+									</li>
+								</ul>
+							</div>
+							<?php endforeach; ?>
+						</div>
+						<!--table_con_son!end--> 
+						
+					</div>
+					<!--table_con!end--> 
+				</div>
+				<!--table_containter!end--> 
+				
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+table_flash();
+//收起效果
+	$(".pos_cz_tow_top_r").off().on('click',function(){
+		var self=$(this);
+		self.parent().next().slideToggle("fast",function(){
+			//alert("Animation Done.");
+			if(self.hasClass("pos_cz_tow_top_rcl")){
+				self.removeClass("pos_cz_tow_top_rcl");
+			}else{
+				self.addClass("pos_cz_tow_top_rcl");
+			}
+		});
+	});
+</script>

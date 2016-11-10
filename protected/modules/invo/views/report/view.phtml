@@ -1,0 +1,216 @@
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Itime.js"></script>
+<?php 
+	$md_list=\EmployDept::getList(true);
+?>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r"><span><a class="fjgl_top_r_05" href="javascript:">导出</a></span></div>
+		仓库管理><span>库存报告</span>><span><?php echo $product_name;?></span>
+	</div>
+
+	<!--sjbb_ddkl_one-->
+	<div class="sjbb_ddkl_one">
+		<ul>
+    <li>
+      <div class="sjbb_ddkl_one_l">日期：</div>
+      <div class="sjbb_ddkl_one_r">
+        <div class="sjbb_ddkl_one_r_son" id="choose_time">
+        </div>
+      </div>
+    </li>
+		<li>
+			<div class="sjbb_ddkl_one_l">门店范围：</div>
+			<div class="sjbb_ddkl_one_r">
+				<div class="sjbb_ddkl_one_r_son choose_md">
+					<?php foreach ($md_list as $key => $value): ?>
+					<a href="javascript:" rel="<?php echo $key ?>"><span></span><?php echo $value ?></a>
+					<?php endforeach ?>
+				</div>
+			</div>
+		</li>
+		<li class="lastli">
+				<div class="sjbb_ddkl_one_l">
+				</div>
+				<div class="sjbb_ddkl_one_r">
+					<div class="sjbb_ddkl_one_r_son">
+						<a href="javascript:" class="changa01">搜索</a>
+					</div>
+				</div>
+		</li>
+		</ul>
+	</div> <!--sjbb_index_onesjbb_ddkl_oneend-->
+
+    <!--table_container-->
+    <div class="table_container">
+        <!-- <div class="table_title_tj">...</div>-->
+        <!--table_con-->
+        <div class="table_con">
+            <!--table_con_son-->
+            <div class="table_con_son">
+                <div class="table_title khgl_com_ck">
+                    <div class="khgl_com_ck_tilte"></div>
+                    <ul>
+                        <li>业务类型</li>
+                        <li>业务日期</li>
+                        <li>交易部门</li>
+                        <li>入库</li>
+                        <li>出库</li>
+                        <li>报损</li>
+                        <li>报溢</li>
+                        <li>结存</li>
+                        <li>客户存</li>
+                        <li>客户取</li>
+                        <li>客户退</li>
+                        <li>寄存结存</li>
+                    </ul>
+                </div>
+
+                <div class="table_list khgl_com_ck clear khgl_com_ck_list_01">
+                    <div class="khgl_com_ck_list">期初</div>
+                    <ul>
+                        <li class="li001"></li>
+                        <li class="li002"></li>
+                        <li class="li003"></li>
+                        <li class="li004"></li>
+                        <li class="li005"></li>
+                        <li class="li006"></li>
+                        <li class="li007"></li>
+                        <li class="li008"><?php echo $qckc['num']?></li>
+                        <li class="li009"></li>
+                        <li class="li009"></li>
+                        <li class="li009"></li>
+                        <li class="li009"><?php echo $qckc['storage_num']?></li>
+                    </ul>
+                </div>
+
+                <?php $rk_total=0;$ck_total=0;$baos_total=0;$baoy_total=0;$khc_num_total=0;$khq_num_total=0;$kht_num_total=0;$jcjc_num=$qckc['storage_num']?>
+                <?php foreach($data as $item):?>
+                    <div class="table_list khgl_com_ck clear">
+                        <div class="khgl_com_ck_list"></div>
+                        <ul>
+                            <li class="li001"><?php echo $item['type']?></li>
+                            <li class="li002"><?php echo $item['create_time']?></li>
+                            <li class="li003"><?php echo $item['dept_name']?></li>
+                            <li class="li004"><?php echo $item['rk']?></li>
+                            <li class="li005"><?php echo $item['ck']?></li>
+                            <li class="li006"><?php echo $item['baos']?></li>
+                            <li class="li007"><?php echo $item['baoy']?></li>
+                            <li class="li008"><?php echo $item['jc_num']?></li>
+                            <li class="li009"><?php echo $item['khc_num']?></li>
+                            <li class="li009"><?php echo $item['khq_num']?></li>
+                            <li class="li009"><?php echo $item['kht_num']?></li>
+                            <li class="li009"><?php $jcjc_num +=$item['jcjc_num']; echo $item['jcjc_num']!='/'?$jcjc_num:'/';?></li>
+                            <?php if($item['jc_num']!='/') $jc_num = $item['jc_num'];?>
+                        </ul>
+                    </div>
+                    <?php
+                        $rk_total += $item['rk'];
+                        $ck_total += $item['ck'];
+                        $baos_total += $item['baos'];
+                        $baoy_total += $item['baoy'];
+                        $khc_num_total += $item['khc_num'];
+                        $khq_num_total += $item['khq_num'];
+                        $kht_num_total += $item['kht_num'];
+                    ?>
+                <?php endforeach;?>
+
+                <div class="table_list khgl_com_ck clear khgl_com_ck_list_01">
+                    <div class="khgl_com_ck_list">合计</div>
+                    <ul>
+                        <li class="li001"></li>
+                        <li class="li002"></li>
+                        <li class="li003"></li>
+                        <li class="li004"><?php echo $rk_total;?></li>
+                        <li class="li005"><?php echo $ck_total;?></li>
+                        <li class="li006"><?php echo $baos_total;?></li>
+                        <li class="li007"><?php echo $baoy_total;?></li>
+                        <li class="li008"><?php echo $jc_num;?></li>
+                        <li class="li009"><?php echo $khc_num_total;?></li>
+                        <li class="li009"><?php echo $khq_num_total;?></li>
+                        <li class="li009"><?php echo $kht_num_total;?></li>
+                        <li class="li009"><?php echo $jcjc_num;?></li>
+                    </ul>
+                </div>
+
+            </div><!--table_con!end-->
+        </div><!--table_con!end-->
+    </div>
+    <!--table_containter!end-->
+
+</div>
+<!--content_right_con!end-->
+
+
+
+<script type="text/javascript">
+
+$(function(){
+    $(".table_title ul li").css('min-width','73px');
+    table_flash();
+	var t = Itime({
+		content:$('#choose_time'),
+		<?php if (isset($_GET['begin'])): ?>
+		begin:'<?php echo $_GET["begin"]?>', //填充默认时间
+		<?php endif ?>
+		<?php if (isset($_GET['end'])): ?>
+		end:'<?php echo $_GET["end"]?>', //填充默认时间
+		<?php endif ?>
+		//type:'d',  	  // 日 模式
+	})._self.find("a,br").remove();
+
+	//门店、范围选择
+	$(".choose_md a,.choose_xm a,.choose_cp a").click(function(){
+		var rel=$(this).attr("rel");
+		if($(this).find("span").hasClass("span_01")){
+			$(this).find("span").removeClass("span_01");
+			if(rel=="0")
+				$(".choose_md span").removeClass("span_01");
+		}else{
+			$(this).find("span").addClass("span_01");
+			if(rel=="0")
+				$(".choose_md span").addClass("span_01");
+		}
+	});
+  //搜索提交
+  $(".changa01").click(function(){
+    var md_id=getMd();
+    if(md_id==''){
+      Idialog.tips('门店未选择！',2);
+      return;
+    }
+    
+
+    var begin=$(".itime").find(".b_y").val()+""+$(".itime").find(".b_m").val()+""+$(".itime").find(".b_d").val();
+    var end  =$(".itime").find(".e_y").val()+""+$(".itime").find(".e_m").val()+""+$(".itime").find(".e_d").val();
+      var pid = '<?php echo $_GET['pid']?>';
+    to_url('<?php echo $this->url("view") ?>&md_id='+md_id+'&begin='+begin+'&end='+end+'&pid='+pid);
+  });
+
+<?php if ($this->controller->is_store): ?>
+    $(".choose_md").find("a").trigger("click");
+    <?php if (!isset($_GET['md_id'])): ?>
+    $(".changa01").trigger('click');
+    <?php endif ?>
+<?php else: ?>
+  //填充默认门店
+  <?php if (isset($_GET['md_id'])): ?>
+  <?php foreach (explode(',', $_GET['md_id']) as $v): ?>
+    $(".choose_md").find("a[rel='<?php echo $v ?>']").trigger("click");
+  <?php endforeach ?>
+  <?php endif ?>
+<?php endif ?>
+	function getMd(){
+		if($(".choose_md a[rel='0']").find("span").hasClass("span_01"))
+			return "0";
+		var l = $(".choose_md a").map(function(){
+			if($(this).find("span").hasClass("span_01"))
+				return $(this).attr("rel");
+		}).get().join(",");
+		return l;
+	}
+
+
+
+});
+</script>

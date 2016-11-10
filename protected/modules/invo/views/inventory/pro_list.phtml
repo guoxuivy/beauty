@@ -1,0 +1,17 @@
+
+
+<?php foreach($list as $item):?>
+    <div class="table_list clear" data-id="<?php echo $item['id']?>" data-pid="<?php echo $item['product_id']?>">
+        <ul>
+            <li class="li001"><?php echo $item['fname']?></li>
+            <li class="li002"><?php echo $item['cname']?></li>
+            <li class="li003"><?php echo $item['name']?></li>
+            <li class="li004"><?php echo $item['code']?></li>
+            <li class="li005"><?php echo $item['num']?></li>
+            <li class="li006"><?php echo $item['storage_num']?></li>
+            <li class="li007"><?php echo $item['extra_num']?></li>
+            <li class="li008"><input type="text" name="num" class="pos_cz_tow_two05" /></li>
+            <li class="li009 extra_num" ><input type="text" name="extra_num" class="pos_cz_tow_two05" /></li>
+        </ul>
+    </div>
+<?php endforeach;?>

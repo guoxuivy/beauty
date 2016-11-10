@@ -1,0 +1,171 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+    <title>HOWA</title>
+
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileColor" content="#0e90d2">
+
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/amazeui.min.css">
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/app.css">
+</head>
+<body class="has-header has-nav">
+
+<header class="am-text-center am-padding-sm fixed-top">
+    <b><?php echo $store_name ?></b>
+
+    <div class="am-fr"><i class="am-icon-refresh"></i></div>
+</header>
+
+<div class="am-padding-sm home-performance">
+    <div>今日销售业绩（元）</div>
+    <div class="am-text-center am-padding-top-sm">
+        <div id="performance">
+            <span class="t_num"></span>.<span class="t_num_dec"></span>
+            <i class="am-icon-angle-right am-fr"></i></div>
+    </div>
+    <div class="am-text-center am-margin-bottom-sm">仅显示现金业绩</div>
+</div>
+<ul class="am-avg-sm-3 am-padding-top-sm am-padding-bottom-sm sub-nav">
+    <li class="am-text-center">
+        <div>今日实耗业绩</div>
+        <div><?php echo $target['sc_d'] ?></div>
+    </li>
+    <li class="am-text-center">
+        <div>成交人头</div>
+        <div><?php echo $target['cj_d'] ?></div>
+    </li>
+    <li class="am-text-center">
+        <div>客流</div>
+        <div><?php echo $target['kk_d'] ?></div>
+    </li>
+</ul>
+<div class="am-padding-sm">
+    <div class="box am-padding-sm">
+        <div class="title am-padding-bottom-sm">销售业绩完成率</div>
+        <ul class="am-avg-sm-3 am-padding-top-sm">
+            <li class="am-text-center">
+                <div>目标业绩(元)</div>
+                <div><?php echo $target['sale_target'] ?></div>
+            </li>
+            <li class="am-text-center">
+                <div>完成业绩(元)</div>
+                <div><?php echo $target['xj_m'] ?></div>
+            </li>
+            <?php $xs = round($target['xj_m']/$target['sale_target'],2)*100; ?>
+            <?php if($xs>50){$reverse="reverse"; $deg=$xs>100?180:$xs/100*360-180;}else{$reverse="";$deg=$xs/100*360;} ?>
+            <li class="am-text-center am-padding-left-xs">
+                <div class="spinner am-inline-block">
+                    <div class="top"></div>
+                    <div class="bottom <?php echo $reverse ?>" style="transform: rotateZ(<?php echo $deg ?>deg);"></div>
+                    <div class="content">
+                        <div><?php echo $xs ?>%</div>
+                        <div>
+                            <small>完成率</small>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="box am-padding-sm am-margin-top-sm">
+        <div class="title am-padding-bottom-sm">实操业绩完成率</div>
+        <ul class="am-avg-sm-3 am-padding-top-sm">
+            <li class="am-text-center">
+                <div>目标业绩(元)</div>
+                <div><?php echo $target['prac_target'] ?></div>
+            </li>
+            <li class="am-text-center">
+                <div>完成业绩(元)</div>
+                <div><?php echo $target['sc_m'] ?></div>
+            </li>
+            <?php $sc = round($target['sc_m']/$target['prac_target'],2)*100; ?>
+            <?php if($sc>50){$reverse="reverse"; $deg = $sc>100?180:$sc/100*360-180;}else{$reverse="";$deg=$sc/100*360;} ?>
+            <li class="am-text-center am-padding-left-xs">
+                <div class="spinner am-inline-block">
+                    <div class="top"></div>
+                    <div class="bottom <?php echo $reverse ?>" style="transform: rotateZ(<?php echo $deg ?>deg);"></div>
+                    <!-- <div class="bottom reverse" style="transform: rotateZ(90deg);"></div> -->
+                    <div class="content">
+                        <div><?php echo $sc ?>%</div>
+                        <div>
+                            <small>完成率</small>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<nav>
+    <ul class="am-avg-sm-3">
+        <li class="am-text-center active"><i class="am-icon-md am-icon-home"></i><div>首页</div></li>
+        <li class="am-text-center"><i class="am-icon-md am-icon-bar-chart"></i><div>数据报表</div></li>
+        <li class="am-text-center"><i class="am-icon-md am-icon-user"></i><div>我</div></li>
+    </ul>
+</nav>
+
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/jquery.min.js"></script>
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/amazeui.min.js"></script>
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/animateBackground-plugin.js"></script>
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/my.js"></script>
+
+<script>
+    function show_num(n) {
+        n = String(n);
+        $(".t_num i").remove();
+        var int = n;
+        var dec = "00";
+        if (n.indexOf(".") > -1) {
+            console.log();
+            int = n.substring(0, n.indexOf("."));
+            dec = n.substring(n.indexOf(".") + 1);
+        }
+        console.log("n: " + n + ", int: " + int +", dec: " + dec);
+        var len = int.length;
+        for (var i = 0; i < len; i++) {
+            $(".t_num").append("<i></i>");
+            var num = int.charAt(i);
+            var y = - parseInt(num) * 40;
+            var obj = $(".t_num i").eq(i);
+            obj.animate({backgroundPosition: '(0 ' + String(y) + 'px)'}, 'slow', 'swing', function () {});
+        }
+
+        len = dec.length;
+        for (var i = 0; i < len; i++) {
+            $(".t_num_dec").append("<i></i>");
+            var num = dec.charAt(i);
+            var y = - parseInt(num) * 32;
+            var obj = $(".t_num_dec i").eq(i);
+            obj.animate({backgroundPosition: '(0 ' + String(y) + 'px)'}, 'slow', 'swing', function () {});
+        }
+    }
+
+$(function () {
+    show_num(<?php echo $target['xj_d'] ?>);
+});
+</script>
+
+</body>
+</html>

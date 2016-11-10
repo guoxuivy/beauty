@@ -1,0 +1,123 @@
+<?php 
+$count=(int)\CustomerReProject::model()->getSumByUser($model->id)->sum_re_num;
+?>
+
+<link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
+
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="khgl_01"><img src="<?php echo $this->basePath('public') ?>/images/kh_01.png" /></div>客户管理><span><?php echo $model->name; ?></span>><span class="khgl_da_01">剩余实操疗次（<?php echo $count;?>）</span>
+	</div>
+
+	<div class="khgl_da_top khgl_zhdt_01">
+      		<ul>
+            	<li><a href="<?php echo $this->url('zhdt',array('id'=>$id)) ?>">账户动态</a></li>
+                <li><a href="<?php echo $this->url('sysclc',array('id'=>$id)) ?>" class="khgl_da_03">剩余实操疗次（<?php echo $count;?>）</a></li>
+                <li><a href="<?php echo $this->url('score',array('id'=>$id)) ?>">积分记录</a></li>
+                <li><a href="<?php echo $this->url('kjgl',array('id'=>$id)) ?>">卡券管理</a></li>
+            </ul>
+        
+      </div>
+<!--  模版引擎扩展 -->
+<?php echo $this->datagrid(array(
+		'dataProvider'=>$pager,
+		'columns'=>array(
+			array(
+				'header' => '项目名称',
+				'name'   => 'piname',
+			),
+			array(
+				'header' => '购买日期',
+				'value'  => '{date("Y-m-d H:i",$data["pay_time"])}',
+			),
+			array(
+				'header' => '购买订单号',
+				'name'   => 'sn',
+			),
+			array(
+				'header' => '购买总次数',
+				'name'   => 'osd_num',
+			),
+			array(
+				'header' => '购买金额',
+				'name'   => 'gmje',
+			),
+			array(
+				'header' => '已实操次数',
+				'name'   => 'user_num',
+			),
+			array(
+				'header' => '已消耗金额',
+				'value' =>  '{$data["osd_num"]?sprintf("%.2f",$data["gmje"]/$data["osd_num"]*$data["user_num"]):""}',
+			),
+			array(
+				'header' => '剩余次数',
+				'name'   => 'sy_num',
+			),	
+			array(
+				'header' => '剩余金额',
+				'value' => '{$data["osd_num"]?sprintf("%.2f",$data["gmje"]/$data["osd_num"]*$data["sy_num"]):""}',
+			),	
+			array(
+				'header' => '最近实操时间',
+				'value'   => '{\PracticeOrderDetail::getLastTime($data["detail_id"])}',
+			),		
+		),
+	));?>
+	
+</div>
+<!--content_right_con!end-->
+
+
+
+
+
+<script type="text/javascript">
+
+$(function(){
+	$(document).on('click','.delete',function(){
+		var obj = $(this).parent().parent().parent();
+		var id = $(this).parent().attr('rel');
+
+		var d = Idialog({
+			top:120,
+			width:500,
+			title:'通知',
+			content:'您确认删除吗？',
+			ok:function(html){
+				$.get("<?php echo $this->url('delete') ?>", { id: id },function(html){
+					var jobj = $.parseJSON(html);
+					if(jobj['code']=='200'){
+						var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'删除成功',
+							ok:function(html){
+								obj.remove();
+								return true;
+							},
+							cancel:false,
+						});
+					}else{
+						var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'删除失败',
+							ok:function(obj){
+								return true;
+							},
+							cancel:false,
+						});
+					}
+				});
+				return true;
+			},
+			cancel:true,
+		});
+	});
+});
+</script>

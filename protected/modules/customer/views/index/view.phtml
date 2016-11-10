@@ -1,0 +1,994 @@
+<style type="text/css">
+/*备注 防止css删除 找回*/
+/*.help{ display:inline-block; width:17px; height:17px; background:url(../images/kh_xx_018.png) no-repeat; margin-left:6px; position:relative; top:4px;}
+.help_ms{min-height:48px; height:auto !important; width:260px; padding:2px 2px 3px 10px; position:absolute; background:#f0fff9; border:1px solid #9bd7be; left:24px; top:-4px;z-index:999; display:none;}
+.help_icon{ background:url(../images/kh_xx_020_025.png) no-repeat;display:inline-block; width:8px; height:13px; position:absolute; left:-8px; top:6px;}
+.help_ti{ font-size:12px; color:#1bab70;}*/
+
+.avatar{cursor: pointer;}
+.avatar_box{
+	width: 100%;
+    height: 330px;
+}
+.action
+{
+    width: 300px;
+    height: 30px;
+	display:block;
+	padding-top:10px;
+    clear: both;
+}
+.cropped{float: right; border:solid 1px #07f;}
+.cropped>img
+{
+    margin: 5px;
+}
+.imageBox
+{
+	float: left;
+    position: relative;
+    height: 300px;
+    width: 300px;
+    border:1px solid #fff;
+    background: #fff;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    cursor:move;
+}
+
+.imageBox .thumbBox
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    margin-top: -75px;
+    margin-left: -75px;
+    box-sizing: border-box;
+    border: 1px solid rgb(102, 102, 102);
+    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.1);
+    background: none repeat scroll 0% 0% transparent;
+}
+
+.imageBox .spinner
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    line-height: 400px;
+    background: rgba(0,0,0,0.7);
+}
+.tjfj_two input{ width:auto; height:auto; background:auto;}
+</style>
+
+<?php $cu_avatar=$model->getAvatar($model->id);?>
+
+<!--content_right_con-->
+
+<div class="content_right_con">
+	<div class="content_right_con_top"> 
+		<?php if($model->cart_init==2):?>
+			<div class="fjgl_top_r">
+				<span><a href="<?php echo $this->url('pos/init/add',array('id'=>$model->id));?>" class="fjgl_top_r_02 tjfjz">新建期初</a></span>
+			</div>
+		<?php endif;?>
+		<div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>
+		客户管理><span><?php echo $model->name; ?></span>
+	</div>
+
+	
+	<div class="tjfj" style=" top:100px; width:550px;">
+		<div class="tjfj_top" style="cursor:default">修改头像</div>
+		<div class="tjfj_two">
+		<!-- 头像裁剪 -->
+		<div class="avatar_box" style="display:block;">
+		<div class="imageBox" style="height:300px;width:300px;">
+		<div class="thumbBox"></div>
+		<div class="spinner" style="display: none">Loading...</div>
+		</div>
+		<div class="cropped"></div>
+		<div class="action">
+		<input type="file" id="file" style="float:left; width: 150px">
+		<!--<input type="button" id="btnSave" value="保持" style="float: right">-->
+		<input type="button" id="btnCrop" value="裁剪 " style="float: right; height:20px; line-height:20px; margin-left:5px; text-align:center;">
+		<input type="button" id="btnZoomIn" value="+  " style="float: right; height:20px; line-height:20px; margin-left:5px; text-align:center;">
+		<input type="button" id="btnZoomOut" value="-  " style="float: right; height:20px; line-height:20px; margin-left:5px; text-align:center;">
+		</div>
+		</div>
+		<!-- 头像裁剪end -->
+		</div>
+		<div class="tjfj_two_an"><a href="javascript:$('.tjfj').hide();" class="fjgb">取消</a><a id="btnSave" href="javascript:;">确定</a></div>
+	</div>
+	
+	<!--khgl_shouye-->
+	<div class="khgl_shouye" style="clear:both;">
+		<div title="编辑头像" class="khgl_shouye_l avatar"><img src="<?php echo $cu_avatar;?>" height="102" width="102" /></div>
+		<div class="khgl_shouye_r">
+			<div class="khgl_shouye_r_son">
+				<div class="khgl_shouye_r_top">
+					<ul>
+						<li>
+							<span class="khgl_shouye_r_top_01"><?php echo $model->name; ?></span>
+							<span class="khgl_shouye_r_top_02"><?php echo mb_substr($model->cu_type,0,1,'utf-8');?></span>
+							<span class="khgl_shouye_r_top_03"><?php echo $model->getSmallStatus($model->status); ?></span>
+						</li>
+						<li>会员来源：<span class="khgl_shouye_r_top_04"><?php echo $model->getComeType($model->come_type); ?></span></li>
+						<li>会员状态：<span class="khgl_shouye_r_top_05"><?php echo $model->getStatus($model->status); ?></span></li>
+						<li><span class="khgl_shouye_r_top_07"><?php echo $model->lname; ?></span>（卡号：<?php echo $model->cardid;?>）</li>
+						<li>档案归属：<span class="khgl_shouye_r_top_08"><?php echo $model->dept_name; ?></span></li>
+						<li>最近到店：<span class="khgl_shouye_r_top_04"><?php echo $model->last_time?date('Y-m-d H:i',$model->last_time):""; ?></span></li>
+					</ul>
+				</div>
+				<div class="khgl_shouye_r_two">
+					<a class="khgl_shouye_r_two_04" href="<?php echo $this->url('edit',array('id'=>$id)) ?>">个人档案</a>
+					<a class="khgl_shouye_r_two_03 action_qr"  target="qr" href="<?php echo $this->url('qr',array('id'=>$model->id))?>" title="二维码">二维码</a>
+					<span class="khgl_shouye_r_two_01">顾</span>
+					<span class="khgl_shouye_r_two_02"><?php echo $model->cnetname ?></span>
+					<span class="khgl_shouye_r_two_01">美</span>
+					<span class="khgl_shouye_r_two_02"><?php echo $model->onetname ?></span> 
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--khgl_shouye!end--> 
+	<!--khgl_shouye01-->
+	<div class="khgl_shouye khgl_sy_two">
+		<div class="khgl_sy_two_son">
+			<div class="khgl_sy_two_son_top"><span class="khgl_sy_two_son_top_ico"><img src="<?php echo $this->basePath('public');?>/images/kh_xx_013.png" /></span>储值账户</div>
+			<ul>
+				<li>欠款<div class="help" explain="账户总欠款"></div>
+					<div class="khgl_sy_two_03"> <span class="khgl_sy_two_06"><?php echo $model->arrears; ?></span>元</div>
+				</li>
+				<?php $CustomerCapital=\CustomerCapital::model()->getListByUser($model->id);
+				foreach ((array)$CustomerCapital as $key => $value): ?>
+				<li><?php echo $value['name'] ?>
+					<div class="help" explain="<?php echo $value['note']?$value['note']:'无'; ?>"></div>
+					<div class="khgl_sy_two_03"> <span class="khgl_sy_two_04"><?php echo $value['balance']?$value['balance']:'0.00' ?></span>元</div>
+				</li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+		<?php $count=(int)\CustomerReProject::model()->getSumByUser($model->id)->sum_re_num;?>
+		<div class="khgl_sy_two_son">
+			<div class="khgl_sy_two_son_top"><span class="khgl_sy_two_son_top_ico khgl_sy_two_08"><img src="<?php echo $this->basePath('public');?>/images/kh_xx_014.png" /></span>疗程账户<em class="khgl_sy_two_07">（剩余疗次）</em></div>
+			<ul>
+				<li>剩余实操疗次
+					<div class="khgl_sy_two_03"><span class="khgl_sy_two_09"><?php echo $count; ?></span>疗次<a href="<?php echo $this->url('sysclc',array('id'=>$model->id)) ?>" class="khgl_sy_two_010">详情</a></div>
+				</li>
+				<li class="khgl_sy_two_011"> 
+					<?php $CustomerReProject=\CustomerReProject::model()->getListByUser($model->id);
+					foreach ((array)$CustomerReProject as $key => $value):?>
+						<a href="javascript:;" class="clear">
+							<div class="khgl_sy_two_013"><span class="khgl_sy_two_012"><?php echo (int)$value['sum_re_num'] ?></span>疗次</div><?php echo $value['name'] ;?>
+						</a>
+					<?php endforeach; ?>
+					<a href="<?php echo $this->url('sysclc',array('id'=>$model->id)) ?>" class="clear a">查看更多></a>
+				</li>
+			</ul>
+		</div>
+		<div class="khgl_sy_two_son">
+			<div class="khgl_sy_two_son_top"><span class="khgl_sy_two_son_top_ico"><img src="<?php echo $this->basePath('public');?>/images/kh_xx_015.png" /></span>积分账户</div>
+			<ul>
+				<li>可用积分
+					<div class="khgl_sy_two_03"> <span class="khgl_sy_two_09"><?php echo $model->score; ?></span> </div>
+				</li>
+				<li>已使用积分
+					<div class="khgl_sy_two_03"> <span><?php echo (int)\CustomerScoreLog::getSumByUser($model->id)->sum_score; ?></span></div>
+				</li>
+				<li class="khgl_sy_two_011"> 
+					<?php $CustomerScoreLog=\CustomerScoreLog::getListByUser($model->id);
+					foreach ((array)$CustomerScoreLog as $key => $value):?>
+					<a href="javascript:;" class="clear">
+					<div class="khgl_sy_two_013"><span class="khgl_sy_two_012"><?php echo $value['pos_dir']=='in'?'收入':'支出'; ?></span><span class="khgl_sy_two_014"><?php echo $value['pos_dir']=='in'?'+':'-',$value['score']; ?></span></div>
+					<?php echo date('m/d',strtotime($value['create_time'])),$value['pos_dir']=='in'?'赠送积分':'使用积分' ?></a> 
+					<?php endforeach; ?>
+					<a href="<?php echo $this->url('score',array('id'=>$id)) ?>" class="clear a">查看更多></a>
+				</li>
+			</ul>
+		</div>
+		<?php $CustomerVoucher=\CustomerVoucher::getNum($model->id); ?>
+		<div class="khgl_sy_two_son khgl_sy_two_01">
+			<div class="khgl_sy_two_son_top"><span class="khgl_sy_two_son_top_ico"><img src="<?php echo $this->basePath('public');?>/images/kh_xx_016.png" /></span>卡券账户</div>
+			<ul>
+				<li>可用卡券
+					<div class="khgl_sy_two_03"> <span class="khgl_sy_two_09"><?php echo $CustomerVoucher->kykj; ?></span></div>
+				</li>
+				<li>已用卡券
+					<div class="khgl_sy_two_03"> <span><?php echo $CustomerVoucher->yykj ?></span></div>
+				</li>
+				<li>失效卡券
+					<div class="khgl_sy_two_03"> <span><?php echo $CustomerVoucher->sxkj ?></span></div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!--khgl_shouye01!end--> 
+	
+	<!--选项卡-->
+	<div class="khgl_sy_change" style="margin-bottom:10px;">
+		<div class="khgl_sy_change_l">最近20条交易记录</div>
+		<div class="khgl_sy_change_r">
+			<ul class="action_tab">
+				<li><a href="javascript:;">消费记录</a></li>
+				<li><a href="javascript:;">账户动态</a></li>
+				<li><a href="javascript:;">剩余疗次</a></li>
+				<li><a href="javascript:;">实耗记录</a></li>
+				<li><a href="javascript:;">寄存记录</a></li>
+				<li><a href="javascript:;">领取记录</a></li>
+				<li><a href="javascript:;">退款记录</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!--选项卡!end--> 
+	<div id="action_tables" style="clear:both;">
+		<?php
+        //消费记录
+        $data=\OrderSale::model()->order('`pay_time` DESC')->limit('0,20')->findAll("cu_id={$model->id} and status>0 and pay_status=1");
+        echo $this->datagrid(array(
+            'dataProvider'=>array('list'=>$data),
+            'columns'=>array(
+                array(
+                    'header' => '订单类型',
+                    'value' => '{\OrderSale::getType($data["type"])}',
+                ),
+                array(
+                    'header' => '项目/产品',
+                    'value' => '{\OrderSale::getProNames($data["id"])}',
+                ),
+                array(
+                    'header' => '应付金额',
+                    'name' => 'pay_price',
+                ),
+                array(
+                    'header' => '实收现金',
+                    'name' => 'cash',
+                    'value'=>'{$data["cash"]+$data["cash_pos"]+$data["cash_tra"]+$data["cash_other"]}',
+                ),
+                array(
+                    'header' => '卡扣金额',
+                    'name' => 'cash_card',
+                ),
+                array(
+                    'header' => '订单欠款',
+                    'name'=>'current_arrears',
+                ),
+                array(
+                    'header' => '订单状态',
+                    'value' => '{\OrderSale::getStatus($data["status"])}',
+                ),
+                array(
+                    'header' => '操作',
+                    'headerCss'=>'width:80px',
+                    'rel'=>'id',
+                    'value'=> '<a href="{\OrderSale::model()->getOrderUrl($data["type"],$data["id"]);}" target="new" class="khca"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看</a>',
+                ),
+                
+            ),
+        ));?>
+    <?php
+    //账户动态
+    $data=\CustomerCapitalLog::model()->getCapitalLog($model->id);
+    echo $this->datagrid(array(
+        'dataProvider'=>array('list'=>$data),
+        'columns'=>array(
+            array(
+                'header' => '日期',
+                'name' => 'ctime',
+            ),
+            array(
+                'header' => '单据号',
+                'name' => 'sn',
+            ),
+            array(
+                'header' => '账户名称',
+                'name' => 'cvname',
+            ),
+            array(
+                'header' => '业务类型',
+                'value'=>'{$data["pos_dir"]=="in"?"存入":"取出"}',
+            ),
+            array(
+                'header' => '变更前',
+                'name'=>'before_money',
+            ),
+            array(
+                'header' => '存入（充值）',
+                'value' => '{$data["pos_dir"]=="in"?$data["money"]:""}',
+            ),
+            array(
+                'header' => '取出（卡扣）',
+                'value'=>'{$data["pos_dir"]=="in"?"":$data["money"]}',
+            ),
+            array(
+                'header' => '变更后',
+                'name'=>'after_money',
+            ),
+            array(
+                'header' => '操作',
+                'headerCss'=>'width:80px',
+                'rel'=>'id',
+                'value'=> '<a href="{\OrderSale::model()->getOrderUrl($data["type"],$data["id"]);}" target="new" class="khca"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看</a>',
+            )
+            
+        ),
+    ));?>
+    <?php
+    //剩余实操疗次
+    $data=\CustomerReProject::model()
+    ->field(array("t.id","pi.name piname","IFNULL(os.pay_time,ov.pay_time) pay_time","IFNULL(os.sn,ov.sn) sn","osd.num osd_num","(osd.cash+osd.card_cash) gmje","t.user_num","(t.re_num) sy_num","t.detail_id"))
+    ->join('project_info pi on t.project_id=pi.id')
+    ->join('order_sale_detail osd on t.detail_id=osd.id')
+    ->join('order_sale os on osd.order_id=os.id and osd.buy_type in (1,2)')
+    ->join('order_voucher ov on osd.order_id=ov.id and osd.buy_type=3')
+    ->order('sy_num DESC')
+    ->limit('0,20')
+    ->findAll("t.cu_id={$model->id}");
+    echo $this->datagrid(array(
+        'dataProvider'=>array('list'=>$data),
+        'lastFloat'=>false,
+        'columns'=>array(
+            array(
+                'header' => '项目名称',
+                'name'   => 'piname',
+            ),
+            array(
+                'header' => '购买日期',
+                'value'  => '{date("Y-m-d H:i",$data["pay_time"])}',
+            ),
+            array(
+                'header' => '购买订单号',
+                'name'   => 'sn',
+            ),
+            array(
+                'header' => '购买总次数',
+                'name'   => 'osd_num',
+            ),
+            array(
+                'header' => '购买金额',
+                'name'   => 'gmje',
+            ),
+            array(
+                'header' => '已实操次数',
+                'name'   => 'user_num',
+            ),
+            array(
+                'header' => '已消耗金额',
+                'value' =>  '{$data["osd_num"]?sprintf("%.2f",$data["gmje"]/$data["osd_num"]*$data["user_num"]):""}',
+            ),
+            array(
+                'header' => '剩余次数',
+                'name'   => 'sy_num',
+            ),  
+            array(
+                'header' => '剩余金额',
+                'value' => '{$data["osd_num"]?sprintf("%.2f",$data["gmje"]/$data["osd_num"]*$data["sy_num"]):""}',
+            ),  
+            array(
+                'header' => '最近实操时间',
+                'value'   => '{\PracticeOrderDetail::getLastTime($data["detail_id"])}',
+            )   
+        ),
+    ));?>
+    <?php
+    //实耗记录
+    $data=\PracticeOrderDetail::model()
+    ->field(array("t.id,t.por_id","left(t.last_time,16) ttime","po.sn","pi.name piname","crp.re_num","t.before_num","t.use_num",
+        "t.after_num","t.operators","osd.buy_type as buy_type"))
+    ->join('practice_order po on t.por_id=po.id')
+    ->join('project_info pi on t.project_id=pi.id')
+    ->join('order_sale_detail osd on t.detail_id=osd.id')
+    ->join('customer_re_project crp  on t.detail_id=crp.detail_id AND po.cu_id=crp.cu_id AND t.project_id=crp.project_id')
+    ->order('t.last_time DESC')
+    ->limit('0,20')
+    ->findAll("po.cu_id={$model->id}");
+    echo $this->datagrid(array(
+        'dataProvider'=>array('list'=>$data),
+        'columns'=>array(
+            array(
+                'header' => '日期',
+                'name'   => 'ttime',
+            ),
+            array(
+                'header' => '单据编号',
+                'name'  => 'sn',
+            ),
+            array(
+                'header' => '实操项目',
+                'name'   => 'piname',
+                'value'   => '{$data["piname"]}{$data["buy_type"]==1?"（买）":""}{$data["buy_type"]==2?"（赠）":""}{$data["buy_type"]==3?"（兑）":""}',
+            ),
+            array(
+                'header' => '疗程总次数',
+                'name'   => 're_num',
+            ),
+            array(
+                'header' => '实操前剩余',
+                'name'   => 'before_num',
+            ),
+            array(
+                'header' => '本次实操次数',
+                'name'   => 'use_num',
+            ),
+            array(
+                'header' => '实操后剩余',
+                'name' =>  'after_num',
+            ),
+            array(
+                'header' => '美容师',
+                'value'   => '{\EmployUser::getUserNames($data["operators"])}',
+            ),  
+            array(
+                'header' => '操作',
+                'headerCss'=>'width:80px',
+                'rel'=>'id',
+                'value'=> '<a href="{$this->url("pos/practice/view",array("id"=>$data["por_id"]))}" target="new" class="khca"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看</a>',
+            ),
+        ),
+    ));?>
+    <?php
+    //寄存记录
+    $data=\CustomerProdStorageDetail::model()
+    ->field(array("t.id","left(cos.create_time,16) ttime","cos.sn","pi.name piname","t.total_num","t.remain_num","eu.netname"))
+    ->join('customer_prod_storage cos on t.storage_id=cos.id')
+    ->join('product_info pi on t.product_id=pi.id')
+    ->join('employ_user eu on cos.create_user=eu.id')
+    ->order('cos.create_time DESC')
+    ->limit('0,20')
+    ->findAll("cos.cu_id={$model->id}");
+    echo $this->datagrid(array(
+        'dataProvider'=>array('list'=>$data),
+        'lastFloat'=>false,
+        'columns'=>array(
+            array(
+                'header' => '日期',
+                'name'   => 'ttime',
+            ),
+            array(
+                'header' => '单据号',
+                'name'  => 'sn',
+            ),
+            array(
+                'header' => '产品名称',
+                'name'   => 'piname',
+            ),
+            array(
+                'header' => '本次存入',
+                'name'   => 'total_num',
+            ),
+            array(
+                'header' => '剩余数量',
+                'name'   => 'remain_num',
+            ),
+            array(
+                'header' => '经手人',
+                'name'   => 'netname',
+            )
+        ),
+    ));?>
+    <?php
+    //领取记录
+    $data=\CustomerProdReceiveDetail::model()
+    ->field(array("cpr.id","left(cpr.create_time,16) ttime","cpr.sn","pi.name piname","t.before_num","t.num","t.after_num","eu.netname"))
+    ->join('customer_prod_receive cpr on t.order_id=cpr.id')
+    ->join('product_info pi on t.product_id=pi.id')
+    ->join('employ_user eu on cpr.create_user=eu.id')
+    ->order('cpr.create_time DESC')
+    ->limit('0,20')
+    ->findAll("cpr.cu_id={$model->id}");
+    echo $this->datagrid(array(
+        'dataProvider'=>array('list'=>$data),
+        'columns'=>array(
+            array(
+                'header' => '日期',
+                'name'   => 'ttime',
+            ),
+            array(
+                'header' => '单据号',
+                'name'  => 'sn',
+            ),
+            array(
+                'header' => '产品名称',
+                'name'   => 'piname',
+            ),
+            array(
+                'header' => '业务前',
+                'name'   => 'before_num',
+            ),
+            array(
+                'header' => '本次领取',
+                'name'   => 'num',
+            ),
+            array(
+                'header' => '业务后',
+                'name'   => 'after_num',
+            ),
+            array(
+                'header' => '经手人',
+                'name'   => 'netname',
+            ),
+            array(
+                'header' => '操作',
+                'headerCss'=>'width:80px',
+                'rel'=>'id',
+                'value'=> '<a href="{$this->url("/pos/receive/edit",array("id"=>$data["id"]))}" target="new" class="khca"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看</a>',
+            ),
+        ),
+    ));?>
+    <?php
+    //退款记录
+    $data=\OrderRefund::model()
+    ->field(array("t.id","t.pay_time","t.sn","eu.netname"))
+    ->join('employ_user eu on t.made_id=eu.id')
+    ->order('t.create_time DESC')
+    ->limit('0,20')
+    ->findAll("t.cu_id={$model->id} and t.status=1");
+    echo $this->datagrid(array(
+        'dataProvider'=>array('list'=>$data),
+        'columns'=>array(
+            array(
+                'header' => '日期',
+                'value'   => '{date("Y-m-d H:i",$data["pay_time"])}',
+            ),
+            array(
+                'header' => '单号',
+                'name'   => 'sn',
+            ),
+            array(
+                'header' => '退掉金额',
+                'value'   => '{\OrderRefund::getAllMoney($data["id"])}',
+            ),
+            
+            array(
+                'header' => '经手人',
+                'name'   => 'netname',
+            ),
+            array(
+                'header' => '操作',
+                'headerCss'=>'width:80px',
+                'rel'=>'id',
+                'value'=> '<a href="{$this->url("/pos/refund/view",array("id"=>$data["id"]))}" target="new" class="khca"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看</a>',
+            ),
+        ),
+    ));?>
+
+
+
+    <?php
+        //消费记录
+        $data=\OrderSale::model()->order('`pay_time` DESC')->limit('0,20')->findAll("cu_id={$model->id} and status>0 and pay_status=1");
+        echo $this->datagrid(array(
+            'dataProvider'=>array('list'=>$data),
+            'columns'=>array(
+                array(
+                    'header' => '订单类型',
+                    'value' => '{\OrderSale::getType($data["type"])}',
+                ),
+                array(
+                    'header' => '项目/产品',
+                    'value' => '{\OrderSale::getProNames($data["id"])}',
+                ),
+                array(
+                    'header' => '应付金额',
+                    'name' => 'pay_price',
+                ),
+                array(
+                    'header' => '实收现金',
+                    'name' => 'cash',
+                    'value'=>'{$data["cash"]+$data["cash_pos"]+$data["cash_tra"]+$data["cash_other"]}',
+                ),
+                array(
+                    'header' => '卡扣金额',
+                    'name' => 'cash_card',
+                ),
+                array(
+                    'header' => '订单欠款',
+                    'name'=>'current_arrears',
+                ),
+                array(
+                    'header' => '订单状态',
+                    'value' => '{\OrderSale::getStatus($data["status"])}',
+                ),
+                array(
+                    'header' => '操作',
+                    'headerCss'=>'width:80px',
+                    'rel'=>'id',
+                    'value'=> '<a href="{\OrderSale::model()->getOrderUrl($data["type"],$data["id"]);}" target="new" class="khca"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看</a>',
+                ),
+                
+            ),
+        ));?>
+    <?php
+    //账户动态
+    $data=\CustomerCapitalLog::model()->getCapitalLog($model->id);
+    echo $this->datagrid(array(
+        'dataProvider'=>array('list'=>$data),
+        'columns'=>array(
+            array(
+                'header' => '日期',
+                'name' => 'ctime',
+            ),
+            array(
+                'header' => '单据号',
+                'name' => 'sn',
+            ),
+            array(
+                'header' => '账户名称',
+                'name' => 'cvname',
+            ),
+            array(
+                'header' => '业务类型',
+                'value'=>'{$data["pos_dir"]=="in"?"存入":"取出"}',
+            ),
+            array(
+                'header' => '变更前',
+                'name'=>'before_money',
+            ),
+            array(
+                'header' => '存入（充值）',
+                'value' => '{$data["pos_dir"]=="in"?$data["money"]:""}',
+            ),
+            array(
+                'header' => '取出（卡扣）',
+                'value'=>'{$data["pos_dir"]=="in"?"":$data["money"]}',
+            ),
+            array(
+                'header' => '变更后',
+                'name'=>'after_money',
+            ),
+            array(
+                'header' => '操作',
+                'headerCss'=>'width:80px',
+                'rel'=>'id',
+                'value'=> '<a href="{\OrderSale::model()->getOrderUrl($data["type"],$data["id"]);}" target="new" class="khca"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看</a>',
+            )
+            
+        ),
+    ));?>
+    <?php
+    //剩余实操疗次
+    $data=\CustomerReProject::model()
+    ->field(array("t.id","pi.name piname","IFNULL(os.pay_time,ov.pay_time) pay_time","IFNULL(os.sn,ov.sn) sn","osd.num osd_num","(osd.cash+osd.card_cash) gmje","t.user_num","(t.re_num) sy_num","t.detail_id"))
+    ->join('project_info pi on t.project_id=pi.id')
+    ->join('order_sale_detail osd on t.detail_id=osd.id')
+    ->join('order_sale os on osd.order_id=os.id and osd.buy_type in (1,2)')
+    ->join('order_voucher ov on osd.order_id=ov.id and osd.buy_type=3')
+    ->order('sy_num DESC')
+    ->limit('0,20')
+    ->findAll("t.cu_id={$model->id}");
+    echo $this->datagrid(array(
+        'dataProvider'=>array('list'=>$data),
+        'lastFloat'=>false,
+        'columns'=>array(
+            array(
+                'header' => '项目名称',
+                'name'   => 'piname',
+            ),
+            array(
+                'header' => '购买日期',
+                'value'  => '{date("Y-m-d H:i",$data["pay_time"])}',
+            ),
+            array(
+                'header' => '购买订单号',
+                'name'   => 'sn',
+            ),
+            array(
+                'header' => '购买总次数',
+                'name'   => 'osd_num',
+            ),
+            array(
+                'header' => '购买金额',
+                'name'   => 'gmje',
+            ),
+            array(
+                'header' => '已实操次数',
+                'name'   => 'user_num',
+            ),
+            array(
+                'header' => '已消耗金额',
+                'value' =>  '{$data["osd_num"]?sprintf("%.2f",$data["gmje"]/$data["osd_num"]*$data["user_num"]):""}',
+            ),
+            array(
+                'header' => '剩余次数',
+                'name'   => 'sy_num',
+            ),  
+            array(
+                'header' => '剩余金额',
+                'value' => '{$data["osd_num"]?sprintf("%.2f",$data["gmje"]/$data["osd_num"]*$data["sy_num"]):""}',
+            ),  
+            array(
+                'header' => '最近实操时间',
+                'value'   => '{\PracticeOrderDetail::getLastTime($data["detail_id"])}',
+            )   
+        ),
+    ));?>
+    <?php
+    //实耗记录
+    $data=\PracticeOrderDetail::model()
+    ->field(array("t.id,t.por_id","left(t.last_time,16) ttime","po.sn","pi.name piname","crp.re_num","t.before_num","t.use_num",
+        "t.after_num","t.operators","osd.buy_type as buy_type"))
+    ->join('practice_order po on t.por_id=po.id')
+    ->join('project_info pi on t.project_id=pi.id')
+    ->join('order_sale_detail osd on t.detail_id=osd.id')
+    ->join('customer_re_project crp  on t.detail_id=crp.detail_id AND po.cu_id=crp.cu_id AND t.project_id=crp.project_id')
+    ->order('t.last_time DESC')
+    ->limit('0,20')
+    ->findAll("po.cu_id={$model->id}");
+    echo $this->datagrid(array(
+        'dataProvider'=>array('list'=>$data),
+        'columns'=>array(
+            array(
+                'header' => '日期',
+                'name'   => 'ttime',
+            ),
+            array(
+                'header' => '单据编号',
+                'name'  => 'sn',
+            ),
+            array(
+                'header' => '实操项目',
+                'name'   => 'piname',
+                'value'   => '{$data["piname"]}{$data["buy_type"]==1?"（买）":""}{$data["buy_type"]==2?"（赠）":""}{$data["buy_type"]==3?"（兑）":""}',
+            ),
+            array(
+                'header' => '疗程总次数',
+                'name'   => 're_num',
+            ),
+            array(
+                'header' => '实操前剩余',
+                'name'   => 'before_num',
+            ),
+            array(
+                'header' => '本次实操次数',
+                'name'   => 'use_num',
+            ),
+            array(
+                'header' => '实操后剩余',
+                'name' =>  'after_num',
+            ),
+            array(
+                'header' => '美容师',
+                'value'   => '{\EmployUser::getUserNames($data["operators"])}',
+            ),  
+            array(
+                'header' => '操作',
+                'headerCss'=>'width:80px',
+                'rel'=>'id',
+                'value'=> '<a href="{$this->url("pos/practice/view",array("id"=>$data["por_id"]))}" target="new" class="khca"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看</a>',
+            ),
+        ),
+    ));?>
+    <?php
+    //寄存记录
+    $data=\CustomerProdStorageDetail::model()
+    ->field(array("t.id","left(cos.create_time,16) ttime","cos.sn","pi.name piname","t.total_num","t.remain_num","eu.netname"))
+    ->join('customer_prod_storage cos on t.storage_id=cos.id')
+    ->join('product_info pi on t.product_id=pi.id')
+    ->join('employ_user eu on cos.create_user=eu.id')
+    ->order('cos.create_time DESC')
+    ->limit('0,20')
+    ->findAll("cos.cu_id={$model->id}");
+    echo $this->datagrid(array(
+        'dataProvider'=>array('list'=>$data),
+        'lastFloat'=>false,
+        'columns'=>array(
+            array(
+                'header' => '日期',
+                'name'   => 'ttime',
+            ),
+            array(
+                'header' => '单据号',
+                'name'  => 'sn',
+            ),
+            array(
+                'header' => '产品名称',
+                'name'   => 'piname',
+            ),
+            array(
+                'header' => '本次存入',
+                'name'   => 'total_num',
+            ),
+            array(
+                'header' => '剩余数量',
+                'name'   => 'remain_num',
+            ),
+            array(
+                'header' => '经手人',
+                'name'   => 'netname',
+            )
+        ),
+    ));?>
+    <?php
+    //领取记录
+    $data=\CustomerProdReceiveDetail::model()
+    ->field(array("cpr.id","left(cpr.create_time,16) ttime","cpr.sn","pi.name piname","t.before_num","t.num","t.after_num","eu.netname"))
+    ->join('customer_prod_receive cpr on t.order_id=cpr.id')
+    ->join('product_info pi on t.product_id=pi.id')
+    ->join('employ_user eu on cpr.create_user=eu.id')
+    ->order('cpr.create_time DESC')
+    ->limit('0,20')
+    ->findAll("cpr.cu_id={$model->id}");
+    echo $this->datagrid(array(
+        'dataProvider'=>array('list'=>$data),
+        'columns'=>array(
+            array(
+                'header' => '日期',
+                'name'   => 'ttime',
+            ),
+            array(
+                'header' => '单据号',
+                'name'  => 'sn',
+            ),
+            array(
+                'header' => '产品名称',
+                'name'   => 'piname',
+            ),
+            array(
+                'header' => '业务前',
+                'name'   => 'before_num',
+            ),
+            array(
+                'header' => '本次领取',
+                'name'   => 'num',
+            ),
+            array(
+                'header' => '业务后',
+                'name'   => 'after_num',
+            ),
+            array(
+                'header' => '经手人',
+                'name'   => 'netname',
+            ),
+            array(
+                'header' => '操作',
+                'headerCss'=>'width:80px',
+                'rel'=>'id',
+                'value'=> '<a href="{$this->url("/pos/receive/edit",array("id"=>$data["id"]))}" target="new" class="khca"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看</a>',
+            ),
+        ),
+    ));?>
+    <?php
+    //退款记录
+    $data=\OrderRefund::model()
+    ->field(array("t.id","t.pay_time","t.sn","eu.netname"))
+    ->join('employ_user eu on t.made_id=eu.id')
+    ->order('t.create_time DESC')
+    ->limit('0,20')
+    ->findAll("t.cu_id={$model->id} and t.status=1");
+    echo $this->datagrid(array(
+        'dataProvider'=>array('list'=>$data),
+        'columns'=>array(
+            array(
+                'header' => '日期',
+                'value'   => '{date("Y-m-d H:i",$data["pay_time"])}',
+            ),
+            array(
+                'header' => '单号',
+                'name'   => 'sn',
+            ),
+            array(
+                'header' => '退掉金额',
+                'value'   => '{\OrderRefund::getAllMoney($data["id"])}',
+            ),
+            
+            array(
+                'header' => '经手人',
+                'name'   => 'netname',
+            ),
+            array(
+                'header' => '操作',
+                'headerCss'=>'width:80px',
+                'rel'=>'id',
+                'value'=> '<a href="{$this->url("/pos/refund/view",array("id"=>$data["id"]))}" target="new" class="khca"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看</a>',
+            ),
+        ),
+    ));?>
+
+	
+
+
+	</div>
+</div>
+
+<!--content_right_con!end-->
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/cropbox-min.js"></script>
+<script type="text/javascript">
+    window.onload = function() {
+        var options =
+        {
+            imageBox: '.imageBox',
+            thumbBox: '.thumbBox',
+            spinner: '.spinner',
+            imgSrc: '<?php echo $cu_avatar;?>'
+        }
+        var cropper = new cropbox(options);
+        document.querySelector('#file').addEventListener('change', function(){
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                options.imgSrc = e.target.result;
+                cropper = new cropbox(options);
+            }
+            reader.readAsDataURL(this.files[0]);
+            this.files = [];
+        })
+        document.querySelector('#btnCrop').addEventListener('click', function(){
+            var img = cropper.getDataURL();
+            document.querySelector('.cropped').innerHTML = '<img src="'+img+'">';
+        })
+        document.querySelector('#btnZoomIn').addEventListener('click', function(){
+            cropper.zoomIn();
+        })
+        document.querySelector('#btnZoomOut').addEventListener('click', function(){
+            cropper.zoomOut();
+        })
+
+        document.querySelector('#btnSave').addEventListener('click', function(){
+        	var b64=$('.cropped img').attr('src');
+        	if(b64==undefined){
+        		alert("未裁减");
+        	}else{
+        		//保存
+        		var url="<?php echo $this->url('avatar') ?>";
+				$.post(url, { id: <?php echo $model->id; ?>, avatar: b64 },function(data){
+					Idialog.tips(data.msg);
+					if(data.code=200){
+						$('.avatar img').attr("src",b64);
+						$('.tjfj').hide();
+					}
+				},'json');
+					
+        	}
+        })
+        var check_position = function(){
+        	var obj = $('.imageBox').css('background-size').split(' ');
+        	var w =  parseInt(obj[0]);
+        	var h =  parseInt(obj[1]);
+        	var pw = (300 - w) / 2;
+        	var ph = (300 - h) / 2;
+        	$('.imageBox').css('background-position',pw+"px"+" "+ph+"px");
+        };
+        $('.avatar').click(function(){
+        	check_position();
+			$('.tjfj').toggle();
+        })
+    };
+
+	$('.action_tab li').click(function(event) {
+		var _index=$('.action_tab li').index($(this));
+		$('#action_tables').find('.table_container').hide();
+		$('#action_tables').find('.table_container').eq(_index).show();
+		table_flash();
+	});
+	$('.action_tab li').eq(0).trigger('click');
+	//账户描叙
+	$(function(){
+		/*选项卡*/	 
+		$(".khgl_sy_change_r ul li").first().css({"height":"32px"});
+		$(".khgl_sy_change_r ul li").click(function(){
+			$(".khgl_sy_change_r ul li").css({"height":"31px"});
+			$(this).css({"height":"32px"});	 
+		});
+
+	});
+	$('.action_qr').click(function(event) {
+		/* Act on the event */
+		var url=$(this).attr('href');
+		var d = Idialog({
+				top:150,
+				width:468,
+				title:'二维码',
+				content:'<img src="'+url+'">',
+				cancel:false,
+				init:function()
+					{
+						$(".idialog_title").unbind("mousedown")
+					}
+				});
+		
+		return false;
+	});
+</script>

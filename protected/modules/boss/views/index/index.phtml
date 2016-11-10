@@ -1,0 +1,334 @@
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-success pull-right">月</span>
+                    <h5>销售业绩</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins"><?php echo $target['xj_m'] ?></h1>
+                    <div class="stat-percent font-bold text-success"><?php echo round($target['xj_m']/$target['sale_target'],2)*100 ?>% <i class="fa fa-bolt"></i>
+                    </div>
+                    <small>总收入</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-success pull-right">月</span>
+                    <h5>实操业绩</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins"><?php echo $target['sc_m'] ?></h1>
+                    <div class="stat-percent font-bold text-info"><?php echo round($target['sc_m']/$target['prac_target'],2)*100 ?>% <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>总实操</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right">今天</span>
+                    <h5>销售业绩</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins"><?php echo $target['xj_d'] ?></h1>
+                    <div class="stat-percent font-bold text-navy">成交：<?php echo $target['cj_d'] ?> <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>日业绩</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right">今天</span>
+                    <h5>实操业绩</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins"><?php echo $target['sc_d'] ?></h1>
+                    <div class="stat-percent font-bold text-danger">客流：<?php echo $target['kk_d'] ?> <i class="fa fa-level-down"></i>
+                    </div>
+                    <small>日实操</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<script src="<?php echo $this->basePath('public');?>/js/Highcharts/highcharts.js"></script>
+<script src="<?php echo $this->basePath('public');?>/js/Highcharts/modules/exporting.js"></script>
+<script src="<?php echo $this->basePath('public');?>/js/Highcharts/modules/draggable-legend.js"></script>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r khuihu" style=" padding-top:0px;margin-top:18px">
+		<a class="jlsy_one_01"><?php $weekarray=array("日","一","二","三","四","五","六"); echo date('Y-m-d'),"&nbsp;&nbsp;&nbsp;星期".$weekarray[date("w")] ?></a>
+		<big class="jlsy_one_02" style="display:none;"><a href="javascript:"><img src="<?php echo $this->basePath('public'); ?>/images/jlsy_02.png" /></a></big>
+		</div>
+		<?php echo $store_name ?>
+	</div>
+		
+	<!--jlsy_top-->
+	<div class="jlsy_top clear">
+		<div class="jlsy_top_l">
+			<div class="jlsy_top_01"><span class="jlsy_top_l_02"><big class="jlsy_top_l_03"><?php echo $target['xj_d'] ?></big>元</span>今日销售业绩<span class="jlsy_top_l_01">现金</span></div>
+			<div class="jlsy_top_02">本月累计销售业绩：<?php echo $target['xj_m'] ?>&nbsp;元</div>
+			<div class="jlsy_top_01 jlsy_top_03"><span class="jlsy_top_l_02"><big class="jlsy_top_l_03"><?php echo $target['cj_d'] ?></big>人</span>今日成交人头</div>
+			<div class="jlsy_top_02">本月累计成交：<?php echo $target['cj_m'] ?>&nbsp;人</div>
+			<div class="jlsy_top_01 jlsy_top_04"><span class="jlsy_top_l_06"><?php echo round($target['xj_m']/$target['sale_target'],2)*100 ?>%</span>业绩完成率：<span class="jlsy_top_l_05"><?php echo $target['xj_m'] ?></span> / <?php echo $target['sale_target'] ?></div>
+		</div>
+		<div class="jlsy_top_r">
+			<div class="jlsy_top_01 jlsy_top_05"><span class="jlsy_top_l_02"><big class="jlsy_top_l_03"><?php echo $target['sc_d'] ?></big>元</span>今日实操业绩</div>
+			<div class="jlsy_top_02">本月累计实操业绩：<?php echo $target['sc_m'] ?>&nbsp;元</div>
+			<div class="jlsy_top_01 jlsy_top_03"><span class="jlsy_top_l_02"><big class="jlsy_top_l_03"><?php echo $target['kk_d'] ?></big>人</span>今日客流</div>
+			<div class="jlsy_top_02">本月累计客流：<?php echo $target['kk_m'] ?>&nbsp;人</div>
+			<div class="jlsy_top_01 jlsy_top_04"><span class="jlsy_top_l_06"><?php echo round($target['sc_m']/$target['prac_target'],2)*100 ?>%</span>业绩完成率：<span class="jlsy_top_l_05"><?php echo $target['sc_m'] ?></span> / <?php echo $target['prac_target'] ?></div>
+		</div>
+	</div><!--jlsy_top-->
+		
+	<!--jlsy_two-->
+	<div class="jlsy_two">
+		<div class="jlsy_two_top">
+		<span class="jlsy_two_top_02">
+			<a href="javascript:" data="container" class="chart_b jlchan">业绩</a><a href="javascript:" data="container1" class="chart_b">客流</a>
+		</span>
+		<a href="javascript:" class="jlsy_two_top_01">月数据曲线图</a>
+		</div>
+		<div class="jlsy_two_two">
+			<div id="container" style="height: 300px;"></div>
+	        <div id="container1" style="height: 300px;"></div>
+		</div>
+	
+	</div><!--jlsy_two-->
+		
+	<!--jlsy_th-->
+	<div class="jlsy_th">
+		<div class="jlsy_two_top" style=" padding-left:23px; padding-right:23px;"><span class="jlsy_two_top_02"><a href="javascript:" class="jlchan">30天内</a><!-- <a href="javascript:">一周内</a> --></span><a href="javascript:" class="jlsy_two_top_01 jlsy_th_01">将流失客户</a><span class="jlsy_th_02"><?php echo $out["A"]+$out["B"]+$out["C"]+$out["D"]+$out["E"] ?></span></div>
+		<div class="jlsy_th_two">
+			<ul>
+				<li>
+					<div class="jlsy_th_two_l">
+						<div class="jlsy_th_two_l_top_01">A</div>
+						<p>A类客户</p>
+					</div>
+					<div class="jlsy_th_two_r">
+						<div><span class="jlsy_th_two_r_top"><?php echo $out["A"] ?></span>人</div>
+						<div><a href='<?php echo $this->url("customer/index/outlist") ?>&cu_type=A'>查看</a></div>
+					</div>
+				</li>
+				<li>
+					<div class="jlsy_th_two_l">
+						<div class="jlsy_th_two_l_top_02">B</div>
+						<p>B类客户</p>
+					</div>
+					<div class="jlsy_th_two_r">
+						<div><span class="jlsy_th_two_r_top"><?php echo $out["B"] ?></span>人</div>
+						<div><a href='<?php echo $this->url("customer/index/outlist") ?>&cu_type=B'>查看</a></div>
+					</div>
+				</li>
+				<li>
+					<div class="jlsy_th_two_l">
+						<div class="jlsy_th_two_l_top_03">C</div>
+						<p>C类客户</p>
+					</div>
+					<div class="jlsy_th_two_r">
+						<div><span class="jlsy_th_two_r_top"><?php echo $out["C"] ?></span>人</div>
+						<div><a href='<?php echo $this->url("customer/index/outlist") ?>&cu_type=C'>查看</a></div>
+					</div>
+				</li>
+				<li>
+					<div class="jlsy_th_two_l">
+						<div class="jlsy_th_two_l_top_04">D</div>
+						<p>D类客户</p>
+					</div>
+					<div class="jlsy_th_two_r">
+						<div><span class="jlsy_th_two_r_top"><?php echo $out["D"] ?></span>人</div>
+						<div><a href='<?php echo $this->url("customer/index/outlist") ?>&cu_type=D'>查看</a></div>
+					</div>
+				</li>
+				<li style=" border-right:none;">
+					<div class="jlsy_th_two_l">
+						<div class="jlsy_th_two_l_top_05">E</div>
+						<p>E类客户</p>
+					</div>
+					<div class="jlsy_th_two_r">
+						<div><span class="jlsy_th_two_r_top"><?php echo $out["E"] ?></span>人</div>
+						<div><a href='<?php echo $this->url("customer/index/outlist") ?>&cu_type=E'>查看</a></div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div><!--jlsy_th-->
+
+</div>
+<!--content_right_con!end-->
+<script type="text/javascript">
+$(function () {
+	$('#container').highcharts({
+		title: {
+			text: '',
+			x: -20 //center
+		},
+		colors: ['#91e8e1','#f15c80','#e4d354', '#8085e9','#7cb5ec',   '#90ed7d', '#434348',  '#8085e8', '#8d4653', '#f7a35c'],
+		subtitle: {
+			text: '',
+			x: -20
+		},
+		xAxis: {
+			type: 'datetime',
+			dateTimeLabelFormats: { // don't display the dummy year
+				day: '%e日'   
+			}
+		},
+		exporting: {
+			enabled: false
+		},
+		yAxis: {
+			title: {
+				text: ''
+			},
+			plotLines: [{
+				value: 0,
+				width: 1,
+				color: '#808080'
+			}]
+		},
+		tooltip: {
+			enabled: true,
+			crosshairs: true,
+			formatter: function() {
+				return Highcharts.dateFormat('%e', this.x)+'日<br><b>'+ this.series.name +'</b>: '+ this.y +'元';
+			}
+		},
+		legend: {
+			layout: 'vertical',
+			backgroundColor: 'white',
+			align: 'right',
+			verticalAlign: 'top',
+			y: 20,
+			x: -20,
+			borderWidth: 1,
+			borderRadius: 0,
+			title: {
+				text: ':: 拖动'
+			},
+			floating: true,
+			draggable: true,
+			zIndex: 20
+		},
+		series: [{
+			name: '现金业绩',
+			data: [
+			<?php 
+			$str=array();
+			foreach($data['sale_list'] as $index=>$v){
+				$str[] = "[Date.UTC(".date('Y').",".(date('n')-1).",$index),$v]";//UTC 时间月份减1 0~11
+			}
+			echo implode(",",$str);
+			?>]
+		}, {
+			name: '现金实耗',
+			data: [
+			<?php 
+			$str=array();
+			foreach($data['prac_list'] as $index=>$v){
+				$str[] = "[Date.UTC(".date('Y').",".(date('n')-1).",$index),$v]";
+			}
+			echo implode(",",$str);
+			?>]
+		}]
+	});
+	
+	$('#container1').highcharts({
+		title: {
+			text: '',
+			x: -20 //center
+		},
+		subtitle: {
+			text: '',
+			x: -20
+		},
+		xAxis: {
+			type: 'datetime',
+			dateTimeLabelFormats: { // don't display the dummy year
+				day: '%e日'   
+			}
+		},
+		exporting: {
+			enabled: false
+		},
+		yAxis: {
+			title: {
+				text: ''
+			},
+			plotLines: [{
+				value: 0,
+				width: 1,
+				color: '#808080'
+			}]
+		},
+		tooltip: {
+			enabled: true,
+			crosshairs: true,
+			formatter: function() {
+				return Highcharts.dateFormat('%e', this.x)+'日<br><b>'+ this.series.name +'</b>: '+ this.y +'人';
+			}
+		},
+		legend: {
+			layout: 'vertical',
+			backgroundColor: 'white',
+			align: 'right',
+			verticalAlign: 'top',
+			y: 20,
+			x: -20,
+			borderWidth: 1,
+			borderRadius: 0,
+			title: {
+				text: ':: 拖动'
+			},
+			floating: true,
+			draggable: true,
+			zIndex: 20
+		},
+		series: [{
+			name: '到店客流',
+			data: [
+			<?php 
+			$str=array();
+			foreach($data['kk_list'] as $index=>$v){
+				$str[] = "[Date.UTC(".date('Y').",".(date('n')-1).",$index),$v]";
+			}
+			echo implode(",",$str);
+			?>]
+		}]
+	});
+	$("#container1").hide(); 
+	
+	
+   
+	$(".chart_b").click(function(){
+		var forid=$(this).attr('data');
+		$("#container").hide();
+		$("#container1").hide();
+		$("#"+forid).show();
+		
+		$(".chart_b").removeClass("jlchan");
+		$(this).addClass("jlchan");
+		
+	});
+	
+});
+
+</script>

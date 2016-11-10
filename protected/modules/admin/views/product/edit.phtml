@@ -1,0 +1,48 @@
+<?php 
+$top_cate=\ProCate::getProductTopCate();
+$all_type=\ProCate::getProductType();
+
+?>
+<div class="add_prod">
+	<div class="tjfj_two" action="#">
+	<form method="post" action="<?php echo $this->url('add') ?>">
+		<div class="list">
+        <label>商品分类：</label>
+        <div style="margin-left: 100px;">
+        <select class="top_cate">
+			<option value="">--请选择--</option>
+		<?php foreach ($top_cate as $key => $value): ?>
+			<option <?php if($key==$fid){echo "selected=selected";} ?>  value="<?php echo $key ?>"><?php echo $value ?></option>
+		<?php endforeach ?>
+		</select>（必填）</div></div>
+		<div class="list"><label>商品系列：</label><div style="margin-left: 100px;"><select name="cate">
+		<?php foreach ($cates as $cate): ?>
+			<option <?php if($cate['id']==$model->cate){echo "selected=selected";} ?>  value="<?php echo $cate['id'] ?>"><?php echo $cate['name'] ?></option>
+		<?php endforeach ?>
+		</select>（必填）</div></div>
+		<div class="list"><label>商品属性：</label><div style="margin-left: 100px;"><select name="type">
+		<option value="0">--无--</option>
+		<?php foreach ($all_type as $key => $value): ?>
+			<option <?php if($key==$model->type){echo "selected=selected";} ?>  value="<?php echo $key ?>"><?php echo $value ?></option>
+		<?php endforeach ?>
+		</select>（必填）</div></div>
+		<div class="list"><label>供应商：</label>
+			<div class="list_right">
+			<select name="supp_id">
+				<option value="0">--无--</option>
+				<?php foreach (\SupplierInfo::getList() as $key => $value): ?>
+				<option <?php if($key==$model->supp_id){echo "selected=selected";} ?> value="<?php echo $key ?>"><?php echo $value ?></option>
+				<?php endforeach ?>
+			</select>
+			</div>
+		</div>
+		<div class="list"><label>商品名称：</label><div style="margin-left: 100px;"><input type="text" name="name" value="<?php echo $model->name ?>"  class="inputxt"/>（必填）</div></div>
+		<div class="list"><label>商品编码：</label><div style="margin-left: 100px;"><input type="text" name="code" value="<?php echo $model->code ?>" /></div></div>
+		<div class="list"><label>实操用量：<div class="help" explain="此处填入一个最小库存单位的商品能够做多少次实操,如一瓶院装的保湿舒敏精油开瓶后可供60次实操项目的调配使用,则该商品的用量为60次. （家装产品不填）"></div></label><div style="margin-left: 100px;"><input type="text" placeholder="" name="num" value="<?php echo $model->num ?>"  class="inputxt"/>（必填）</div></div>
+		<div class="list"><label>单价：<div class="help" explain="此处请填入商品的售价"></div></label><div style="margin-left: 100px;"><input type="text" placeholder="" name="price" value="<?php echo $model->price ?>"  class="inputxt"/>（必填）</div></div>
+		<div class="list"><label>规格：<div class="help" explain="按照什么单位录的, 就填什么规格如, 单位是”瓶”,那么液体的规格为XXXml/瓶单位是”盒”,那么小支装产品的规格为XXX支/盒单位是”套盒”,那么规格是XXX组/套盒"></div></label><div style="margin-left: 100px;"><input type="text" placeholder="" name="specs" value="<?php echo $model->specs ?>" /></div></div>
+		<div class="list"><label>单位：<div class="help" explain="如果没有在下拉框中找到对应的商品单位,请到“商品单位管理”模块选择  “商品单位新建”"></div></label><div style="margin-left: 100px;"><input type="text" placeholder="" name="unit" value="<?php echo $model->unit ?>"  class="inputxt"/>（必填）</div></div>
+		<input name="id" type="hidden" value="<?php echo $model->id ?>" />
+	</form>
+	</div>
+</div>

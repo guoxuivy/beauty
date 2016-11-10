@@ -1,0 +1,325 @@
+<style type="text/css">
+.xzzh {
+	color:#0077ff;
+	cursor: pointer;
+}
+</style>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>
+		POS开单><span>实操单</span> </div>
+	<!-- 上操作按钮  付款后有效-->
+	<?php if ($model): ?>
+	<div class="jyjl_top jyjl_czda_top">
+		<div class="jyjl_czda_top_l">
+			<div class="jyjl_czda_top_top">订单提交成功</div>
+			<div class="jyjl_czda_top_two">订单编号：<span><?php echo $model->o_s->sn ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 订单状态：<span class="spanll"><?php echo \PracticeOrder::getStatus($model->o_s->status);?></span></span></div>
+		</div>
+		<div class="jyjl_czda_top_r">
+			<?php if ($model->o_s->status): ?>
+			<!-- <a class="aysh01" href="<?php echo $this->url('pos/refund/order',array('id'=>$model->o_s->id)) ?>">退单</a> <a class="aysh01" href="javascript:">打印订单</a> -->
+			<?php else: ?>
+			<a class="aysh01" href="<?php echo $this->url("pay",array('id'=>$model->o_s->id)) ?>">确认实操</a>
+			<?php endif ?>
+			
+			<!-- <a class="aysh" href="javascript:">审核订单</a>
+				<a class="aysh02" href="javascript:">审核已订单</a> --> 
+		</div>
+	</div>
+	<?php endif; ?>
+	
+	<!--khgl_shouye--> 
+	<?php echo $cu_info ?> 
+	<!--khgl_shouye!end--> 
+	
+	<!--寄存商品-->
+	<div class="pos_cz_tow">
+		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>剩余项目疗次</div>
+		<div class="pos_cz_tow_two"> 
+			<!--table_container-->
+			<div class="table_container" style="border:none;"> 
+				<!--table_con-->
+				<div class="table_con"> 
+					<!--table_con_son-->
+					<div class="table_con_son">
+						<div class="table_title">
+							<ul>
+								<li>
+									<!-- <input type="checkbox" /> -->
+									选择实操项目
+								</li>
+								<li>购买时间</li>
+								<li>账户剩余项目</li>
+								<li>项目来源</li>
+								<li>购买次数</li>
+								<!--<li>剩余疗次</li>
+								<li>成交价格（元）</li>
+								<li>疗次单价（元/疗次）</li>
+								<li>上次实操该项目日期</li>-->
+								<li>可实操疗次</li>
+								<li>本次实操次数（疗次）</li>
+								<li style="width: 112px;">本次实操美容师</li>
+								<li>本次实操配方</li>
+							</ul>
+						</div>
+						<?php if($CustomerReProject): ?>
+						<?php 
+							$sum_xm=$sum_lc=0;
+							foreach ($CustomerReProject as $key => $value): 
+								$checked='';
+								$formula_str='选择配方';
+								$operators_str='选择美容师';
+								$operators=$formula_id=$use_nums='';
+								$max_num=$value['re_num'];
+								$OrderSaleDetail=\OrderSaleDetail::model()->findByPk($value['detail_id']);
+								if($OrderSaleDetail->buy_type==1  && $OrderSaleDetail->num && $OrderSaleDetail->pay_price>0){
+									$price=$OrderSaleDetail->num?$OrderSaleDetail->pay_price/$OrderSaleDetail->num:0;
+									$max_num=$price?intval($OrderSaleDetail->var_price/$price):0;
+								}
+								if ($model) {
+									foreach ((array)$model->pros as $pro) {
+										if($pro['detail_id']==$value['detail_id'])
+										{
+											$checked='checked="checked"';
+											$use_nums=$pro['use_num'];
+											$sum_xm++;
+											$sum_lc+=$use_nums;
+											$formula_id=$pro['formula_id'];
+											$operators=$pro['operators'];
+											$formula_str=\ProjectFormula::getName($formula_id);
+											$operators_str=\EmployUser::getUserNames($operators);
+											break;
+										}
+									}
+								}
+						?>
+							<div class="table_list clear">
+								<ul>
+									<li class="li001">
+										<input class="detail_ids" type="checkbox" value="<?php echo $value['detail_id'] ?>"  <?php echo $checked; ?>/>
+									</li>
+									<li class="li002"><?php echo date('Y-m-d',strtotime($value['create_time'])) ?></li>
+									<li class="li003"><?php echo $value['name']; ?></li>
+									<li class="li004"><?php echo \OrderSaleDetail::getBuyType($value['buy_type']); ?></li>
+									<li class="li005"><?php echo $value['num'] ?></li>
+									<!--<li class="li006"><?php /*echo $value['re_num'] */?></li>
+									<li class="li007"><?php /*echo sprintf('%.2f',$value['price']*$value['rebate']/100) */?></li>
+									<li class="li008"><?php /*echo sprintf('%.2f',$value['num']?$value['price']*$value['rebate']/100/$value['num']:0); */?></li>
+									<li class="li009"><?php /*echo \PracticeOrderDetail::getLastTime($value["detail_id"]) */?></li>-->
+									<li><?php echo $max_num;?></li>
+									<li class="li010">
+										<input type="text" value="<?php echo $use_nums ?>" class="pos_cz_tow_two05 use_nums" data-max="<?php echo $max_num ?>" />
+									</li>
+									<li class="li012">
+										<input name="operators" class="operators" type="hidden" value="<?php echo $operators?>" />
+										<div class="pos_peifang action_mrs"><?php echo $operators_str ?></div>
+									</li>
+									<li class="li011" style="width: 112px;">
+										<input name="formula_ids" class="formula_ids" type="hidden" value="<?php echo $formula_id?>" />
+										<div class="pos_peifang action_pf"><?php echo $formula_str ?></div>
+									</li>
+								</ul>
+							</div>
+						<?php endforeach; ?>
+						<?php endif; ?>
+					</div>
+					<!--table_con_son!end--> 
+				</div>
+				<!--table_con!end--> 
+			</div>
+			<!--table_containter!end-->
+			<div class="pos_cz_tow_two_two pos_cz_qr_top_02"> <span class="pos_gm_01">本次实操项目小计：<span class="pos_gm_03 xj_xm"><?php echo $sum_xm ?></span>个</span> <span class="pos_gm_01">本次实操疗次小计：<span class="pos_gm_04 xj_lc"><?php echo $sum_lc ?></span>次</span> </div>
+		</div>
+	</div>
+	<!--寄存商品!end--> 
+	
+	<!--备注-->
+	<div class="pos_cz_tow pos_cz_for_bz">
+		<div class="pos_cz_for_bz01">备注</div>
+		<div class="pos_cz_for_bz02">
+			<div class="pos_cz_for_bz02_son">
+				<textarea class="order_note" rows="4"><?php echo $model?$model->o_s->note:"" ?></textarea>
+			</div>
+		</div>
+	</div>
+	<!--备注!end-->
+	<div class="pos_cz_tow pos_cz_zh">
+		<?php if (!$model || $model->o_s->status==0): ?>
+		<a href="javascript:" class="pos_cz_zh_an c_submit">提交订单</a>
+		<?php endif ?>
+	</div>
+	<!--!end--> 
+	
+</div>
+<!--content_right_con!end--> 
+
+{__TOKEN__} 
+<script type="text/javascript">
+
+$(function(){
+
+	//收起效果
+	$(".pos_cz_tow_top_r").click(function(){
+		var self=$(this);
+		self.parent().next().slideToggle("fast",function(){
+			//alert("Animation Done.");
+			if(self.hasClass("pos_cz_tow_top_rcl")){
+				self.removeClass("pos_cz_tow_top_rcl");
+			}else{
+				self.addClass("pos_cz_tow_top_rcl");
+			}
+		});
+	});
+	//添加疗次
+	$('.use_nums').keyup(function(event) {
+		if ($(this).val()=='') {
+			$(this).parents('ul').find('.detail_ids').prop('checked',true);
+		}else{
+			$(this).parents('ul').find('.detail_ids').removeAttr('checked');
+		}
+		$(this).parents('ul').find('.detail_ids').trigger('click');
+	});
+	//选中项目
+	$('.detail_ids').click(function(event) {
+		var xj_xm=xj_lc=0;
+		if ($(this).parents('ul').find('.use_nums').val()=='')
+			$(this).parents('ul').find('.use_nums').val(1);
+		$('.detail_ids').each(function(index, el) {
+			if ($(this).is(':checked')) {
+				xj_xm++;
+				xj_lc+=parseInt($(this).parents('ul').find('.use_nums').val());
+			};
+		});
+		$('.xj_xm').html(xj_xm);
+		$('.xj_lc').html(xj_lc);
+	});
+	//数据提交
+	$(".c_submit").click(function(){
+		var post_data=submit_data();
+		if(post_data==false){
+			return false;
+		}
+		$('.c_submit').html("正在提交订单...").addClass("pos_cz_zh_an_hover").removeClass("pos_cz_zh_an");
+
+	<?php if ($model): ?>
+		var url="<?php echo $this->url('editSave',array('id'=>$model->o_s->id)) ?>";			
+	<?php else: ?>
+		var url="<?php echo $this->url('addSave') ?>";	
+	<?php endif ?>
+		$.post(url, post_data,function(data){
+			Idialog.tips(data.msg,2);
+			if(data.code==200){
+				//转到付款界面
+				setTimeout(function(){to_url('<?php echo $this->url("pay");?>&id='+data.data)},3000);
+			}
+		}, "json");
+	});
+
+	function to_url(url){
+		window.location.href=url;
+	}
+	//选择配方
+	$('.action_pf').click(function(event) {
+		var self=$(this)
+		var pro_id=self.parents('ul').find('.detail_ids').val();
+		var formula_ids=self.siblings('.formula_ids').val();
+		$.get('<?php echo $this->url("getpf") ?>&pro_id='+pro_id+'&formula_ids='+formula_ids, function(data) {
+				var d = Idialog({
+				top:150,
+				width:474,
+				title:'选择配方',
+				content:data,
+				//cancel:false,
+				ok:function(obj){
+					var _ids=_names='';
+					obj._self.find('.formula_xz:radio:checked').each(function(index, el) {
+						_ids+=$(this).val()+',';
+						_names+=$(this).attr('data-name')+','
+					});
+					if(_ids)
+						_ids=_ids.substring(0,_ids.length-1);
+					if(_names)
+						_names=_names.substring(0,_names.length-1);
+					self.siblings('.formula_ids').val(_ids);
+					self.html(_names);
+				}
+			});
+		});
+	});
+	//选择美疗师
+	$('.action_mrs').click(function(event) {
+		var self=$(this);
+		var operators=self.siblings('.operators').val();
+		$.get('<?php echo $this->url("getmls") ?>&operators='+operators, function(data) {
+				var d = Idialog({
+				top:150,
+				width:474,
+				title:'选择美疗师',
+				content:data,
+				//cancel:false,
+				ok:function(obj){
+					var _ids=_names='';
+					obj._self.find('.mls_xz:checkbox:checked').each(function(index, el) {
+						_ids+=$(this).val()+',';
+						_names+=$(this).attr('data-name')+','
+					});
+					if(_ids)
+						_ids=_ids.substring(0,_ids.length-1);
+					if(_names)
+						_names=_names.substring(0,_names.length-1);
+					self.siblings('.operators').val(_ids);
+					self.html(_names);
+				}
+			});
+		});
+	});
+
+	//提交保存数据构造
+	function submit_data(){
+		var data={};
+		data.__hash__ = $("input[name='__hash__']").val();//表单令牌
+		if (parseInt($('.xj_lc').html())==0) {
+			Idialog.tips('请选择实操项目',2);
+			return false;
+		};
+
+		var _is=false;
+		//实操项目
+		data.pro=[];
+		$('.detail_ids:checkbox:checked').each(function(index, el) {
+			use_nums_obj=$(this).parents('ul').find('.use_nums');
+			if (parseInt(use_nums_obj.val())>parseInt(use_nums_obj.attr('data-max'))) {
+				Idialog.tips('实操疗次不能超出可实操疗次!',2);
+				_is=true;
+				return false;
+			};
+			operators_obj=$(this).parents('ul').find('.operators')
+			if (operators_obj.val()=='') {
+				Idialog.tips('没有选择本次实操美容师!',2);
+				_is=true;
+				return false;
+			};
+			if(parseInt(use_nums_obj.val())>0)
+				data.pro.push({
+						"detail_id":$(this).val(),
+						"use_nums":use_nums_obj.val(),
+						"formula_id":$(this).parents('ul').find('.formula_ids').val(),
+						"operators":$(this).parents('ul').find('.operators').val()
+					})
+		});
+		if (_is) {return false;};
+
+		data.order_id="<?php echo $model?$model->o_s->id:0; ?>";
+		data.sn="<?php echo $model?$model->o_s->sn:''; ?>";
+		data.cu_id="<?php echo $model?$model->o_s->cu_id:$id; ?>"
+
+		data.note=$('.order_note').val();
+		//console.log(data)
+		//return false; 发生验证错误 返回false
+		return data;
+	}
+
+
+});
+</script>

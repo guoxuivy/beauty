@@ -1,0 +1,456 @@
+<?php 
+//编辑时使用
+$pros=$gift_capital=array();
+if($order_id){
+	$pros = \OrderSaleDetail::model()->where(array('order_id'=>$order_id,'buy_type'=>'2'))->findAll();//赠送商品
+	$gift_capital = \OrderSaleMoney::model()->where(array('order_id'=>$order_id))->findAll();//赠送现金、积分
+	$gift_arr=array();
+	foreach ($gift_capital as $g_c) {
+		$gift_arr[$g_c['capital_id']]=$g_c['cash'];
+	}
+}
+?>
+
+<!--赠送-->
+<div class="pos_cz_tow pos_gift">
+	<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>赠送
+		<div class="pos_cz_th">
+            <span lang="box_gift_xm" class="box_gift_choose"><span></span>项目</span>
+            <span lang="box_gift_cp" class="box_gift_choose"><span></span>产品</span>
+            <span lang="box_gift_kq" class="box_gift_choose"><span></span>卡券</span>
+            <span lang="box_gift_xj" class="box_gift_choose"><span></span>现金</span>
+            <?php 
+				$config=\CompanyInfo::getConfig('score_config'); 
+				if($config['openAll']=='true' && $config['openByGive']=='true'):
+			?>
+            <span lang="box_gift_jf" class="box_gift_choose"><span></span>积分</span>
+       		<?php endif; ?>
+		</div>
+	
+	</div>
+	<div>
+		<div class="pos_cz_tow_two pos_cz_qr_top">
+		
+			<!--table_container-->  
+			<div style="display: none;" class="table_container box_gift_xm" style=" margin-top:0px;">
+				<!--table_con-->
+				<div class="table_con pos_cz_qr_top_04" style="margin-right:0px;">
+					
+					<!--table_con_son-->
+					<div class="table_con_son">
+						<div class="pos_cz_tow_top pos_cz_qr_02">赠送项目</div>
+						<div class="table_title">
+							<ul>
+							<li style="min-width:300px">赠送项目</li>
+							<li style="min-width:200px">数量（疗次）</li>
+							<li>操作</li>
+							
+							</ul>
+						</div>
+
+						<?php if ($pros): ?>
+							<?php foreach ($pros as $pro): ?>
+							<?php if($pro['pro_type']!=1) continue; ?>
+							<?php $pro_info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+								<div data-dj="<?php echo $pro_info->price ?>" data-id="<?php echo $pro_info->id ?>" class="table_list clear"><ul>
+									<li class="li001"><?php echo $pro_info->name; ?>（<?php echo $pro_info->num*$pro_info->price; ?>元/<?php echo $pro_info->num; ?>疗次）</li>
+									<li class="li002"><input type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05"></li>
+									<li class="li003"><a class="delete c_del" href="javascript:">删除</a></li>
+								</ul></div>
+								
+							<?php endforeach ?>
+							
+						<?php endif ?>
+
+						<div class="pos_cz_tow_two_two"><span class="spantj c_add">继续赠送</span></div>
+						
+					</div><!--table_con_son!end-->
+				
+				</div><!--table_con!end-->
+				
+			</div>
+			<!--table_containter!end-->
+			<!--table_container-->  
+			<div style="display: none;margin-top:15px;" class="table_container box_gift_cp" >
+				<!--table_con-->
+				<div class="table_con pos_cz_qr_top_04" style="margin-right:0px;">
+					
+					<!--table_con_son-->
+					<div class="table_con_son">
+						<div class="pos_cz_tow_top pos_cz_qr_02">赠送产品</div>
+						<div class="table_title">
+							<ul>
+							<li style="min-width:300px">赠送产品</li>
+							<li style="min-width:200px">数量</li>
+							<li>操作</li>
+							
+							</ul>
+						</div>
+
+
+
+						<?php if ($pros): ?>
+							<?php foreach ($pros as $pro): ?>
+							<?php if($pro['pro_type']!=2) continue; ?>
+							<?php $pro_info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+
+								<div data-dj="<?php echo $pro_info->price ?>" data-id="<?php echo $pro_info->id ?>" class="table_list clear"><ul>
+									<li class="li001"><?php echo $pro_info->name; ?></li>
+									<li class="li002"><input type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05">（<?php echo $pro_info->unit ?>）</li>
+									<li class="li003"><a class="delete c_del" href="javascript:">删除</a></li>
+								</ul></div>
+								
+							<?php endforeach ?>
+							
+						<?php endif ?>
+						<div class="pos_cz_tow_two_two"><span class="spantj c_add">继续赠送</span></div>
+
+						
+					</div><!--table_con_son!end-->
+				
+				</div><!--table_con!end-->
+				
+			</div>
+			<!--table_containter!end-->
+			
+			
+			<!--table_container-->  
+			<div style="display: none;margin-top:15px;" class="table_container box_gift_kq">
+				<!--table_con-->
+				<div class="table_con pos_cz_qr_top_04" style="margin-right:0px;">
+					
+					<!--table_con_son-->
+					<div class="table_con_son">
+						<div class="pos_cz_tow_top pos_cz_qr_02">赠送卡券</div>
+						<div class="table_title">
+							<ul>
+							<li style="min-width:300px">卡券名称</li>
+							<li style="min-width:200px">数量</li>
+							<li>操作</li>
+							</ul>
+						</div>
+
+						<?php if ($pros): ?>
+							<?php foreach ($pros as $pro): ?>
+							<?php if($pro['pro_type']!=3) continue; ?>
+							<?php $pro_info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+
+								<div data-sold="<?php echo $pro_info->sold_num ?>" data-num="<?php echo $pro_info->num ?>" data-dj="<?php echo $pro_info->price ?>" data-id="<?php echo $pro_info->id ?>" class="table_list clear"><ul>
+									<li class="li001"><?php echo $pro_info->name; ?>（<?php echo $pro_info->price ?>元）</li>
+									<li class="li002"><input type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05"></li>
+									<li class="li003"><a class="delete c_del" href="javascript:">删除</a></li>
+								</ul></div>
+								
+							<?php endforeach ?>
+							
+						<?php endif ?>
+
+
+						<div class="pos_cz_tow_two_two"><span class="spantj c_add">赠送卡券</span></div>
+
+						
+					</div><!--table_con_son!end-->
+				
+				</div><!--table_con!end-->
+				
+			</div>
+			<!--table_containter!end-->
+			
+			
+			<!--table_container-->  
+			<div style="display: none;margin-top:15px;" class="table_container box_gift_xj">
+				<!--table_con-->
+				<div class="table_con pos_cz_qr_top_04" style="margin-right:0px;">
+					
+					<!--table_con_son-->
+					<div class="table_con_son">
+						<div class="pos_cz_tow_top pos_cz_qr_02">赠送现金</div>
+						<div class="table_title">
+							<ul>
+							<?php foreach ($capital_list as $value): ?>
+								<li><?php echo $value['name'] ?>（元）</li>
+							<?php endforeach ?>	
+							</ul>
+						</div>
+
+						<div class="table_list clear">
+							<ul>
+							<?php foreach ($capital_list as $key=>$value): ?>
+								<li class="li00<?php echo ++$key ?>">
+								<input data-id="<?php echo $value['id'] ?>" type="text" value="<?php echo $gift_arr[$value['id']] ?>" class="pos_cz_tow_two05" />
+								</li>
+							<?php endforeach ?>	
+							
+							</ul>
+						</div>
+					
+					</div><!--table_con_son!end-->
+				
+				</div><!--table_con!end-->
+				<!-- <div class="pos_cz_tow_two_two pos_cz_qr_top_02 pos_yh_top_01"><span class="spantj">赠送现金</span></div> -->
+			</div>
+			<!--table_containter!end-->
+			
+			<!--pos_gm_top-->
+			<div style="display: none; margin-top:15px;" class="pos_gm_top box_gift_jf">
+				赠送积分<input value="<?php echo ceil($gift_arr[0]); ?>" type="text" class="pos_gm_top_01" />
+			</div><!--pos_gm_top!end-->
+		</div>
+		<div class="pos_cz_for">
+			<P class="all_gift_xm">赠送项目疗次<span class="firspan">0</span>次<span class="sthspan"></span>赠送项目原价小计：<span class="secspan">￥0.00</span></P>
+			<P class="all_gift_cp">赠送产品数量<span class="firspan">0</span>个<span class="sthspan"></span>赠送产品原价小计：<span class="secspan">￥0.00</span></P>
+			<P class="all_gift_kq">赠送卡券数量<span class="firspan">0</span>张<span class="sthspan"></span>赠送卡券原价小计：<span class="secspan">￥0.00</span></P>
+			<P style="padding-top:5px;">赠送金额小计：<span style="padding-right:30px;" class="secspan">￥<font class="all_gift_xj">0</font></span>
+				<?php 
+					$config=\CompanyInfo::getConfig('score_config'); 
+					if($config['openAll']=='true' && $config['openByGive']=='true'):
+				?>
+				<span class="forspan">赠送积分：<font class="all_gift_jf">0</font></span>
+				<?php endif;?>
+			</P>
+		</div>
+	</div>
+	
+	
+</div><!--赠送!end-->
+
+<div class="none" id="widget_gift_project">
+<?php echo \Ivy::app()->widget('common/selectProject',"rich"); ?>
+</div>
+
+<div class="none" id="widget_gift_product">
+<?php echo \Ivy::app()->widget('common/selectProduct',"rich"); ?>
+</div>
+
+<div class="none" id="widget_gift_voucher">
+<?php echo \Ivy::app()->widget('common/selectVoucher',"rich"); ?>
+</div>
+
+<script type="text/javascript">
+$(function(){
+
+	//项目的添加
+	$('.box_gift_xm').on('click','.c_add',function(){
+		var self=$(this).closest('.box_gift_xm');//box对象
+		var d = Idialog({
+			top:150,
+			width:800,
+			title:'添加赠送项目',
+			content:$('#widget_gift_project'),
+			cancel:false,
+			ok:function(obj){
+				var _self=obj._self;
+				var has_list = self.find('.table_list');//已经存在的列
+				var pro_k=has_list.length;//当前序号
+
+				var result_list=_self.find('.result_pro li');
+				$.each( result_list, function(i, pro){
+					pro=$(pro);
+					var p_name=pro.attr('data-name');
+					var p_id=pro.attr('rel');
+					var p_num=pro.attr('data-num');
+					var p_price=pro.attr('data-price');
+					var p_old_price=parseInt(p_num)*parseInt(p_price);
+					//如果存在 则略过
+					if(has_list.filter("[data-id='"+p_id+"']").length>0) return ;
+
+					var str  ='<div class="table_list clear" data-id="'+p_id+'" data-dj="'+p_price+'" ><ul>';
+						str +='<li class="li001">'+p_name+'（'+p_old_price+'元/'+p_num+'疗次）</li>';
+						str +='<li class="li002"><input type="text" class="pos_cz_tow_two05" value="1" /></li>';
+						str +='<li class="li003"><a href="javascript:" class="delete c_del">删除</a></li>';
+						str +='</ul></div>';
+					
+					self.find('.table_con_son .table_title').after(str);
+					pro_k++;
+				});
+				table_flash();
+				change_gift_total();
+			}
+		});
+	});
+	//项目删除
+	$('.box_gift_xm').on('click','.c_del',function(){
+		$(this).closest('.table_list').remove();
+		change_gift_total();
+	});
+
+
+    //产品的添加
+	$('.box_gift_cp').on('click','.c_add',function(){
+		var self=$(this).closest('.box_gift_cp');//box对象
+		var d = Idialog({
+			top:150,
+			width:800,
+			title:'添加赠送产品',
+			content:$('#widget_gift_product'),
+			cancel:false,
+			ok:function(obj){
+				var _self=obj._self;
+				var has_list = self.find('.table_list');//已经存在的列
+				var pro_k=has_list.length;//当前序号
+
+				var result_list=_self.find('.result_pro li');
+				$.each( result_list, function(i, pro){
+					pro=$(pro);
+					var p_name=pro.attr('data-name');
+					var p_id=pro.attr('rel');
+					var p_num=pro.attr('data-num');
+					var p_price=pro.attr('data-price');
+					var p_unit=pro.attr('data-unit');//产品规格
+					//如果存在 则略过
+					if(has_list.filter("[data-id='"+p_id+"']").length>0) return ;
+
+					var str  ='<div class="table_list clear" data-id="'+p_id+'" data-dj="'+p_price+'" ><ul>';
+						str +='<li class="li001">'+p_name+'</li>';
+						str +='<li class="li002"><input type="text" class="pos_cz_tow_two05" value="1" />（'+p_unit+'）</li>';
+						str +='<li class="li003"><a href="javascript:" class="delete c_del">删除</a></li>';
+						str +='</ul></div>';
+					
+					self.find('.table_con_son .table_title').after(str);
+					pro_k++;
+				});
+				table_flash();
+				change_gift_total();
+			}
+		});
+	});
+	//产品删除
+	$('.box_gift_cp').on('click','.c_del',function(){
+		$(this).closest('.table_list').remove();
+		change_gift_total();
+	});
+
+    //卡券的添加
+	$('.box_gift_kq').on('click','.c_add',function(){
+		var self=$(this).closest('.box_gift_kq');//box对象
+		var d = Idialog({
+			top:150,
+			width:800,
+			title:'添加赠送卡券',
+			content:$('#widget_gift_voucher'),
+			cancel:false,
+			ok:function(obj){
+				var _self=obj._self;
+				var has_list = self.find('.table_list');//已经存在的列
+				var pro_k=has_list.length;//当前序号
+
+				var result_list=_self.find('.result_kq li');
+				$.each( result_list, function(i, pro){
+					pro=$(pro);
+					var p_name=pro.attr('data-name');
+					var p_id=pro.attr('rel');
+					var p_num=pro.attr('data-num');//发行总数
+					var p_price=pro.attr('data-price');//发行价格
+					var p_sold=pro.attr('data-sold');//已经卖出数量
+					//如果存在 则略过
+					if(has_list.filter("[data-id='"+p_id+"']").length>0) return ;
+
+					var str  ='<div class="table_list clear" data-id="'+p_id+'" data-dj="'+p_price+'"  data-num="'+p_num+'" data-sold="'+p_sold+'" ><ul>';
+						str +='<li class="li001">'+p_name+'（'+p_price+'元）</li>';
+						str +='<li class="li002"><input type="text" class="pos_cz_tow_two05" value="1" /></li>';
+						str +='<li class="li003"><a href="javascript:" class="delete c_del">删除</a></li>';
+						str +='</ul></div>';
+					
+					self.find('.table_con_son .table_title').after(str);
+					pro_k++;
+				});
+				table_flash();
+				change_gift_total();
+			}
+		});
+	});
+	//卡券删除
+	$('.box_gift_kq').on('click','.c_del',function(){
+		$(this).closest('.table_list').remove();
+		change_gift_total();
+	});
+
+	//修改量
+	$('.box_gift_xm,.box_gift_cp,.box_gift_kq,.box_gift_xj,.box_gift_jf').on('change','input',function(){
+		change_gift_total();
+	});
+
+	//同步修改 赠送小计
+	function change_gift_total(){
+		//同步修改 box小计
+		$.each( ['gift_xm','gift_cp','gift_kq'], function(i, boxname){
+			if($('.box_'+boxname+' .table_list').length>0){
+				var all_num=eval( $('.box_'+boxname+' .table_list input').map(function(){
+					return parseInt($(this).val());
+				}).get().join('+') );
+			}else{
+				var all_num = 0;
+			}
+			var all_old_money=eval( $('.box_'+boxname+' .table_list').map(function(){
+				return $(this).attr('data-dj')*$(this).find('input').val(); //单价*数量
+			}).get().join('+') );
+
+			all_old_money=all_old_money==undefined?0:all_old_money;
+
+			$('.all_'+boxname+' .firspan').html( all_num );
+
+			$('.all_'+boxname+' .secspan').html('￥' + all_old_money );
+		});
+
+		//赠送现金
+		var all_gift_xj = eval( $('.box_gift_xj input').map(function(){
+			var v=parseInt($(this).val());
+			return isNaN(v)?0:v;
+		}).get().join('+') );
+		$('.all_gift_xj').html( all_gift_xj );
+
+		var all_gift_jf=$('.box_gift_jf input').val();
+		all_gift_jf=''==all_gift_jf?0:all_gift_jf;
+		$('.all_gift_jf').html( all_gift_jf );
+	}
+
+    $('.box_gift_choose span').click(function(){
+        if(!$(this).parent().hasClass('widget_select_on')){
+            $(this).parent().addClass('widget_select_on');
+            $('.'+$(this).parent().attr('lang')).show();
+        }else
+        {
+        	_obj=$(this);
+			lang = _obj.parent().attr('lang');
+        	var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'确认取消勾选，将删除已填写的对应数据！',
+							ok:function(html){
+								_obj.parent().removeClass('widget_select_on');
+					        	$('.'+_obj.parent().attr('lang')).find('.c_del').trigger("click");
+					            $('.'+_obj.parent().attr('lang')).hide();
+								if(lang=='box_gift_xj'||lang=='box_gift_jf')
+								$('.'+lang+' input').val('');
+								change_gift_total();
+								return true;
+							},
+							//cancel:false,
+						});
+        }
+        table_flash();
+    });
+
+
+
+
+<?php if ($order_id): ?>
+	change_gift_total();
+	//自动展开赠送列
+	if(parseInt($(".all_gift_xm .firspan").html())>0)
+		$(".box_gift_choose[lang='box_gift_xm']").find("span").trigger("click");
+	if(parseInt($(".all_gift_cp .firspan").html())>0)
+		$(".box_gift_choose[lang='box_gift_cp']").find("span").trigger("click");
+	if(parseInt($(".all_gift_kq .firspan").html())>0)
+		$(".box_gift_choose[lang='box_gift_kq']").find("span").trigger("click");
+
+	if( parseInt($(".all_gift_xj").html())>0 )
+		$(".box_gift_choose[lang='box_gift_xj']").find("span").trigger("click");
+
+	if( parseInt($(".all_gift_jf").html())>0 )
+		$(".box_gift_choose[lang='box_gift_jf']").find("span").trigger("click");
+<?php endif ?>
+
+});
+</script>

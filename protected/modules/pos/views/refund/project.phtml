@@ -1,0 +1,303 @@
+<style type="text/css">
+.xzzh,.tk{color:#0077ff;cursor: pointer;}
+</style>
+
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>POS开单><span>退项目</span>
+	</div>
+  
+	<!--khgl_shouye-->
+	<?php echo $cu_info ?>
+	<!--khgl_shouye!end-->
+
+	<!--可退项目-->
+	<div class="pos_cz_tow box_xm">
+		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>可退项目</div>
+		<div class="pos_cz_tow_two">
+			<!--table_container-->  
+			<div class="table_container" style="border:none;">
+			<!--table_con-->
+			<div class="table_con">
+				<!--table_con_son-->
+				<div class="table_con_son">
+					<div class="table_title">
+						<ul>
+							<li style="min-width:100px;">关联订单</li>
+							<li style="min-width:100px;">项目名称</li>
+							<li style="min-width:40px;">来源</li>
+							<li style="min-width:50px;">购买次数</li>
+							<li style="min-width:50px;">剩余次数</li>
+							<li style="min-width:50px;">成交价格（元）</li>
+							<li style="min-width:50px;">实收现金（元）</li>
+							<li>现金账户抵扣</li>
+							<li>赠送账户抵扣</li>
+							<li style="min-width:50px;">欠款</li>
+							<li>需退次数</li>
+							<li>退入账户（元）</li>
+						</ul>
+					</div>
+					<?php foreach ($project_list as $pro): ?>
+						<?php $money_str=\pos\SaleModel::model()->proMoneyStr($pro['detail_id']); ?>
+
+						<div data-id="<?php echo $pro['id'] ?>" data-zh="<?php echo $money_str ?>" data-tk="<?php echo $pro['tk_money_str'] ?>" class="table_list clear">
+							<ul>
+								<li class=""><?php echo \OrderSaleDetail::getSn($pro['detail_id']) ?></li>
+								<li class=""><?php echo $pro['name'] ?></li>
+								<li><?php echo  $pro['buy_type']?\OrderSaleDetail::getBuyType($pro['buy_type']):'不明' ?></li>
+								<li><?php echo $pro['num'] ?></li>
+								<li><?php echo $pro['re_num'] ?></li>
+								<li><?php echo $pro['price']*$pro['rebate']/100 ?></li>
+								<li><?php echo $pro['buy_type']!=2?$pro['price']*$pro['rebate']/100-$pro['card_cash']-$pro['card_gift']-$pro['arrears']:0 ?></li>
+								<li class="xj xzzh"><?php echo $pro['card_cash'] ?></li>
+								<li class="zs xzzh"><?php echo $pro['card_gift'] ?></li>
+								<li><?php echo $pro['arrears'] ?></li>
+								<li class=""><input type="text" value="" class="pos_cz_tow_two05"></li>
+								<li class="tk">选择账户</li>
+							</ul>
+						</div>
+					<?php endforeach ?>
+
+				</div><!--table_con_son!end-->
+			</div><!--table_con!end-->
+			</div>
+			<!--table_containter!end-->
+			<div class="pos_cz_tow_two_two pos_cz_qr_top_02">
+						<span class="pos_cz_tow_two04 ">退款小计:<span class="pos_cz_zh_02 tk_min_all">0</span>元</span>
+						<!--<span class="pos_gm_01">还款订单<span class="pos_gm_03">2</span>个</span>
+						<span class="pos_gm_01">还款总额：<span class="pos_gm_04">￥5000.00</span></span>-->
+			</div>
+		</div>
+	</div><!--可退项目!end-->
+  
+  
+	
+  
+
+	<!--备注-->
+	<div class="pos_cz_tow pos_cz_for_bz">
+		<div class="pos_cz_for_bz01">备注</div>
+		<div class="pos_cz_for_bz02">
+			<div class="pos_cz_for_bz02_son"><textarea class="order_note" rows="4"></textarea></div>
+		</div>
+	</div><!--备注!end-->
+  
+	
+	<div class="pos_cz_tow pos_cz_zh">
+		<a href="javascript:" class="pos_cz_zh_an c_submit"><img src="<?php echo $this->basePath('public');?>/images/pos_cz_10.png" /></a>
+	<div class="pos_cz_zh_01">
+		<div class="pos_momey">退款现金合计：<span class="pos_cz_zh_02">￥<font class="tk_all">0.00</font></span></div>
+	</div>
+	</div>
+	
+</div>
+<!--content_right_con!end-->
+{__TOKEN__}
+
+<!-- 选择账户分配弹出 -->
+<div style="display:none">
+	<div class="tjfj_two pos_gm_th zszhdk">
+
+		<!--table_container-->  
+		<div style="margin-bottom:0px;" class="table_container">
+			<!--table_con-->
+			<div style="margin-right:0px;" class="table_con pos_cz_qr_top_04">
+
+				<!--table_con_son-->
+				<div class="table_con_son" style="min-width: 564px;">
+					<!-- <div class="pos_cz_tow_top pos_cz_qr_02">赠送现金</div>-->
+					<div class="table_title">
+						<ul>
+						<li style="min-width:200px">账户类型</li>
+						<li>余额（元）</li>
+						<li style="min-width: 80px; border-right: medium none;">抵扣金额（元）</li>
+						</ul>
+					</div>
+
+				</div><!--table_con_son!end-->
+
+			</div><!--table_con!end-->
+		</div>
+		<!--table_containter!end-->
+	</div>
+
+</div>
+<!-- 选择账户分配弹出 end-->
+
+<script type="text/javascript">
+$(function(){
+
+	//收起效果
+	$(".pos_cz_tow_top_r").click(function(){
+		var self=$(this);
+		self.parent().next().slideToggle("fast",function(){
+			if(self.hasClass("pos_cz_tow_top_rcl")){
+				self.removeClass("pos_cz_tow_top_rcl");
+			}else{
+				self.addClass("pos_cz_tow_top_rcl");
+			}
+		});
+	});
+
+	//现金金额组成
+	$('.table_container').on('click','.xzzh',function(){
+		var table_list = $(this).closest('.table_list');
+		var capital_money=table_list.attr("data-zh");
+		var capital_list=capital_xj;
+		if($(this).hasClass("zs")) capital_list=capital_zs;
+		//console.log(capital_xj)
+		var d = Idialog({
+			top:150,
+			width:500,
+			title:'金额组成',
+			content:$('.zszhdk'),
+			cancel:false,
+			init:function(content){
+				$.each( capital_list, function(i, capital){
+					var money = str_money(capital_money,capital.id);
+					var s_list ='<div class="table_list clear"><ul>';
+						s_list+='<li class="">'+capital.name+'</li>';
+						s_list+='<li class="">'+capital.balance+'</li>';
+						s_list+='<li class="">'+money+'</li>';
+						s_list+='</ul></div>';
+						content.find('.table_con_son').append(s_list);
+				});
+				table_flash(content);
+			}
+		});
+	});
+	//退款组成
+	$('.table_container').on('click','.tk',function(){
+		var table_list = $(this).closest('.table_list');
+		var capital_money=table_list.attr("data-tk");
+		var capital_list=capital_xj.concat(capital_zs);
+		var d = Idialog({
+			top:150,
+			width:500,
+			title:'金额组成',
+			content:$('.zszhdk'),
+			cancel:false,
+			init:function(content){
+				$.each( capital_list, function(i, capital){
+					var money = str_money(capital_money,capital.id);
+					var s_list ='<div class="table_list clear"><ul>';
+						s_list+='<li class="">'+capital.name+'</li>';
+						s_list+='<li class="">'+capital.balance+'</li>';
+						s_list+='<li class=""><input type="text" data-capital-id="'+capital.id+'" class="pos_cz_tow_two05 pos_gm_th_02" value="'+money+'"></li>';
+						s_list+='</ul></div>';
+						content.find('.table_con_son').append(s_list);
+				});
+				table_flash(content);
+			},
+			ok:function(obj){
+				var content=obj._self;
+				//赠送抵扣情况
+				var tk_all=0;
+				var tk = content.find("input").map(function(){
+					tk_all+=parseInt($(this).val());
+					return  $(this).attr('data-capital-id')+"|"+$(this).val();
+				}).get().join(",");
+				table_list.attr('data-tk',tk);
+				table_list.find('.tk').html(tk_all);
+				tk_min_all()
+			}
+		});
+	});
+	
+	//订单直接赠送 退款
+	$(".order_tk").change(function(){
+		tk_all();
+	});
+
+	//数据提交
+	$(".c_submit").click(function(){
+		var post_data=submit_data();
+		if(post_data==false){
+			return false;
+		}
+		$('.c_submit img').attr("src","<?php echo $this->basePath('public');?>/images/pos_cz_011.png");
+
+		var url="<?php echo $this->url('save') ?>";	
+		$.post(url, post_data,function(data){
+			$('.c_submit img').attr("src","<?php echo $this->basePath('public');?>/images/pos_cz_10.png");
+			Idialog.tips(data.msg,2);
+			if(data.code==200){
+				//转到付款界面
+				setTimeout(function(){to_url('<?php echo $this->url("check");?>&id='+data.data)},3000);
+			}
+		}, "json");
+	});
+
+
+	//获取具体账户金额
+	function str_money(money_str,capital_id){
+		var res = 0;
+		if(money_str){
+			var arr=money_str.split(",");
+			$.each( arr, function(i, n){
+				var c_m=this.split("|");
+				if(c_m[0]==capital_id) res = c_m[1];
+			});
+		}
+		return res;
+	}
+
+	//退款小合计填充
+	function tk_min_all(){
+		$(".tk_min_all").each(function(i){
+			var tk_min_all=0;
+			$(this).closest('.pos_cz_tow').find(".tk").map(function(){
+				tk_min_all+= $.isNumeric(parseInt($(this).html()))?parseInt($(this).html()):0;
+			});
+
+			$(this).html(tk_min_all);
+		});
+		tk_all();
+	}
+	//总退款合计填充
+	function tk_all(){
+		var tk_all=0;
+		$(".tk_min_all").map(function(){
+			tk_all+= $.isNumeric(parseInt($(this).html()))?parseInt($(this).html()):0;
+		});
+		$(".order_tk").map(function(){
+			tk_all+= $.isNumeric(parseInt($(this).val()))?parseInt($(this).val()):0;
+		});
+		$(".tk_all").html(tk_all);
+	}
+
+
+	//提交保存数据构造
+	function submit_data(){
+		var data={};
+		data.__hash__ = $("input[name='__hash__']").val();//表单令牌
+		//购买项目、产品、卡券相关
+		data.pro=[];
+		$('.box_xm,.box_cp,.box_kq').find(".table_list").each(function(i){
+			var num = $.isNumeric(parseInt($(this).find("input").val()))?parseInt($(this).find("input").val()):0;
+			var money = $.isNumeric(parseInt($(this).find(".tk").html()))?parseInt($(this).find(".tk").html()):0;
+			if(num==0)
+				return true;
+			var pro_type=3;
+			if($(this).closest('.box_xm').length>0)
+				var pro_type=1;
+			if($(this).closest('.box_cp').length>0)
+				var pro_type=2;
+			data.pro.push({
+				"re_pro_id":$(this).attr("data-id"), //卡内剩余对应的id
+				"num":num,
+				"money":money,
+				"tk_detail":$(this).attr("data-tk"),//退款详细
+				"pro_type":pro_type,//商品类型
+			});
+		});
+		
+		data.cu_id=$('.cu_info').attr("data-id");
+
+		data.note=$('.order_note').val();
+		return data;
+	}
+
+});
+</script>

@@ -1,0 +1,62 @@
+<?php $version_str=$company->has_invo=="Y"?"全功能版":"标准版"; ?>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">部门管理</div>
+	<div class="content_right_con_two">您正在使用的是平台<?php echo $version_str ?>，为了便于您的操作，我们已经将平台<?php echo $version_str ?>中必须要用到的部门和角色选中</div>
+
+	<div class="content_right_con_th">
+		<ul>
+			<li class="content_right_con_th_01">
+				<div class="content_right_con_th_01_l">部门名称</div>
+				<div class="content_right_con_th_01_r">拥有职位</div>
+			</li>
+			<li>
+				<div class="content_right_con_th_01_l">总店经理室</div>
+				<div class="content_right_con_th_01_rg"> 
+					<span style="padding-right:102px;"><input type="checkbox" checked="checked" onclick="return false;" />总经理</span>
+					<span><input type="checkbox" onclick="return false;" />总监（暂不开放）</span>
+				</div>
+			</li>
+			<li>
+				<div class="content_right_con_th_01_l">门店</div>
+				<div class="content_right_con_th_01_rg"> 
+					<span><input type="checkbox" checked="checked" onclick="return false;" />门店经理</span>
+					<span><input type="checkbox" checked="checked" onclick="return false;" />美容顾问</span>
+					<span><input type="checkbox" checked="checked" onclick="return false;" />美容师</span>
+					<span><input type="checkbox" checked="checked" onclick="return false;" />门店前台</span>
+				</div>
+			</li>
+
+			
+			
+		</ul>
+	</div>
+
+	<div class="content_right_con_fo">以下部门及职位需升级高级版后才可使用。<span>申请高级版</span></div>
+
+	<div class="content_right_con_th">
+		<ul>
+			<li class="content_right_con_th_01">
+				<div class="content_right_con_th_01_l">部门名称</div>
+				<div class="content_right_con_th_01_r">拥有职位</div>
+			</li>
+			<li>
+				<div class="content_right_con_th_01_l">财务部</div>
+				<div class="content_right_con_th_01_rg">
+					<span style="padding-right:102px;"><input type="checkbox"  onclick="javascript:return false;"/>财务经理</span>
+					<span><input type="checkbox"  onclick="javascript:return false;"/>会计</span>
+				</div>
+			</li>
+			<?php $j = 0; foreach($seniorPositionArr as $key => $val): ?>
+				<li>
+					<div class="content_right_con_th_01_l"><?php echo $deptArr[$key]; ?></div>
+					<div class="content_right_con_th_01_rg"> 
+						<?php foreach($val as $p_id => $position): ?>
+							<span><input type="checkbox"  onclick="javascript:return false;"/><?php echo $position; ?></span>
+						<?php endforeach; ?>
+					</div>
+				</li>
+			<?php $j++; endforeach; ?>
+		</ul>
+	</div>
+</div>

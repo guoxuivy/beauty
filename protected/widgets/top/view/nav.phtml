@@ -1,0 +1,59 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header">
+
+                <div class="dropdown profile-element"> <span>
+                    <img alt="image" class="img-circle" src="<?php echo $this->basePath('public/H');?>/img/profile_small.jpg" />
+                     </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                        <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Beaut-zihan</strong>
+                     </span>  <span class="text-muted text-xs block">超级管理员 <b class="caret"></b></span> </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a href="form_avatar.html">修改头像</a>
+                        </li>
+                        <li><a href="profile.html">个人资料</a>
+                        </li>
+                        <li><a href="contacts.html">联系我们</a>
+                        </li>
+                        <li><a href="mailbox.html">信箱</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="login.html">安全退出</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    H+
+                </div>
+
+            </li>
+            <?php foreach ($nav_list as $key => $nav): ?>
+                <li class="<?php echo $nav["t_active"]; ?>">
+                    <a href="<?php echo $nav["t_url"]; ?>">
+                    <i class="fa <?php echo $nav["t_icon"]; ?>"></i>
+                    <span class="nav-label"><?php echo $nav["t_name"]; ?></span>
+                    <?php if($nav["child"]): ?><span class="fa arrow"></span><?php endif; ?>
+                    </a>
+                    
+                    <?php if($nav["child"]): ?>
+                    <ul class="nav nav-second-level">
+                    <?php foreach ($nav["child"] as $child): ?>
+                        <li class="<?php echo $child["active"]; ?>"><a href="<?php echo $child["url"]; ?>"><?php echo $child["name"]; ?></a></li>
+                    <?php endforeach; ?>
+                    </ul>
+                    <?php endif; ?>
+                </li>
+            <?php endforeach; ?>
+            <li>
+                <a href="index.html#"><i class="fa fa-cutlery"></i> <span class="nav-label">工具 </span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="form_builder.html">表单构建器</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+</nav>

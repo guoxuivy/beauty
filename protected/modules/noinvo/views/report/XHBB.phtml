@@ -1,0 +1,172 @@
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Itime.js"></script>
+<?php 
+	$md_list=\EmployDept::getList(true);
+	$top_cate=\ProCate::getProductTopCate();
+    $child_cate=array();
+    if(isset($_GET['t_search']['tpc.id']))
+        $tmp_cate=\ProCate::model()->findAll('status=1 AND fid='.(int)$_GET['t_search']['tpc.id']);
+        $child_cate = $this->optArr($tmp_cate,'id','name');
+?>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r"><span><a class="fjgl_top_r_05" href="javascript:">导出</a></span></div>
+		<span>消耗报表</span>
+	</div>
+
+	<!--sjbb_ddkl_one-->
+	<div class="sjbb_ddkl_one">
+		<ul>
+		<li>
+			<div class="sjbb_ddkl_one_l">门店范围：</div>
+			<div class="sjbb_ddkl_one_r">
+				<div class="sjbb_ddkl_one_r_son choose_md">
+					<?php if(!$this->controller->is_store):?>
+            <a href="javascript:" rel="0"><span ></span>全连锁</a>
+            <?php endif;?>
+					<?php foreach ($md_list as $key => $value): ?>
+					<a href="javascript:" rel="<?php echo $key ?>"><span></span><?php echo $value ?></a>
+					<?php endforeach ?>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div class="sjbb_ddkl_one_l">日期：</div>
+			<div class="sjbb_ddkl_one_r">
+				<div class="sjbb_ddkl_one_r_son" id="choose_time">
+				</div>
+			</div>
+		</li>
+		
+		<li class="lastli">
+				<div class="sjbb_ddkl_one_l">
+				</div>
+				<div class="sjbb_ddkl_one_r">
+					<div class="sjbb_ddkl_one_r_son">
+						<a href="javascript:" class="changa01">搜索</a>
+					</div>
+				</div>
+		</li>
+		</ul>
+	</div> <!--sjbb_index_onesjbb_ddkl_oneend-->
+
+
+	 <!--  模版引擎扩展 -->
+    <?php echo $this->datagrid(array(
+        'id'=>'list',
+        'dataProvider'=>$pager,
+        'search'=>true,
+        'columns'=>array(
+            array(
+                'header' => '商品分类',
+                'name'  => 'tcname',
+                'filter'=>array("tpc.id",$top_cate,""),
+            ),
+            array(
+                'header' => '商品系列',
+                'name'  => 'cname',
+                'filter'=>array("pc.id",$child_cate,""),
+            ),
+            array(
+                'header' => '商品名称',
+                'name'  => 'name',
+                'filter'=>"t.name",
+            ),
+            array(
+                'header' => '商品编码',
+                'name' => 'code',
+                'filter'=>"t.code",
+            ),
+            array(
+                'header' => '商品规格',
+                'name' => 'specs',
+            ),
+            array(
+                'header' => '商品单位',
+                'name' => 'unit',
+            ),
+             array(
+                'header' => '本期出库',
+                'name' => 'num',
+            ),
+           
+        ),
+    ));?>
+</div>
+<!--content_right_con!end-->
+
+
+
+<script type="text/javascript">
+
+$(function(){
+
+	var t = Itime({
+		content:$('#choose_time'),
+		<?php if (isset($_GET['begin'])): ?>
+		begin:'<?php echo $_GET["begin"]?>', //填充默认时间
+		<?php endif ?>
+		<?php if (isset($_GET['end'])): ?>
+		end:'<?php echo $_GET["end"]?>', //填充默认时间
+		<?php endif ?>
+		//type:'d',  	  // 日 模式
+	})._self.find("a,br").remove();
+
+	//门店、范围选择
+	$(".choose_md a,.choose_xm a,.choose_cp a").click(function(){
+		var rel=$(this).attr("rel");
+		if($(this).find("span").hasClass("span_01")){
+			$(this).find("span").removeClass("span_01");
+			if(rel=="0")
+				$(".choose_md span").removeClass("span_01");
+		}else{
+			$(this).find("span").addClass("span_01");
+			if(rel=="0")
+				$(".choose_md span").addClass("span_01");
+		}
+	});
+  //搜索提交
+  $(".changa01").click(function(){
+    var md_id=getMd();
+    if(md_id==''){
+      Idialog.tips('门店未选择！',2);
+      return;
+    }
+    
+
+    var begin=$(".itime").find(".b_y").val()+""+$(".itime").find(".b_m").val()+""+$(".itime").find(".b_d").val();
+    var end  =$(".itime").find(".e_y").val()+""+$(".itime").find(".e_m").val()+""+$(".itime").find(".e_d").val();
+    var top_cate =$('.top_cate').val();
+    var cate =$('.cate').val();
+    var code =$('.code').val();
+    var name =$('.name').val();
+    to_url('<?php echo $this->url("XHBB") ?>&md_id='+md_id+'&begin='+begin+'&end='+end+'&top_cate='+top_cate+'&cate='+cate+'&code='+code+'&name='+name);
+  });
+
+<?php if ($this->controller->is_store): ?>
+    $(".choose_md").find("a").trigger("click");
+    <?php if (!isset($_GET['md_id'])): ?>
+    $(".changa01").trigger('click');
+    <?php endif ?>
+<?php else: ?>
+  //填充默认门店
+  <?php if (isset($_GET['md_id'])): ?>
+  <?php foreach (explode(',', $_GET['md_id']) as $v): ?>
+    $(".choose_md").find("a[rel='<?php echo $v ?>']").trigger("click");
+  <?php endforeach ?>
+  <?php endif ?>
+<?php endif ?>
+	function getMd(){
+		if($(".choose_md a[rel='0']").find("span").hasClass("span_01"))
+			return "0";
+		var l = $(".choose_md a").map(function(){
+			if($(this).find("span").hasClass("span_01"))
+				return $(this).attr("rel");
+		}).get().join(",");
+		return l;
+	}
+
+
+
+});
+</script>

@@ -1,0 +1,361 @@
+
+<?php
+$top_cate=\ProCate::getProductTopCate();
+$prod_type=\ProCate::getProductType();
+$child_cate=array();
+if(isset($_GET['t_search']['c_t.id']))
+    $tmp_cate=\ProCate::model()->findAll('fid='.(int)$_GET['t_search']['c_t.id'].' and comp_id='.\Ivy::app()->user->comp_id);
+$child_cate = $this->optArr($tmp_cate,'id','name');
+?>
+
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+        <div class="fjgl_top_r">
+            <span><a href="<?php echo $this->url('invo/inventory/add');?>" class="fjgl_top_r_06 c_pan">盘库</a></span>
+            <!--<span><a href="javascript:" class="fjgl_top_r_03 c_update">导入</a></span>-->
+            <span><a href="javascript:" class="fjgl_top_r_01 filter_search">筛选</a></span>
+            <!--<span><a href="javascript:" class="fjgl_top_r_02 c_add">新建商品</a></span>-->
+        </div>
+        仓库管理>商品列表
+    </div>
+    <?php if(!empty($invo_list)||empty($pager['list'])):?>
+        <div class="fjgl_two" style=" background:#ffecec;">
+            <div class="fjgl_two_son" style=" background:none; padding-left:20px;color:#000000;">
+                管理员新建了<?php echo count($list);?>个商品
+                <a href="javascript:begin_pro(1,'');" class="ck_splb_01">查看并建期初</a>
+            </div>
+        </div>
+    <?php endif;?>
+    <?php
+        $status_array = array(
+            '1'		=> '正常',
+            '0'		=> '停用',
+            '-1'	=> '删除',
+            '-2'	=> '未开帐',
+        );
+    ?>
+    <!--  模版引擎扩展 -->
+    <?php echo $this->datagrid(array(
+        'id'=>'product-list',
+        'dataProvider'=>$pager,
+        'check'=>'id',
+        'search'=>true,
+        'columns'=>array(
+            array(
+                'header' => '商品分类',
+                'name'  => 'fname',
+                'filter'=>array("c_t.id",$top_cate,""),
+            ),
+            array(
+                'header' => '商品系列',
+                'name'  => 'cname',
+                'filter'=>array("t.cate",$child_cate,""),
+            ),
+            array(
+                'header' => '商品属性',
+                'name'  => 'type',
+                'headerCss'  => 'width:50px',
+                'value'=>'{\ProCate::getProductType($data["type"])}',
+            ),
+            array(
+                'header' => '商品名称',
+                'name'  => 'name',
+                'filter'=>"t.name",
+            ),
+            array(
+                'header' => '商品编码',
+                'name' => 'code',
+            ),
+            array(
+                'header' => '规格',
+                'name' => 'specs',
+            ),
+            array(
+                'header' => '单位',
+                'headerCss'=>'min-width:60px',
+                'name' => 'unit',
+            ),
+            array(
+                'header' => '实时数量',
+                'name' => 'num',
+            ),
+            array(
+                'header' => '额外数量',
+                'name' => 'extra_num',
+            ),
+            array(
+                'header' => '客户寄存',
+                'name' => 'storage_num',
+            ),
+            array(
+                'header' => '状态',
+                'name' => 'status',
+                'value' => '{\invo\Dept::getStatus($data["status"])}'
+            ),
+            array(
+                'header' => '操作',
+                'name' => 'status',
+                'value'=>'{\invo\Dept::getAction($data["id"],$data["status"])}'
+            )
+        ),
+    ));?>
+
+    <?php if(!empty($invo_list)||empty($pager['list'])):?>
+        <div class="ck_splb_foot">
+            <a href="javascript:" class="ck_splb_foot_01 set_begin_pro">确认建立商品期初库存（<?php echo count($invo_list);?>）</a>
+            注：期初商品确认建立后将不可更改期初库存！确认商品期初库存只可操作一次，请谨慎操作！
+        </div>
+    <?php endif;?>
+
+    <div id="begin_pro" style="display: none;">
+        <div class="tjfj_two pos_gm_th">
+            <div class="ck_splb_tctitle" style="line-height: 35px;">
+                <span>
+                    <a href="javascript:" class="begin_search"><img src="<?php echo $this->basePath('public');?>/images/ck_05.png" /></a>
+                    <input name="begin_search" type="text" placeholder="商品名称或编码" value="" />
+                </span>
+                请填写库存数量及额外数量
+                <span class="pro_loader" style="display: none;"><img src="<?php echo $this->basePath("public") ?>/images/load.gif"></span>
+            </div>
+            <div class="page_pro_list">
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function begin_pro(page,search){
+            $('.page_pro_list').empty();
+            $('.idialog').remove();
+            var _html = "<div id='loading' style='position:fixed;left:0;width:100%;height:100%;top:0;background:rgb(0, 0, 0);opacity:0.5;filter:alpha(opacity=50);'><div style='position:absolute;  cursor1:wait;left:50%;top:50%;width:auto;height:16px;padding:13px 22px 28px 30px;background: url(<?php echo $this->basePath('public');?>/images/loading.gif) no-repeat scroll 5px 10px;text-indent: -99999px;color:#000;'>正在加载，请等待...</div></div>";
+            $('body').append(_html);
+            setTimeout(function(){
+                $.post('<?php echo $this->url("begin_pro")?>',{page:page,search:search}, function(data) {
+                    $('.page_pro_list').html(data);
+                    var d = Idialog({
+                        top:70,
+                        width:1100,
+                        title:'新商品（<?php echo count($list);?>）',
+                        content:$('#begin_pro'),
+                        cancel:function(e){
+                            _addDate('cancel');
+                        },
+                        close:function(e){
+                            _addDate('close');
+                        },
+                        ok:function(obj){
+                            var flat = _addDate('ok');
+                            if(flat!=false){
+                                Idialog.tips('商品期初库存编辑成功！',2);
+                            }
+                            return flat;
+                        }
+                    });
+                    $(".table_title ul li:last-child").css('min-width','110px');
+                    table_flash();
+                    $('#loading').remove();
+                });
+            },500);
+        }
+        function _addDate(pa){
+            var param = new Array, num = new Array, flat=true;
+            $(".idialog").find("input[name=num]").each(function(){
+                param.push($(this).attr('pid')+'|'+$(this).val()+'|'+$(this).parent().next().find('input').val());
+                if($(this).val()!=''){
+                    num.push($(this).val());
+                }
+            });
+            if(pa=='ok'){
+                if(num.length<=0){
+                    Idialog.tips('请填写库存数量及额外数量！',2);
+                    flat = false;
+                }
+            }else{
+                var _html = "<div id='loading' style='position:fixed;left:0;width:100%;height:100%;top:0;background:rgb(0, 0, 0);opacity:0.5;filter:alpha(opacity=50);'><div style='position:absolute;  cursor1:wait;left:50%;top:50%;width:auto;height:16px;padding:13px 22px 28px 30px;background: url(<?php echo $this->basePath('public');?>/images/loading.gif) no-repeat scroll 5px 10px;text-indent: -99999px;color:#000;'>正在加载，请等待...</div></div>";
+                $('body').append(_html);
+                $.post('<?php echo $this->url("add_pro")?>',{param:param.join(',')}, function(data) {
+                    if(data.code=='200'){
+                        flat = true;
+                        location.reload();
+                    }
+                }, "json");
+            }
+            return flat;
+        }
+        function page_pro(page,search){
+            $(".pro_loader").show();
+            $.post('<?php echo $this->url("begin_pro")?>',{page:page,search:search}, function(data) {
+                $('.idialog').find('.page_pro_list').html(data);
+                $(".table_title ul li:last-child").css('min-width','110px');
+                table_flash();
+                $(".pro_loader").hide();
+            });
+        }
+        function addDate(){
+            var param = new Array, num = new Array;
+            $(".pro_loader").show();
+            $(".idialog").find("input[name=num]").each(function(){
+                param.push($(this).attr('pid')+'|'+$(this).val()+'|'+$(this).parent().next().find('input').val());
+                if($(this).val()!=''){
+                    num.push($(this).val());
+                }
+            });
+            $.post('<?php echo $this->url("add_pro")?>',{param:param.join(',')}, function(data) {
+                if(num.length>0){
+                    Idialog.tips('商品期初库存编辑成功！',2);
+                }
+            });
+        }
+        $(document).ready(function(){
+            $(".set_begin_pro").click(function(){
+                var d = Idialog({
+                    top:120,
+                    width:500,
+                    title:'通知',
+                    content:'您确认建立商品期初库存？',
+                    ok:function(html){
+                        var _html = "<div id='loading' style='position:fixed;left:0;width:100%;height:100%;top:0;background:rgb(0, 0, 0);opacity:0.5;filter:alpha(opacity=50);'><div style='position:absolute;  cursor1:wait;left:50%;top:50%;width:auto;height:16px;padding:13px 22px 28px 30px;background: url(<?php echo $this->basePath('public');?>/images/loading.gif) no-repeat scroll 5px 10px;text-indent: -99999px;color:#000;'>正在加载，请等待...</div></div>";
+                        $('body').append(_html);
+                        $.post('<?php echo $this->url("save_pro")?>',{}, function(data) {
+                            var jobj = $.parseJSON(data);
+                            if(jobj['code']=='200'){
+                                var d = Idialog({
+                                    top:120,
+                                    width:500,
+                                    title:'通知',
+                                    content:'确认建立商品期初库存成功！',
+                                    ok:function(html){
+                                        location.reload();
+                                        return true;
+                                    },
+                                    close:function(e){
+                                        location.reload();
+                                    },
+                                    cancel:false
+                                });
+                            }else{
+                                var d = Idialog({
+                                    top:120,
+                                    width:500,
+                                    title:'通知',
+                                    content:'确认建立商品期初库存失败！',
+                                    ok:function(obj){
+                                        location.reload();
+                                        return true;
+                                    },
+                                    close:function(e){
+                                        location.reload();
+                                    },
+                                    cancel:false
+                                });
+                            }
+                        });
+                        return true;
+                    },
+                    cancel:true
+                });
+            });
+            // 修改商品状态
+            $('.change').click(function(){
+                var id=$(this).attr('rel');
+                var obj = $(this);
+                $.get("<?php echo $this->url('change') ?>", { id: id },function(html){
+                    var jobj = $.parseJSON(html);
+                    var dataobj = jobj['data'];
+                    var status = dataobj['status'];
+                    obj.html(status==0?"启用":"停用");
+                    obj.attr('style',status==0?'':'background-color: #ddd;color: #666;');
+                    obj.parent().prev().attr('title',status==1?"正常":"停用").html(status==1?"正常":'<fone style="color:red">停用</fone>');
+                });
+            });
+            $(document).on('click','.delete',function(){
+                var obj = $(this).parent().parent();
+                var id = $(this).attr('rel');
+
+                var d = Idialog({
+                    top:120,
+                    width:500,
+                    title:'通知',
+                    content:'您确认删除吗？',
+                    ok:function(html){
+                        $.get("<?php echo $this->url('delete') ?>", { id: id },function(html){
+                            var jobj = $.parseJSON(html);
+                            if(jobj['code']=='200'){
+                                var d = Idialog({
+                                    top:120,
+                                    width:500,
+                                    title:'通知',
+                                    content:'删除成功',
+                                    ok:function(html){
+                                        obj.remove();
+                                        return true;
+                                    },
+                                    cancel:false
+                                });
+                            }else{
+                                var d = Idialog({
+                                    top:120,
+                                    width:500,
+                                    title:'通知',
+                                    content:'删除失败',
+                                    ok:function(obj){
+                                        return true;
+                                    },
+                                    cancel:false
+                                });
+                            }
+                        });
+                        return true;
+                    },
+                    cancel:true
+                });
+            });
+            $(document).on("click",".fen_page",function(){
+                addDate();
+                var page = $(this).text();
+                var search = $(this).parents('.idialog').find("input[name=begin_search]").val();
+                page_pro(page,search);
+            });
+            $(document).on("click",".begin_pro .syy",function(){
+                if(!$(this).hasClass('syy011')){
+                    addDate();
+                    var page = $(this).parent().find("a.fenye").text();
+                    var search = $(this).parents('.idialog').find("input[name=begin_search]").val();
+                    if($(this).hasClass('xyy')){
+                        page_pro(parseInt(page)+1,search);
+                    }else{
+                        page_pro(parseInt(page)-1,search);
+                    }
+                }
+            });
+            $(document).on("keyup","input[name=to_page],.pos_cz_tow_two05.pos_gm_th_02",function(){
+                var reg = /^\d+$/;
+                if($(this).val()!=''&&!reg.test($(this).val())){
+                    Idialog.tips("请输入整数",2);
+                    $(this).val('');
+                }
+            });
+            $(document).on("blur","input[name=num]",function(){
+                if($(this).val()==''){
+                    $(this).parent().next().find('input').val('');
+                }
+            });
+            $(document).on("click",".to_page",function(){
+                if($(this).parent().find("input[name=to_page]").val()!=''){
+                    addDate();
+                    var page = $(this).parent().find("input[name=to_page]").val();
+                    var search = $(this).parents('.idialog').find("input[name=begin_search]").val();
+                    page_pro(page,search);
+                }
+            });
+            $(document).on("click",".begin_search",function(){
+                var search = $(this).parent().find("input[name=begin_search]").val();
+                page_pro(1,search);
+            });
+        });
+
+    </script>
+
+</div>
+<!--content_right_con!end-->

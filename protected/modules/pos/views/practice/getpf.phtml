@@ -1,0 +1,20 @@
+<div class="pos_peifang_page">
+  	<ul>
+		<?php if($model): ?>
+		<?php foreach ($model as $key => $value): ?>
+		<label for="formula_id_<?php echo $value['id'] ?>">
+			<li><input name="formula_xz" type="radio" class="formula_xz" id="formula_id_<?php echo $value['id'] ?>" value="<?php echo $value['id'] ?>" <?php if($value['id']==$formula_ids):?>checked="checked"<?php endif; ?> data-name="<?php echo $value['formula_name'] ?>">
+				
+					<?php echo $value['formula_name']?>：
+					<?php foreach($value['compose'] as $compose){
+						echo $compose['pname'],'(',$compose['t_mun'],');';
+					}?>
+				
+			</li>
+		</label>
+		<?php endforeach ?>
+		<?php else: ?>
+		<li>暂无配方!</li>
+		<?php endif; ?>
+    </ul>
+</div>

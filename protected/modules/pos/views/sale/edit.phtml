@@ -1,0 +1,804 @@
+<style type="text/css">
+.xzzh{color:#0077ff;cursor: pointer;}
+</style>
+<?php $hd_list = \SaleNoticeInfo::model()->getListOpt();?>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>POS开单>购买项目/产品/卡券
+	</div>
+	<!-- 上操作按钮  付款后有效-->
+	<?php if ($model): ?>
+		<div class="jyjl_top jyjl_czda_top">
+			<div class="jyjl_czda_top_l">
+				<div class="jyjl_czda_top_top">订单提交成功</div>
+				<div class="jyjl_czda_top_two">订单编号：<span><?php echo $model->o_s->sn ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 订单状态：<span class="spanll"><?php echo \OrderSale::getPayStatus($model->o_s->pay_status);?></span>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="spanll"><?php echo $model->o_s->rh_id==0?'':'新客入会订单';?></span>
+				</span></div>
+			</div> 
+			<div class="jyjl_czda_top_r">
+				<?php if ($model->o_s->pay_status): ?>
+					<!-- <a class="aysh01" href="<?php // echo $this->url('pos/refund/order',array('id'=>$model->o_s->id)) ?>">退单</a> -->
+					<a class="aysh01" href="javascript:">打印订单</a>
+				<?php else: ?>
+					<a class="aysh01" href="<?php echo $this->url("pay",array('id'=>$model->o_s->id)) ?>">付款</a>
+					<a class="aysh01" href="<?php echo $this->url("del",array('id'=>$model->o_s->id)) ?>">废除</a>
+				<?php endif ?>
+				<!-- <a class="aysh" href="javascript:">审核订单</a>
+				<a class="aysh02" href="javascript:">审核已订单</a> -->
+			</div>
+		</div>
+	<?php endif; ?>
+
+	<!--khgl_shouye-->
+	<?php echo $cu_info ?>
+	<!--khgl_shouye!end-->
+
+	<!--销售人员及业绩比例-->
+	<?php echo $effect ?>
+	<!--销售人员及业绩比例!end-->
+
+	<!--购买项目-->
+	<div class="pos_cz_tow box_xm">
+		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>购买项目</div>
+		<div class="pos_cz_tow_two">
+			<!--table_container-->  
+			<div class="table_container" style="border:none;">
+			<!--table_con-->
+			<div class="table_con" style="border:none; margin-right:0px;">
+				<!--table_con_son-->
+				<div class="table_con_son">
+					<div class="table_title">
+					<ul>
+						<li style="min-width:250px">项目</li>
+						<li>数量（疗次）</li>
+						<li>原价（元）</li>
+						<li>面折率</li>
+						<li>赠送账户抵扣（元）</li>
+						<li>应付金额（元）</li>
+						<li>活动</li>
+						<li style="min-width:80px">操作</li>
+					</ul>
+					</div>
+					<?php if ($model): ?>
+						<?php foreach ($model->pros as $pro): ?>
+							<?php if($pro['pro_type']!=1) continue; ?>
+							<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+
+							<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list clear">
+								<ul>
+									<li class="li001"><?php echo $info->name ?>（<?php echo $info->num*$info->price ?>元/<?php echo $info->num ?>疗次）</li>
+									<li class="li002"><input type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05"></li>
+									<li class="li003"><?php echo $pro['price'] ?></li>
+									<li class="li004"><input type="text" value="<?php echo $pro['rebate'] ?>" class="pos_cz_tow_two05">&nbsp;%</li>
+									<li class="li005 xzzh"><?php  echo $pro['card_gift']==0?"点击选择账户类型":$pro['card_gift']; ?></li>
+									<li class="li006"><input type="text" value="<?php echo $pro['pay_price'] ?>" class="pos_cz_tow_two05"></li>
+									<li class="li007"><?php echo $this->dropDownList('',$hd_list,$pro['promotion_id'],array("class"=>"hd")) ?></li>
+									<li class="li008"><a class="delete c_del" href="javascript:">删除</a></li>
+								</ul>
+							</div>
+						<?php endforeach ?>
+					<?php endif ?>	
+				</div><!--table_con_son!end-->
+			</div><!--table_con!end-->
+			</div>
+			<!--table_containter!end-->
+			<div class="pos_cz_tow_two_two"><span class="spantj c_add">继续添加</span></div>
+			<div class="pos_cz_tow_two_two pos_gm_02_border_top">
+				<span class="pos_cz_tow_two04 ">应付金额：<em class="all_xm_money">0</em>&nbsp;元</span>
+				<span class="pos_gm_01">购买项目<span class="pos_gm_03 all_xm_num">0</span>个</span>
+				<span class="pos_gm_01">总价小计（原价）：<span class="pos_gm_04">￥<font class="all_xm_money_old">0</font></span></span>
+				<span class="pos_gm_01">抵扣小计：<span class="pos_gm_04">-￥<font class="all_xm_money_dk">0</font></span></span>
+				<span class="pos_gm_01">面折率：<span class="pos_gm_04"><font class="all_xm_money_zk">0</font>%</span></span>
+			</div>
+		</div>
+	</div><!--购买项目!end-->
+
+
+	<!--购买产品-->
+	<div class="pos_cz_tow box_cp">
+		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>购买产品</div>
+		<div class="pos_cz_tow_two">
+			<!--table_container-->  
+			<div class="table_container" style="border:none;">
+			<!--table_con-->
+			<div class="table_con" style="border:none; margin-right:0px;">
+				<!--table_con_son-->
+				<div class="table_con_son">
+					<div class="table_title">
+					<ul>
+						<li style="min-width:250px">产品</li>
+						<li>数量</li>
+						<li>原价（元）</li>
+						<li>面折率</li>
+						<li>赠送账户抵扣（元）</li>
+						<li>应付金额（元）</li>
+						<li>活动</li>
+						<li style="min-width:80px">操作</li>
+					</ul>
+					</div>
+
+					<?php if ($model): ?>
+						<?php foreach ($model->pros as $pro): ?>
+						<?php if($pro['pro_type']!=2) continue; ?>
+						<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+
+						<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list clear">
+							<ul>
+							<li class="li001"><?php echo $info->name ?></li>
+							<li class="li002"><input type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05">（<?php echo $info->unit ?>）</li>
+							<li class="li003"><?php echo $pro['price'] ?></li>
+							<li class="li004"><input type="text" value="<?php echo $pro['rebate'] ?>" class="pos_cz_tow_two05">&nbsp;%</li>
+							<li class="li005 xzzh"><?php  echo $pro['card_gift']==0?"点击选择账户类型":$pro['card_gift']; ?></li>
+							<li class="li006"><input type="text" value="<?php echo $pro['pay_price']; ?>" class="pos_cz_tow_two05"></li>
+							<li class="li007"><?php echo $this->dropDownList('',$hd_list,$pro['promotion_id'],array("class"=>"hd")) ?></li>
+							<li class="li008"><a class="delete c_del" href="javascript:">删除</a></li>
+							</ul>
+						</div>
+						<?php endforeach ?>
+					<?php endif ?>
+				</div><!--table_con_son!end-->
+			</div><!--table_con!end-->
+			</div>
+			<!--table_containter!end-->
+			<div class="pos_cz_tow_two_two"><span class="spantj c_add">继续添加</span></div>
+			<div class="pos_cz_tow_two_two pos_gm_02_border_top">
+				<span class="pos_cz_tow_two04">应付金额：<em class="all_cp_money">0</em>&nbsp;元</span>
+				<span class="pos_gm_01">购买产品<span class="pos_gm_03 all_cp_num">0</span>个</span>
+				<span class="pos_gm_01">总价小计（原价）：<span class="pos_gm_04">￥<font class="all_cp_money_old">0</font></span></span>
+				<span class="pos_gm_01">抵扣小计：<span class="pos_gm_04">-￥<font class="all_cp_money_dk">0</font></span></span>
+				<span class="pos_gm_01">面折率：<span class="pos_gm_04"><font class="all_cp_money_zk">0</font>%</span></span>
+			</div>
+		</div>
+	</div><!--购买产品!end-->
+
+
+	<!--购买卡券-->
+	<div class="pos_cz_tow box_kq">
+		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>购买卡券</div>
+		<div class="pos_cz_tow_two">
+			<!--table_container-->  
+			<div class="table_container" style="border:none;">
+			<!--table_con-->
+			<div class="table_con" style="border:none; margin-right:0px;">
+				<!--table_con_son-->
+				<div class="table_con_son">
+					<div class="table_title">
+						<ul>
+							<li style="min-width:250px">卡券</li>
+							<li>数量</li>
+							<li>原价（元）</li>
+							<li>面折率</li>
+							<li>赠送账户抵扣（元）</li>
+							<li>应付金额（元）</li>
+							<li>活动</li>
+							<li>操作</li>
+						</ul>
+					</div>
+
+					<?php if ($model): ?>
+						<?php foreach ($model->pros as $pro): ?>
+						<?php if($pro['pro_type']!=3) continue; ?>
+						<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+
+						<div data-sold="<?php echo $info->sold_num ?>" data-num="<?php echo $info->num ?>" data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>"  data-zs="<?php echo $pro['money_str'] ?>" class="table_list clear">
+							<ul>
+								<li class="li001"><?php echo $info->name ?></li>
+								<li class="li002"><input type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05"></li>
+								<li class="li003"><?php echo $pro['price'] ?></li>
+								<li class="li004"><input type="text" value="<?php echo $pro['rebate'] ?>" class="pos_cz_tow_two05">&nbsp;%</li>
+								<li class="li005 xzzh"><?php  echo $pro['card_gift']==0?"点击选择账户类型":$pro['card_gift']; ?></li>
+								<li class="li006"><input type="text" value="<?php echo $pro['pay_price'] ?>" class="pos_cz_tow_two05"></li>
+								<li class="li007"><?php echo $this->dropDownList('',$hd_list,$pro['promotion_id'],array("class"=>"hd")) ?></li>
+								<li class="li008"><a class="delete c_del" href="javascript:">删除</a></li>
+							</ul>
+						</div>
+						<?php endforeach ?>
+					<?php endif ?>
+				</div><!--table_con_son!end-->
+			</div><!--table_con!end-->
+			</div>
+			<!--table_containter!end-->
+			<div class="pos_cz_tow_two_two"><span class="spantj c_add">继续添加</span></div>
+			<div class="pos_cz_tow_two_two pos_gm_02_border_top">
+				<span class="pos_cz_tow_two04">应付金额：<em class="all_kq_money">0</em>&nbsp;元</span>
+				<span class="pos_gm_01">购买卡券<span class="pos_gm_03 all_kq_num">0</span>个</span>
+				<span class="pos_gm_01">总价小计（原价）：<span class="pos_gm_04">￥<font class="all_kq_money_old">0</font></span></span>
+				<span class="pos_gm_01">抵扣小计：<span class="pos_gm_04">-￥<font class="all_kq_money_dk">0</font></span></span>
+				<span class="pos_gm_01">面折率：<span class="pos_gm_04"><font class="all_kq_money_zk">0</font>%</span></span>
+			</div>
+		</div>
+	</div><!--购买卡券!end-->
+
+
+	<!--赠送-->
+	<?php echo $gift ?>
+	<!--赠送!end-->
+
+
+
+	<!--备注-->
+	<div class="pos_cz_tow pos_cz_for_bz">
+		<div class="pos_cz_for_bz01">备注</div>
+		<div class="pos_cz_for_bz02">
+			<div class="pos_cz_for_bz02_son"><textarea class="order_note" rows="4"><?php echo $model?$model->o_s->note:"" ?></textarea></div>
+		</div>
+	</div><!--备注!end-->
+
+	<!---->
+	<div class="pos_cz_tow pos_cz_zh">
+		<?php if (!$model): ?>
+			<a href="javascript:" class="pos_cz_zh_an c_submit">提交订单</a>
+		<?php else: ?>
+			<?php if (!$model->o_s->pay_status): ?>
+				<a href="javascript:" class="pos_cz_zh_an c_submit">订单付款</a>
+			<?php endif ?>
+		<?php endif ?>
+		
+		<div class="pos_gm_two">
+			<div class="pos_gm_two_l">购买商品 <font class="order_pro_num">0</font> 件</div>
+			<div class="pos_gm_two_r">
+				<div><span class="span01">总价（原价）：</span><span class="span02">￥<font class="order_old_money">0</font></span></div>
+				<div><span class="span01">抵扣总价：</span><span class="span02">￥<font class="order_dk_money">0</font></span></div>
+				<div><span class="span01">折扣率：</span><span class="span02"><font class="order_rate">100</font>%</span></div>
+			</div>
+		</div>
+		<div class="pos_cz_zh_01">
+			<div style="height:30px; line-height:30px; margin-top:30px; display:block;">
+				应付总金额：<span class="pos_cz_zh_02">￥<font class="order_money">0</font></span>
+			</div>
+			<div class="pos_gm_two_01">已优惠：<span> - ¥<font class="order_yh_money">0</font></span></div>
+		</div>
+	</div><!--!end-->
+</div>
+<!--content_right_con!end-->
+
+
+
+<!-- 选择账户分配弹出 -->
+<div style="top:100px; display:none" class="tjfj ">
+	<div class="tjfj_top"><span class="fjgb">x</span>赠送账户抵扣</div>
+	<div class="tjfj_two pos_gm_th zszhdk">
+		<div class="pos_gm_th_01" style="margin-left:0px">购买《肽美白》1疗次，原价：1000 元</div>
+
+		<!--table_container-->  
+		<div style="margin-bottom:20px;" class="table_container">
+			<!--table_con-->
+			<div style="margin-right:0px;" class="table_con pos_cz_qr_top_04">
+
+				<!--table_con_son-->
+				<div class="table_con_son" style="min-width: 564px;">
+					<!-- <div class="pos_cz_tow_top pos_cz_qr_02">赠送现金</div>-->
+					<div class="table_title">
+						<ul>
+						<li style="min-width:200px">账户类型</li>
+						<li>余额（元）</li>
+						<li style="min-width: 80px; border-right: medium none;">抵扣金额（元）</li>
+						</ul>
+					</div>
+
+				</div><!--table_con_son!end-->
+
+			</div><!--table_con!end-->
+		</div>
+		<!--table_containter!end-->
+	</div>
+
+</div>
+<!-- 选择账户分配弹出 end-->
+
+{__TOKEN__}
+
+<div class="none" id="widget_project">
+<?php echo \Ivy::app()->widget('common/selectProject',"rich"); ?>
+</div>
+
+<div class="none" id="widget_product">
+<?php echo \Ivy::app()->widget('common/selectProduct',"rich"); ?>
+</div>
+
+<div class="none" id="widget_voucher">
+<?php echo \Ivy::app()->widget('common/selectVoucher',array('param'=>"rich",'cu_id'=>$_GET['id'])); ?>
+</div>
+
+<script type="text/javascript">
+
+$(function(){
+
+	<?php if ($model): ?>
+		change_total();
+	<?php endif ?>
+
+	//默认空值收起
+	$(".pos_cz_tow_top_r").each(function(i){
+		var self=$(this);
+		var num = self.parent().next().find('.pos_gm_03').html();
+		if(num=='0'){
+			self.html('展开').addClass("pos_cz_tow_top_rcl");//收起
+			self.parent().next().hide();
+		}
+	});
+  
+ 
+
+
+
+	//收起效果
+	$(".pos_cz_tow_top_r").click(function(){
+		var self=$(this);
+		self.parent().next().slideToggle("fast",function(){
+			//alert("Animation Done.");
+			if(self.hasClass("pos_cz_tow_top_rcl")){
+				self.html('收起').removeClass("pos_cz_tow_top_rcl");
+			}else{
+				self.html('展开').addClass("pos_cz_tow_top_rcl");
+			}
+		});
+		table_flash();
+	});
+
+	//项目的添加
+	$('.box_xm').on('click','.c_add',function(){
+		var self=$(this).closest('.box_xm');//box对象
+		var d = Idialog({
+			top:150,
+			width:800,
+			title:'添加项目',
+			content:$('#widget_project'),
+			cancel:false,
+			ok:function(obj){
+				var _self=obj._self;
+				var has_list = self.find('.table_list');//已经存在的列
+				var pro_k=has_list.length;//当前序号
+
+				var result_list=_self.find('.result_pro li');
+				$.each( result_list, function(i, pro){
+					pro=$(pro);
+					var p_name=pro.attr('data-name');
+					var p_id=pro.attr('rel');
+					var p_num=pro.attr('data-num');
+					var p_price=pro.attr('data-price');
+					var p_old_price=parseInt(p_num)*parseInt(p_price);
+					//如果存在 则略过
+					if(has_list.filter("[data-id='"+p_id+"']").length>0) return ;
+
+					var str  ='<div class="table_list clear" data-id="'+p_id+'" data-dj="'+p_price+'" ><ul>';
+						str +='<li class="li001">'+p_name+'（'+p_old_price+'元/'+p_num+'疗次）</li>';
+						str +='<li class="li002"><input type="text" class="pos_cz_tow_two05" value="'+p_num+'" /></li>';
+						str +='<li class="li003">'+p_old_price+'</li>';
+						str +='<li class="li004"><input type="text" class="pos_cz_tow_two05" value="100" />&nbsp;%</li>';
+						str +='<li class="li005 xzzh">点击选择账户类型</li>';
+						str +='<li class="li006"><input type="text" class="pos_cz_tow_two05" value="'+p_old_price+'" /></li>';
+						str +='<li class="li007"><?php echo $this->dropDownList("",$hd_list,"",array("class"=>"hd")) ?></li>';
+						str +='<li class="li008"><a href="javascript:" class="delete c_del">删除</a></li>';
+						str +='</ul></div>';
+					
+					self.find('.table_con_son').append(str);
+					pro_k++;
+				});
+				table_flash();
+				change_total();
+			}
+		});
+	});
+	//项目删除
+	$('.box_xm').on('click','.c_del',function(){
+		$(this).closest('.table_list').remove();
+		change_total();
+	});
+
+	//产品的添加
+	$('.box_cp').on('click','.c_add',function(){
+		var self=$(this).closest('.box_cp');//box对象
+		var d = Idialog({
+			top:150,
+			width:800,
+			title:'添加产品',
+			content:$('#widget_product'),
+			cancel:false,
+			ok:function(obj){
+				var _self=obj._self;
+				var has_list = self.find('.table_list');//已经存在的列
+				var pro_k=has_list.length;//当前序号
+
+				var result_list=_self.find('.result_pro li');
+				$.each( result_list, function(i, pro){
+					pro=$(pro);
+					var p_name=pro.attr('data-name');
+					var p_id=pro.attr('rel');
+					var p_num=pro.attr('data-num');
+					var p_price=pro.attr('data-price');
+					var p_unit=pro.attr('data-unit');//产品规格
+					//如果存在 则略过
+					if(has_list.filter("[data-id='"+p_id+"']").length>0) return ;
+
+					var str  ='<div class="table_list clear" data-id="'+p_id+'" data-dj="'+p_price+'" ><ul>';
+						str +='<li class="li001">'+p_name+'</li>';
+						str +='<li class="li002"><input type="text" class="pos_cz_tow_two05" value="'+p_num+'" />（'+p_unit+'）</li>';
+						str +='<li class="li003">'+p_price+'</li>';
+						str +='<li class="li004"><input type="text" class="pos_cz_tow_two05" value="100" />&nbsp;%</li>';
+						str +='<li class="li005 xzzh">点击选择账户类型</li>';
+						str +='<li class="li006"><input type="text" class="pos_cz_tow_two05" value="'+p_price+'" /></li>';
+						str +='<li class="li007"><?php echo $this->dropDownList("",$hd_list,"",array("class"=>"hd")) ?></li>';
+						str +='<li class="li008"><a href="javascript:" class="delete c_del">删除</a></li>';
+						str +='</ul></div>';
+					
+					self.find('.table_con_son').append(str);
+					pro_k++;
+				});
+				table_flash();
+				change_total();
+			}
+		});
+	});
+	//产品删除
+	$('.box_cp').on('click','.c_del',function(){
+		$(this).closest('.table_list').remove();
+		change_total();
+	});
+
+	//卡券的添加
+	$('.box_kq').on('click','.c_add',function(){
+		var self=$(this).closest('.box_kq');//box对象
+		var d = Idialog({
+			top:150,
+			width:800,
+			title:'添加卡券',
+			content:$('#widget_voucher'),
+			cancel:false,
+			ok:function(obj){
+				var _self=obj._self;
+				var has_list = self.find('.table_list');//已经存在的列
+				var pro_k=has_list.length;//当前序号
+
+				var result_list=_self.find('.result_kq li');
+				$.each( result_list, function(i, pro){
+					pro=$(pro);
+					var p_name=pro.attr('data-name');
+					var p_id=pro.attr('rel');
+					var p_num=pro.attr('data-num');//发行总数
+					var p_price=pro.attr('data-price');//发行价格
+					var p_sold=pro.attr('data-sold');//已经卖出数量
+					//如果存在 则略过
+					if(has_list.filter("[data-id='"+p_id+"']").length>0) return ;
+
+					var str  ='<div class="table_list clear" data-id="'+p_id+'" data-dj="'+p_price+'"  data-num="'+p_num+'" data-sold="'+p_sold+'" ><ul>';
+						str +='<li class="li001">'+p_name+'</li>';
+						str +='<li class="li002"><input type="text" class="pos_cz_tow_two05" value="1" /></li>';
+						str +='<li class="li003">'+p_price+'</li>';
+						str +='<li class="li004"><input type="text" class="pos_cz_tow_two05" value="100" />&nbsp;%</li>';
+						str +='<li class="li005 xzzh">点击选择账户类型</li>';
+						str +='<li class="li006"><input type="text" class="pos_cz_tow_two05" value="'+p_price+'" /></li>';
+						str +='<li class="li007"><?php echo $this->dropDownList("",$hd_list,"",array("class"=>"hd")) ?></li>';
+						str +='<li class="li008"><a href="javascript:" class="delete c_del">删除</a></li>';
+						str +='</ul></div>';
+					
+					self.find('.table_con_son').append(str);
+					pro_k++;
+				});
+				table_flash();
+				change_total();
+			}
+		});
+	});
+	//卡券删除
+	$('.box_kq').on('click','.c_del',function(){
+		$(this).closest('.table_list').remove();
+		change_total();
+	});
+
+
+
+	//项目 赠送账户抵扣分配
+	$('.box_xm,.box_cp,.box_kq').on('click','.xzzh',function(){
+		var table_list = $(this).closest('.table_list');
+		var capital_money=table_list.attr("data-zs");
+		var is_xm=$(this).parents('.box_xm').length>0?true:false;
+		var is_cp=$(this).parents('.box_cp').length>0?true:false;
+		var is_kq=$(this).parents('.box_kq').length>0?true:false;
+		var d = Idialog({
+			top:150,
+			width:500,
+			title:'赠送账户抵扣',
+			content:$('.zszhdk'),
+			cancel:false,
+			init:function(content){
+				var titlestr="购买《"+table_list.find('.li001').html()+"》"+table_list.find('.li002 input').val()+"次，原价："+table_list.find('.li003').html()+" 元"
+				content.find('.pos_gm_th_01').html(titlestr);
+
+				$.each( capital_zs, function(i, capital){
+					var money = str_money(capital_money,capital.id);
+					if((is_xm && capital.is_project==1) || (is_cp && capital.is_product==1) || (is_kq && capital.is_voucher==1)){
+						var s_list ='<div class="table_list clear"><ul>';
+							s_list+='<li class="li001">'+capital.name+'</li>';
+							s_list+='<li class="li002">'+capital.balance+'</li>';
+							s_list+='<li class="li003"><input type="text" data-max-value="'+capital.balance+'" data-capital-id="'+capital.id+'" class="pos_cz_tow_two05 pos_gm_th_02" value="'+money+'"></li>';
+							s_list+='</ul></div>';
+							content.find('.table_con_son').append(s_list);
+					}
+				});
+				table_flash(content);
+			},
+			ok:function(obj){
+				var content=obj._self;
+				//赠送抵扣情况
+				var zs_all=0;
+				var is_next=true;
+				var zs = content.find("input").map(function(){
+					if (parseFloat($(this).val())<0 || parseFloat($(this).val())>parseFloat($(this).attr('data-max-value')) ) {
+						is_next=false;
+						Idialog.tips("抵扣金额填写错误!",2);
+						return false;
+					};
+					zs_all+=parseFloat($(this).val());
+					return  $(this).attr('data-capital-id')+"|"+$(this).val();
+				}).get().join(",");
+				if(is_next==false)
+					return false;
+				table_list.attr('data-zs',zs);
+				table_list.find('.xzzh').html(zs_all);
+				change_zs(table_list);//触发价格联动
+			}
+		});
+	});
+
+	//项目、产品、卡券价格联动
+	//修改数量
+	$('.box_xm,.box_cp,.box_kq').on('change','.li002 input',function(){
+		var table_list=$(this).closest('.table_list');
+		var zs_all=$.isNumeric(table_list.find('.li005').html())?table_list.find('.li005').html():0;//赠送抵扣额
+		var yj=table_list.attr('data-dj')*$(this).val();//新原价
+		var yfje=yj*table_list.find('.li004 input').val()/100-zs_all;//新应付金额
+		table_list.find('.li003').html(yj);
+		table_list.find('.li006 input').val(yfje);
+		change_total();
+	});
+	//修改面折率
+	$('.box_xm,.box_cp,.box_kq').on('change','.li004 input',function(){
+		var table_list=$(this).closest('.table_list');
+		var zs_all=$.isNumeric(table_list.find('.li005').html())?table_list.find('.li005').html():0;//赠送抵扣额
+		var yfje = table_list.find('.li003').html()*$(this).val()/100-zs_all;//新应付金额
+		table_list.find('.li006 input').val(yfje);
+		change_total();
+	});
+
+	//修改应付金额 改变面折率
+	$('.box_xm,.box_cp,.box_kq').on('change','.li006 input',function(){
+		var table_list=$(this).closest('.table_list');
+		var zs_all=$.isNumeric(table_list.find('.li005').html())?table_list.find('.li005').html():0;//赠送抵扣额
+		var mzl = (parseInt($(this).val())+parseInt(zs_all))/table_list.find('.li003').html()*100   ;//新面折率
+		table_list.find('.li004 input').val(mzl);
+		change_total();
+	});
+
+	//获取具体账户金额
+	function str_money(money_str,capital_id){
+		var res = 0;
+		if(money_str){
+			var arr=money_str.split(",");
+			$.each( arr, function(i, n){
+				var c_m=this.split("|");
+				if(c_m[0]==capital_id) res = c_m[1];
+			});
+		}
+		return res;
+	}
+	//修改赠送抵扣 无法监听，通过函数触发
+	function change_zs(table_list){
+		var zs_all=$.isNumeric(table_list.find('.li005').html())?table_list.find('.li005').html():0;//赠送抵扣额
+		var yfje = table_list.find('.li003').html()*table_list.find('.li004 input').val()/100-zs_all;//新应付金额
+		table_list.find('.li006 input').val(yfje);
+		change_total();
+	}
+	//同步修改 box小计
+	function change_total(){
+		//同步修改 box小计
+		$.each( ['xm','cp','kq'], function(i, boxname){
+			$('.all_'+boxname+'_num').html($('.box_'+boxname+' .table_list').length);
+			if($('.box_'+boxname+' .table_list').length>0){
+				$('.all_'+boxname+'_money_old').html(eval($('.box_'+boxname+' .li003').map(function(){
+					return $(this).html();
+				}).get().join('+')));
+				$('.all_'+boxname+'_money_dk').html(eval($('.box_'+boxname+' .li005').map(function(){
+					var zs_all=$.isNumeric($(this).html())?$(this).html():0;//赠送抵扣额
+					return zs_all;
+				}).get().join('+')));
+				$('.all_'+boxname+'_money').html(eval($('.box_'+boxname+' .li006 input').map(function(){
+					return $(this).val();
+				}).get().join('+')));
+			}else{
+				$('.all_'+boxname+'_money_old').html(0);
+				$('.all_'+boxname+'_money_dk').html(0);
+				$('.all_'+boxname+'_money').html(0);
+			}
+			var all_zk=(parseInt($('.all_'+boxname+'_money').html())+parseInt($('.all_'+boxname+'_money_dk').html()))/$('.all_'+boxname+'_money_old').html()*100;
+			if($('.all_'+boxname+'_money_old').html()==0) all_zk=0; //除数为0
+			$('.all_'+boxname+'_money_zk').html( all_zk.toFixed(2) );
+		});
+
+		change_all();
+	}
+	//项目产品卡券价格联动 end
+	
+	//同步整单数据
+	function change_all(){
+		var money=0;//应付总金额
+		money+=parseInt($('.all_xm_money').html());
+		money+=parseInt($('.all_cp_money').html());
+		money+=parseInt($('.all_kq_money').html());
+
+		var dk_money=0;//总抵扣金额
+		dk_money+=parseInt($('.all_xm_money_dk').html());
+		dk_money+=parseInt($('.all_cp_money_dk').html());
+		dk_money+=parseInt($('.all_kq_money_dk').html());
+
+		var old_money=0;//总原价
+		old_money+=parseInt($('.all_xm_money_old').html());
+		old_money+=parseInt($('.all_cp_money_old').html());
+		old_money+=parseInt($('.all_kq_money_old').html());
+
+		var num=0;//总商品数量
+		num+=parseInt($('.all_xm_num').html());
+		num+=parseInt($('.all_cp_num').html());
+		num+=parseInt($('.all_kq_num').html());
+
+		$('.order_old_money').html(old_money);
+		$('.order_money').html(money);
+		$('.order_dk_money').html(dk_money);
+		$('.order_pro_num').html(num);
+		$('.order_yh_money').html(old_money-money);
+		if(old_money==0) return;
+		$('.order_rate').html((money/old_money*100).toFixed(2));
+
+
+		body_resize();//左边高度调整
+	}
+
+	//数据提交
+	$(".c_submit").click(function(){
+		var post_data=submit_data();
+		if(post_data==false){
+			return false;
+		}
+
+		$('.c_submit').html("正在提交订单...").addClass("pos_cz_zh_an_hover").removeClass("pos_cz_zh_an");
+
+		<?php if ($model): ?>
+		var url="<?php echo $this->url('editSave',array('id'=>$model->o_s->id)) ?>";			
+		<?php else: ?>
+		var url="<?php echo $this->url('addSave') ?>";	
+		<?php endif ?>
+		$.post(url, post_data,function(data){
+			Idialog.tips(data.msg,2);
+			if(data.code==200){
+				//转到付款界面
+				setTimeout(function(){to_url('<?php echo $this->url("pay");?>&id='+data.data)},3000);
+			}
+			if(data.code==400){
+				//刷新token
+				$("input[name='__hash__']").replaceWith(data.data);
+				$('.c_submit').html("提交订单").addClass("pos_cz_zh_an").removeClass("pos_cz_zh_an_hover");
+			}
+		}, "json");
+	});
+
+	function to_url(url){
+		window.location.href=url;
+	}
+
+	//提交保存数据构造
+	function submit_data(){
+		var err=false;
+		//非法输入检测 负数检测
+		$(".content_right_con input").each(function(i){
+			var v = $(this).val();
+			if($.isNumeric(v) && v<0){
+				err=true;
+			}
+		});
+		if(err){
+			Idialog.tips("不可输入负值",2);
+			return false; //直接返回
+		}
+
+		//var err=false;
+		var data={};
+		data.__hash__ = $("input[name='__hash__']").val();//表单令牌
+		//业绩比例相关
+		data.effect=[];
+		$(".effect_user").each(function(i){
+			data.effect.push({"e_id":$(this).val(),"e_rate":$(this).next().val()});
+			if($(this).next().val()==0){
+				Idialog.tips("业绩不能为空",2);
+				err = true;
+			} 
+		});
+		//业绩人员验证
+		var e_u=$("input[name='effect_user']").val().split(",").sort();
+		for(i = 0; i < e_u.length; i++) {
+			if( e_u[i] == e_u[i+1]) {
+				Idialog.tips("业绩人员重复",2);
+				err = true;
+			}
+		}
+		var is_not_null=false;//检查订单数据是否为空
+		//购买项目、产品、卡券相关
+		data.pro=[];
+		$('.box_xm,.box_cp,.box_kq').find(".table_list").each(function(i){
+			is_not_null=true;
+			var pro_type=3;
+			if($(this).closest('.box_xm').length>0)
+				var pro_type=1;
+			if($(this).closest('.box_cp').length>0)
+				var pro_type=2;
+			var zs_all=$.isNumeric($(this).find('.li005').html())?$(this).find('.li005').html():0;//赠送抵扣额
+			data.pro.push({
+				"pro_id":$(this).attr("data-id"),
+				"num":$(this).find(".li002 input").val(),
+				"price":$(this).find(".li003").html(),//原价
+				"pay_price":$(this).find(".li006 input").val(),//应付金额
+				"rebate":$(this).find(".li004 input").val(),//面折率
+				"card_gift":zs_all,//赠送账户抵扣
+				"gift_detail":$(this).attr("data-zs"),//赠送详细
+				"pro_type":pro_type,//商品类型
+				"promotion_id":$(this).find(".hd").val(),//参与活动
+			});
+		});
+		//赠送项目、产品、卡券相关
+		data.gift=[];
+		$('.box_gift_xm,.box_gift_cp,.box_gift_kq').find(".table_list").each(function(i){
+			is_not_null=true;
+			var pro_type=3;
+			if($(this).closest('.box_gift_xm').length>0)
+				var pro_type=1;
+			if($(this).closest('.box_gift_cp').length>0)
+				var pro_type=2;
+			data.gift.push({
+				"pro_id":$(this).attr("data-id"),
+				"num":$(this).find(".li002 input").val(),
+				"price":$(this).attr("data-dj")*$(this).find(".li002 input").val(),//原价 = 单价*数量
+				"pro_type":pro_type,//商品类型
+			});
+		});
+		//赠送现金
+		data.gift_xj=[];
+		$('.box_gift_xj').find("input").each(function(i){
+			if($(this).val()!=''){
+				is_not_null=true;
+				data.gift_xj.push({
+					"capital_id":$(this).attr("data-id"),
+					"cash":$(this).val()
+				});
+			}
+			
+		});
+		//赠送j积分
+		data.gift_jf=$('.box_gift_jf').find("input").val();
+		if (data.gift_jf>0) {is_not_null=true;}
+		if (is_not_null==false) {
+			Idialog.tips("订单内容不能为空",2);
+			err = true;
+		};
+		//整单信息-原价
+		data.price=$('.order_old_money').html();
+		//整单信息-应付金额
+		data.pay_price=$('.order_money').html();
+		//整单信息-原价
+		data.rebate=$('.order_rate').html();
+
+		data.cu_id=$('.cu_info').attr("data-id");
+
+		data.note=$('.order_note').val();
+
+		<?php if ($tag&&$tag=='rh'): ?>
+			data.rh_id='-1';
+		<?php endif ?>
+
+		if(err)
+			return false; //发生验证错误 返回false
+		return data;
+	}
+
+
+});
+</script>

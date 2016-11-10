@@ -1,0 +1,68 @@
+<link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
+
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/PCASClass.js"></script>
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+         申请查看数据的供应商
+    </div>
+
+
+    <!--table_container-->   
+	<?php echo $this->datagrid(array(
+		'id'=>'table-list',
+		'lastFloat'=>false,
+		'dataProvider'=>$pager,
+		'columns'=>array(
+			array(
+				'header' => '供应商名称',
+				'name' => 'name',
+			),
+			array(
+				'header' => '联系电话',
+				'name' => 'phone',
+			),
+			array(
+				'header' => '数据查看状态',
+				'name' => 'status',
+				'value'=>'{\admin\CompanyRelation::getStatus($data["status"])}'
+			),
+			array(
+				'header' => '操作',
+				'rel'=>'comp_id', //供应商id
+				'template'=> '{$data["status"]?"<a href=\"javascript:;\" class=\"delete khca\">收回授权</a>":"<a href=\"javascript:;\" class=\"view khca\">同意授权</a>"}',
+			)
+		),
+	));?>
+    <!--table_containter!end-->
+    
+</div>
+<!--content_right_con!end-->
+
+
+<script type="text/javascript">
+
+	//状态修改
+	$('.khca').click(function(){
+		var supp_id = $(this).parent().attr('rel');
+		$.post("<?php echo $this->url('appliStatus') ?>", { supp_id: supp_id},function(json){
+			if(json.code==200){
+				var d = Idialog({
+					top:120,
+					width:470,
+					title:'通知',
+					content:'修改成功！',
+					close:function(self){
+						location.reload();
+					},
+					cancel:false,
+				});
+			}else{
+				alert('修改失败！')
+			}
+		}, "json");
+
+	});
+
+</script>

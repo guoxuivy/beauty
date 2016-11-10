@@ -1,0 +1,184 @@
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Itable2excel.js" charset="utf-8"></script>
+<?php 
+	$md_list=\EmployDept::getList(true);
+    if ($this->controller->is_store)
+        $dept_ids=\Ivy::app()->user->dept_id;
+?>
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+        <div class="fjgl_top_r">
+            <span><a href="#" download="月客流分析表.xls"class="to_excel fjgl_top_r_05">导出</a></span>
+        </div>
+        <div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>数据报表><span>月客流分析表</span>
+    </div>
+
+    <!--sjbb_ddkl_one-->
+    <div class="sjbb_ddkl_one">
+        <ul>
+            <li>
+                <div class="sjbb_ddkl_one_l">门店范围：</div>
+                <div class="sjbb_ddkl_one_r">
+                    <div class="sjbb_ddkl_one_r_son choose_md">
+                        <?php if(!$this->controller->is_store):?>
+                        <a href="javascript:" rel="0"><span <?php echo in_array('0',explode(',',$dept_ids))?'class="span_01"':''?>></span>全连锁</a>
+                        <?php endif;?>
+                        <?php foreach ($md_list as $key => $value): ?>
+                            <a href="javascript:" rel="<?php echo $key ?>"><span <?php echo in_array($key,explode(',',$dept_ids))?'class="span_01"':''?>></span><?php echo $value ?></a>
+                        <?php endforeach ?>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="sjbb_ddkl_one_l">日期：</div>
+                <div class="sjbb_ddkl_one_r">
+                    <div class="sjbb_ddkl_one_r_son">
+                        <select id="year" class="sjbb_ddkl_one_r_son_01">
+                            <?php $_year = date('Y');?>
+                            <?php for($i=0;$i<=4;$i++):?>
+                                <option <?php echo $year==$_year-$i?'selected="selected"':''?> value="<?php echo $_year-$i;?>"><?php echo $_year-$i;?>年</option>
+                            <?php endfor;?>
+                        </select>
+                        <select id="month" class="sjbb_ddkl_one_r_son_01">
+                            <?php for($i=1;$i<=12;$i++):?>
+                                <option <?php echo $month==$i?'selected="selected"':''?> value="<?php echo $i;?>"><?php echo $i<10?'0'.$i:$i;?>月</option>
+                            <?php endfor;?>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li class="lastli">
+                <div class="sjbb_ddkl_one_l">
+                </div>
+                <div class="sjbb_ddkl_one_r">
+                    <div class="sjbb_ddkl_one_r_son">
+                        <a href="javascript:" class="changa01" id="search">搜索</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!--sjbb_index_onesjbb_ddkl_oneend-->
+
+
+
+    <!--table_container-->
+    <div id="order-list" class="table_table table_center">
+        <div class="table_hiddle">
+        <table width="100%" cellspacing="0" cellpadding="0" border="0" last-float="false">
+            <thead>
+                <tr class="table_title">
+                    <th>会员类型</th>
+                    <th>档案总数</th>
+                    <th>有效</th>
+                    <th>久档</th>
+                    <th>死档</th>
+                    <th>到店人头</th>
+                    <th>有效到店率</th>
+                    <th>到店客流</th>
+                    <th>到店频率</th>
+                    <th>日均客流</th>
+                    <th>成交人头</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if ($data): ?>
+            <?php $zs = 0;$yx = 0;$jd = 0;$sd = 0;$ddrt = 0;$ddkl = 0;$cjrt = 0;?>
+            <?php foreach($cu_types as $cu_type):?>
+                <tr class="table_list clear">
+                    <td><?php echo $cu_type;?></td>
+                    <td><?php echo $data[$cu_type]['ZS'];?></td>
+                    <td><?php echo $data[$cu_type]['YX'];?></td>
+                    <td><?php echo $data[$cu_type]['JD'];?></td>
+                    <td><?php echo $data[$cu_type]['SD'];?></td>
+                    <td><?php echo $data[$cu_type]['DDRT'];?></td>
+                    <td><?php echo $data[$cu_type]['YX']==0?0:sprintf('%.2f',$data[$cu_type]['DDRT']/$data[$cu_type]['YX']);?></td>
+                    <td><?php echo $data[$cu_type]['DDKL'];?></td>
+                    <td><?php echo $data[$cu_type]['DDRT']==0?0:sprintf('%.2f',$data[$cu_type]['DDKL']/$data[$cu_type]['DDRT']);?></td>
+                    <td><?php echo $data[$cu_type]['DDKL']==0?0:sprintf('%.2f',$data[$cu_type]['DDKL']/$days);?></td>
+                    <td><?php echo $data[$cu_type]['CJRT'];?></td>
+                    <td><a href="<?php echo $this->url('YKLFX_X',array('type'=>$cu_type,'dept_ids'=>$_GET['dept_ids'],'year'=>$_GET['year'],'month'=>$_GET['month']))?>" class="alinks">查看</a></td>
+                
+                </tr>
+                <?php
+                    $zs += $data[$cu_type]['ZS'];
+                    $yx += $data[$cu_type]['YX'];
+                    $jd += $data[$cu_type]['JD'];
+                    $sd += $data[$cu_type]['SD'];
+                    $ddrt += $data[$cu_type]['DDRT'];
+                    $ddkl += $data[$cu_type]['DDKL'];
+                    $cjrt += $data[$cu_type]['CJRT'];
+                ?>
+            <?php endforeach;?>
+                <tr class="table_list table_weight clear">
+                    <td>本月合计</td>
+                    <td><?php echo $zs;?></td>
+                    <td><?php echo $yx;?></td>
+                    <td><?php echo $jd;?></td>
+                    <td><?php echo $sd;?></td>
+                    <td><?php echo $ddrt;?></td>
+                    <td><?php echo $yx==0?0:sprintf('%.2f',$ddrt/$yx);?></td>
+                    <td><?php echo $ddkl;?></td>
+                    <td><?php echo $ddrt==0?0:sprintf('%.2f',$ddkl/$ddrt);?></td>
+                    <td><?php echo $ddkl==0?0:sprintf('%.2f',$ddkl/$days);?></td>
+                    <td><?php echo $cjrt;?></td>
+                    <td></td>
+                </tr> 
+            <?php endif ?>
+            </tbody>
+        </table>
+        </div><!--table_hiddle!end-->
+    </div>
+    <!--table_container-->
+
+</div>
+<!--content_right_con!end-->
+
+<script type="text/javascript">
+$(function(){
+    //门店范围选择
+    $(".choose_md a").click(function(){
+        var rel=$(this).attr("rel");
+        if($(this).find("span").hasClass("span_01")){
+            $(this).find("span").removeClass("span_01");
+            if(rel=="0")
+                $(".choose_md span").removeClass("span_01");
+        }else{
+            $(this).find("span").addClass("span_01");
+            if(rel=="0")
+                $(".choose_md span").addClass("span_01");
+        }
+    });
+
+    $("#search").click(function(){
+        var dept_ids = new Array;
+        $(".choose_md a span").each(function(){
+            if($(this).hasClass('span_01')){
+                dept_ids.push($(this).parent().attr("rel"));
+            }
+        });
+        if(dept_ids.join(',').length<=0){
+            alert('请选择门店！');
+            return false;
+        }
+        var year = $("#year").val();
+        var month = $("#month").val();
+        var url="<?php echo $this->url('YKLFX')?>";
+        window.location.href = url+'&dept_ids='+dept_ids+'&year='+year+'&month='+month;
+    });
+
+    
+    $(".to_excel").click(function(event){
+        var t = Itable2excel({
+            worksheet:'数据分析',
+            table: $('#order-list table')
+        });
+        var data64 = t.uri();
+        if(data64==false)
+            return false;
+        event.currentTarget.href = data64;
+    });
+});
+</script>

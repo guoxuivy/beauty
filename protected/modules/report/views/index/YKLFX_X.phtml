@@ -1,0 +1,206 @@
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Itable2excel.js" charset="utf-8"></script>
+<?php 
+	$md_list=\EmployDept::getList(true);
+    if ($this->controller->is_store)
+        $dept_ids=\Ivy::app()->user->dept_id;
+?>
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+        <div class="fjgl_top_r">
+            <span><a href="#" download="月客流分析表_详细.xls"class="to_excel fjgl_top_r_05">导出</a></span>
+        </div>
+        <div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>数据报表><span>月客流分析表</span> >明细
+    </div>
+
+    <!--sjbb_ddkl_one-->
+    <div class="sjbb_ddkl_one">
+        <ul>
+            <li>
+                <div class="sjbb_ddkl_one_l">门店范围：</div>
+                <div class="sjbb_ddkl_one_r">
+                    <div class="sjbb_ddkl_one_r_son choose_md">
+                        <?php if(!$this->controller->is_store):?>
+                        <a href="javascript:" rel="0"><span <?php echo in_array('0',explode(',',$dept_ids))?'class="span_01"':''?>></span>全连锁</a>
+                        <?php endif;?>
+                        <?php foreach ($md_list as $key => $value): ?>
+                            <a href="javascript:" rel="<?php echo $key ?>"><span <?php echo in_array($key,explode(',',$dept_ids))?'class="span_01"':''?>></span><?php echo $value ?></a>
+                        <?php endforeach ?>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="sjbb_ddkl_one_l">日期：</div>
+                <div class="sjbb_ddkl_one_r">
+                    <div class="sjbb_ddkl_one_r_son">
+                        <select id="year" class="sjbb_ddkl_one_r_son_01">
+                            <?php $_year = date('Y');?>
+                            <?php for($i=0;$i<=4;$i++):?>
+                                <option <?php echo $year==$_year-$i?'selected="selected"':''?> value="<?php echo $_year-$i;?>"><?php echo $_year-$i;?>年</option>
+                            <?php endfor;?>
+                        </select>
+                        <select id="month" class="sjbb_ddkl_one_r_son_01">
+                            <?php for($i=1;$i<=12;$i++):?>
+                                <option <?php echo $month==$i?'selected="selected"':''?> value="<?php echo $i;?>"><?php echo $i<10?'0'.$i:$i;?>月</option>
+                            <?php endfor;?>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li class="lastli">
+                <div class="sjbb_ddkl_one_l">
+                </div>
+                <div class="sjbb_ddkl_one_r">
+                    <div class="sjbb_ddkl_one_r_son">
+                        <a href="javascript:" class="changa01" id="search">搜索</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div> <!--sjbb_index_onesjbb_ddkl_oneend-->
+
+
+
+    <div class="sjbb_ryyj_top">
+        <div class="sjbb_ykl_span">
+            <span>只看有效客户</span>
+            <span class="clckspan">查看全部</span>
+        </div>
+        <span class="one"><?php echo $type;?>类客户</span> <?php echo $year;?>年<?php echo $month;?>月 客流分析明细
+    </div>
+
+
+
+
+    <!--table_container-->
+    <div id="order-list" class="table_table table_center">
+        <div class="table_hiddle">
+        <table width="100%" cellspacing="0" cellpadding="0" border="0" last-float="false">
+            <thead>
+                <tr class="table_title">
+                    <th>客户姓名</th>
+                    <th>会员卡</th>
+                    <th>专属美容师</th>
+                    <th>专属顾问</th>
+                    <th>本月到店次数</th>
+                    <th>本月成交次数</th>
+                    <th>本月成交金额</th>
+                    <th>上月到店次数</th>
+                    <th>上月成交次数</th>
+                    <th>上月成交金额</th>
+                    <th>前月到店次数</th>
+                    <th>前月成交次数</th>
+                    <th>前月成交金额</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if ($data): ?>
+            <?php $by_ddcs=0;$by_cjcs=0;$by_cjje=0;$sy_ddcs=0;$sy_cjcs=0;$sy_cjje=0;$qy_ddcs=0;$qy_cjcs=0;$qy_cjje=0;?>
+            <?php foreach($data as $cu_id=>$_data):?>
+                <tr class="table_list clear">
+                    <td><a href="<?php echo $this->url('/customer/index/view',array('id'=>$cu_id))?>" class="alinks"><?php echo $_data['cu_name']?></a></li>
+                    <td><?php echo $_data['card_id']?></td>
+                    <td><?php echo $_data['cu_mrs']?></td>
+                    <td><?php echo $_data['cu_gw']?></td>
+                    <td><?php echo $_data['by_ddcs']?></td>
+                    <td><?php echo $_data['by_cjcs']?></td>
+                    <td><?php echo $_data['by_cjje']?></td>
+                    <td><?php echo $_data['sy_ddcs']?></td>
+                    <td><?php echo $_data['sy_cjcs']?></td>
+                    <td><?php echo $_data['sy_cjje']?></td>
+                    <td><?php echo $_data['qy_ddcs']?></td>
+                    <td><?php echo $_data['qy_cjcs']?></td>
+                    <td><?php echo $_data['qy_cjje']?></td>
+                    <td><a href="<?php echo $this->url('/customer/index/view',array('id'=>$cu_id))?>" class="alinks">查看</a></td>
+                
+                </tr>
+                <?php
+                    $by_ddcs += $_data['by_ddcs'];
+                    $by_cjcs += $_data['by_cjcs'];
+                    $by_cjje += $_data['by_cjje'];
+                    $sy_ddcs += $_data['sy_ddcs'];
+                    $sy_cjcs += $_data['sy_cjcs'];
+                    $sy_cjje += $_data['sy_cjje'];
+                    $qy_ddcs += $_data['qy_ddcs'];
+                    $qy_cjcs += $_data['qy_cjcs'];
+                    $qy_cjje += $_data['qy_cjje'];
+                ?>
+            <?php endforeach;?>
+                <tr class="table_list table_weight clear">
+                    <td>本月合计</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><?php echo $by_ddcs;?></td>
+                    <td><?php echo $by_cjcs;?></td>
+                    <td><?php echo $by_cjje==0?0:sprintf("%.2f",$by_cjje);?></td>
+                    <td><?php echo $sy_ddcs;?></td>
+                    <td><?php echo $sy_cjcs;?></td>
+                    <td><?php echo $sy_cjje==0?0:sprintf("%.2f",$sy_cjje);?></td>
+                    <td><?php echo $qy_ddcs;?></td>
+                    <td><?php echo $qy_cjcs;?></td>
+                    <td><?php echo $qy_cjje==0?0:sprintf("%.2f",$qy_cjje);?></td>
+                    <td></td>
+                </tr> 
+            <?php endif ?>
+            </tbody>
+        </table>
+        </div><!--table_hiddle!end-->
+    </div>
+    <!--table_container-->
+
+
+
+
+
+</div>
+<!--content_right_con!end-->
+
+<script type="text/javascript">
+$(function(){
+    //门店范围选择
+    $(".choose_md a").click(function(){
+        var rel=$(this).attr("rel");
+        if($(this).find("span").hasClass("span_01")){
+            $(this).find("span").removeClass("span_01");
+            if(rel=="0")
+                $(".choose_md span").removeClass("span_01");
+        }else{
+            $(this).find("span").addClass("span_01");
+            if(rel=="0")
+                $(".choose_md span").addClass("span_01");
+        }
+    });
+
+    $("#search").click(function(){
+        var dept_ids = new Array;
+        $(".choose_md a span").each(function(){
+            if($(this).hasClass('span_01')){
+                dept_ids.push($(this).parent().attr("rel"));
+            }
+        });
+        if(dept_ids.join(',').length<=0){
+            alert('请选择门店！');
+            return false;
+        }
+        var year = $("#year").val();
+        var month = $("#month").val();
+        var url="<?php echo $this->url('YKLFX_X')?>";
+        window.location.href = url+'&type=<?php echo $_GET['type'];?>'+'&dept_ids='+dept_ids+'&year='+year+'&month='+month;
+    });
+
+    
+    $(".to_excel").click(function(event){
+        var t = Itable2excel({
+            worksheet:'数据分析',
+            table: $('#order-list table')
+        });
+        var data64 = t.uri();
+        if(data64==false)
+            return false;
+        event.currentTarget.href = data64;
+    });
+});
+</script>

@@ -1,0 +1,101 @@
+
+<link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
+<style>
+	a.check_code {
+		background-color: #1bab70;
+		border-radius: 2px;
+		color: #fff;
+		display: inline-block;
+		font-size: 12px;
+		height: 22px;
+		line-height: 22px;
+		margin: 0 5px;
+		padding-left: 8px;
+		padding-right: 8px;
+		text-align: center;
+	}
+</style>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r"><!-- span选中添加 button_visit 样式-->
+			<span><a href="javascript:" class="fjgl_top_r_01 filter_search">筛选</a></span>
+		</div>
+	<div class="khgl_01"><img src="<?php echo $this->basePath('public') ?>/images/kh_01.png"></div>
+	注册公司管理
+	</div>
+	<!--  模版引擎扩展 -->
+
+
+<?php echo $this->datagrid(array(
+	'id'=>'table-list',
+	'dataProvider'=>$pager,
+	'columns'=>array(
+		array(
+			'header' => '公司ID',
+			'headerCss'=>'width:40px',
+			'name' => 'id',
+		),
+		array(
+			'header' => '公司名',
+			'name' => 'comp_name',
+			'filter'=>'t.comp_name',
+		),
+		array(
+			'header' => '省',
+			'name' => 'pca_province',
+		),
+		array(
+			'header' => '市',
+			'name' => 'pca_city',
+		),
+		array(
+			'header' => '联系人',
+			'name' => 'boss_name',
+		),
+		array(
+			'header' => '联系电话',
+			'name' => 'phone',
+		),
+		array(
+			'header' => '可用门店数',
+			'name' => 'max_store_num',
+		),
+		array(
+			'header' => '状态',
+			'name' => 'status',
+			'value' => '{\CompanyInfo::model()->getStatus($data["status"])}'
+		),
+		array(
+			'header' => '服务费截止日期',
+			'name' => 'server_time',
+			'value' => '{date("Y-m-d",$data["server_time"])}',
+		),
+		array(
+			'header' => '操作',
+			'rel'=>'id',
+			'template'=> 'view+',
+		)
+	),
+));?>
+	
+</div>
+<!--content_right_con!end-->
+
+<script type="text/javascript">
+
+$(function(){
+	
+	$(".check_code").click(function(){
+		var id = $(this).parent().attr('rel');
+		var status = $(this).attr('rel');
+		$.post('<?php echo $this->url("check")?>',{id:id,status:status}, function(data) {
+			if(data.code=="200"){
+				location.reload();
+			}
+			Idialog.tips(data.msg);
+		},'json');
+	});
+});
+</script>

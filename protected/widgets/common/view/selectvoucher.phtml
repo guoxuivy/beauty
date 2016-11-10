@@ -1,0 +1,105 @@
+
+<div class="widget_content">
+
+    
+    <!--widget_select-->
+    <div class="widget_select widget_select_mb bottom_dashed">
+        <div class="widget_select_l">卡券名称：</div>
+        <div class="widget_select_r">
+            <ul class="add_kq">
+            <?php foreach ($v_list as $key => $value): ?>
+
+            	<li rel="<?php echo $value['id'] ?>" data-name="<?php echo $value['name'] ?>" data-price="<?php echo $value['price'] ?>"  data-num="<?php echo $value['num'] ?>" data-sold="<?php echo $value['sold_num'] ?>" ><span></span><?php echo $value['name'] ?></li>
+            	
+            <?php endforeach ?>
+               <!-- <li class="widget_select_on"><span></span>类别名称一</li> -->
+            </ul>
+        </div>
+    </div><!--widget_select!end-->
+
+    <div class="widget_select widget_select_result">
+        <div class="widget_select_l">已选择项：<br/><a class="widget_select_clean" href="javascript:;">清空已选</a></div>
+        <div class="widget_select_r">
+            <ul class="result_kq">
+               <!-- <li class="widget_select_on"><span></span>类别名称一</li> -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+$(function(){
+
+	
+
+	//分类下的项目下拉级联
+	$('body').off('click','.proj_cate li');
+	$('body').on('click','.proj_cate li',function(){
+		var self=$(this);
+		var content = $(this).closest('.widget_content');
+		var fid=self.attr('rel');
+		self.parent().find('li').removeClass('cate_choose');
+		self.addClass('cate_choose');
+		var opt='';
+		$.getJSON("<?php echo $this->url('admin/project/cateProj') ?>",{fid:fid}, function(json){
+			if(json.code==200){
+				content.find('.add_pro').empty();
+				$.each(json.data, function(i, v){
+					var myclass="";
+					var find = content.find(".result_pro li[rel='"+v.id+"']").length;
+					if(find>0)
+						myclass="widget_select_on";
+						v.num=1;
+						var level='<?php echo $level ?>';
+						switch(level){
+							case 'rich':
+								var l_str='data-num="'+v.num+'" data-price="'+v.price+'"';
+								break;
+							case 'medium':
+								var l_str='data-num="'+v.num+'" data-price="'+v.price+'"';
+								break;
+							default:
+								var l_str="";
+						}
+					opt+='<li class="'+myclass+'" rel="'+v.id+'" data-name="'+v.name+'" '+l_str+' ><span></span>'+v.name+'</li>';
+				});
+			}
+			content.find('.add_pro').append(opt);
+		});
+	});
+
+
+
+
+	//将项目添加到result
+	$('body').off('click','.add_kq li');
+	$('body').on('click','.add_kq li',function(){
+		var self=$(this);
+		if(self.hasClass('widget_select_on'))
+			return;
+		var content = $(this).closest('.widget_content');
+		self.addClass('widget_select_on');
+		content.find('.result_kq').append(self.clone().removeClass('widget_select_on'));
+	});
+
+	//将项目从result 删除
+	$('body').off('click','.result_kq li');
+	$('body').on('click','.result_kq li',function(){
+		var self=$(this);
+		var content = $(this).closest('.widget_content');
+		content.find(".add_kq li[rel='"+self.attr('rel')+"']").removeClass('widget_select_on');
+		self.remove();
+	});
+
+	//清空result
+	$('body').off('click','.widget_select_clean li');
+	$('body').on('click','.widget_select_clean',function(){
+		var self=$(this);
+		var content = $(this).closest('.widget_content');
+		content.find(".add_kq li").removeClass('widget_select_on');
+		content.find('.result_kq').empty();
+	});
+});
+</script>

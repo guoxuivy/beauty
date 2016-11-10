@@ -1,0 +1,124 @@
+<?php
+/**
+ *客户搜索
+ **/
+?>
+<style>
+.search_cu_id_list{
+  /*  position: absolute;*/
+    z-index: 9999;
+    background: white;
+    max-height: 200px;
+    background:  #E8E8E8;
+    width: 100%;
+    min-width: 100px;
+    min-height: 0px;
+    overflow-y: auto;
+}
+.search_cu_id_list li{
+    padding:0;
+    padding-left: 5px;
+    min-height: 0px;
+    line-height: 26px;
+    border-left: 1px solid green;
+}
+.search_cu_id_list_li_hover{
+    background-color: #A9E1FC;
+    cursor: pointer;
+}
+</style>
+<?php $t_k=rand();//增加随机数 避免多次绑定 ?>
+<div style="display: inline-block;">
+    <input type="hidden" name="<?php echo $name;?>"  value="<?php echo $value;?>" id="<?php echo isset($id)?$id:"search_cu_id";?>">
+    <input class="search_cu_input_<?php echo $t_k;?>  <?php echo $class;?>" type="text"  value="<?php echo $show;?>" placeholder="搜索">
+    <ul class="search_cu_id_list"></ul>
+</div>
+<script type="text/javascript">
+//客户模糊搜索
+$(function(){
+    $(".search_cu_input_<?php echo $t_k;?>").keyup(function(event){    //为搜索框加键盘事件监听
+        var _input = $(this);
+        var _now_input_val=$.trim(_input.val());//过滤头尾空格
+        if(_now_input_val!=''){ //过滤空置 和 重复提交
+           
+            if((event.keyCode!=38)&&(event.keyCode!=40)&&(event.keyCode!=13)){    //判断键盘事件，抛弃上下键跟回车键
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $this->url('customer/index/searchCustomerList');?>",
+                    data: "name="+_now_input_val+"<?php if(count($param)>0)echo '&',implode('&', $param) ;?>",
+                    dataType: "json",
+                    success: function(json){
+                        _input.next().empty();
+                        _input.next().show();
+                        if(json.code==200){
+                            $.each( json.data, function(i, v){
+                                if(i==0&&_now_input_val==v.name){
+                                    _input.prev().val(v.id);
+                                }
+                                v.name=v.name+'('+v.phone+')';
+                                if(<?php echo in_array('dept=all',$param)?1:0?>==1)
+                                    v.name=v.name+'<span style="float: right;line-height: 26px;color: blue;">'+v.dept_name+'</span>';
+                                 _input.next().append("<li rel='"+v.id+"'>"+v.name+"</li>");
+                            });
+                            _input.next().find('li').click( function () { 
+                                _input.val($(this).html());
+                                _input.prev().val($(this).attr('rel'));
+                                _input.next().empty();
+                                _input.prev().trigger("change");
+                            }).mouseover(function(){
+                                $(this).addClass('search_cu_id_list_li_hover');
+                            }).mouseout(function(){
+                                $(this).removeClass('search_cu_id_list_li_hover');
+                            });
+                        }
+                    }
+                });
+            }
+            //下
+            if(event.keyCode==40){
+                var c_li = _input.next().find('.search_cu_id_list_li_hover').first();
+                var li_first = _input.next().find('li:first');
+                if(li_first.length==1){
+                    if(c_li.length==0){
+                        //无选中状态
+                        li_first.trigger("mouseover")
+                    }else{
+                        //有选中状态
+                        if(c_li.next().length==1){
+                            c_li.trigger("mouseout")
+                            c_li.next().trigger("mouseover")
+                        }
+                        return false;
+                    }
+                }
+                return false;
+            }
+            //上
+            if(event.keyCode==38){
+                var c_li = _input.next().find('.search_cu_id_list_li_hover').first();
+                var li_first = _input.next().find('li:first');
+                if(c_li.length==1&&c_li.prev().length==1){
+                    c_li.trigger("mouseout")
+                    c_li.prev().trigger("mouseover")
+                }
+                return false;
+            }
+            //回车
+            if(event.keyCode==13){
+                var c_li = _input.next().find('.search_cu_id_list_li_hover').first();
+                if(c_li.length==1){
+                    c_li.trigger("click")
+                }
+                return false;
+            }
+        }else{
+            $(".search_cu_id_list").text('');
+        }
+        
+    });
+  
+});   
+
+</script>
+
+

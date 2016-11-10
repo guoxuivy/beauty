@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="renderer" content="webkit">
+
+	<title><?php echo  isset($seo_title)?$seo_title:"美慧连锁管理平台" ?></title>
+    <meta name="keywords" content="<?php echo  isset($seo_keywords)?$seo_keywords:"美慧连锁管理平台" ?>">
+    <meta name="description" content="<?php echo  isset($seo_description)?$seo_description:"美慧连锁管理平台" ?>">
+
+    <link href="<?php echo $this->basePath('public/H');?>/css/bootstrap.min.css?v=3.4.0" rel="stylesheet">
+    <link href="<?php echo $this->basePath('public/H');?>/font-awesome/css/font-awesome.css?v=4.3.0" rel="stylesheet">
+
+    <!-- Morris -->
+    <link href="<?php echo $this->basePath('public/H');?>/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="<?php echo $this->basePath('public/H');?>/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+    <link href="<?php echo $this->basePath('public/H');?>/css/animate.css" rel="stylesheet">
+    <link href="<?php echo $this->basePath('public/H');?>/css/style.css?v=2.2.0" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <!--左边导航-->
+        <?php echo Ivy::app()->widget('top/nav',$light_nav); ?>
+        <!--左边导航end-->
+
+
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="javascript:;"><i class="fa fa-bars"></i> </a>
+                        <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
+                            <div class="form-group">
+                                <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search" id="top-search">
+                            </div>
+                        </form>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message"><a href="index.html" title="返回首页"><i class="fa fa-home"></i></a>欢迎美慧管理系统</span>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="index.html#">
+                                <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-messages">
+                                <li>
+                                    <div class="dropdown-messages-box">
+                                        <a href="profile.html" class="pull-left">
+                                            <img alt="image" class="img-circle" src="<?php echo $this->basePath('public/H');?>/img/a7.jpg">
+                                        </a>
+                                        <div class="media-body">
+                                            <small class="pull-right">46小时前</small>
+                                            <strong>小四</strong> 项目已处理完结
+                                            <br>
+                                            <small class="text-muted">3天前 2014.11.8</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="dropdown-messages-box">
+                                        <a href="profile.html" class="pull-left">
+                                            <img alt="image" class="img-circle" src="<?php echo $this->basePath('public/H');?>/img/a4.jpg">
+                                        </a>
+                                        <div class="media-body ">
+                                            <small class="pull-right text-navy">25小时前</small>
+                                            <strong>国民岳父</strong> 这是一条测试信息
+                                            <br>
+                                            <small class="text-muted">昨天</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="text-center link-block">
+                                        <a href="mailbox.html">
+                                            <i class="fa fa-envelope"></i>  <strong> 查看所有消息</strong>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="index.html#">
+                                <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-alerts">
+                                <li>
+                                    <a href="mailbox.html">
+                                        <div>
+                                            <i class="fa fa-envelope fa-fw"></i> 您有16条未读消息
+                                            <span class="pull-right text-muted small">4分钟前</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="profile.html">
+                                        <div>
+                                            <i class="fa fa-qq fa-fw"></i> 3条新回复
+                                            <span class="pull-right text-muted small">12分钟钱</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="text-center link-block">
+                                        <a href="notifications.html">
+                                            <strong>查看所有 </strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="login.html">
+                                <i class="fa fa-sign-out"></i> 退出
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+
+            <?php echo $content; ?>
+
+            <div class="footer">
+                <div class="pull-right">
+                    By：<a href="http://www.etwasd.com" target="_blank">ivy's blog</a>
+                </div>
+                <div>
+                    <strong>Copyright</strong> Metronic &copy; 2016
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="<?php echo $this->basePath('public/H');?>/js/jquery-2.1.1.min.js"></script>
+    <script src="<?php echo $this->basePath('public/H');?>/js/bootstrap.min.js?v=3.4.0"></script>
+    <script src="<?php echo $this->basePath('public/H');?>/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="<?php echo $this->basePath('public/H');?>/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Flot 图表格插件
+    <script src="<?php echo $this->basePath('public/H');?>/js/plugins/flot/jquery.flot.js"></script>
+    <script src="<?php echo $this->basePath('public/H');?>/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="<?php echo $this->basePath('public/H');?>/js/plugins/flot/jquery.flot.spline.js"></script>
+    <script src="<?php echo $this->basePath('public/H');?>/js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="<?php echo $this->basePath('public/H');?>/js/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="<?php echo $this->basePath('public/H');?>/js/plugins/flot/jquery.flot.symbol.js"></script>
+    -->
+    <!-- Peity 矢量图表插件
+    <script src="<?php echo $this->basePath('public/H');?>/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="<?php echo $this->basePath('public/H');?>/js/demo/peity-demo.js"></script>
+    -->
+    <!-- Custom and plugin javascript 导航 -->
+    <script src="<?php echo $this->basePath('public/H');?>/js/hplus.js?v=2.2.0"></script>
+    <script src="<?php echo $this->basePath('public/H');?>/js/plugins/pace/pace.min.js"></script>
+    
+    <!-- jQuery UI -->
+    <script src="<?php echo $this->basePath('public/H');?>/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+    <!-- Jvectormap 地图 
+    <script src="<?php echo $this->basePath('public/H');?>/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="<?php echo $this->basePath('public/H');?>/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    -->
+    <!-- EayPIE 饼图
+    <script src="<?php echo $this->basePath('public/H');?>/js/plugins/easypiechart/jquery.easypiechart.js"></script>
+    -->
+    <!-- Sparkline 线图 
+    <script src="<?php echo $this->basePath('public/H');?>/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+    -->
+    <!-- Sparkline demo data 
+    <script src="<?php echo $this->basePath('public/H');?>/js/demo/sparkline-demo.js"></script>
+    -->
+</body>
+</html>

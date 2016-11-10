@@ -1,0 +1,203 @@
+<link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top"> 
+		<!--<div class="fjgl_top_r">
+               <a href="javascript:" class="fjgl_top_r_02 tjfjz">添加POS机</a>
+             </div>--> 
+		功能设置>支付方式设置 </div>
+	<div class="fjgl_two">
+		<div class="fjgl_two_son" style="color:#666666; background:none; line-height:24px; padding-left:20px;">暂无说明！</div>
+	</div>
+	<div class="gnsz_gm_top">请选择支付方式</div>
+	<form id="form">
+	<div class="fjgl_two">
+		<div class="fjgl_two_son" style="color:#666666; background:none; line-height:24px; padding-left:20px;">
+			<input type="hidden" name="money[open]" value="false"/>
+			<input type="checkbox" name="money[open]" value="true"  <?php if($config['money']['open']=='true'): ?> checked="checked" <?php endif; ?>/>
+			&nbsp;<span <?php if($config['money']['open']=='true'): ?>class="span"<?php endif; ?>>现金（现钞）</span> </div>
+	</div>
+	<?php 
+		unset($config['money']);
+		foreach ($config as $key => $value):
+	 ?>
+	<div class="fjgl_two" style=" margin-top:20px; padding:8px 0px 0px 0px;">
+		<div class="fjgl_two_son" style="color:#666666; background:none; line-height:24px; padding-left:20px;"> 
+			<span class="skzhtj action_add" data="<?php echo $value['pre']; ?>">添加</span>
+			<input type="hidden" name="<?php echo $key ?>[open]" value="false"/>
+			<input type="checkbox" name="<?php echo $key ?>[open]" value="true"  <?php if($config[$key]['open']=='true'): ?> checked="checked" <?php endif; ?>/>
+			&nbsp;<span <?php if($config[$key]['open']=='true'): ?>class="span"<?php endif; ?>><?php echo $value['name'] ?></span>
+		</div>
+		<div class="gnsz_skzh_top">
+			<?php foreach ($value['has'] as $value2): ?>
+			<span><?php echo $value2; ?>
+				<input type="hidden" name="<?php echo $key ?>[has][]" value="<?php echo $value2; ?>"/>
+				<a href="javascript:" class="action_del"><img src="<?php echo $this->basePath("public"); ?>/images/1.png" /></a>
+			</span>
+			<?php endforeach; ?>
+			<script  type="text/html" class="html_data">
+				<span>__data_name
+					<input type="hidden" name="<?php echo $key ?>[has][]" value="__data_name"/>
+					<a href="javascript:" class="action_del"><img src="<?php echo $this->basePath("public"); ?>/images/1.png" /></a>
+				</span>
+			</script>
+		</div>
+	</div>
+	<?php endforeach; ?>
+	</form>
+	
+</div>
+<div class="tjfj edit none" style="display: block;">
+	
+	<div class="tjfj_two">
+		<form>
+			<div class="list">
+				<label>名称：</label>
+                <div style="margin-left: 100px;">
+				<input type="text"  class="gysgl_07 inputxt" name="name" value=""/>
+                </div>
+			</div>
+		</form>
+	</div>
+	
+</div>
+<!--content_right_con!end--> 
+<script type="text/javascript">
+function validate(classname){
+	var nf = classname.Validform({
+		tiptype:3,
+	});
+
+	nf.addRule([
+	{
+		ele:".new_inputxt:eq(0)",
+		datatype:"*",
+		nullmsg:"请输入名称！"
+	}
+	]);
+}
+	//删除
+	$('.action_del').click(function(event) {
+		$(this).parent('span').remove();
+		var _data=$('#form').serialize();
+		$.ajax({
+			url: window.location.href,
+			type: 'POST',
+			data: _data,
+		})
+		.done(function(html) {
+			var jobj = $.parseJSON(html);
+				if(jobj['code']=='200'){
+					var d = Idialog({
+						top:120,
+						width:500,
+						title:'通知',
+						content:'设置成功',
+						ok:function(html){
+							window.location.href=window.location.href;
+							return true;
+						},
+						cancel:false,
+					});
+				}else{
+					var d = Idialog({
+						top:120,
+						width:500,
+						title:'通知',
+						content:'设置失败',
+						ok:function(obj){
+							return true;
+						},
+						cancel:false,
+					});
+				}
+			console.log("success");
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
+	});
+	//添加
+	$('.action_add').click(function(event) {
+		var this_self=$(this);
+		var _data_obj=this_self.parent().siblings('.gnsz_skzh_top');
+		var _html=_data_obj.find('.html_data').html();
+		var d = Idialog({
+			top:120,
+			width:600,
+			title:'添加',
+			content:$('.edit'),
+			ok:function(obj){
+				var _name=obj._self.find('.new_inputxt').val();
+				if(_name==''){
+					Idialog.tips("请输入名称！",2);
+					return false;
+				}
+				_html=_html.replace('__data_name',_name);
+				_html=_html.replace('__data_name',_name);
+				this_self.siblings('input[type="checkbox"]').prop('checked','checked');
+				_data_obj.append(_html)
+				$('input[type="checkbox"]:first').trigger('change')
+				return false;
+			},
+			init:function(self){
+				self.find("form").attr("class","newform");
+
+				self.find(".inputxt").attr("class","new_inputxt");
+
+				validate($('.newform'));
+			}
+		});
+
+	});
+	$('input[type="checkbox"]').change(function(event) {
+
+		var _data=$(this).parents('form').serialize();
+		$.ajax({
+			url: window.location.href,
+			type: 'POST',
+			data: _data,
+		})
+		.done(function(html) {
+			var jobj = $.parseJSON(html);
+				if(jobj['code']=='200'){
+					var d = Idialog({
+						top:120,
+						width:500,
+						title:'通知',
+						content:'设置成功',
+						ok:function(html){
+							window.location.href=window.location.href;
+							return true;
+						},
+						cancel:false,
+					});
+				}else{
+					var d = Idialog({
+						top:120,
+						width:500,
+						title:'通知',
+						content:'设置失败',
+						ok:function(obj){
+							return true;
+						},
+						cancel:false,
+					});
+				}
+			console.log("success");
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
+		
+	});
+</script>

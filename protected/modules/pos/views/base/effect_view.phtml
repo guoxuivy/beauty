@@ -1,0 +1,70 @@
+<style type="text/css">
+.eff_view{float: left;}
+.eff_view span{color: red}
+</style>
+<div class="pos_cz_tow box_yjbl">
+	<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>销售人员及业绩比例</div>
+	
+	<div>
+
+		<div class="pos_cz_tow_two">
+			<?php foreach ($effect_user as $key => $user): ?>
+				<div class="pos_cz_tow_two_top eff_view">
+				<?php foreach ($employ_list as $employ): ?>
+					<?php if($user==$employ['id']) echo $employ['netname']."：<span>".$effect_rate[$key]."%</span>"; ?>
+							
+				<?php endforeach ?>
+				</div>
+			<?php endforeach ?>
+		</div>
+		<input type="hidden" name="effect_user" value="<?php echo implode(',',$effect_user) ?>">
+		<input type="hidden" name="effect_rate" value="<?php echo implode(',',$effect_rate) ?>">
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	//添加行
+	$('.c_add_effect_user').click(function(){
+		if($('.c_del_effect_user').length<4){
+			$(this).parent().prev().clone(true).insertBefore($(this).parent());
+			check_effect();
+		}
+	});
+	//删除行
+	$('.c_del_effect_user').click(function(){
+		if($('.c_del_effect_user').length>1){
+			$(this).closest('.pos_cz_tow_two').remove();
+			check_effect();
+		}
+	});
+
+	//防止大于100
+	$(".effect_rate").keyup(function(){
+		var nval=$(this).val().replace(/[^0-9]+/,'');
+		if(parseInt(nval)>100){
+			nval=nval.substr(0,2);
+		}
+		$(this).val(nval);
+	});
+
+	$(".effect_user,.effect_rate").change(function(){
+		check_effect();
+	});
+
+	function check_effect(){
+		var user=[],rate=[];
+		$('.effect_user').map(function(){
+			user.push($(this).val());
+		});
+		$('.effect_rate').map(function(){
+			var v=$(this).val();
+			if(v=='') v=0;
+			rate.push(v);
+		});
+		$("input[name='effect_user']").val(user);
+		$("input[name='effect_rate']").val(rate);
+	};
+
+
+});
+</script>

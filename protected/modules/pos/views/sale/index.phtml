@@ -1,0 +1,156 @@
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Itable2excel.js" charset="utf-8"></script>
+<?php 
+	$md_list=\EmployDept::getList(true);
+	$md_id=isset($_GET['md_id'])?$_GET['md_id']:"0";
+?>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r">
+			<!-- <span><a href="#" download="交易记录.xls"class="to_excel fjgl_top_r_05">导出</a></span> -->
+		</div>
+		<div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/jyjl_01.png" /></div>交易记录
+	</div>
+	
+	<div class="jyjl_top">
+		<div class="jyjl_top_com">
+			<span class="spanl">交易类别：</span>
+			<a href="javascript:" class="aaddys">购买记录 </a>
+			<a href="<?php echo $this->url("pos/recharge/index") ?>">充值记录</a>
+			<a href="<?php echo $this->url("pos/repay/index") ?>">还款记录</a>
+            <a href="<?php echo $this->url("pos/practice/index") ?>">实操记录</a>
+			<a href="<?php echo $this->url("pos/voucher/index") ?>">兑换记录</a>
+			<a href="<?php echo $this->url("pos/refund/index") ?>">退款记录</a>
+			<a href="<?php echo $this->url("pos/receive/index") ?>">寄存领取记录</a>
+			<a href="<?php echo $this->url("pos/init/index") ?>">期初订单</a>
+		</div>
+		<div class="jyjl_top_com stime">
+			<span class="spanl">日期：</span>
+			<a rel="1"  href="javascript:" <?php if ($timeType==1): ?>class="aaddys"<?php endif ?>>最近一天</a>
+			<a rel="2"  href="javascript:" <?php if ($timeType==2): ?>class="aaddys"<?php endif ?>>最近一周</a>
+			<a rel="3"  href="javascript:" <?php if ($timeType==3): ?>class="aaddys"<?php endif ?>>最近30天</a>
+			<a rel="4"  href="javascript:" <?php if ($timeType==4): ?>class="aaddys"<?php endif ?>>全部</a>
+		</div>
+		
+		<?php if(!$this->controller->is_store):?>			
+		<div class="jyjl_top_com md_type">
+			<span class="spanl">门店：</span>
+			<a rel="0"  href="javascript:" <?php if ($md_id==0): ?>class="aaddys"<?php endif ?>>全连锁</a>
+			<?php foreach ($md_list as $key => $value): ?>
+				<a rel="<?php echo $key ?>"  href="javascript:" <?php if ($md_id==$key): ?>class="aaddys"<?php endif ?> ><?php echo $value ?></a>
+			<?php endforeach ?>
+		</div>
+		<?php endif;?>
+
+	</div>
+	
+<!--  模版引擎扩展 -->
+<?php echo $this->datagrid(array(
+	'id'=>'order-list',
+	'dataProvider'=>$pager,
+	'search'=>true,
+	'columns'=>array(
+		array(
+			'header' => '订单号',
+			'name' => 'sn',
+			'filter'=>'t.sn'
+		),
+		array(
+			'header' => '订单建立日期',
+			'name' => 'create_time',
+			'headerCss' => 'min-width:130px;',
+		),
+		array(
+			'header' => '客户',
+			'name' => 'cu_name',
+			'value' => '<span class="khgl_xmpic"><img src="'.$this->basePath('public').'/images/kh_06.png" height="24" width="24" /></span><span class="khgl_03">{$data["cu_name"]}</span>',
+			'filter'=>'cu_name'
+		),
+		array(
+			'header' => '订单原价',
+			'name' => 'price',
+		),
+		array(
+			'header' => '折扣率',
+			'name' => 'rebate',
+		),
+		array(
+			'header' => '应付金额',
+			'name' => 'pay_price',
+		),
+		array(
+			'header' => '赠送账户卡扣',
+			'name' => 'card_gift',
+		),
+		array(
+			'header' => '现金账户卡扣',
+			'name' => 'cash_card',
+		),
+		array(
+			'header' => '实收现金',
+			'name' => 'cash',
+			'value' => '{$data["cash"]+$data["cash_pos"]+$data["cash_tra"]+$data["cash_other"]}',
+		),
+		array(
+			'header' => '订单欠款',
+			'name' => 'arrears',
+		),
+		array(
+			'header' => '订单状态',
+			'name' => 'status',
+			'value' => '{\OrderSale::getStatus($data["status"],true)}',
+		),
+		array(
+			'header' => '账审状态',
+			'name' => 'check_status',
+			'value' => '{\OrderSale::getCheckStatus($data["check_status"],true)}',
+		),
+		array(
+			'header' => '付款状态',
+			'name' => 'pay_status',
+			'value' => '{\OrderSale::getPayStatus($data["pay_status"],true)}',
+		),
+		array(
+			'header' => '操作人',
+			'name' => 'made_name',
+		),
+		array(
+			'header' => '操作',
+			'rel'=>'id',
+			'template'=> 'edit+',
+		)
+	),
+));?>
+
+
+</div>
+<!--content_right_con!end-->
+<script type="text/javascript">
+$(function(){
+	$(".stime a").click(function(){
+		var stime = $(this).attr("rel");
+		var url = changeURL("","stime",stime);
+		var md_id = $('.md_type .aaddys').attr('rel');
+		if(md_id!=undefined) 
+			url = changeURL(url,"md_id",md_id);
+		to_url(url);
+	});
+
+	$(".md_type a").click(function(){
+		var md_id = $(this).attr("rel");
+		var url = changeURL("","md_id",md_id);
+		to_url(url);
+	});
+
+	$(".to_excel").click(function(event){
+		var t = Itable2excel({
+			worksheet:'数据分析',
+			table: $('#order-list table')
+		});
+		var data64 = t.uri();
+		if(data64==false)
+			return false;
+		event.currentTarget.href = data64;
+	});
+});
+</script>

@@ -1,0 +1,52 @@
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+        <div class="fjgl_top_r">
+            <span><a href="<?php echo $this->url('edit') ?>" class="fjgl_top_r_02 c_add">新建采购单</a></span>
+        </div>
+        仓库管理>采购记录
+    </div>
+
+
+    <!--  模版引擎扩展 -->
+    <?php  echo $this->datagrid(array(
+        'id'=>'list',
+        'dataProvider'=>$pager,
+        'search'=>true,
+        'columns'=>array(
+            array(
+                'header' => '采购时间',
+                'name'  => 'date',
+            ),
+            array(
+                'header' => '供应商',
+                'name'  => 'supp_name',
+            ),
+            array(
+                'header' => '采购商品',
+                'name'  => 'product_info',
+                'class' => 'li004'
+            ),
+            array(
+                'header' => '备注',
+                'name'  => 'note',
+            ),
+            array(
+                'header' => '操作人',
+                'name'  => 'user_name',
+            ),
+            array(
+                'header' => '操作',
+                "rel"=>"id",
+                'template'  => 'view+',
+            ),
+           
+        ),
+    ));?>
+</div>
+<!--content_right_con!end-->
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".table_table tbody td").css("width","10px");
+    });
+</script>

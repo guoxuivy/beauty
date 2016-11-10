@@ -1,0 +1,277 @@
+<?php 
+
+?>
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/laydate/laydate.js"></script>
+<style type="text/css">
+.choose{background-color:#22c381!important;color: #fff!important }
+fieldset {padding: 10px;}
+legend {margin-left: 20px;}
+table td{width: 33.33%}
+.plat_right a{color:#fff;}
+
+</style>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top" style="border-bottom:solid 1px #ccc;">
+
+	公司管理><?php echo $model->comp_name ?>
+	</div>
+	
+		<div class="page">
+
+		<div class="plat_top">
+			<ul>
+				<div class="plat_right">
+					<?php if ($model->status=='0'): ?>
+						<span class="blue_button_bg"><a href="javascript:;" rel="1" class="check_code">通过</a></span>
+						<span class="red_button_bg"><a href="javascript:;" rel="0" class="check_code">拒绝</a></span>
+					<?php elseif($model->status=='-1'): ?>
+						<span class="blue_button_bg"><a href="javascript:;" class="act_qy">启用</a></span>
+						<span class="blue_button_bg"><a href="javascript:;" class="act_cf">催费</a></span>
+					<?php elseif($model->status=='1'): ?>
+						<span class="blue_button_bg"><a href="javascript:;" class="act_xf">加时</a></span>
+						<span class="red_button_bg"><a href="javascript:;"  class="act_gb ">关闭</a></span>
+						<span class="blue_button_bg"><a href="javascript:;" class="act_cf ">催费</a></span>
+					<?php elseif($model->status=='9'): ?>
+						<span class="blue_button_bg"><a href="javascript:;" class="act_xf">续费</a></span>
+						<span class="red_button_bg"><a href="javascript:;" class="act_gb">关闭</a></span>
+						<span class="blue_button_bg"><a href="javascript:;" class="act_cf">催费</a></span>
+					<?php endif ?>
+				</div>
+				<li>注册版本：<span class="blue"><?php if ($model->has_invo=='Y'): ?>全功能版<?php else: ?>标准版<?php endif ?></span></li>
+				<li>注册时间：<span><?php echo date("Y-m-d H:i",$model->create_time) ?></span></li>
+				<li>状态：<span class="red"><?php echo \CompanyInfo::getStatus($model->status) ?></span></li>
+				<div class="clear"></div>
+			</ul>
+			<ul class="plat_top1">
+				<a id="button_cf" href="javascript:;">催费记录</a>
+				<li>审核时间：<span><?php echo date("Y-m-d H:i",$model->check_time) ?></span></li>
+				<li style="width:auto;">服务费截止日期：<span><?php echo date("Y-m-d H:i",$model->server_time) ?></span>
+					<!-- <em class="blue_button_bg">加时</em>
+					<em class="blue_button_bg">发送催费短信</em> -->
+				</li>
+				<div class="clear"></div>
+			</ul>
+		</div>
+
+		
+		<!--xjxm_con-->
+		<div class="plat_main">
+			<div class="plat_main_tit">注册公司信息</div>
+			<!--xjxm_con_top-->
+			<div class="plat_main_page">
+				<dl>
+					<dt>公司名称：</dt>
+					<dd><?php echo $model->comp_name ?></dd>
+				</dl>
+				<dl>
+					<dt>创建时间：</dt>
+					<dd><?php echo date("Y-m-d H:i",$model->create_time) ?></dd>
+				</dl>
+				<dl>
+					<dt>更新时间：</dt>
+					<dd><?php echo $model->last_time ?></dd>
+				</dl>
+				<dl>
+					<dt>老板：</dt>
+					<dd><?php echo $model->boss_name ?></dd>
+				</dl>
+				<dl>
+					<dt>老板手机：</dt>
+					<dd><?php echo $model->phone ?></dd>
+				</dl>
+				<dl>
+					<dt>登记门店数：</dt>
+					<dd><?php echo $model->store_num ?></dd>
+				</dl>
+				<dl>
+					<dt>可用门店数：</dt>
+					<dd><?php echo $model->max_store_num ?> <span class="blue_button_bg add_store_num">增加门店</span></dd>
+				</dl>
+				<dl>
+					<dt>地址：</dt>
+					<dd><?php echo $model->pca_province.$model->pca_city."(".$model->address.")" ?></dd>
+				</dl>
+				<dl>
+					<dt>微信服务号：</dt>
+					<dd><?php echo $model->wx_server_sn ?></dd>
+				</dl>
+				<dl>
+					<dt>服务号密码：</dt>
+					<dd><?php echo $model->wx_server_pass ?></dd>
+				</dl>
+				<dl style="height:auto;">
+					<dt>营业执照：</dt>
+					<dd><img src="<?php echo $model->avatar ?>"></dd>
+				</dl>
+			</div><!--xjxm_con_top-->
+			<div class="xjxm_con_five clear" style="padding-left:120px;">
+				<input type="submit" class="xjxm_ok_buttom" href="javascript:" value="返回" style="cursor: pointer;">
+				
+			</div>
+		</div><!--xjxm_con!end-->
+	</div>
+
+</div><!--content_right_con!end-->
+
+
+<div class="idialog add_time" style="display: none; width: 500px; margin-left: -250px; top: 100px;">
+  <div class="idialog_title"><font>加时</font><span></span></div>
+  <div class="idialog_body">
+    <div class="idialog_content">
+      <div class="plat_shen">
+        <div>
+          <p>服务费缴纳至
+          <input type="text" class="laydate-icon" id="add_time" value="<?php echo $model->server_time?date("Y-m-d",$model->server_time):"" ?>" name="" onclick="laydate({istime: true, format: 'YYYY-MM-DD',event: 'focus'})" />
+            
+            结束</p>
+        </div>
+      </div>
+    </div>
+    <div class="idialog_active"><a class="idialog_cancel" href="javascript:">取消</a><a href="javascript:" class="idialog_ok">确定</a></div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+$(function(){
+	var comp_id='<?php echo $model->id ?>';
+	$(".xjxm_ok_buttom").click(function(){
+		history.go(-1);
+	});
+
+	/**
+	 * 审核
+	 * @param  {[type]} ){		var       id                [description]
+	 * @param  {[type]} function(data) {			if(data.code [description]
+	 * @param  {[type]} 'json');	}    [description]
+	 * @return {[type]}                [description]
+	 */
+	$(".check_code").click(function(){
+		var id = comp_id;
+		var status = $(this).attr('rel');
+		$.post('<?php echo $this->url("check")?>',{id:id,status:status}, function(data) {
+			if(data.code=="200"){
+				to_url('<?php echo $this->url("index")?>');
+			}
+			Idialog.tips(data.msg);
+		},'json');
+	});
+
+
+
+	//续费
+	$(".act_xf").click(function(){
+		var id = comp_id;
+		$(".add_time").show();
+	});
+	$(".add_time span ,.add_time .idialog_cancel").click(function(){
+		$(".add_time").hide();
+	});
+	//续费提交
+	$(".add_time .idialog_ok").click(function(){
+		var id = comp_id;
+		var time = $('#add_time').val();
+		$.post('<?php echo $this->url("addServer")?>',{id:id,time:time}, function(data) {
+			if(data.code=="200"){
+				location.reload();
+			}
+			Idialog.tips(data.msg);
+		},'json');
+	});
+
+	//关闭
+	$(".act_gb").click(function(){
+		var id = comp_id;
+		$.post('<?php echo $this->url("closeServer")?>',{id:id}, function(data) {
+			if(data.code=="200"){
+				location.reload();
+			}
+			Idialog.tips(data.msg);
+		},'json');
+	});
+	//开启
+	$(".act_qy").click(function(){
+		var id = comp_id;
+		$.post('<?php echo $this->url("openServer")?>',{id:id}, function(data) {
+			if(data.code=="200"){
+				location.reload();
+			}
+			Idialog.tips(data.msg);
+		},'json');
+	});
+
+
+	//催费
+	$(".act_cf").click(function(){
+		var id = comp_id;
+		$.post('<?php echo $this->url("msmServer")?>',{id:id}, function(data) {
+			if(data.code=="200"){
+				var d = Idialog({
+					top:150,
+					width:400,
+					title:'消息',
+					content:'催费短信已经发出！',
+					cancel:false,
+				});
+			}
+		},'json');
+	});
+
+	//增加门店
+	$(".add_store_num").click(function(){
+		var id = comp_id;
+
+		var d = Idialog({
+			top:120,
+			width:500,
+			title:'新增门店',
+			content:'<font>新增门店数：</font><input id="add_num" />',
+			ok:function(obj){
+				var num=$("#add_num").val();
+				$.post('<?php echo $this->url("addStoreNum")?>',{id:id,num:num}, function(data) {
+					if(data.code=="200"){
+						location.reload();
+					}
+					Idialog.tips(data.msg);
+				},'json');
+
+			},
+		});
+	});
+
+	//催费记录
+	$("#button_cf").click(function(){
+		var id = comp_id;
+		$.post('<?php echo $this->url("msmList")?>',{id:id}, function(data) {
+			if(data.code=="200"){
+				var d = Idialog({
+					top:120,
+					width:500,
+					title:'催费记录',
+					content:'',
+					cancel:false,
+					init:function(obj){
+						var table=$("<div class='table_table table_container'><table cellspacing=0 cellpadding=0 border=0 style='min-width:100%'><thead><tr class='table_title'><th>时间</th><th>操作人</th></tr></thead><tbody><tr></tr></tbody></table></div>");
+
+						$.each(data.data, function(i, n){
+							table.find('tbody').append("<tr class='table_list clear'><td>"+n.create_time+"</td><td>"+n.netname+"</td></tr>");
+						});
+
+						obj.append(table);
+					},
+				});
+			}else{
+				Idialog.tips(data.msg);
+			}
+			
+		},'json');
+	});
+
+
+
+
+
+})
+</script>	

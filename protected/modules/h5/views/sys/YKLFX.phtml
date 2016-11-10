@@ -1,0 +1,126 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+    <title>HOWA</title>
+
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileColor" content="#0e90d2">
+
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/amazeui.min.css">
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/app.css">
+
+    <style type="text/css">
+    .none{display: none;}
+    </style>
+</head>
+<body class="has-header">
+
+<header class="am-text-center am-padding-sm fixed-top">
+    <div class="am-fl out"><i class="am-icon-angle-left am-icon-sm"></i></div>
+    <b>月客流分析表</b>
+</header>
+
+<div class="am-text-center am-padding-sm">
+    <!-- am-selected 用法参考 http://amazeui.org/javascript/selected -->
+    <select class="am-round am-round-select" data-am-selected="{btnWidth:'150px',btnStyle:'select'}">
+        <option value="0" <?php if ($md_id==0): ?>selected<?php endif ?> >全连锁</option>
+        <?php foreach ($md_list as $v): ?>
+            <option value="<?php echo $v['id'] ?>" <?php if ($md_id==$v['id']): ?>selected<?php endif ?> ><?php echo $v['dept_name'] ?></option>
+        <?php endforeach ?>
+    </select>
+</div>
+
+<ul class="am-avg-sm-3 datepicker">
+    <li class="am-text-center am-padding-xs am-date-prev" placeholder="<?php echo date('Y-m', strtotime('-1 month',strtotime($date)) ) ?>">前一月</li>
+    <li class="am-text-center">
+        <input type="text" class="am-date" placeholder="<?php echo $date ?>" data-am-datepicker="{format: 'yyyy-mm', viewMode: 'years', minViewMode: 'months'}" readonly />
+    </li>
+    <li class="am-text-center am-padding-xs am-date-prev" placeholder="<?php echo date('Y-m', strtotime('+1 month',strtotime($date)) ) ?>">后一月</li>
+</ul>
+
+<ul class="am-nav am-nav-pills am-nav-justify">
+    <li class="am-active am-round"><a onclick="show('A')" href="javascript:;">A</a></li>
+    <li class="am-round"><a onclick="show('B')" href="javascript:;">B</a></li>
+    <li class="am-round"><a onclick="show('C')" href="javascript:;">C</a></li>
+    <li class="am-round"><a onclick="show('D')" href="javascript:;">D</a></li>
+    <li class="am-round"><a onclick="show('E')" href="javascript:;">E</a></li>
+    <li class="am-round"><a onclick="show('O')" href="javascript:;">未分类</a></li>
+</ul>
+<?php foreach ($data as $key => $value): ?>
+<ul class="<?php echo $key=="未分类"?"O":$key; ?> am-list <?php echo $key=="A"?"":"none"; ?>">
+    <li class="am-padding-sm">档案总数<span class="am-fr"><?php echo $value['ZS'] ?></span></li>
+    <li class="am-padding-sm">有效<span class="am-fr"><?php echo $value['YX'] ?></span></li>
+    <li class="am-padding-sm">久档<span class="am-fr"><?php echo $value['JD'] ?></span></li>
+    <li class="am-padding-sm">死档<span class="am-fr"><?php echo $value['SD'] ?></span></li>
+    <li class="am-padding-sm">到店人头<span class="am-fr"><?php echo $value['DDRT'] ?></span></li>
+
+    <li class="am-padding-sm">有效到店率<span class="am-fr"><?php echo $value['YX']==0?0:sprintf('%.2f',$value['DDRT']/$value['YX']);?></span></li>
+    <li class="am-padding-sm">到店客流<span class="am-fr"><?php echo $value['DDKL'] ?></span></li>
+    <li class="am-padding-sm">到店频率<span class="am-fr"><?php echo $value['DDRT']==0?0:sprintf('%.2f',$value['DDKL']/$value['DDRT']);?></span></li>
+    <li class="am-padding-sm">日均客流<span class="am-fr"><?php echo $value['DDKL']==0?0:sprintf('%.2f',$value['DDKL']/$days);?></span></li>
+    <li class="am-padding-sm">成交人头<span class="am-fr"><?php echo $value['CJRT'] ?></span></li>
+</ul>
+<?php endforeach ?>
+
+
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/jquery.min.js"></script>
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/amazeui.min.js"></script>
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/my.js"></script>
+<script>
+$(function(){
+  
+    $('.out').click(function(){
+        to_url('<?php echo $this->url("index") ?>')
+    });
+
+    $('.am-date').datepicker().on('close.datepicker.amui', function(event) {
+        to_url('<?php echo $this->url("YKLFX") ?>&DATE='+$(this).val()+'&md_id='+$('.am-round').val());
+    });
+    $('.am-date-prev,.am-date-next').click(function(){
+        var d = $(this).attr('placeholder');
+        to_url('<?php echo $this->url("YKLFX") ?>&DATE='+d+'&md_id='+$('.am-round').val());
+    });
+
+    $('.am-round').click(function(){
+        $('.am-round').removeClass("am-active");
+        $(this).addClass("am-active");
+    });
+
+
+
+    $('.am-round-select').on("change",function(){
+        var md = $(this).val();
+        var d = $(".am-date").attr('placeholder');
+        to_url('<?php echo $this->url("YKLFX") ?>&DATE='+d+'&md_id='+md);
+    });
+
+
+});
+
+function show(e){
+    $('.am-list').addClass("none");
+    $("."+e).removeClass("none");
+}
+</script>
+</body>
+</html>

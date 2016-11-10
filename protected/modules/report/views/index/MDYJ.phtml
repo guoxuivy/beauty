@@ -1,0 +1,232 @@
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Itime.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Itable2excel.js"></script>
+<?php 
+	$md_list=\EmployDept::getList(true);
+?>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r">
+      <span><a href="#" download="门店业绩报表.xls"class="to_excel fjgl_top_r_05">导出</a></span>
+    </div>
+		数据报表><span>门店业绩报表</span>
+	</div>
+
+	<!--sjbb_ddkl_one-->
+	<div class="sjbb_ddkl_one">
+		<ul>
+		<li>
+			<div class="sjbb_ddkl_one_l">门店范围：</div>
+			<div class="sjbb_ddkl_one_r">
+				<div class="sjbb_ddkl_one_r_son choose_md">
+					<?php if(!$this->controller->is_store):?>
+            <a href="javascript:" rel="0"><span ></span>全连锁</a>
+            <?php endif;?>
+					<?php foreach ($md_list as $key => $value): ?>
+					<a href="javascript:" rel="<?php echo $key ?>"><span></span><?php echo $value ?></a>
+					<?php endforeach ?>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div class="sjbb_ddkl_one_l">日期：</div>
+			<div class="sjbb_ddkl_one_r">
+				<div class="sjbb_ddkl_one_r_son" id="choose_time">
+				</div>
+			</div>
+		</li>
+		<li class="lastli">
+				<div class="sjbb_ddkl_one_l">
+				</div>
+				<div class="sjbb_ddkl_one_r">
+					<div class="sjbb_ddkl_one_r_son">
+						<a href="javascript:" class="changa01">搜索</a>
+					</div>
+				</div>
+		</li>
+		</ul>
+	</div> <!--sjbb_index_onesjbb_ddkl_oneend-->
+
+  <div id="order-list" class="table_table table_center">
+        <div class="table_hiddle">
+        <table width="100%" cellspacing="0" cellpadding="0" border="0" last-float="false">
+        <thead>
+          <tr class="table_title">
+            <th rowspan="2">门店</th>
+            <th rowspan="2">业务类型</th>
+            <th colspan="4">购买</th>
+            <th colspan="4">实操</th>
+          </tr>
+          <tr class="table_title">
+            <th>现金收入</th>
+            <th>现金账户卡扣</th>
+            <th>赠送账户卡扣</th>
+            <th>成交人头</th>
+            <th>购买消耗</th>
+            <th>赠送消耗次数</th>
+            <th>卡券消耗</th>
+            <th>实耗人头</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        <?php if ($model): ?>
+          <?php foreach ($model as $value): ?>
+              <tr class="table_list clear">
+                <td style="border-right: solid 1px #ddd;" rowspan="6"><?php echo $value['dept_name'];?></td>
+                <td>充值</td>
+                <td><?php echo $value['XJSR1']?$value['XJSR1']:'0.00';?>元</td>
+                <td><?php echo $value['XJZHKK1']?$value['XJZHKK1']:'0.00';?>元</td>
+                <td><?php echo $value['ZSZHKK1']?$value['ZSZHKK1']:'0.00';?>元</td>
+                <td><?php echo $value['CJRT1']?$value['CJRT1']:'0';?></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr class="table_list clear">
+                <td>还款</td>
+                <td><?php echo $value['XJSR2']?$value['XJSR2']:'0.00';?>元</td>
+                <td><?php echo $value['XJZHKK2']?$value['XJZHKK2']:'0.00';?>元</td>
+                <td><?php echo $value['ZSZHKK2']?$value['ZSZHKK2']:'0.00';?>元</td>
+                <td><?php echo $value['CJRT2']?$value['CJRT2']:'0';?></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr class="table_list clear">
+                <td><span>退款退货</span></td>
+                <td><span></span></td>
+                <td><span><?php echo $value['TKXJ']?$value['TKXJ']:'0.00';?>元</span></td>
+                <td><span><?php echo $value['TKZS']?$value['TKZS']:'0.00';?>元</span></td>
+                <td><span><?php echo $value['HKRT']?$value['HKRT']:'0';?></span></td>
+                <td><span></span></td>
+                <td><span></span></td>
+                <td><span></span></td>
+                <td><span></span></td>
+              </tr>
+              <tr class="table_list clear">
+                <td>购买</td>
+                <td><?php echo $value['XJSR3']?$value['XJSR3']:'0.00';?>元</td>
+                <td><?php echo $value['XJZHKK3']?$value['XJZHKK3']:'0.00';?>元</td>
+                <td><?php echo $value['ZSZHKK3']?$value['ZSZHKK3']:'0.00';?>元</td>
+                <td><?php echo $value['CJRT3']?$value['CJRT3']:'0';?></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr class="table_list clear">
+                <td>兑换</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr class="table_list clear">
+                <td>实操</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><?php echo $value['GMXH']?$value['GMXH']:'0.00';?>元</td>
+                <td><?php echo $value['ZSXH']?$value['ZSXH']:'0';?>次</td>
+                <td><?php echo $value['KJXH']?$value['KJXH']:'0';?>次</td>
+                <td><?php echo $value['SHRT']?$value['SHRT']:'0';?></td>
+              </tr>
+          <?php endforeach ?>
+        <?php endif ?>
+        </tbody>
+        </table>
+        </div><!--table_hiddle!end-->
+  </div>
+  <!--table_container-->
+</div>
+<!--content_right_con!end-->
+
+
+
+<script type="text/javascript">
+
+$(function(){
+
+	var t = Itime({
+		content:$('#choose_time'),
+		<?php if (isset($_GET['begin'])): ?>
+		begin:'<?php echo $_GET["begin"]?>', //填充默认时间
+		<?php endif ?>
+		<?php if (isset($_GET['end'])): ?>
+		end:'<?php echo $_GET["end"]?>', //填充默认时间
+		<?php endif ?>
+		//type:'d',  	  // 日 模式
+	})._self.find("a,br").remove();
+
+	//门店、范围选择
+	$(".choose_md a,.choose_xm a,.choose_cp a").click(function(){
+		var rel=$(this).attr("rel");
+		if($(this).find("span").hasClass("span_01")){
+			$(this).find("span").removeClass("span_01");
+			if(rel=="0")
+				$(".choose_md span").removeClass("span_01");
+		}else{
+			$(this).find("span").addClass("span_01");
+			if(rel=="0")
+				$(".choose_md span").addClass("span_01");
+		}
+	});
+  //搜索提交
+  $(".changa01").click(function(){
+    var md_id=getMd();
+    if(md_id==''){
+      Idialog.tips('门店未选择！',2);
+      return;
+    }
+    
+
+    var begin=$(".itime").find(".b_y").val()+""+$(".itime").find(".b_m").val()+""+$(".itime").find(".b_d").val();
+    var end  =$(".itime").find(".e_y").val()+""+$(".itime").find(".e_m").val()+""+$(".itime").find(".e_d").val();
+    to_url('<?php echo $this->url("MDYJ") ?>&md_id='+md_id+'&begin='+begin+'&end='+end);
+  });
+
+<?php if ($this->controller->is_store): ?>
+    $(".choose_md").find("a").trigger("click");
+    <?php if (!isset($_GET['md_id'])): ?>
+    $(".changa01").trigger('click');
+    <?php endif ?>
+<?php else: ?>
+  //填充默认门店
+  <?php if (isset($_GET['md_id'])): ?>
+  <?php foreach (explode(',', $_GET['md_id']) as $v): ?>
+    $(".choose_md").find("a[rel='<?php echo $v ?>']").trigger("click");
+  <?php endforeach ?>
+  <?php endif ?>
+<?php endif ?>
+	function getMd(){
+		if($(".choose_md a[rel='0']").find("span").hasClass("span_01"))
+			return "0";
+		var l = $(".choose_md a").map(function(){
+			if($(this).find("span").hasClass("span_01"))
+				return $(this).attr("rel");
+		}).get().join(",");
+		return l;
+	}
+
+
+  $(".to_excel").click(function(event){
+    var t = Itable2excel({
+      worksheet:'数据分析',
+      table: $('#order-list table')
+    });
+    var data64 = t.uri();
+    if(data64==false)
+      return false;
+    event.currentTarget.href = data64;
+  });
+
+});
+</script>

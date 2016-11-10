@@ -1,0 +1,81 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+    <title>HOWA</title>
+
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileColor" content="#0e90d2">
+
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/amazeui.min.css">
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/app.css">
+</head>
+<body class="has-header has-nav">
+
+<header class="am-text-center am-padding-sm fixed-top">
+    <b>我</b>
+</header>
+
+<ul class="am-list profile">
+    <li class="am-padding-sm">
+        <div class="am-inline-block">
+            <img class="avatar" src="<?php echo $this->basePath('public/h5/assets');?>/i/avatar/1.png">
+        </div>
+        <div class=" am-inline-block am-padding-sm">
+            <div class="name"><b><?php echo $name ?></b></div>
+            <div class="title"><small><?php echo $position ?></small></div>
+        </div>
+    </li>
+</ul>
+
+<ul class="am-list">
+    <li onclick="to_url('<?php echo $this->url('pass') ?>')"  class="am-padding-sm">修改密码<i class="am-fr am-icon-angle-right am-icon-sm"></i></li>
+</ul>
+
+<!-- <ul class="am-list">
+    <li class="am-padding-sm">清除本地缓存（25.45MB）<i class="am-fr am-icon-angle-right am-icon-sm"></i></li>
+</ul> -->
+<ul class="am-list">
+    <li onclick="to_url('<?php echo $this->url('about') ?>')"  class="am-padding-sm">关于HOWA<i class="am-fr am-icon-angle-right am-icon-sm"></i></li>
+</ul>
+<ul class="am-list">
+    <li onclick="to_url('<?php echo $this->url('about') ?>')" class="am-padding-sm">当前版本V1.0<i class="am-fr am-icon-angle-right am-icon-sm"></i></li>
+</ul>
+
+<div class="am-padding-sm">
+    <button class="am-btn-danger am-btn-block am-padding-sm am-logout">退出登录</button>
+</div>
+
+<nav>
+    <ul class="am-avg-sm-3">
+        <li class="am-text-center"><i class="am-icon-md am-icon-home"></i><div>首页</div></li>
+        <li class="am-text-center"><i class="am-icon-md am-icon-bar-chart"></i><div>数据报表</div></li>
+        <li class="am-text-center active"><i class="am-icon-md am-icon-user"></i><div>我</div></li>
+    </ul>
+</nav>
+
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/jquery.min.js"></script>
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/amazeui.min.js"></script>
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/my.js"></script>
+
+</body>
+</html>

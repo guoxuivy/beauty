@@ -1,0 +1,250 @@
+<style type="text/css">
+.list_right span{height:26px; line-height:26px; padding:0 10px 0 10px; margin-right:15px; display:inline-block;cursor: pointer;}
+/*.pos_hover{border: 1px solid #87D7B6!important;background-color: #F1FFF9}
+.pos_bg{background-color: #1BAB70;border: 1px solid #008A45!important;}
+.pos_bg a{color:#fff!important;}*/
+.rh{height: 30px;line-height: 30px}
+.rh input{width: auto;margin-left: 10px}
+.cu_level{height: 30px;line-height: 30px}
+.all_search{display: none}
+.ch_cu .on{background-color:#090; color:#fff;}
+.ch_cu .off{background-color:#eee; color:#666;}
+.all_search{display: none;}
+</style>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">POS开单</div>
+	<div class="page">
+		<div class="pos_list">
+			<ul>
+				<li class="pos_gm_bj"><a href="javascript:;">购买项目/产品/卡券</a></li>
+				<li class="pos_cz_bj"><a href="javascript:;">充值</a></li>
+				<li class="pos_hk_bj"><a href="javascript:;">还款</a></li>
+				<li class="pos_sc_bj"><a href="javascript:;">实操单</a></li>
+				<!-- <li class="pos_zc_bj"><a href="javascript:;">赠送</a></li> -->
+				<li class="pos_dh_bj"><a href="javascript:;">兑换</a></li>
+				<li class="pos_tui_bj"><a href="javascript:;">退款/退卡/退项/退产品</a></li>
+				<!-- <li class="pos_kkzz_bj"><a href="javascript:;">卡卡转账</a></li> -->
+				<div class="clear"></div>
+			</ul>
+		<div style="font-size:18px; font-family:'微软雅黑'; display:block; padding-top:10px; padding-bottom:10px;">客户服务</div>
+			<ul>
+				<li class="pos_jc_bj"><a href="javascript:;">寄存领取</a></li>
+				<li class="pos_rh_bj"><a href="javascript:;">客户入会</a></li>
+				<li class="pos_dj_bj"><a href="javascript:;">会员等级升级</a></li>
+				<li class="pos_zc_bj"><a href="<?php $company_info=\Ivy::app()->user->getState('company_info');echo $company_info['has_invo']!='Y'?$this->url('noinvo/recipients/edit'):$this->url('invo/out/edit',array('type'=>2)) ?>">新建领用单</a></li>
+            </ul>
+		</div>
+	</div>
+</div>
+<!--content_right_con!end-->
+<!-- 客户选择弹出框 -->
+<div id="choose_cu" style="display:none;">
+	<div class="tjfj_two">
+		<div class="list">
+			<div class="list_right ch_cu">
+				<span data="md_search" class="on">本门店搜索</span><span data="all_search" class="off">全连锁搜索</span>
+			</div>
+		</div>
+		<div class="md_search list"><label>客户姓名：</label><div class="list_right"><?php echo \Ivy::app()->widget('common/selectCustomer',array('id'=>'md_s')); ?></div></div>
+		<div class="all_search list"><label>客户姓名：</label><div class="list_right"><?php echo \Ivy::app()->widget('common/selectCustomer',array('id'=>'all_s','param'=>array('dept=all'))); ?></div></div>
+	</div>
+</div>
+
+<!-- 客户入会选择弹出框 -->
+<div id="choose_cu_rh" style="display:none;">
+	<div class="tjfj_two">
+		<div class="list">
+			<div class="list_right">
+				<span style="background-color:#090; color:#fff;">本门店搜索</span><!-- <span style="background-color:#eee; color:#666;">全连锁搜索</span> -->
+			</div>
+		</div>
+		<div class="list"><label>客户姓名：</label><div class="list_right"><?php echo \Ivy::app()->widget('common/selectCustomer'); ?></div></div>
+		<div class="list"><label>消费类型：</label><div class="list_right rh">
+			<input type="radio" name="rh_type" value="sale" checked="checked" />购买
+			<input type="radio" name="rh_type" value="recharge" />充值
+		</div></div>
+<!-- 		<div class="list"><label>入会后等级：</label><div class="list_right"><select class="level">
+		<?php foreach ($mem_list as $value): ?>
+			<option value ="<?php echo $value['id'] ?>"><?php echo $value['level_name'] ?></option>
+		<?php endforeach ?>
+		</select></div></div> -->
+	</div>
+</div>
+
+<!-- 客户会员等级升级-->
+<div id="choose_cu_dj" style="display:none;">
+	<div class="tjfj_two">
+		<div class="list">
+			<div class="list_right">
+				<span style="background-color:#090; color:#fff;">本门店搜索</span><!-- <span style="background-color:#eee; color:#666;">全连锁搜索</span> -->
+			</div>
+		</div>
+		<div class="list"><label>客户姓名：</label><div class="list_right"><?php echo \Ivy::app()->widget('common/selectCustomer'); ?></div></div>
+
+		<div class="list"><label>当前等级：</label><div class="list_right cu_level"></div></div>
+		
+		<div class="list"><label>新等级：</label><div class="list_right"><select class="level">
+		<?php foreach ($mem_list as $value): ?>
+			<option value ="<?php echo $value['id'] ?>"><?php echo $value['level_name'] ?></option>
+		<?php endforeach ?>
+		</select></div></div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+$(function(){
+	
+	//卡券兑换
+	$(".pos_dh_bj").click(function(){
+		$(".ch_cu span").eq(1).hide();
+		to_order($(this),"<?php echo $this->url('pos/voucher/add');?>");
+	});
+	//购买流程
+	$(".pos_gm_bj").click(function(){
+		$(".ch_cu span").eq(1).hide();
+		to_order($(this),"<?php echo $this->url('pos/sale/add');?>");
+	});
+	//充值流程
+	$(".pos_cz_bj").click(function(){
+		$(".ch_cu span").eq(1).hide();
+		to_order($(this),"<?php echo $this->url('pos/recharge/add');?>");
+	});
+	//还款流程
+	$(".pos_hk_bj").click(function(){
+		$(".ch_cu span").eq(1).hide();
+		to_order($(this),"<?php echo $this->url('pos/repay/add');?>");
+	});
+	//退款流程
+	$(".pos_tui_bj").click(function(){
+		$(".ch_cu span").eq(1).hide();
+		to_order($(this),"<?php echo $this->url('pos/refund/pro');?>");
+	});
+    //寄存领取流程
+    $(".pos_jc_bj").click(function(){
+    	$(".ch_cu span").eq(1).hide();
+        to_order($(this),"<?php echo $this->url('pos/receive/add');?>");
+    });
+    //实操单 开放跨店
+    $(".pos_sc_bj").click(function(){
+    	$(".ch_cu span").eq(1).show();
+        to_order($(this),"<?php echo $this->url('pos/practice/add');?>");
+        //客户搜索范围切换
+		$(".ch_cu span").off().on("click",function(){
+			var id = $(this).attr("data");
+			var box = $(this).closest(".tjfj_two");
+			box.find(".md_search").hide();
+			box.find(".all_search").hide();
+			box.find("."+id).show();
+			box.find(".ch_cu span").removeClass("on").removeClass("off");
+			$(this).addClass("on");
+		})
+    });
+
+
+    
+
+    
+	
+
+	//选择客户后跳转到业务
+	function to_order(self,url){
+		$(".idialog_title span").trigger("click");
+		var o_class=self.prop("className");
+		var a_class=o_class+"1";
+		self.addClass(a_class);
+		var d = Idialog({
+			top:150,
+			width:500,
+			title:'客户选择',
+			content:$('#choose_cu'),
+			cancel:false,
+			close:function(e){
+				self.removeClass(a_class);
+			},
+			ok:function(obj){
+				var _self=obj._self;
+				if(_self.find(".on").attr("data")=="all_search")
+					var id=_self.find("#all_s").val();
+				else
+					var id=_self.find("#md_s").val();
+				if(id)
+					window.location.href=url+"&id="+id;
+			}
+		});
+	}
+
+	//入会购买
+    $(".pos_rh_bj").click(function(){
+    	$(".ch_cu span").eq(1).hide();
+		$(".idialog_title span").trigger("click");
+    	var self=$(this);
+    	var o_class=self.prop("className");
+		var a_class=o_class+"1";
+		self.addClass(a_class);
+		var d = Idialog({
+			top:150,
+			width:500,
+			title:'客户选择',
+			content:$('#choose_cu_rh'),
+			cancel:false,
+			close:function(e){
+				self.removeClass(a_class);
+			},
+			ok:function(obj){
+				var _self=obj._self;
+				var id=_self.find("#search_cu_id").val();
+				var type=_self.find("input[name=rh_type]:checked").val();
+				if(id)
+					window.location.href="<?php echo $this->url('pos/sale/rh');?>"+"&id="+id+"&type="+type;
+			}
+		});
+    });
+
+    //会员等级升级
+    $(".pos_dj_bj").click(function(){
+    	$(".ch_cu span").eq(1).hide();
+		$(".idialog_title span").trigger("click");
+    	var self=$(this);
+    	var o_class=self.prop("className");
+		var a_class=o_class+"1";
+		self.addClass(a_class);
+		var d = Idialog({
+			top:150,
+			width:500,
+			title:'客户选择',
+			content:$('#choose_cu_dj'),
+			cancel:false,
+			close:function(e){
+				self.removeClass(a_class);
+			},
+			ok:function(obj){
+				var _self=obj._self;
+				var id=_self.find("#search_cu_id").val();
+				var level=_self.find(".level").val();
+				if(id)
+					window.location.href="<?php echo $this->url('pos/index/level');?>"+"&id="+id+"&level="+level;
+			}
+		});
+    });
+
+    //当前客户等级
+    $(document).on("change", "#search_cu_id",function(){
+		var cu_id=$(this).val();
+		$.getJSON("<?php echo $this->url('culevel');?>"+"&cu_id="+cu_id, function(json){
+			if(json.code==200){
+				//转到付款界面
+				$(".cu_level").html(json.data.name);
+			}else{
+				Idialog.tips(json.msg,2);
+			}
+		});
+	});
+
+	
+
+
+
+});
+</script>

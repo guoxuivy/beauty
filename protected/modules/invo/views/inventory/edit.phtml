@@ -1,0 +1,157 @@
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+        仓库管理>库存盘点记录>盘库损溢
+    </div>
+    <!--table_container-->
+    <div class="table_container clear">
+        <!--table_con-->
+        <div class="table_con">
+            <!--table_con_son-->
+            <div class="table_con_son">
+                <div class="table_title">
+                    <ul>
+                        <li>商品分类</li>
+                        <li>商品系列</li>
+                        <li>商品名称</li>
+                        <li>商品编码</li>
+                        <li>实时库存</li>
+                        <li>盘点数量</li>
+                        <li>盈亏额</li>
+                        <li>盘库报损数量</li>
+                        <li>盘库报溢数量</li>
+                        <?php if($inventory_model->is_check_ext==1):?>
+                        <li>盘点额外数量</li>
+                        <?php endif;?>
+                    </ul>
+                </div>
+                <div style="max-height:800px; overflow:auto;">
+                    <?php foreach($list as $item):?>
+                        <div class="table_list clear" data-pid="<?php echo $item['product_id'];?>">
+                            <ul>
+                                <li class="li001"><?php echo $item['fname'];?></li>
+                                <li class="li002"><?php echo $item['cname'];?></li>
+                                <li class="li003"><?php echo $item['name'];?></li>
+                                <li class="li004"><?php echo $item['code'];?></li>
+                                <li class="li005"><?php echo $item['curr_num'];?></li>
+                                <input type="hidden" name="detail_id" value="<?php echo $item['id'];?>">
+                                <input type="hidden" name="curr_num" value="<?php echo $item['curr_num'];?>">
+                                <input type="hidden" name="balance_num" value="<?php echo $item['balance_num'];?>">
+                                <input type="hidden" name="dept_pro_id" value="<?php echo $item['dept_pro_id'];?>">
+                                <li class="li006"><input name="check_num" value="<?php echo $item['check_num'];?>" type="text" class="pos_cz_tow_two05" /></li>
+                                <li class="li007"><?php echo $item['balance_num'];?></li>
+                                <li class="li008">
+                                    <input readonly="readonly" name="loss_num" value="<?php echo $item['loss_num']==0?'':$item['loss_num'];?>" type="text" class="pos_cz_tow_two05" />
+                                </li>
+                                <li class="li009">
+                                    <input readonly="readonly" name="gain_num" value="<?php echo $item['gain_num']==0?'':$item['gain_num'];?>" type="text" class="pos_cz_tow_two05" />
+                                </li>
+                                <?php if($inventory_model->is_check_ext==1):?>
+                                    <li class="li009">
+                                        <input name="check_ext_num" value="<?php echo $item['check_ext_num']==0?'':$item['check_ext_num'];?>" type="text" class="pos_cz_tow_two05" />
+                                    </li>
+                                <?php endif;?>
+                            </ul>
+                        </div>
+                    <?php endforeach;?>
+                </div>
+            </div>
+            <!--table_con_son!end-->
+        </div>
+        <!--table_con!end-->
+        <div class="khgl_pk_butom">
+            <a href="javascript:" class="ck_splb_foot_01">保存盘库损溢</a>
+            <a href="javascript:history.back(-1)" class="ck_splb_foot_02">取消</a> </div>
+    </div>
+    <!--table_containter!end-->
+</div>
+<!--content_right_con!end-->
+
+<div class="tjfj" style="display:none">
+    <div class="tjfj_two pos_gm_th">
+        <div class="khgl_pk_th">
+            <div class="khgl_pk_th_top"><img src="<?php echo $this->basePath("public"); ?>/images/pk_10.png" />库存已根据盘库结果更新！</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(".table_title ul li").css('min-width','100px');
+    table_flash();
+
+    $(".ck_splb_foot_01").click(function(){
+        var data={},i= 0,inventory_id = '<?php echo $_GET['id']?>';
+        var _html = "<div id='loading' style='position:fixed;left:0;width:100%;height:100%;top:0;background:rgb(0, 0, 0);opacity:0.5;filter:alpha(opacity=50);'><div style='position:absolute;  cursor1:wait;left:50%;top:50%;width:auto;height:16px;padding:13px 22px 28px 30px;background: url(<?php echo $this->basePath('public');?>/images/loading.gif) no-repeat scroll 5px 10px;text-indent: -99999px;color:#000;'>正在加载，请等待...</div></div>";
+        $('body').append(_html);
+        $(".table_list").each(function(){
+            var item={};
+            item.product_id = $(this).attr('data-pid');
+            item.dept_pro_id = $(this).find("input[name=dept_pro_id]").val();
+            item.balance_num = $(this).find("input[name=balance_num]").val();
+            item.curr_num = $(this).find("input[name=curr_num]").val();
+            item.check_num = $(this).find("input[name=check_num]").val();
+            if($(this).find("input[name=check_ext_num]").length>0){
+                item.check_ext_num = $(this).find("input[name=check_ext_num]").val();
+            }
+            item.loss_num = $(this).find("input[name=loss_num]").val();
+            item.gain_num = $(this).find("input[name=gain_num]").val();
+            item.detail_id = $(this).find("input[name=detail_id]").val();
+            data[i] = item;
+            i++;
+        });
+        setTimeout(function(){
+            $.post('<?php echo $this->url("save_dept")?>',{data:data,inventory_id:inventory_id}, function(data) {
+                $("#loading").remove();
+                if(data.code==200){
+                    var d = Idialog({
+                        top:150,
+                        width:500,
+                        title:'库存已更新',
+                        content:$(".tjfj"),
+                        cancel:function(){
+                            $('body').append(_html);
+                            location.href = '<?php echo $this->url("index");?>';
+                        },
+                        close:function(){
+                            $('body').append(_html);
+                            location.href = '<?php echo $this->url("index");?>';
+                        },
+                        ok:function(){
+                            $('body').append(_html);
+                            setTimeout(function(){location.href = '<?php echo $this->url("invo/index/index");?>';},100);
+                        }
+                    });
+                    $(".idialog_ok").text('立即查看库存');
+                }else if(data.code==500){
+                    Idialog.tips(data.msg,2);
+                }
+            }, "json");
+        },500);
+
+    });
+
+    $("input[name=check_num]").blur(function(){
+        var reg = /^\d+$/;
+        var curr_num = parseInt($(this).parents('.table_list').find("input[name=curr_num]").val());
+        if($(this).val()!=''&&!reg.test($(this).val())){
+            Idialog.tips("请输入整数",2);
+            $(this).val(0);
+        }
+        var check_num = parseInt($(this).val()),balance='';
+        if(check_num-curr_num>0){
+            balance = check_num-curr_num;
+            $(this).parents('.table_list').find("input[name=gain_num]").val(balance);
+            $(this).parents('.table_list').find("input[name=loss_num]").val('');
+        }else if((check_num-curr_num<0)){
+            balance = curr_num-check_num;
+            $(this).parents('.table_list').find("input[name=gain_num]").val('');
+            $(this).parents('.table_list').find("input[name=loss_num]").val(balance);
+        }else if((check_num-curr_num==0)){
+            balance = curr_num-check_num;
+            $(this).parents('.table_list').find("input[name=gain_num]").val('');
+            $(this).parents('.table_list').find("input[name=loss_num]").val('');
+        }
+        $(this).parents('.table_list').find("input[name=balance_num]").val(balance);
+        $(this).parent().next().text(balance);
+    });
+</script>

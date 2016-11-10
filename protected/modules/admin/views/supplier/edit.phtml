@@ -1,0 +1,11 @@
+<div class="add_store" title="新增供应商">
+  <div class="tjfj_two">
+    <form method="post" action="<?php echo $this->url('add') ?>" class="form">
+      <div class="list"><label>供应商名称：</label><div style="margin-left: 100px;"><input type="text" class="gysgl_07 new_inputxt" name="comp_name" value="<?php echo $model->comp_name; ?>"/>（必填）</div></div>
+      <div class="list"><label>联系人：</label><div style="margin-left: 100px;"><input type="text" class="gysgl_07" name="boss_name" value="<?php echo $model->boss_name; ?>"/></div></div>
+      <div class="list"><label>联系电话：</label><div style="margin-left: 100px;"><input type="text" class="gysgl_07 new_inputxt" name="phone" value="<?php echo $model->phone; ?>"/>（必填）</div></div>
+      <div class="list"><label>联系地址：</label><div style="margin-left: 100px;"><input type="text" class="gysgl_07" name="address" value="<?php echo $model->address; ?>"/></div></div>
+    	<input name="id" type="hidden" value="<?php echo $model->id ?>" />
+    </form>
+  </div>
+</div>

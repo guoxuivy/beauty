@@ -1,0 +1,158 @@
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+	仓库管理>入库记录>新建入库
+	</div>
+	<form action="<?php echo $this->url('add') ?>" method="post">
+	<div class="fjgl_two" >
+		<div class="ck_splb_ckjl_01 ck_splb_ckjl_01_l">入库日期：<?php echo date("Y-m-d") ?></div>
+		<div class="ck_splb_ckjl_01 ck_splb_ckjl_01_m">部门：<?php echo $dept_name ?></div>
+		<div class="ck_splb_ckjl_01 ck_splb_ckjl_01_r">制单人：<?php echo \Ivy::app()->user->netname ?></div>
+	</div>
+  
+	<div class="ck_splb_ckjl_top">
+		<div class="ck_splb_ckjl_top_l">入库类型：</div>
+		<div class="ck_splb_ckjl_top_r">
+			<div class="ck_splb_ckjl_top_r_son">
+				<!-- <select type="text" class="ck_splb_ckjl_top_01"></select> -->
+				<?php echo $this->dropDownList('type',\invo\In::getType(),$type,array("class"=>'ck_splb_ckjl_top_01')) ?>
+
+				<span class="ck_splb_ckjl_top_02">调拨单：</span>
+
+				<?php echo $this->dropDownList('from_id',$this->optArr($translist,'id','sn'),'',array("class"=>'ck_splb_ckjl_top_01')) ?>
+
+				<!-- <select name="from_id" class="ck_splb_ckjl_top_01"></select> -->
+			</div>
+		</div>
+	</div> 
+ 
+ 
+	<div class="ck_splb_ckjl_top">
+		<div class="ck_splb_ckjl_top_l">入库商品：</div>
+		<div class="ck_splb_ckjl_top_r">
+			<div class="ck_splb_ckjl_top_r_son">
+				<!-- <div class="ck_splb_ckjl_top_03">选择商品</div> -->
+				<!--赠送-->
+				<div class="pos_cz_tow" style="margin-top:0px;border:none">
+					
+					<div class="pos_cz_tow_two">
+					<!--table_container-->  
+						<div class="table_table">
+							<div class="table_hiddle">
+							<table width="100%" cellspacing="0" cellpadding="0" border="0">
+								<thead>
+									<tr class="table_title">
+										<th>商品分类</th>
+										<th>品牌或系列</th>
+										<th>商品名称</th>
+										<th>商品编码</th>
+										<th>规格</th>
+										<th>单位</th>
+										<th class="db">调拨数量</th>
+										<th class="db">已入库数量</th>
+										<th>入库数量</th>
+									</tr>
+								</thead>
+								<tbody>
+								
+								</tbody>
+							</table>
+							</div>
+						</div>
+						<!--table_containter!end-->
+					</div>
+				</div><!--赠送!end-->
+			</div>
+		</div>
+	</div> 
+ 
+ 
+	<div class="ck_splb_ckjl_top">
+		<div class="ck_splb_ckjl_top_l">备注：</div>
+		<div class="ck_splb_ckjl_top_r">
+			<div class="ck_splb_ckjl_top_r_son">
+				<textarea name="note" rows="4" style=" width:98%;"></textarea>
+			</div>
+		</div>
+	</div>
+	</form>
+ 
+ 
+	<div class="ck_splb_ckjl_top">
+		<div class="ck_splb_ckjl_top_l"></div>
+		<div class="ck_splb_ckjl_top_r">
+			<div class="ck_splb_ckjl_top_r_son">
+				<a href="javascript:$('form').submit();" class="ck_splb_ckjl_top_04 ck_splb_ckjl_top_05">确认入库</a>
+				<a href="javascript:" class="ck_splb_ckjl_top_04">取 消</a>
+				<a href="javascript:" class="ck_splb_ckjl_top_04 none refuse">拒绝入库</a>
+				<!-- <a href="javascript:" class="ck_splb_ckjl_top_04">暂缓入库</a> -->
+			</div>
+		</div>
+	</div>
+</div>
+<!--content_right_con!end-->
+
+<script type="text/javascript">
+$(function(){
+	$('select[name="type"]').change(function(){
+		if($(this).val()<3){
+			to_url('<?php echo $this->url("add") ?>&type='+$(this).val());
+		}else{
+			to_url('<?php echo $this->url("addn") ?>&type='+$(this).val());
+		}
+	});
+
+
+	//变动调拨单
+	$('select[name="from_id"]').change(function(){
+		var id = $(this).val();
+		$('.table_table tbody').empty();
+		if(id=='') {
+			$('.refuse').addClass('none');
+			return;
+		}
+		$.getJSON("<?php echo $this->url('inlist') ?>", { id: id }, function(json){
+			if(json.code==200){
+				$.each(json.data,function(i,v){
+					var tr=$('<tr class="table_list clear"></tr>');
+					tr.append('<td>'+v.tcname+'</td>');
+					tr.append('<td>'+v.cname+'</td>');
+					tr.append('<td>'+v.name+'</td>');
+					tr.append('<td>'+v.code+'</td>');
+					tr.append('<td>'+v.specs+'</td>');
+					tr.append('<td>'+v.unit+'</td>');
+					tr.append('<td>'+v.num+'</td>');
+					tr.append('<td>'+v.in_num+'</td>');
+					tr.append('<td><input type="hidden" name="d_id[]" value="'+v.id+'" > <input name="in_num[]" type="text" class="pos_cz_tow_two05" /></td>');
+					$('.table_table tbody').append(tr);
+				});
+				show_refuse(id);//拒绝检测
+			}
+		});
+	});
+
+	//调拨拒绝
+	function show_refuse(id){
+		$.getJSON("<?php echo $this->url('tran') ?>", { id: id }, function(json){
+			if(json.code==200){
+				if(json.data.state=='1' && json.data.type=='1'){
+					$('.refuse').removeClass('none');
+				}
+			}
+		});
+		$('.refuse').addClass('none');
+	}
+	//拒绝提交
+	$('.refuse').click(function(){
+		var id = $('select[name="from_id"]').val();
+		if(id=='') return;
+		$.getJSON("<?php echo $this->url('refuse') ?>", { id: id }, function(json){
+			Idialog.tips(json.msg,2);
+			if(json.code==200){
+				setTimeout(function(){to_url('<?php echo $this->url("index");?>')},3000);
+			}
+		});
+	});
+
+});
+</script>

@@ -1,0 +1,197 @@
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Itime.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Itable2excel.js"></script>
+<?php 
+	$md_list=\EmployDept::getList(true);
+	$config=\CompanyInfo::getConfig('payee');
+?>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r"><span><a href="#" download="现金流水报表.xls"class="to_excel fjgl_top_r_05">导出</a></span></div>
+		数据报表><span>现金流水报表</span>
+	</div>
+
+	<!--sjbb_ddkl_one-->
+	<div class="sjbb_ddkl_one">
+		<ul>
+		<li>
+			<div class="sjbb_ddkl_one_l">门店范围：</div>
+			<div class="sjbb_ddkl_one_r">
+				<div class="sjbb_ddkl_one_r_son choose_md">
+					<?php if(!$this->controller->is_store):?>
+					<a href="javascript:" rel="0"><span ></span>全连锁</a>
+					<?php endif;?>
+					<?php foreach ($md_list as $key => $value): ?>
+					<a href="javascript:" rel="<?php echo $key ?>"><span></span><?php echo $value ?></a>
+					<?php endforeach ?>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div class="sjbb_ddkl_one_l">日期：</div>
+			<div class="sjbb_ddkl_one_r">
+				<div class="sjbb_ddkl_one_r_son" id="choose_time">
+				</div>
+			</div>
+		</li>
+		<li class="lastli">
+				<div class="sjbb_ddkl_one_l">
+				</div>
+				<div class="sjbb_ddkl_one_r">
+					<div class="sjbb_ddkl_one_r_son">
+						<a href="javascript:" class="changa01">搜索</a>
+					</div>
+				</div>
+		</li>
+		</ul>
+	</div> <!--sjbb_index_onesjbb_ddkl_oneend-->
+
+
+	<!--table_container-->
+	<div id="order-list" class="table_table table_center">
+		<div class="table_hiddle">
+		<table width="100%" cellspacing="0" cellpadding="0" border="0" last-float="false">
+			<thead>
+				<tr class="table_title">
+					<th>日期</th>
+					<?php if ($config['money']['open']=='true'): ?><th>实收现金</th><?php endif ?>
+					<?php if ($config['post']['open']=='true'): ?>
+					<?php foreach ($config['post']['has'] as $key => $value): ?>
+						<th><?php echo $value ?></th>
+					<?php endforeach ?>
+					<?php endif ?>
+					<?php if ($config['bank']['open']=='true'): ?>
+					<?php foreach ($config['bank']['has'] as $key => $value): ?>
+						<th><?php echo $value ?></th>
+					<?php endforeach ?>
+					<?php endif ?>
+					<?php if ($config['other']['open']=='true'): ?>
+					<?php foreach ($config['other']['has'] as $key => $value): ?>
+						<th><?php echo $value ?></th>
+					<?php endforeach ?>
+					<?php endif ?>
+
+					<th>合计</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php if ($list): ?>
+			<?php foreach ($list as $k => $row): ?>
+					<?php $o=$row;unset($o['day']); $_all=array_sum($o); ?>
+					<?php if($_all==0) continue; ?>
+				<tr class="table_list clear">
+					<td><?php echo date("Y-m-d", strtotime($row['day'])) ?></td>
+					<?php if ($config['money']['open']=='true'): ?><td><?php echo $row['xj']?$row['xj']:0 ?></td><?php endif ?>
+					<?php foreach ($config['post']['has'] as $key => $value): ?>
+						<td><?php echo $row[$value]?$row[$value]:0 ?></td>
+					<?php endforeach ?>
+					<?php if ($config['bank']['open']=='true'): ?>
+					<?php foreach ($config['bank']['has'] as $key => $value): ?>
+						<td><?php echo $row[$value]?$row[$value]:0 ?></td>
+					<?php endforeach ?>
+					<?php endif ?>
+					<?php if ($config['other']['open']=='true'): ?>
+					<?php foreach ($config['other']['has'] as $key => $value): ?>
+						<td><?php echo $row[$value]?$row[$value]:0 ?></td>
+					<?php endforeach ?>
+					<?php endif ?>
+					<td><?php echo $_all ?></td>
+					<td><a rel="<?php echo $row['day'] ?>" href="javascript:" class="khgl_03 detail">查看</a></td>
+				</tr> 
+				<?php endforeach ?>
+			<?php endif ?>
+			</tbody>
+		</table>
+		</div><!--table_hiddle!end-->
+	</div>
+	<!--table_container-->
+
+</div>
+<!--content_right_con!end-->
+
+
+<script type="text/javascript">
+$(function(){
+	var t = Itime({
+		content:$('#choose_time'),
+		endoff:true,
+		<?php if (isset($_GET['month'])): ?>
+		begin:'<?php echo $_GET["month"]?>', //填充默认时间
+		<?php endif ?>
+		//end:'201507', //默认当前时间
+		type:'m',  	  // 日 模式
+	})._self.find("a[rel='y'], a[rel='d']").remove(); //屏蔽 年 日 选择
+
+	//门店范围选择
+	$(".choose_md a").click(function(){
+		var rel=$(this).attr("rel");
+		if($(this).find("span").hasClass("span_01")){
+			$(this).find("span").removeClass("span_01");
+			if(rel=="0")
+				$(".choose_md span").removeClass("span_01");
+		}else{
+			$(this).find("span").addClass("span_01");
+			if(rel=="0")
+				$(".choose_md span").addClass("span_01");
+		}
+	});
+
+
+
+<?php if ($this->controller->is_store): ?>
+		$(".choose_md").find("a").trigger("click");
+<?php else: ?>
+//填充默认门店
+<?php if (isset($_GET['md_id'])): ?>
+	<?php foreach (explode(',', $_GET['md_id']) as $v): ?>
+		$(".choose_md").find("a[rel='<?php echo $v ?>']").trigger("click");
+	<?php endforeach ?>
+<?php endif ?>
+<?php endif ?>
+	function getMd(){
+		if($(".choose_md a[rel='0']").find("span").hasClass("span_01"))
+			return "0";
+		var l = $(".choose_md a").map(function(){
+			if($(this).find("span").hasClass("span_01"))
+				return $(this).attr("rel");
+		}).get().join(",");
+		return l;
+	}
+
+	//搜索提交
+	$(".changa01").click(function(){
+		var md_id=getMd();
+		if(md_id==''){
+			Idialog.tips('门店未选择！',2);
+			return;
+		}
+		var month=$(".itime").find(".b_y").val()+""+$(".itime").find(".b_m").val();
+		to_url('<?php echo $this->url("XJLS") ?>&md_id='+md_id+'&month='+month);
+	});
+
+	//详细查看
+	$(".detail").click(function(){
+		var md_id=getMd();
+		var day=$(this).attr("rel");
+		var all=$(this).parent().prev().html();
+		if(md_id==''){
+			Idialog.tips('门店未选择！',2);
+			return;
+		}
+		to_url('<?php echo $this->url("XJLS_X") ?>&md_id='+md_id+'&day='+day+'&all='+all);
+	});
+
+	$(".to_excel").click(function(event){
+		var t = Itable2excel({
+			worksheet:'数据分析',
+			table: $('#order-list table')
+		});
+		var data64 = t.uri();
+		if(data64==false)
+			return false;
+		event.currentTarget.href = data64;
+	});
+
+});
+</script>

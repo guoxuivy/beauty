@@ -1,0 +1,151 @@
+<?php 
+$prod_top_cate=\ProCate::getProductTopCate('',$show_del);
+?>
+
+<div class="widget_content">
+	<!--widget_select-->
+    <div class="widget_select">
+        <div class="widget_select_l">产品类型：</div>
+        <div class="widget_select_r">
+            <ul class="prod_top_cate">
+            <?php foreach ($prod_top_cate as $key => $value): ?>
+            	<li rel="<?php echo $key ?>"><?php echo $value ?></li>
+			<?php endforeach ?>
+            </ul>
+        </div>
+    </div><!--widget_select!end-->
+    <!--widget_select-->
+    <div class="widget_select bottom_dashed">
+        <div class="widget_select_l">品牌系列：</div>
+        <div class="widget_select_r">
+            <ul class="prod_cate">
+            </ul>
+        </div>
+    </div><!--widget_select!end-->
+    
+    <!--widget_select-->
+    <div class="widget_select widget_select_mb bottom_dashed">
+        <div class="widget_select_l">产品名称：</div>
+        <div class="widget_select_r">
+            <ul class="add_pro">
+               <!-- <li class="widget_select_on"><span></span>类别名称一</li> -->
+            </ul>
+        </div>
+    </div><!--widget_select!end-->
+
+    <div class="widget_select widget_select_result">
+        <div class="widget_select_l">已选择项：<br/><a class="widget_select_clean" href="javascript:;">清空已选</a></div>
+        <div class="widget_select_r">
+            <ul class="result_pro">
+               <!-- <li class="widget_select_on"><span></span>类别名称一</li> -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+$(function(){
+
+	//项目顶级下拉级联
+	$('body').off('click','.prod_top_cate li');
+	$('body').on('click','.prod_top_cate li',function(){
+		var self=$(this);
+		var content = $(this).closest('.widget_content');
+		var fid=self.attr('rel');
+		self.parent().find('li').removeClass('cate_choose');
+		self.addClass('cate_choose');
+		content.find('.prod_cate').html('<li class="select_load"><img src="<?php echo $this->basePath('public');?>/images/load.gif" /></li>');
+		var opt='';
+
+		$.getJSON("<?php echo $this->url('admin/product/childCate') ?>",{fid:fid,show_del:<?php echo $show_del; ?>}, function(json){
+			if(json.code==200){
+				content.find('.prod_cate').empty();
+				$.each(json.data, function(i, v){
+					opt+='<li rel="'+v.id+'">'+v.name+'</li>';
+				});
+			}
+			content.find('.prod_cate').html(opt);
+		});
+	});
+
+	//分类下的项目下拉级联
+	$('body').off('click','.prod_cate li');
+	$('body').on('click','.prod_cate li',function(){
+		var self=$(this);
+		var content = $(this).closest('.widget_content');
+		var fid=self.attr('rel');
+		self.parent().find('li').removeClass('cate_choose');
+		self.addClass('cate_choose');
+		content.find('.add_pro').html('<li class="select_load"><img src="<?php echo $this->basePath('public');?>/images/load.gif" /></li>');
+		var opt='';
+        var supply_id = "";
+        supply_id = $("[name='supply_id']").val();
+		$.getJSON("<?php echo $this->url('admin/product/cateProd') ?>",{fid:fid,"supply_id":supply_id,show_del:<?php echo $show_del; ?>}, function(json){
+			if(json.code==200){
+				content.find('.add_pro').empty();
+				$.each(json.data, function(i, v){
+					var myclass="";
+					var find = content.find(".result_pro li[rel='"+v.id+"']").length;
+					if(find>0)
+						myclass="widget_select_on";
+						v.num=1;
+						var level='<?php echo $level ?>';
+						switch(level){
+							case 'rich':
+								var l_str='data-num="'+v.num+'" data-price="'+v.price+'" data-unit="'+v.unit+'"'; 
+								break;
+							case 'medium':
+								var l_str='data-num="'+v.num+'" data-price="'+v.price+'" data-unit="'+v.unit+'"'; 
+								break;
+							default:
+								var l_str="";
+						}
+						if(v.max_num)
+							l_str+=' data-max-num="'+v.max_num+'"';
+						
+							l_str+=' data-code="'+v.code+'"';
+						
+							l_str+=' data-c_name="'+v.c_name+'"';
+						
+							l_str+=' data-top_name="'+v.top_name+'"';
+						
+							l_str+=' data-specs="'+v.specs+'"';
+					opt+='<li class="'+myclass+'" rel="'+v.id+'" data-name="'+v.name+'" '+l_str+' ><span></span>'+v.name+'</li>';
+				});
+			}
+			content.find('.add_pro').html(opt);
+		});
+	});
+
+	//将项目添加到result
+	$('body').off('click','.add_pro li');
+	$('body').on('click','.add_pro li',function(){
+		var self=$(this);
+		if(self.hasClass('widget_select_on'))
+			return;
+		var content = $(this).closest('.widget_content');
+		self.addClass('widget_select_on');
+		content.find('.result_pro').append(self.clone().removeClass('widget_select_on'));
+	});
+
+	//将项目从result 删除
+	$('body').off('click','.result_pro li');
+	$('body').on('click','.result_pro li',function(){
+		var self=$(this);
+		var content = $(this).closest('.widget_content');
+		content.find(".add_pro li[rel='"+self.attr('rel')+"']").removeClass('widget_select_on');
+		self.remove();
+	});
+
+	//清空result
+	$('body').off('click','.widget_select_clean li');
+	$('body').on('click','.widget_select_clean',function(){
+		var self=$(this);
+		var content = $(this).closest('.widget_content');
+		content.find(".add_pro li").removeClass('widget_select_on');
+		content.find('.result_pro').empty();
+	});
+});
+</script>

@@ -1,0 +1,118 @@
+<?php 
+?>
+
+<link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
+
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="khgl_01"><img src="<?php echo $this->basePath('public') ?>/images/kh_01.png" /></div>客户管理><span><?php echo $model->name; ?></span>><span class="khgl_da_01">账户动态</span>
+	</div>
+	<?php 
+		$count=(int)\CustomerReProject::model()->getSumByUser($model->id)->sum_re_num;
+		 ?>
+	<div class="khgl_da_top khgl_zhdt_01">
+      		<ul>
+            	<li><a href="<?php echo $this->url('zhdt',array('id'=>$id)) ?>" class="khgl_da_03">账户动态</a></li>
+                <li><a href="<?php echo $this->url('sysclc',array('id'=>$id)) ?>">剩余实操疗次（<?php echo $count;?>）</a></li>
+                <li><a href="<?php echo $this->url('score',array('id'=>$id)) ?>">积分记录</a></li>
+                <li><a href="<?php echo $this->url('kjgl',array('id'=>$id)) ?>">卡券管理</a></li>
+            </ul>
+        
+      </div>
+<!--  模版引擎扩展 -->
+<?php echo $this->datagrid(array(
+		'dataProvider'=>$pager,
+		'columns'=>array(
+			array(
+				'header' => '日期',//暂无逻辑
+				'name' => 'ctime',
+			),
+			array(
+				'header' => '单据号',
+				'name' => 'sn',
+			),
+			array(
+				'header' => '账户名称',
+				'name' => 'cvname',
+			),
+			array(
+				'header' => '业务类型',
+				'value'=>'{$data["pos_dir"]=="in"?"存入":"取出"}',
+			),
+			array(
+				'header' => '存入（充值）',
+				'value' => '{$data["pos_dir"]=="in"?$data["money"]:""}',
+			),
+			array(
+				'header' => '取出（卡扣）',
+				'value'=>'{$data["pos_dir"]=="in"?"":$data["money"]}',
+			),
+			array(
+				'header' => '提现（退现金）',//暂无逻辑
+				'value' => '',
+			),
+			// array(
+			// 	'header' => '操作',
+			// 	'rel'=>'id',
+			// 	'value'=> '<a href="###'.$this->url("view").'&id={$data["id"]}" class="khca"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看</a>',//暂无页面
+			// ),
+			
+		),
+	));?>
+	
+</div>
+<!--content_right_con!end-->
+
+
+
+
+
+<script type="text/javascript">
+
+$(function(){
+	$(document).on('click','.delete',function(){
+		var obj = $(this).parent().parent().parent();
+		var id = $(this).parent().attr('rel');
+
+		var d = Idialog({
+			top:120,
+			width:500,
+			title:'通知',
+			content:'您确认删除吗？',
+			ok:function(html){
+				$.get("<?php echo $this->url('delete') ?>", { id: id },function(html){
+					var jobj = $.parseJSON(html);
+					if(jobj['code']=='200'){
+						var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'删除成功',
+							ok:function(html){
+								obj.remove();
+								return true;
+							},
+							cancel:false,
+						});
+					}else{
+						var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'删除失败',
+							ok:function(obj){
+								return true;
+							},
+							cancel:false,
+						});
+					}
+				});
+				return true;
+			},
+			cancel:true,
+		});
+	});
+});
+</script>

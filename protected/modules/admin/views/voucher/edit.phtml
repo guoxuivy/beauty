@@ -1,0 +1,334 @@
+<?php 
+$proj_top_cate=\ProCate::getProjectTopCate();
+$prod_top_cate=\ProCate::getProductTopCate();
+?>
+<style type="text/css">
+.qradio{height:13px !important;; width:13px !important;;margin-left:10px !important;; margin-right:5px !important;}
+.fjgl_th413{margin-top: 0px;}
+</style>
+<link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
+<script src="<?php echo $this->basePath('public') ?>/laydate/laydate.js" type="text/javascript"></script>
+<form method="post" action="<?php echo $this->url('edit') ?>">
+<!--content_right_con-->
+<div class="content_right_con">
+	<div style=" border-bottom:1px solid #CCC;" class="content_right_con_top">卡券管理><?php echo $model->isNewRecord?"新建":"编辑" ;?>卡券</div>
+	<!--xjxm_con-->
+	<div class="xjxm_con">
+		<!--xjxm_con_top-->
+		<div class="xjxm_con_top">
+			<div class="list"><label>卡券名称：</label>
+            	<div class="list_right">
+				<input name="name" class="xjxm_input" style="width:290px;" value="<?php echo $model->name ?>" type="text" datatype="*" placeholder="" /><span class="gysgl_08">(必填)</span>
+                </div>
+			</div>
+			<div class="list jcDateBtn"><label>有效期：</label>
+            	<div class="list_right">
+				<input type="text" style=" width:118px;" name="stime" onclick="laydate()" class="laydate-icon xjxm_input" value="<?php echo $model->isNewRecord?"":date("Y-m-d",$model->stime);?>">
+				<span style=" padding:0 10px;">至</span>
+				<input type="text" style=" width:118px;" name="etime" onclick="laydate()" class="laydate-icon xjxm_input" value="<?php echo $model->isNewRecord?"":date("Y-m-d",$model->etime);?>">
+				<!-- <input type="checkbox" name="time" value="1" class="qradio">不限 --><span class="gysgl_08">(必填)</span>
+                </div>
+			</div>
+			<div class="list"><label>卡券售价：</label>
+            	<div class="list_right">
+				<input name="price" class="xjxm_input" style="width:290px;" value="<?php echo $model->price ?>" type="text" datatype="*" placeholder="" /><span class="gysgl_08">(必填)</span>
+                </div>
+			</div>
+			<div class="list"><label>使用范围：</label>
+            	<div class="list_right">
+				<input name="scope" type="radio" <?php echo $model->scope==1?"checked=checked":"";?> value="1" class="qradio">仅限正式会员
+				<input name="scope" type="radio" <?php echo $model->scope==2?"checked=checked":"";?> value="2" class="qradio">仅限非正式会员
+				<input name="scope" type="radio" <?php echo $model->scope==0?"checked=checked":"";?> value="0" class="qradio">不限
+				<span class="gysgl_08">(必填)</span>
+                </div>
+			</div>
+
+			<div class="list"><label>发行数量：</label>
+            	<div class="list_right">
+				<input type="text" class="xjxm_input c_num"  value="<?php echo $model->num!=-1?$model->num:'';?>"  style="width:100px;">
+				<input type="radio" value="-1" <?php echo $model->num==-1?"checked=checked":"";?> class="qradio c_num_bx">不限数量<span class="gysgl_08">(必填)</span>
+				<input type="hidden"  value="<?php echo $model->num ?>" name="num" class="v_num">
+                </div>
+			</div>
+
+			<div class="list"><label>卡券内容：</label>
+            	<div class="list_right">
+				<input type="checkbox" class="qradio action_xj">现金
+				<input type="checkbox" class="qradio action_xm">项目
+				<input type="checkbox" class="qradio action_cp">产品
+                </div>
+			</div>
+		<!--卡券组成-->
+			<div class="kj_xzkj_con">
+			    <!--1-->
+				<div class="kj_xzkj html_xj">
+			    	<div class="xjxm_con_th_l">包含现金：</div>
+			  		<!--右边-->
+			   		<div class="xjxm_con_th_r">  
+			           <p><input type="text" errormsg="不能大于售价" datatype="check_xj" name="money" value="<?php echo $model->money ?>" class="input">元<span style="padding-left:50px;">卡券内赠送金额：</span><input type="text" name="give_money" value="<?php echo $model->give_money ?>" class="input">元</p>     
+			        </div><!--右边-->
+
+			    </div><!--1!end-->
+			    <!--1-->
+				<div class="kj_xzkj html_xm">
+			    	<div class="xjxm_con_th_l">卡券内项目：</div>
+			  		<!--右边-->
+			   		<div class="xjxm_con_th_r">
+			           <!---->
+			           <div class="fjgl_th413">
+			               <div class="fjgl_th_top">
+			                   <ul>
+			                     <li class="kj_xzkj_01">项目名称</li>
+			                     <li class="kj_xzkj_02">数量（疗次）</li>
+			                     <li class="kj_xzkj_03">操作</li>
+			                   </ul>
+			               </div>
+
+			               <?php if ($model->proj_list): ?>
+							<?php foreach ($model->proj_list as $proj_k=>$project): ?>
+							<div class="fjgl_th_th clear">
+								<ul>
+								<li class="kj_xzkj_011"><?php echo $project['pro_name'] ?></li>
+								<li class="kj_xzkj_022"><input type="text" name="proj_list[<?php echo $proj_k ?>][num]" value="<?php echo $project['num'] ?>"></li>
+								<li class="kj_xzkj_033"><a href="javascript:">删除</a></li>
+								<input type="hidden" name="proj_list[<?php echo $proj_k ?>][id]" value="<?php echo $project['pro_id'] ?>">
+								</ul>
+							</div>
+							<?php endforeach ?>
+							<?php endif ?>
+
+			                <div style=" margin:10px 20px;" class="kj_xzkj_one c_proj">添加项目</div>
+			           </div><!---->
+			           
+			        </div><!--右边-->
+
+			    </div><!--1!end-->
+			    <!--1-->
+				<div class="kj_xzkj html_cp">
+			    	<div class="xjxm_con_th_l">卡券内产品：</div>
+			  		<!--右边-->
+			   		<div class="xjxm_con_th_r">
+			           <!---->
+			           <div class="fjgl_th413">
+			               <div class="fjgl_th_top">
+			                   <ul>
+			                     <li class="kj_xzkj_01">产品名称</li>
+			                     <li class="kj_xzkj_02">数量</li>
+			                     <li class="kj_xzkj_03">操作</li>
+			                   </ul>
+			               </div>
+
+			               <?php if ($model->prod_list): ?>
+							<?php foreach ($model->prod_list as $prod_k=>$product): ?>
+							<div class="fjgl_th_th clear">
+								<ul>
+								<li class="kj_xzkj_011"><?php echo $product['pro_name'] ?></li>
+								<li class="kj_xzkj_022"><input type="text" name="prod_list[<?php echo $prod_k ?>][num]" value="<?php echo $product['num'] ?>"></li>
+								<li class="kj_xzkj_033"><a href="javascript:">删除</a></li>
+								<input type="hidden" name="prod_list[<?php echo $prod_k ?>][id]" value="<?php echo $product['pro_id'] ?>">
+								
+								</ul>
+							</div>
+							<?php endforeach ?>
+							<?php endif ?>
+
+			                <div style=" margin:10px 20px;" class="kj_xzkj_one c_prod">添加产品</div>
+			           </div><!---->
+			           
+			        </div><!--右边-->
+
+			    </div><!--1!end-->
+			</div><!--卡券组成 end-->
+		</div><!--xjxm_con_top-->
+	
+	<!--xjxm_con_th-->
+	<div class="xjxm_con_th" style=" padding-bottom:20px;">
+		<div class="xjxm_con_th_l">卡券备注：</div>
+		<!--右边-->
+		<div class="xjxm_con_th_r">
+		<textarea name="note" rows="4" style=" width:90%; border:solid 1px #ddd;"><?php echo $model->note ?></textarea>
+		<div class="xjxm_con_five clear"><a class="xjxm_ok_buttom c_save" href="javascript:;">保存</a><a class="xjxm_exit_buttom c_cancel" href="javascript:">取 消</a></div>
+		</div>
+	</div><!--xjxm_con_th!end-->
+</div><!--content_right_con!end-->
+</div><!--xjxm_con!end-->
+<?php if (!$model->isNewRecord): ?>
+	<input name="id" type="hidden" value="<?php echo $model->id ?>" />
+<?php endif ?>
+</form>
+
+
+
+<div class="none" id="widget_project">
+<?php echo \Ivy::app()->widget('common/selectProject'); ?>
+</div>
+
+<div class="none" id="widget_product">
+<?php echo \Ivy::app()->widget('common/selectProduct'); ?>
+</div>
+
+
+
+
+<script type="text/javascript">
+
+$(function(){
+	var Validform = $('form').Validform({
+		tiptype:3,
+		ignoreHidden:true,
+		btnSubmit:'.c_save',
+		datatype:{
+			"check_xj":function(gets,obj,curform,regxp){
+				var price = $('input[name="price"]').val();
+				var money = obj.val();
+				if(money>price)
+					return false;
+				return true;
+
+			}
+		}
+	});
+
+	$('.action_xj').click(function(event) {
+		if ($('.html_xj').is(':hidden')) {
+            $('.html_xj').show();
+		}else{
+			$('.html_xj').hide();
+			$('.html_xj').find('input').val(0);
+		}
+	});
+	var all_xj=0;//现金选择框
+	all_xj=eval($(".html_xj input").map(function(){
+		return $.isNumeric($(this).val())?$(this).val():0;
+	}).get().join('+'));
+	if(all_xj==0)
+		$('.html_xj').hide();
+
+	$('.action_xm').click(function(event) {
+		if ($('.html_xm').is(':hidden')) {
+            $('.html_xm').show();
+		}else{
+			$('.html_xm').hide();
+			$('.html_xm').find('a').trigger('click');
+		}
+	});
+	if($('.html_xm').find('input').length<=0)
+		$('.html_xm').hide();
+	$('.action_cp').click(function(event) {
+		if ($('.html_cp').is(':hidden')) {
+            $('.html_cp').show();
+		}else{
+			$('.html_cp').hide();
+			$('.html_cp').find('a').trigger('click');
+		}
+	});
+	if($('.html_cp').find('input').length<=0)
+		$('.html_cp').hide();
+
+	//取消按钮
+	$('.c_cancel').click(function(event) {
+		window.location.href='<?php echo $this->url("index") ?>';
+	});
+
+
+	//新添加商品
+	$('.kj_xzkj_con').on('click','.c_prod',function(){
+		var self=$(this);//该配方div对象
+		var d = Idialog({
+				top:150,
+				width:800,
+				title:'添加产品',
+				content:$('#widget_product'),
+				cancel:false,
+				ok:function(obj){
+					var _self=obj._self;
+					var c_z = self.closest('.fjgl_th413').find('.fjgl_th_th');//已经存在的列
+					var pro_k=c_z.length;//本卡券
+
+					var result_list=_self.find('.result_pro li');
+					$.each( result_list, function(i, pro){
+						pro=$(pro);
+						var p_name=pro.attr('data-name');
+						var p_id=pro.attr('rel');
+						//如果存在 则略过
+						if(c_z.find("input:hidden[value='"+p_id+"']").length>0) return ;
+					
+						var str  ='<div class="fjgl_th_th clear"><ul>';
+						str +='<li class="kj_xzkj_011">'+p_name+'</li>';
+						str +='<li class="kj_xzkj_022"><input type="text" name="prod_list['+pro_k+'][num]" value="1"></li>';
+						str +='<li class="kj_xzkj_033"><a href="javascript:">删除</a></li>';
+						str +='<input type="hidden" name="prod_list['+pro_k+'][id]" value="'+p_id+'">';
+						str +='</ul></div>';
+						self.before(str);
+						pro_k++;
+					});
+				}
+			});
+	});
+	//删除商品
+	$('.kj_xzkj_con').on('click','.kj_xzkj_033',function(){
+		$(this).closest('.fjgl_th_th').find('input').remove();
+		$(this).closest('.fjgl_th_th').hide();
+	});
+
+
+
+
+	//新的添加项目
+	$('.kj_xzkj_con').on('click','.c_proj',function(){
+		var self=$(this);//该配方div对象
+		var d = Idialog({
+				top:150,
+				width:800,
+				title:'添加项目',
+				content:$('#widget_project'),
+				cancel:false,
+				ok:function(obj){
+					var _self=obj._self;
+					var c_z = self.closest('.fjgl_th413').find('.fjgl_th_th');//已经存在的列
+					var pro_k=c_z.length;//本卡券
+
+					var result_list=_self.find('.result_pro li');
+					$.each( result_list, function(i, pro){
+						pro=$(pro);
+						var p_name=pro.attr('data-name');
+						var p_id=pro.attr('rel');
+						//如果存在 则略过
+						if(c_z.find("input:hidden[value='"+p_id+"']").length>0) return ;
+					
+						var str  ='<div class="fjgl_th_th clear"><ul>';
+						str +='<li class="kj_xzkj_011">'+p_name+'</li>';
+						str +='<li class="kj_xzkj_022"><input type="text" name="proj_list['+pro_k+'][num]" value="1"></li>';
+						str +='<li class="kj_xzkj_033"><a href="javascript:">删除</a></li>';
+						str +='<input type="hidden" name="proj_list['+pro_k+'][id]" value="'+p_id+'">';
+						str +='</ul></div>';
+						self.before(str);
+						pro_k++;
+					});
+				}
+			});
+	});
+	//删除项目
+	$('.kj_xzkj_con').on('click','.kj_xzkj_033',function(){
+		$(this).closest('.fjgl_th_th').find('input').remove();
+		$(this).closest('.fjgl_th_th').hide();
+	});
+
+
+
+
+
+
+	//卡券数量js
+	$('.c_num').blur(function(){
+		$(".c_num_bx").attr("checked",false);
+		$(".v_num").val($(this).val());
+	});
+	$('.c_num_bx').click(function(){
+		$(".c_num").val("");
+		$(".v_num").val('-1');
+	});
+
+});
+</script>

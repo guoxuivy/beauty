@@ -1,0 +1,114 @@
+<?php 
+	$md_list=\EmployDept::getList(true);
+    $top_cate=\ProCate::getProductTopCate();
+    $child_cate=array();
+    if(isset($_GET['t_search']['tpc.id']))
+        $tmp_cate=\ProCate::model()->findAll('status=1 AND fid='.(int)$_GET['t_search']['tpc.id']);
+        $child_cate = $this->optArr($tmp_cate,'id','name');
+
+?>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r"><span><a class="fjgl_top_r_05" href="javascript:">导出</a></span></div>
+		<span> <a href="<?php echo $this->url('JCGL') ?>">客户寄存/领取报表</a> >  <?php echo $cuname ?> 寄存商品</span>
+	</div>
+
+
+
+
+	 <!--  模版引擎扩展 -->
+    <?php echo $this->datagrid(array(
+        'id'=>'list',
+        'dataProvider'=>$pager,
+        'columns'=>array(
+            array(
+                'header' => '寄存日期',
+                'name'  => 'last_time',
+            ),
+            array(
+                'header' => '关联订单',
+                'name'  => 'sn',
+                'value'=> '<a href="'.$this->url("pos/sale/edit").'&id={$data["order_id"]}" >{$data["sn"]}</a>',
+            ),
+            array(
+                'header' => '商品来源',
+                'name'  => 'buy_type',
+                'value'=> '{\CustomerProdStorage::getType($data["buy_type"])}',
+            ),
+            array(
+                'header' => '商品名称',
+                'name' => 'name',
+            ),
+            array(
+                'header' => '成交单价',
+                'name' => 'dj',
+            ),
+            array(
+                'header' => '寄存数量',
+                'name' => 'total_num',
+            ),
+            array(
+                'header' => '已领取数量',
+                'value'=> '{$data["total_num"]-$data["remain_num"]}',
+            ),
+            array(
+                'header' => '剩余寄存数量',
+                'name' => 'remain_num',
+            ),
+             array(
+                'header' => '操作',
+                'rel'=>'id',
+                'template'=>'<a style="width:100px" href="javascript:;" class="khca"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看领取记录</a>',
+            ),
+           
+        ),
+    ));?>
+</div>
+<!--content_right_con!end-->
+
+<div id="inlist" class="none">
+<div class="table_table">
+    <div class="table_hiddle">
+    <table style="min-width:508px"  cellspacing="0" cellpadding="0" border="0" last-float="false">
+    <thead>
+        <tr class="table_title">
+        <th>领取时间</th>
+        <th>领取数量</th>
+        <th>剩余数量</th>
+        <th>操作</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+    </table>
+    </div>
+</div>
+</div>
+
+<script type="text/javascript">
+
+$(function(){
+
+    $(".khca").click(function(){
+        var id = $(this).parent().attr('rel');
+        $.getJSON("<?php echo $this->url('list') ?>&id="+id, function(json){
+            if(json.code==200){
+                Idialog({
+                    width:550,
+                    title:'领取记录',
+                    content:$("#inlist"),
+                    cancel:false,
+                    init:function(self){
+                        $.each( json.data, function(i,v){
+                            self.find('tbody').append('<tr class="table_list clear"><td>'+v.receive_time+'</td><td>'+v.num+'</td><td>'+v.after_num+'</td><td><a target="_blank" href="<?php echo $this->url('pos/receive/edit') ?>&id='+v.id+'">查看领用订单</a></td></tr>');
+                        });
+                    }
+                })
+            }else{
+                Idialog.tips(json.msg,2);
+            }
+        });
+    })
+    
+});
+</script>

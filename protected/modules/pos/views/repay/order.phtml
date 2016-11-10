@@ -1,0 +1,201 @@
+
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+        <!--<div class="fjgl_top_r">
+          <a href="javascript:" class="khgl_02 fpkhn">分配客户</a><a href="javascript:" class="fjgl_top_r_01">筛选</a><a href="javascript:" class="fjgl_top_r_02 tjfjz">添加客户</a>
+        </div>-->
+        <div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>POS开单><span>还款确认</span>
+    </div>
+
+    <!---->
+    <div class="jyjl_top jyjl_czda_top pos_cz_qr01">
+        <div class="jyjl_czda_top_l">
+            <div class="jyjl_czda_top_top">订单提交成功</div>
+            <div class="jyjl_czda_top_two">
+                订单编号：
+                <span><?php echo $model->o_s->sn;?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    订单状态：<span class="spanll"><?php echo $model->getOrderPayStatus() ?></span>
+                </span>
+            </div>
+        </div>
+        <div class="jyjl_czda_top_r">
+            <a href="javascript:" id="cancelOrder">废弃订单</a>|
+            <a href="<?php echo $this->url('edit',array('id'=>$model->o_s->id)) ?>">修改</a>&nbsp;
+            <a href="<?php echo $this->url('add',array('id'=>$model->o_s->cu_id)) ?>" class="aysh01">继续开单</a>
+            <a href="javascript:" class="aysh now_pay">立即付款</a>
+        </div>
+        <!--<div class="jyjl_czda_top_r"><select></select><a href="javascript:" class="aysh01">修改订单</a><a href="javascript:" class="aysh01">打印订单</a><a href="javascript:" class="aysh">审核订单</a><a href="javascript:" class="aysh02">审核已订单</a></div>-->
+    </div> <!---->
+
+    <!--订单跟踪-->
+    <div class="pos_cz_tow pos_cz_qr01" style="margin-bottom:20px">
+        <div class="pos_cz_tow_top pos_cz_qr_02">订单跟踪</div>
+        <div class="pos_cz_tow_two">
+            <!--table_container-->
+            <div class="table_container" style="border:none">
+                <!--table_con-->
+                <div class="table_con" style="border:none; margin-right:0px;">
+                    <!--table_con_son-->
+                    <div class="table_con_son">
+                        <div class="table_title pos_cz_qr_03">
+                            <ul>
+                                <li style="width: 200px;">处理时间</li>
+                                <li style="width: 500px;">处理信息</li>
+                                <li style="width: 200px;">操作人</li>
+                            </ul>
+                        </div>
+
+                        <div class="table_list clear">
+                            <ul>
+                                <li class="li001"><?php echo $model->o_s->create_time?></li>
+                                <li class="li002">您提交了订单，等待客户付款！</li>
+                                <li class="li003"><?php echo $model->employName ?></li>
+                            </ul>
+                        </div>
+
+                    </div><!--table_con!end-->
+                </div><!--table_con!end-->
+            </div>
+            <!--table_containter!end-->
+        </div>
+    </div><!--订单跟踪!end-->
+
+    <!--khgl_shouye-->
+    <?php echo $cu_info ?>
+    <!--khgl_shouye!end-->
+    <!--销售人员及业绩比例-->
+    <div class="pos_cz_tow">
+        <div class="pos_cz_tow_top pos_cz_qr_02">销售人员及业绩比例</div>
+        <div class="pos_cz_tow_two">
+            <div class="pos_cz_tow_two_top pos_cz_qr_04">
+                <?php foreach($effect_list as $effect):?>
+                    <?php echo $effect['name'].'('.$effect['position_name'].')';?>：<span><?php echo $effect['rate']?>%</span>
+                <?php endforeach;?>
+            </div>
+        </div>
+    </div>
+    <!--销售人员及业绩比例!end-->
+
+    <!--订单信息-->
+    <div class="pos_cz_tow">
+        <div class="pos_cz_tow_top pos_cz_qr_02">订单信息</div>
+        <div class="pos_cz_tow_two pos_cz_qr_top">
+            <!--table_container-->
+            <div class="table_container">
+                <!--table_con-->
+                <div class="table_con pos_cz_qr_top_04" style="margin-right:0px;">
+
+                    <!--table_con_son-->
+                    <div class="table_con_son">
+                        <div class="pos_sp_title">还款</div>
+                        <div class="table_title pos_news_zeng">
+                            <ul>
+                                <li style="width: 150px;">订单成交日期</li>
+                                <li>订单号</li>
+                                <li>欠款商品名称</li>
+                                <li>欠款金额（元）</li>
+                                <li>现金账户卡扣还款（元）</li>
+                                <li>现金还款金额（元）</li>
+                            </ul>
+                        </div>
+                        <?php foreach($order_sale_detail as $detail):?>
+                            <div class="table_list clear">
+                                <ul>
+                                    <li class="li001"><?php echo $model->o_s->create_time?></li>
+                                    <li class="li002"><?php echo $model->o_s->sn?></li>
+                                    <li class="li003"><?php echo $detail['pro_name']?></li>
+                                    <li class="li004"><?php echo $detail['arrears']?></li>
+                                    <li class="li005"><?php echo $detail['repay']['card']?$detail['repay']['card']:0?></li>
+                                    <li class="li006"><?php echo $detail['repay']['cash']?$detail['repay']['cash']:0?></li>
+                                </ul>
+                            </div>
+                        <?php endforeach;?>
+
+
+                        <div class="pos_cz_tow_two_two">
+                            <span class="pos_cz_tow_two04 pos_gm_02">应付金额：<em><?php echo $model->o_s->pay_price?></em>&nbsp;元</span>
+                            <span class="pos_gm_01">还款订单 <span class="pos_gm_03"><?php echo count($order_sale_detail)?></span>个</span>
+                            <span class="pos_gm_01">还款总额：<span class="pos_gm_04">￥<?php echo $model->o_s->pay_price?></span></span>
+                        </div>
+
+                    </div><!--table_con_son!end-->
+
+                </div><!--table_con!end-->
+            </div>
+            <!--table_containter!end-->
+        </div>
+    </div><!--订单信息!end-->
+
+    <!--备注-->
+
+    <div class="pos_cz_tow pos_cz_for_bz">
+        <div class="pos_cz_for_bz01 pos_cz_qr_top_07">备注</div>
+        <div class="pos_cz_for_bz02">
+            <div class="pos_cz_for_bz02_son"><textarea readonly="readonly" rows="4"><?php echo $model->o_s->note?></textarea></div>
+        </div>
+    </div><!--备注!end-->
+
+    <!---->
+    <div class="pos_cz_tow pos_cz_zh before">
+        <a href="javascript:" class="pos_cz_zh_an">付款</a>
+        <div class="pos_cz_zh_01">应付总金额：<span class="pos_cz_zh_02">￥<?php echo $model->o_s->pay_price?></span></div>
+    </div><!--!end-->
+
+    <!---->
+    <div class="pos_cz_tow pos_cz_zh after" style="display: none;">
+        <a href="javascript:" class="pos_cz_zh_an_hover">正在跳转到付款页面，请稍后...</a>
+        <div class="pos_cz_zh_03">应付总金额：<span class="pos_cz_zh_02">￥<?php echo $model->o_s->pay_price?></span></div>
+    </div><!--!end-->
+</div>
+<!--content_right_con!end-->
+
+{__TOKEN__}
+
+<script type="text/javascript">
+
+    $(function(){
+        $(".pos_cz_fk_top_04").click(function(){
+            $(".pos_cz_fk_two").slideToggle();
+        });
+    });
+
+    function to_url(url){
+        window.location.href=url;
+    }
+
+    //提交保存数据构造
+    function submit_data(){
+        var data={};
+        data.__hash__ = $("input[name='__hash__']").val();//表单令牌
+        // 订单id
+        data.order_id = '<?php echo $_GET['id']?>';
+
+        //return false; 发生验证错误 返回false
+        return data;
+    }
+
+    //数据提交
+    $(".before .pos_cz_zh_an,.now_pay").click(function(){
+        var post_data = submit_data();
+        $('.before').hide();
+        $('.after').show();
+        setTimeout(function(){to_url('<?php echo $this->url("pay");?>&id=<?php echo $_GET['id']?>')},2000);
+    });
+
+    $("#cancelOrder").click(function(){
+        if(confirm("您确定要废弃此订单吗？")){
+            var data={};
+            data.__hash__ = $("input[name='__hash__']").val();//表单令牌
+            $.post("<?php echo $this->url('cancel',array('id'=>$model->o_s->id)) ?>",data,function(data){
+                Idialog.tips(data.msg,2);
+                if(data.code==200){
+                    setTimeout(function(){to_url('<?php echo $this->url("index");?>')},2000);
+                }
+            }, "json");
+        }
+    });
+
+</script>
+
+

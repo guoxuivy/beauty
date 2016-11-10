@@ -1,0 +1,124 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+    <title>HOWA</title>
+
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileColor" content="#0e90d2">
+
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/amazeui.min.css">
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/app.css">
+</head>
+<body class="has-header has-nav">
+
+<header class="am-text-center am-padding-sm fixed-top">
+    <b>数据报表</b>
+</header>
+
+<ul class="am-list">
+    <li class="am-padding-sm">
+        <div><b>业绩报表</b></div>
+        <ul class="am-avg-sm-3 am-margin-top-sm">
+            <li class="am-text-center">
+                <a href="<?php echo $this->url('MDYJ') ?>" class="btn-link">
+                    <div><img width="60px" height="60px" src="<?php echo $this->basePath('public/h5/assets');?>/i/icons/chart_1.png"/></div>
+                    <div>门店业绩报表</div>
+                </a>
+            </li>
+            <li class="am-text-center">
+                <a href="<?php echo $this->url('PXYJ') ?>" class="btn-link">
+                    <div><img width="60px" height="60px" src="<?php echo $this->basePath('public/h5/assets');?>/i/icons/chart_2.png"/></div>
+                    <div>品项业绩报表</div>
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<ul class="am-list">
+    <li class="am-padding-sm">
+        <div><b>客流报表</b></div>
+        <ul class="am-avg-sm-3 am-margin-top-sm">
+            <li class="am-text-center">
+                <a href="<?php echo $this->url('DDKL') ?>" class="btn-link">
+                    <div><img width="60px" height="60px" src="<?php echo $this->basePath('public/h5/assets');?>/i/icons/user_1.png"/></div>
+                    <div>到店客流报表</div>
+                </a>
+            </li>
+            <li class="am-text-center">
+                <a href="<?php echo $this->url('YKLFX') ?>" class="btn-link">
+                    <div><img width="60px" height="60px" src="<?php echo $this->basePath('public/h5/assets');?>/i/icons/pie_chart.png"/></div>
+                    <div>月客流分析表</div>
+                </a>
+            </li>
+            <li class="am-text-center">
+                <a href="<?php echo $this->url('XKFX') ?>" class="btn-link">
+                    <div><img width="60px" height="60px" src="<?php echo $this->basePath('public/h5/assets');?>/i/icons/user_add.png"/></div>
+                    <div>新客分析表</div>
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<ul class="am-list">
+    <li class="am-padding-sm">
+        <div><b>经营报表</b></div>
+        <ul class="am-avg-sm-3 am-margin-top-sm">
+            <li class="am-text-center">
+                <a href="<?php echo $this->url('JYBB') ?>" class="btn-link">
+                    <div><img width="60px" height="60px" src="<?php echo $this->basePath('public/h5/assets');?>/i/icons/chart_3.png"/></div>
+                    <div>经营报告</div>
+                </a>
+            </li>
+            <li class="am-text-center">
+                <a href="<?php echo $this->url('XJLS') ?>" class="btn-link">
+                    <div><img width="60px" height="60px" src="<?php echo $this->basePath('public/h5/assets');?>/i/icons/wallet.png"/></div>
+                    <div>现金流水表</div>
+                </a>
+            </li>
+            <li class="am-text-center">
+                <a href="<?php echo $this->url('FZFX') ?>" class="btn-link">
+                    <div><img width="60px" height="60px" src="<?php echo $this->basePath('public/h5/assets');?>/i/icons/bill.png"/></div>
+                    <div>负责分析表</div>
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+
+<nav>
+    <ul class="am-avg-sm-3">
+        <li class="am-text-center"><i class="am-icon-md am-icon-home"></i><div>首页</div></li>
+        <li class="am-text-center active"><i class="am-icon-md am-icon-bar-chart"></i><div>数据报表</div></li>
+        <li class="am-text-center"><i class="am-icon-md am-icon-user"></i><div>我</div></li>
+    </ul>
+</nav>
+
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/jquery.min.js"></script>
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/amazeui.min.js"></script>
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/my.js"></script>
+
+</body>
+</html>

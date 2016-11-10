@@ -1,0 +1,388 @@
+<style>
+	.yy_two_son_list li{
+		cursor: pointer;
+	}
+	.wx_pz{cursor: pointer;color: #0FC0D5}
+</style>
+<script src="<?php echo $this->basePath('public');?>/laydate/laydate.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public');?>/js/invitation.js" type="text/javascript"></script>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top pb_qr_03">
+		<span class="pb_qr">
+			<input name="date" class="pb_qr_01 laydate-icon" id="demo" onclick="laydate()" value="<?php echo empty($_GET['time'])?date('Y-m-d'):$_GET['time'];?>" />
+			<select class="pb_qr_01" id="dept_id">
+				<?php foreach($depts as $id=>$name):?>
+					<option <?php echo $id==$dept_id?'selected="selected"':'';?> value="<?php echo $id;?>"><?php echo $name;?></option>
+				<?php endforeach;?>
+			</select>
+			<a href="javascript:" class="pb_qr_02" id="addNew">查看</a>
+		</span>邀约本
+	</div>
+
+
+	<div class="yy_top" style="width: 98%;">
+		<div class="yy_top_l">
+			<span class="yy_top_l_01">已占用（<?php echo $zhanYong;?>）</span>
+			<span class="yy_top_l_02">已预约（<?php echo $yuYue;?>）</span>
+			<span style="cursor:pointer" id="cancelRebook" rel="0" class="yy_top_l_03">取约（<?php echo $cancel;?>）</span>
+			<!-- <a id="cancelRebook" rel="0" href="javascript:void(0);">查看取约客户</a> -->
+			<a id="weixinRebook" href="javascript:void(0);">查看微信预约客户</a>
+		</div>
+		<div class="yy_top_r">
+			<span id="fwz_cu" rel="2" style="cursor: pointer;" class="yy_top_r_01">服务中客户：<big class="yy_top_r_1"><?php echo $FWZ;?></big> 人</span>
+			<span id="ddd_cu" rel="1" style="cursor: pointer;" class="yy_top_r_02">待到店人数：<big class="yy_top_r_2"><?php echo $yuYue;?></big>人</span>
+			<span id="ydd_cu" rel="0,1" style="cursor: pointer;" class="yy_top_r_03">已到店人数：<big class="yy_top_r_3"><?php echo $YDD;?></big> 人</span>
+		</div>
+	</div>
+
+
+	<!--yy_two-->
+	<div class="yy_two">
+		<div class="yy_two_son01"><a href="javascript:" class="pre"><img src="<?php echo $this->basePath('public');?>/images/yy_011_01.png" /></a></div>
+
+		<div class="yy_two_son_con_l">
+			<div class="yy_two_son_con_l_title"><a href="javascript:" class="next"><img src="<?php echo $this->basePath('public');?>/images/yy_010.png" /></a> </div>
+			<div class="yy_two_son_con_l_two">
+				<ul>
+					<?php foreach($times as $key=>$time):?>
+						<li datatype="<?php echo $key;?>"><?php echo $time;?></li>
+					<?php endforeach;?>
+				</ul>
+			</div>
+
+		</div>
+
+
+		<div class="yy_two_son">
+			<div class="yy_two_son_con">
+				<div class="zwtitlefa">
+					<div class="yy_two_son_title">
+						<ul>
+							<?php foreach($rooms as $room):?>
+								<li><?php echo $room['name']?></li>
+							<?php endforeach;?>
+						</ul>
+					</div>
+				</div>
+				<?php
+					$background = array(
+						1=>"background-color: #70ECC7",
+						2=>"background-color: #88BFFE",
+					)
+				?>
+				<?php $rebook_ids = array(); foreach($times as $i=>$time):?>
+					<div class="yy_two_son_list">
+						<ul>
+							<?php foreach($rooms as $room):?>
+								<?php if(array_key_exists($room['id'].':'.$i,$cuRebook)):?>
+									<?php if(!in_array($cuRebook[$room['id'].':'.$i]['rebook_id'],$rebook_ids)):?>
+										<li style="<?php echo $background[$cuRebook[$room['id'].':'.$i]['status']];?>" room_id="<?php echo $room['id'];?>" time_id="<?php echo $i;?>" title="<?php echo $cuRebook[$room['id'].':'.$i]['cu_name'];?>">
+											<span class="khgl_xmpic" style="margin-left: 5px;">
+												<img width="24" height="24" src="<?php echo $this->basePath('public');?>/images/kh_06.png">
+											</span>
+											<span class="khgl_03" style="line-height: 10px;"><?php echo $cuRebook[$room['id'].':'.$i]['cu_name'];?></span>
+										</li>
+									<?php else:?>
+										<li style="<?php echo $background[$cuRebook[$room['id'].':'.$i]['status']];?>" room_id="<?php echo $room['id'];?>" time_id="<?php echo $i;?>" title="<?php echo $cuRebook[$room['id'].':'.$i]['cu_name'];?>">
+
+										</li>
+									<?php endif;?>
+									<?php $rebook_ids[] = $cuRebook[$room['id'].':'.$i]['rebook_id'];?>
+								<?php else:?>
+									<li room_id="<?php echo $room['id'];?>" time_id="<?php echo $i;?>"></li>
+								<?php endif;?>
+							<?php endforeach;?>
+						</ul>
+					</div>
+				<?php endforeach;?>
+			</div>
+		</div>
+
+	</div><!--yy_two!end-->
+
+	<!--<div class="ck_splb_foot">
+        <a href="javascript:" class="ck_splb_foot_01">确认建立商品期初库存（20）</a>注：期初商品确认建立后将不可更改期初库存！确认商品期初库存只可操作一次，请谨慎操作！
+    </div>-->
+
+
+</div>
+<!--content_right_con!end-->
+
+
+<!--tjfj-->
+<div id="cancelList" class="tjfj" style="top:100px; left:300px; width:530px; display:none;">
+	<!--<div class="tjfj_top"><span class="fjgb">x</span>今日取约客户</div>-->
+	<div class="tjfj_two pos_gm_th">
+		<!--table_container-->
+		<div class="table_container clear">
+			<!--table_con-->
+			<div class="table_con">
+				<!--table_con_son-->
+				<div class="table_con_son" id="cancelRebookList">
+
+				</div><!--table_con_son!end-->
+			</div><!--table_con!end-->
+		</div>
+		<!--table_containter!end-->
+	</div>
+</div>
+<!--tjfj-->
+
+<!--tjfj 微信预约列表-->
+<div id="weixinlist" class="tjfj" style="top:100px; left:300px; width:530px; display:none;">
+	<div class="tjfj_two pos_gm_th">
+		<!--table_container-->
+		<?php echo $this->datagrid(array(
+			'id'=>'table-weixin-list',
+			'dataProvider'=>array('list'=>$wx_list),
+			'lastFloat'=>false,
+			'columns'=>array(
+				array(
+					'header' => '会员卡号',
+					'name' => 'cardid',
+				),
+				array(
+					'header' => '姓名',
+					'name' => 'name',
+				),
+				array(
+					'header' => '预约日期',
+					'name' => 'book_date',
+				),
+				array(
+					'header' => '预约时间',
+					'name' => 'book_times',
+				),
+				array(
+					'header' => '到店人数',
+					'name' => 'num',
+				),
+				array(
+					'header' => '服务项目',
+					'name' => 're_projects',
+				),
+				array(
+					'header' => '状态',
+					'name' => 'type',
+					'value'=>'{$data["type"]==1?"未批准":"已批准"}'
+				),
+				array(
+					'header' => '操作',
+					'rel'=>'id',
+					'template'=> '{$data["type"]==1?"<span class=\"wx_pz\">批准</span>":"/"}',
+				)
+			),
+		));?>
+		<!--table_containter!end-->
+	</div>
+</div>
+<!--tjfj-->
+<div id="addRebook" class="tjfj" style="top:100px; width:530px; display:none">
+
+</div>
+
+<script type="text/javascript">
+$("#weixinRebook").click(function(){
+	var d = Idialog({
+			top:150,
+			width:950,
+			title:"微信预约",
+			content:$('#weixinlist'),
+			cancel:false,
+			init:function(obj){
+				obj.find("table").css("min-width",'auto');
+			},
+			ok:function(obj){
+				$('#weixinlist').hide();
+			}
+		});
+})
+$(document).on("click",".wx_pz",function(){
+	var obj = $(this);
+	var tb = obj.closest(".tjfj_two");
+	var id = $(this).parent().attr('rel');
+	$.getJSON("<?php echo $this->url('weixin') ?>", { id: id }, function(json){
+		if(json.code==200){
+			obj.parent().prev().html("已批准");
+			obj.parent().html("/");
+			$('#weixinlist').html(tb.html());//刷新模版
+		}else{
+			alert("修改失败！")
+		}
+	});
+})
+
+
+	$("#cancelRebook,#ddd_cu,#fwz_cu").click(function(){
+		$(".idialog_title span").trigger("click");
+		var status = $(this).attr('rel'),title = '';
+		var dept_id = $("#dept_id").val();
+		if(status=='0'){
+			title = '今日取约客户';
+		}else if(status=='1'){
+			title = '待到店客户';
+		}else if(status=='1'){
+			title = '服务中客户';
+		}
+		var time = $("#demo").val();
+		$.post('<?php echo $this->url("rebookLists")?>'+'&status='+status,{time:time,dept_id:dept_id}, function(data) {
+			$('#cancelRebookList').html(data);
+			if(status!='0'){
+				$('#re_time').html('预约操作时间');
+			}
+			var d = Idialog({
+				top:150,
+				width:950,
+				title:title,
+				content:$('#cancelList'),
+				cancel:false,
+				close:function(e){
+					$('#cancelList').hide();
+				},
+				ok:function(obj){
+					$('#cancelList').hide();
+				}
+			});
+			table_flash();
+		});
+	});
+
+	$("#ydd_cu").click(function(){
+		$(".idialog_title span").trigger("click");
+		var status = $(this).attr('rel'),title = '';
+		var dept_id = $("#dept_id").val();
+		if(status=='1'){
+			title = '服务中客户';
+		}else{
+			title = '已到店客户';
+		}
+		var time = $("#demo").val();
+		$.post('<?php echo $this->url("practiceLists")?>'+'&status='+status,{time:time,dept_id:dept_id}, function(data) {
+			$('#cancelRebookList').html(data);
+			var d = Idialog({
+				top:150,
+				width:900,
+				title:title,
+				content:$('#cancelList'),
+				cancel:false,
+				close:function(e){
+					$('#cancelList').hide();
+				},
+				ok:function(obj){
+					$('#cancelList').hide();
+				}
+			});
+			table_flash();
+		});
+	});
+
+	$("#addNew").click(function(){
+		var time = $("#demo").val();
+		var dept_id = $("#dept_id").val();
+		window.location.href = '<?php echo $this->url("index")?>'+'&time='+time+'&dept_id='+dept_id;
+	});
+
+	$(".yy_two_son_list li").click(function(){
+		$(".idialog_title span").trigger("click");
+		var self = $(this);
+		var room_id = self.attr('room_id');
+		var time_id = self.attr('time_id');
+		var dept_id = $("#dept_id").val();
+		$.post('<?php echo $this->url("getBeds")?>'+'&room_id='+room_id+'&time_id='+time_id,{date:$("#demo").val(),dept_id:dept_id}, function(data) {
+			$('#addRebook').html(data);
+			var d = Idialog({
+				top:150,
+				width:550,
+				title:'新建',
+				content:$('#addRebook'),
+				cancel:function(e){
+					$(".idialog").remove();
+				},
+				close:function(e){
+					$(".idialog").remove();
+				},
+				ok:function(obj){
+					var data = postData();
+					if(data==false){
+						return false;
+					}
+					$.post('<?php echo $this->url("save")?>',data,function(data) {
+						if(data=='true'){
+							Idialog.tips('保存成功！',2);
+							setTimeout(function(){location.reload();},1000);
+						}else{
+							Idialog.tips('保存失败！',2);
+						}
+					});
+				}
+			});
+			table_flash();
+		});
+
+	});
+
+	function postData(){
+		var flat = false,ope = false,time_flat=false;
+		var room_id = $(".idialog select[name=room_id]").val();
+		var status = $(".idialog select[name=room_status]").val();
+		var ymd = $("#demo").val();
+		var dept_id = $("#dept_id").val();
+		var i = 0,beds = {},data = {};
+		$("input[name=cu_id]").each(function(){
+			if($(this).val()!=''){
+				var _parent = $(this).parents('.yyb_two');
+				var bed = {};
+				bed['bed_id'] = _parent.find("input[name=bed_id]").val();
+				bed['rebook_id'] =_parent.find("input[name=rebook_id]").val();
+				bed['operators'] = _parent.find("select[name=operators]").val();
+				bed['start_time'] = _parent.find("select[name=start_time]").val();
+				bed['end_time'] = _parent.find("select[name=end_time]").val();
+				bed['cu_id'] = $(this).val();
+				beds[i] = bed;
+				flat = true;
+				var bed_name = $(this).parents('.yyb_two').find('.yyb_two_posi').text();
+				if(bed['operators']==''){
+					Idialog.tips('请为预约'+bed_name+'的客户选择合理的美容师！',2);
+					ope = false;
+					return false;
+				}else{
+					ope = true;
+				}
+				$.ajax({
+					url: "<?php echo $this->url("checkTime")?>",
+					dataType: "html",
+					type: "POST",
+					data: {date:$("#demo").val(),start_time:bed['start_time'],end_time:bed['end_time'],rebook_id:bed['rebook_id'],bed_id:bed['bed_id']},
+					async: false,
+					success:function(data){
+						if(data!='true'){
+							Idialog.tips(bed_name+'的预约时间与其他的预约时间有冲突！',2);
+							time_flat = false;
+							return false;
+						}else{
+							time_flat = true;
+						}
+					}
+				});
+				i++;
+			}
+		});
+		if(flat==false){
+			Idialog.tips('请填写合理的预约信息！',2);
+			return false;
+		}
+		if(ope==false){
+			return false;
+		}
+		if(time_flat==false){
+			return false;
+		}
+		data['room_id'] = room_id;
+		data['status'] = status;
+		data['ymd'] = ymd;
+		data['beds'] = beds;
+		data['dept_id'] = dept_id;
+		return data;
+	}
+</script>

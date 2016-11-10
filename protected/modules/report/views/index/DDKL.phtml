@@ -1,0 +1,196 @@
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Itime.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Itable2excel.js" charset="utf-8"></script>
+<?php 
+	$md_list=\EmployDept::getList(true);
+?>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r">
+			<span><a href="#" download="到店客流报表.xls"class="to_excel fjgl_top_r_05">导出</a></span>
+		</div>
+		<div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>
+		数据报表><span>到店客流报表</span> </div>
+	
+	<!--sjbb_ddkl_one-->
+	<div class="sjbb_ddkl_one">
+		<ul>
+			<li>
+				<div class="sjbb_ddkl_one_l">门店范围：</div>
+				<div class="sjbb_ddkl_one_r">
+					<div class="sjbb_ddkl_one_r_son choose_md">
+						<?php if(!$this->controller->is_store):?>
+						<a href="javascript:" rel="0"><span ></span>全连锁</a>
+						<?php endif;?>
+						<?php foreach ($md_list as $key => $value): ?>
+						<a href="javascript:" rel="<?php echo $key ?>"><span></span><?php echo $value ?></a>
+						<?php endforeach ?>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="sjbb_ddkl_one_l">日期：</div>
+				<div class="sjbb_ddkl_one_r">
+					<div class="sjbb_ddkl_one_r_son" id="choose_time">
+					</div>
+				</div>
+			</li>
+			<li class="lastli">
+					<div class="sjbb_ddkl_one_l">
+					</div>
+					<div class="sjbb_ddkl_one_r">
+						<div class="sjbb_ddkl_one_r_son">
+							<a href="javascript:" class="changa01">搜索</a>
+						</div>
+					</div>
+			</li>
+		</ul>
+	</div>
+	<!--sjbb_index_onesjbb_ddkl_oneend--> 
+	
+	<!--  模版引擎扩展 -->
+	<?php echo $this->datagrid(array(
+		'id'=>'order-list',
+		'dataProvider'=>array('list'=>$model),
+	    'search'=>false,
+		'columns'=>array(
+			array(
+				'header' => '门店',
+				'name'   => 'dept_name',
+			),
+			array(
+				'header' => '总客流',
+				'name'   => 'ZKL',
+			),
+			array(
+				'header' => '有效客流',
+				'name'   => 'YXKL',
+			),
+			array(
+				'header' => 'A',
+				'name'   => 'AKL',
+			),
+			array(
+				'header' => 'B',
+				'name'   => 'BKL',
+			),
+			array(
+				'header' => 'C',
+				'name'   => 'CKL',
+			),
+			array(
+				'header' => 'D',
+				'name'   => 'DKL',
+			),
+			array(
+				'header' => 'E',
+				'name'   => 'EKL',
+			),
+			array(
+				'header' => '日均客流',
+				'name'   => 'RJKL',
+			),
+			array(
+				'header' => '到店人头',
+				'name'   => 'DDRT',
+			),
+			array(
+				'header' => '成交人头',
+				'name'   => 'CJRT',
+			),
+			array(
+				'header' => '到店频率',
+				'name'   => 'DDPL',
+			),
+			array(
+				'header' => '到店率',
+				'name'   => 'DDL',
+			),
+		),
+	));?>
+</div>
+<!--content_right_con!end-->
+<script type="text/javascript">
+
+$(function(){
+	var t = Itime({
+		content:$('#choose_time'),
+		endoff:true,
+		<?php if (isset($_GET['times'])): ?>
+		begin:'<?php echo str_replace('-','',$_GET["times"])?>', //填充默认时间
+		<?php endif ?>
+		//end:'201507', //默认当前时间
+		type:'<?php echo $_GET["type"]?$_GET["type"]:"d"; ?>',  	  // 日 模式
+	}); 
+
+	//门店范围选择
+	$(".choose_md a").click(function(){
+		var rel=$(this).attr("rel");
+		if($(this).find("span").hasClass("span_01")){
+			$(this).find("span").removeClass("span_01");
+			if(rel=="0")
+				$(".choose_md span").removeClass("span_01");
+		}else{
+			$(this).find("span").addClass("span_01");
+			if(rel=="0")
+				$(".choose_md span").addClass("span_01");
+		}
+	});
+
+
+<?php if ($this->controller->is_store): ?>
+		$(".choose_md").find("a").trigger("click");
+<?php else: ?>
+//填充默认门店
+<?php if (isset($_GET['md_ids'])): ?>
+	<?php foreach (explode(',', $_GET['md_ids']) as $v): ?>
+		$(".choose_md").find("a[rel='<?php echo $v ?>']").trigger("click");
+	<?php endforeach ?>
+<?php endif ?>
+<?php endif ?>
+
+
+	//搜索提交
+	$(".changa01").click(function(){
+		var md_ids=getMd();
+		if(md_ids==''){
+			Idialog.tips('门店未选择！',2);
+			return;
+		}
+		var type=$('.itime').find('.changa').attr('rel');
+		if (type=='y') {
+			var times=$(".itime").find(".b_y").val();
+		}else if (type=='m') {
+			var times=$(".itime").find(".b_y").val()+'-'+$(".itime").find(".b_m").val();
+		}else{
+			var times=$(".itime").find(".b_y").val()+'-'+$(".itime").find(".b_m").val()+'-'+$(".itime").find(".b_d").val();
+		}
+		to_url('<?php echo $this->url("DDKL") ?>&md_ids='+md_ids+'&times='+times+'&type='+type);
+
+	});
+
+	function getMd(){
+		if($(".choose_md a[rel='0']").find("span").hasClass("span_01"))
+			return "0";
+		var l = $(".choose_md a").map(function(){
+			if($(this).find("span").hasClass("span_01"))
+				return $(this).attr("rel");
+		}).get().join(",");
+		return l;
+	}
+
+	
+	$(".to_excel").click(function(event){
+		var t = Itable2excel({
+			worksheet:'数据分析',
+			table: $('#order-list table')
+		});
+		var data64 = t.uri();
+		if(data64==false)
+			return false;
+		event.currentTarget.href = data64;
+	});
+
+
+});
+</script>

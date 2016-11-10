@@ -1,0 +1,79 @@
+<div title="编辑员工">
+	<div class="tjfj_two">
+		<form method="post" action="<?php echo $this->url('add') ?>">
+			<input type="hidden" value="<?php echo $model->id; ?>" name="user_id"/>
+			<input type="hidden" name="yd" value="" />
+			<div class="list">
+				<label>登录账号：</label><div style="margin-left: 100px;"><input type="text" placeholder="手机号" value="<?php echo $model->user_name; ?>" class='inputxt' name="user_name"/></div>
+			</div>
+			<div class="list">
+				<label>性别：</label>
+                <div style="margin-left: 100px;">
+				<select name="sex">
+				<?php if('未填写'==$model->sex): ?>
+					<option <?php if('未填写'==$model->sex){echo "selected=selected";} ?> value="未填写">未填写</option>
+				<?php endif ?>
+				<option <?php if('男'==$model->sex){echo "selected=selected";} ?> value="男">男</option>
+				<option <?php if('女'==$model->sex){echo "selected=selected";} ?> value="女">女</option>
+				</select>
+                </div>
+			</div>
+			<div class="list">
+				<label>部门：</label>
+				<div style="margin-left: 100px;">
+					<select name="dept_id">
+						<?php if($pname->id==10||$pname->id==1):?>
+							<option selected="selected" value="<?php echo $dname->id; ?>"><?php echo $dname->dept_name; ?></option>
+						<?php else:?>
+							<?php foreach ($totaldept as $dept): ?>
+								<option <?php if($dept['id']==$dname->id){echo "selected=selected";} ?> value="<?php echo $dept['id']; ?>"><?php echo $dept['dept_name']; ?></option>
+							<?php endforeach ?>
+						<?php endif;?>
+					</select>
+				</div>
+			</div>
+			<div class="list">
+				<label>职位：</label>
+				<div style="margin-left: 100px;">
+					<select name="position_id">
+						<?php if($pname->id==10||$pname->id==1):?>
+							<option selected="selected" value="<?php echo $pname->id; ?>"><?php echo $pname->position_name; ?></option>
+						<?php else:?>
+							<?php foreach ($totalposition as $position): ?>
+								<option <?php if($position['id']==$pname->id){echo "selected=selected";} ?> value="<?php echo $position['id']; ?>"><?php echo $position['position_name']; ?></option>
+							<?php endforeach ?>
+						<?php endif;?>
+					</select>
+				</div>
+			</div>
+			<div class="list">
+				<label>登录昵称：</label>
+				<div style="margin-left: 100px;">
+					<input type="text" placeholder="建议使用用户真名，该名称会反映到数据报表中。" value="<?php echo $model->netname; ?>"  class='inputxt'  name="netname">
+				</div>
+			</div>
+			<div class="list">
+				<label>登录密码：</label>
+				<div style="margin-left: 100px;">
+					<input type="password" placeholder="默认：123456" style="width: 207px;display: none;"  value="" class='password inputxt' name="password">
+					<span style="margin: 6px 10px;position: absolute; color: #039; cursor:pointer;" class="init">初始化密码</span>
+				</div>
+			</div>
+			<input name="id" type="hidden" value="<?php echo $model->id ?>" />
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).on('click','.init',function(){
+		if($("input[name=id]").length>0){
+			$(this).parents('.list').find("input[name=password]").attr("class","new_inputxt").show();
+			$(this).attr("class","init_cancel").text('取消初始化密码');
+		}
+	});
+	$(document).on('click','.init_cancel',function(){
+		$(this).parents('.list').find("input[name=password]").attr("class","password inputxt").val('').removeAttr('datatype').removeAttr('nullmsg').hide();
+		$(this).parents('.list').find(".Validform_checktip.Validform_wrong").remove();
+		$(this).attr("class","init").text('初始化密码');
+	});
+</script>

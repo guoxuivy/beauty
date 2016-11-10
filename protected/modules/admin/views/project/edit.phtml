@@ -1,0 +1,445 @@
+<?php 
+$top_cate=\ProCate::getProjectTopCate();
+$top_cate2=\ProCate::getProductTopCate();
+
+
+if($model->isNewRecord){
+	$fid=null;
+	$cates=array();
+}else{
+	$fid = \ProCate::model()->findByPk($model->cate)->fid;
+	$cates=\ProCate::model()->findAll('fid='.$fid);
+}
+?>
+<link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
+<style type="text/css">
+.choose{background-color:#22c381!important;color: #fff!important }
+.search_cu_id_list{
+  /*  position: absolute;*/
+    z-index: 9999;
+    background: white;
+    max-height: 200px;
+    background:  #E8E8E8;
+    width: 100%;
+    min-width: 100px;
+    min-height: 0px;
+    overflow-y: auto;
+}
+.search_cu_id_list li{
+    padding:0;
+    padding-left: 5px;
+    min-height: 0px;
+    line-height: 20px;
+    border-left: 1px solid green;
+}
+.search_cu_id_list_li_hover{
+    background-color: #A9E1FC;
+    cursor: pointer;
+}
+</style>
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top" style="border-bottom:solid 1px #ccc;">
+	项目管理><?php echo $model->isNewRecord?"新建":"编辑" ;?>项目
+	</div>
+
+	<!--内容区域---page-->
+	<div class="page">
+		<!--xjxm_con-->
+		<form class="edit_xm" method="post" action="<?php echo $this->url('edit') ?>">
+		<div class="xjxm_con">
+			<!--xjxm_con_top-->
+			<div class="xjxm_con_top">
+				<div class="list"><label>项目类别：</label>
+					<div class="list_right">
+					<?php echo $this->dropDownList('',$top_cate,$fid ,array('class'=>'top_cate xjxm_select','datatype'=>'*')) ?>
+					<span class="gysgl_08">必填</span>
+					</div>
+				</div>
+				<div class="list"><label>品牌系列：</label>
+					<div class="list_right">
+						<select name="cate" class="xjxm_select" datatype="*">
+						<?php foreach ($cates as $cate): ?>
+							<option <?php if($cate['id']==$model->cate){echo "selected=selected";} ?>  value="<?php echo $cate['id'] ?>"><?php echo $cate['name'] ?></option>
+						<?php endforeach ?>
+						</select><span class="gysgl_08">必填</span>
+					</div>
+				</div>
+				<div class="list"><label>项目名称：</label>
+					<div class="list_right">
+						<input name="name" class="xjxm_input" style="width:290px;" value="<?php echo $model->name ?>" type="text"  datatype="*" nullmsg="项目名称不能为空！" />
+						<span class="gysgl_08">必填</span>
+					</div>
+				</div>
+				<div class="list"><label>项目编码：</label>
+					<div class="list_right">
+						<input name="code" class="xjxm_input" style="width:290px;" value="<?php echo $model->code ?>" type="text" placeholder="" />
+					</div>
+				</div>
+				<div class="list"><label>供应商：</label>
+					
+					<div class="list_right">
+						<select class="xjxm_select" name="supp_id">
+							<option value="0">--无--</option>
+							<?php foreach (\SupplierInfo::getList() as $key => $value): ?>
+							<option <?php if($key==$model->supp_id){echo "selected=selected";} ?> value="<?php echo $key ?>"><?php echo $value ?></option>
+							<?php endforeach ?>
+						</select>
+
+					</div>
+				</div>
+				<div class="list"><label>项目疗次：<div class="help" explain="一个项目中包含几个疗次"></div></label>
+					<div class="list_right">
+						<input class="xjxm_input" datatype="*" style="width:290px;" name="num" value="<?php echo $model->num ?>" type="text"  placeholder="" /><span class="gysgl_08">必填</span>
+					</div>
+				</div>
+				<div class="list"><label>疗次单价：<div class="help" explain="项目原价（折前价）÷疗次数"></div></label>
+					<div class="list_right"><input datatype="*" class="xjxm_input" style="width:290px;" name="price" value="<?php echo $model->price ?>" type="text" placeholder="" /><span class="gysgl_08">必填</span>
+					</div>
+				</div>
+				<!--美容师实操业绩核算方式-->
+				<div class="xjxm_sc" style="max-width:900px;">
+					<div class="xjxm_sc_tit">美容师实操业绩核算方式</div>
+					<div class="xjxm_sc_page" style="border-bottom: dotted 1px #ccc;">
+					<font style="color:#093;">项目来源为购买时</font>实操业绩核算方式：<input class="margin_left_15" <?php if(1==$model->pra_type){echo "checked=checked";} ?>  name="pra_type" value="1" type="radio" />
+					按项目原价<font style="color:#093;">（系统默认）</font>
+					<input class="margin_left_15" <?php if(2==$model->pra_type){echo "checked=checked";} ?> name="pra_type" value="2" type="radio" />按实际购买金额<input <?php if(3==$model->pra_type){echo "checked=checked";} ?> name="pra_type" value="3" class="margin_left_15" type="radio" />按固定金额<input  name="pra_money" type="text" value="<?php echo $model->pra_money ?>" class="margin_left_5 xjxm_input_24" style="width:60px;" />元
+					<div class="help" explain="<p>按项目原价:</p> 按照项目的折前价给美疗师提手工费, 与实际销售价格无关<p>按实际购买金额:</p> 按【实项目际购买价格÷实际购买次数】给美疗师提手工费<p>按固定金额:</p> 美疗师做一次该项目,拿到的手工提成金额。如,美疗师小明做了一次美白补水,拿28块钱手工费,则这里填入阿拉伯数字28"></div>
+					</div>
+
+					<div class="xjxm_sc_page"><font style="color:#f30;">项目来源为赠送时</font>实操业绩核算方式：<input class="margin_left_15" <?php if(1==$model->pra_type_z){echo "checked=checked";} ?>  name="pra_type_z" value="1" type="radio" />按项目原价<input class="margin_left_15" <?php if(3==$model->pra_type_z){echo "checked=checked";} ?> name="pra_type_z" value="3" type="radio" />按固定金额<input name="pra_money_z" type="text" value="<?php echo $model->pra_money_z ?>" type="text" class="margin_left_5 xjxm_input_24" style="width:60px;" />元<font style="color:#093;">（系统默认）</font>
+					<div class="help" explain="如果这个项目是赠送给客人的,给美疗师多少手工费. 如果赠送和购买的手工费一样,请在此填入相同的阿拉伯数字,如果空下不填会对后期工资报表的统计造成影响"></div>
+					</div>
+				</div>
+				<!--美容师实操业绩核算方式---end-->
+				<!--疗程配方-->
+				<div class="list">
+					<label>疗程配方：</label>
+					<div class="list_right">
+
+						<div class="xjxm_con_th_rr" style="max-width:800px;"> 
+							<?php if ($model->formulas): ?>
+							<?php foreach ($model->formulas as $formula_k=>$formula): ?>
+							<!--fjgl_th-->
+							<div class="fjgl_th413">
+								<div class="xjxm_con_th_r_son">
+									<div class="xjxm_con_th_r_son_top"><?php echo $formula['formula_name'] ?>
+										<?php if ($formula['is_default']=="true"): ?>
+											<span style='color:#00FF40'>【默认】</span>
+										<?php else: ?>
+											<span>【设为默认】</span>
+										<?php endif; ?>
+										<div><a class="c_f_open <?php echo ($formula['status']==1)?"choose":"";?>" href="javascript:">开启</a><a class="c_f_close  <?php echo ($formula['status']==0)?"choose":"";?>" href="javascript:">停用</a><a class="c_f_prod" href="javascript:">+&nbsp;新增商品</a></div>
+									</div>
+									<input type="hidden" name="formula[<?php echo $formula_k ?>][status]" value="<?php echo $formula['status'] ?>">
+									<input class="is_default" type="hidden" name="formula[<?php echo $formula_k ?>][is_default]" value="<?php echo $formula['is_default'] ?>">
+
+									<input type="hidden" name="formula[<?php echo $formula_k ?>][id]" value="<?php echo $formula['id'] ?>">
+								</div>
+								<div class="fjgl_th_top">
+									<ul>
+									<li class="xjxm_con_01">商品名称</li>
+									<li class="xjxm_con_02">实操配方用量</li>
+									<li class="xjxm_con_03">操作</li>
+									</ul>
+								</div>
+
+								<?php if ($formula['compose']): ?>
+								<?php foreach ($formula['compose'] as $prod_k=>$compose): ?>
+								<div class="fjgl_th_th clear">
+									<ul>
+									<li class="xjxm_con_011"><?php echo $compose['pname'].' ('.$compose['code'].') '.($compose['p_status']<=0?('<span style="color:red">(已'.\ProjectInfo::getStatus($compose['p_status']).')</span>'):'') ?></li>
+									<li class="xjxm_con_021"><?php echo $compose['num'] ?></li>
+									<li class="xjxm_con_031"><a href="javascript:">删除</a></li>
+									<input type="hidden" name="formula[<?php echo $formula_k ?>][list][<?php echo $prod_k ?>][prod_id]" value="<?php echo $compose['rel_id'] ?>">
+									<input type="hidden" name="formula[<?php echo $formula_k ?>][list][<?php echo $prod_k ?>][num]" value="<?php echo $compose['num'] ?>">
+									</ul>
+								</div>
+								<?php endforeach ?>
+								<?php endif ?>
+								
+							</div><!--fjgl_th-->
+								
+							<?php endforeach ?>
+							<?php endif ?>
+
+							<div class="xjxm_con_four c_add_form">新增配方</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+				</div>
+				<!--疗程配方---end-->
+				<div class="list"><label>项目备注：</label>
+					<div class="list_right">
+						<textarea name="note" rows="4" style=" width:90%;"><?php echo $model->note ?></textarea>
+					</div>
+				</div>
+			</div><!--xjxm_con_top-->
+			<div class="xjxm_con_five clear" style="padding-left:120px;">
+				<input type="submit" class="xjxm_ok_buttom c_save" href="javascript:" value="保存" style="cursor: pointer;line-height: 25px;">
+				<input type="button" class="xjxm_exit_buttom c_cancel" href="javascript:" value="取消" style="cursor: pointer;line-height: 25px;">
+			</div>
+		</div><!--xjxm_con!end-->
+		<?php if (!$model->isNewRecord): ?>
+		<input name="id" type="hidden" value="<?php echo $model->id ?>" />
+		<?php endif ?>
+		</form>
+	</div>
+
+</div><!--content_right_con!end-->
+
+
+
+
+
+
+
+
+
+
+<div class="f_prod none" >
+	<div class="tjfj_two">
+		<div class="list"><label>商品类别：</label><select class="top_cate2">
+			<option value="">--请选择--</option>
+			<?php foreach ($top_cate2 as $key => $value): ?>
+				<option <?php if($key==$fid){echo "selected=selected";} ?> value="<?php echo $key ?>"><?php echo $value ?></option>
+			<?php endforeach ?>
+		</select><span class="gysgl_08">必填</span></div>
+		<div class="list"><label>商品系列：</label><select class="f_cate"></select><span class="gysgl_08">必填</span></div>
+		<div class="list"><label>商品：</label><select class="f_add_cate"></select><span class="gysgl_08">必填</span></div>
+		<div class="list"><label style="width: 115px;">实操配方用量：<div class="help" explain="这里的用量是指实操使用量，即做一次实操需要消耗该商品的份数。如紧致洁面乳在实操中可用20次（可以理解为分20份用），在项目中做一次实操需要消耗1次，那就在疗程配方中需要将紧致洁面乳的用量设置为“1”。"></div></label><input type="text" class="f_add_num" style="width: 274px;"><span class="gysgl_08">必填</span></div>
+	</div>
+</div>
+<script type="text/javascript">
+//客户模糊搜索
+$(function(){
+    $(".search_cu_input_29542").keyup(function(event){    //为搜索框加键盘事件监听
+        var _input = $(this);
+        var _now_input_val=$.trim(_input.val());//过滤头尾空格
+        if(_now_input_val!=''){ //过滤空置 和 重复提交
+           
+            if((event.keyCode!=38)&&(event.keyCode!=40)&&(event.keyCode!=13)){    //判断键盘事件，抛弃上下键跟回车键
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $this->url('admin/supplier/searchAppliList');?>",
+                    data: "name="+_now_input_val,
+                    dataType: "json",
+                    success: function(json){
+                        _input.next().empty();
+                        _input.next().show();
+                        if(json.code==200){
+                            $.each( json.data, function(i, v){
+                                if(i==0&&_now_input_val==v.name){
+                                    _input.prev().val(v.id);
+                                }
+                                if(v.beauty_id==0){
+                                	v.name=v.name+"（系统供应商）";
+                                }else{
+                                	v.name=v.name+"（我的供应商）";
+                                }
+                                 _input.next().append("<li rel='"+v.id+"'>"+v.name+"</li>");
+                            });
+                            _input.next().find('li').click( function () { 
+                                _input.val($(this).html());
+                                _input.prev().val($(this).attr('rel'));
+                                _input.next().empty();
+                                _input.prev().trigger("change");
+                            }).mouseover(function(){
+                                $(this).addClass('search_cu_id_list_li_hover');
+                            }).mouseout(function(){
+                                $(this).removeClass('search_cu_id_list_li_hover');
+                            });
+                        }
+                    }
+                });
+            }
+            //下
+            if(event.keyCode==40){
+                var c_li = _input.next().find('.search_cu_id_list_li_hover').first();
+                var li_first = _input.next().find('li:first');
+                if(li_first.length==1){
+                    if(c_li.length==0){
+                        //无选中状态
+                        li_first.trigger("mouseover")
+                    }else{
+                        //有选中状态
+                        if(c_li.next().length==1){
+                            c_li.trigger("mouseout")
+                            c_li.next().trigger("mouseover")
+                        }
+                        return false;
+                    }
+                }
+                return false;
+            }
+            //上
+            if(event.keyCode==38){
+                var c_li = _input.next().find('.search_cu_id_list_li_hover').first();
+                var li_first = _input.next().find('li:first');
+                if(c_li.length==1&&c_li.prev().length==1){
+                    c_li.trigger("mouseout")
+                    c_li.prev().trigger("mouseover")
+                }
+                return false;
+            }
+            //回车
+            if(event.keyCode==13){
+                var c_li = _input.next().find('.search_cu_id_list_li_hover').first();
+                if(c_li.length==1){
+                    c_li.trigger("click")
+                }
+                return false;
+            }
+        }else{
+            $(".search_cu_id_list").text('');
+        }
+        
+    });
+});  
+</script>
+
+
+<script type="text/javascript">
+$(function(){
+	<?php if($this->controller->is_store):?>
+	$('input[type="submit"]').remove();
+	$('.c_add_form').remove();
+	$('.xjxm_con_031').html('');
+	<?php endif;?>
+	$('.edit_xm').Validform({
+		tiptype:3,
+		ignoreHidden:true,
+	});
+	
+
+
+	$('.c_cancel').click(function(){
+		window.location.href = "<?php echo $this->url('index');?>"
+	});
+
+	//产品顶级分类下拉级联
+	$('body').on('change','.top_cate2',function(){
+		var self=$(this);
+		var fid=self.val();
+		var opt='';
+		$.getJSON("<?php echo $this->url('admin/product/childCate') ?>",{fid:fid}, function(json){
+			if(json.code==200){
+				opt+='<option value="">--请选择--</option>';
+				$.each(json.data, function(i, v){
+					opt+='<option value="'+v.id+'">'+v.name+'</option>';
+				});
+			}
+			self.parent().next().find('select').empty().append(opt);
+		});
+	});
+
+	//项目顶级下拉级联
+	$('body').on('change','.top_cate',function(){
+		var self=$(this);
+		var fid=self.val();
+		var opt='';
+		$.getJSON("<?php echo $this->url('childCate') ?>",{fid:fid}, function(json){
+			if(json.code==200){
+				$.each(json.data, function(i, v){
+					opt+='<option value="'+v.id+'">'+v.name+'</option>';
+				});
+			}
+			self.parent().parent().next().find('select').empty().append(opt);
+		});
+	});
+
+	//分类下的商品下拉级联
+	$('body').on('change','.f_cate',function(){
+		var self=$(this);
+		var fid=self.val();
+		var opt='';
+		$.getJSON("<?php echo $this->url('admin/product/cateProd') ?>",{fid:fid,show_del:2}, function(json){
+			if(json.code==200){
+				$.each(json.data, function(i, v){
+					opt+='<option value="'+v.id+'">'+v.name+'</option>';
+				});
+			}
+			self.parent().next().find('select').empty().append(opt);
+		});
+	});
+
+
+	//添加配方按钮事件
+	$('.c_add_form').click(function(){
+		var self=$(this).closest('.fjgl_th413');//该配方div对象
+		var formula_k=$(".fjgl_th413").length;//配方数
+		var str ='<div class="fjgl_th413">';
+			str+=	'<div class="xjxm_con_th_r_son">';
+			str+=		'<div class="xjxm_con_th_r_son_top">配方*<span>【设为默认】</span><div><a class="c_f_open" href="javascript:">开启</a><a class="c_f_close" href="javascript:">停用</a><a class="c_f_prod" href="javascript:">+&nbsp;新增商品</a></div></div>';
+			
+			str+=	'<input type="hidden" name="formula['+formula_k+'][status]" value="1">';
+			str+=	'<input class="is_default" type="hidden" name="formula['+formula_k+'][is_default]" value="false">';
+			str+=	'</div>';
+			str+=	'<div class="fjgl_th_top"><ul><li class="xjxm_con_01">商品名称</li><li class="xjxm_con_02">实操配方用量</li><li class="xjxm_con_03">操作</li></ul></div>';
+			str+='</div>';
+			if($(this).prev().length==0 || $(this).prev().find('.fjgl_th_th').length>0){
+				$(this).before(str);
+				body_resize();
+			}else{
+				Idialog.tips('配方未完成前无法添加新配方！',2);
+			}
+
+	});
+
+	//添加配方的商品
+	$('.xjxm_con_th_rr').on('click','.c_f_prod',function(){
+		var formula_k=$(this).index('.c_f_prod');//当前配方序号
+		var self=$(this).closest('.fjgl_th413');//该配方div对象
+		var d = Idialog({
+				top:150,
+				width:500,
+				title:'添加商品',
+				content:$('.f_prod'),
+				cancel:false,
+				ok:function(obj){
+					var _self=obj._self;
+					var prod_k=self.find('.fjgl_th_th').length;//本配方项目数 fjgl_th_th
+					var str  ='<div class="fjgl_th_th clear"><ul>';
+						str +='<li class="xjxm_con_011">'+_self.find('.f_add_cate option:selected').text()+'</li>';
+						str +='<li class="xjxm_con_021">'+_self.find('.f_add_num').val()+'</li>';
+						str +='<li class="xjxm_con_031"><a href="javascript:">删除</a></li>';
+						str +='<input type="hidden" name="formula['+formula_k+'][list]['+prod_k+'][prod_id]" value="'+_self.find('.f_add_cate').val()+'">';
+						str +='<input type="hidden" name="formula['+formula_k+'][list]['+prod_k+'][num]" value="'+_self.find('.f_add_num').val()+'">';
+						str +='</ul></div>';
+					self.append(str);
+				},
+				init:function(){
+					$('.help').help();
+				}
+
+			});
+	});
+	//删除配方的商品
+	$('.xjxm_con_th_rr').on('click','.xjxm_con_031',function(){
+		$(this).closest('.fjgl_th_th').find('input').remove();
+		$(this).closest('.fjgl_th_th').hide();
+	});
+	//配方设置为默认
+	$('.xjxm_con_th_rr').on('click','span',function(){
+		$('.is_default').val("false");
+		$(this).closest('.xjxm_con_th_r_son').find('input').eq(1).val('true');
+		$('.xjxm_con_th_rr').find('span').html("<span>【设为默认】</span>");
+		$(this).html("<span style='color:#00FF40'>【默认】</span>");
+	});
+
+	//配方状态开
+	$('.xjxm_con_th_rr').on('click','.c_f_open',function(){
+		$(this).closest('.xjxm_con_th_r_son').find('input').eq(0).val(1);
+		$(this).addClass('choose');
+		$(this).next().removeClass('choose');
+	});
+	//配方状态关闭
+	$('.xjxm_con_th_rr').on('click','.c_f_close',function(){
+		$(this).closest('.xjxm_con_th_r_son').find('input').eq(0).val(0);
+		$(this).addClass('choose');
+		$(this).prev().removeClass('choose');
+	});
+
+});
+</script>

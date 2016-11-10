@@ -1,0 +1,175 @@
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/PCASClass.js"></script>
+<style type="text/css">
+  .idialog_tips {
+    background-color: #fff;
+    border: 1px solid #00dddd;
+    left: 50%;
+    overflow: hidden;
+    padding: 20px;
+    position: fixed;
+    top: 200px;
+    z-index: 999;
+  }
+  #loading {
+    position:fixed;
+    left:0;
+    width:100%;
+    height:100%;
+    top:0;
+    background:rgb(0, 0, 0);
+    opacity:0.5;
+    filter:alpha(opacity=50);
+  }
+  #loading div{
+    position:absolute;  cursor1:wait;left:50%;top:50%;width:auto;height:16px;padding:13px 22px 28px 30px;background: url(<?php echo $this->basePath('public');?>/images/loading.gif) no-repeat scroll 5px 10px;text-indent: -99999px;color:#000;
+  }
+  .zhizhao{ width:150px; height:150px; border:solid 1px #ddd; float:left;}
+.zhizhao_update{ width:100px; height:40px; line-height:40px; font-size:14px; margin-left:12px; cursor:pointer; text-align:center; color:#fff; background-color:#17a5f7; float:left;}
+.zhizhao_update:hover{background-color:#03b5ff;}
+</style>
+<div class="add_store" title="门店">
+  <div class="tjfj_two">
+    <form method="post" action="<?php echo $this->url('add') ?>" class="form">
+      <input type="hidden" name="yd" value="<?php echo $_GET['yd'];?>">
+      <div class="list">
+        <label>门店名称：</label>
+        <div style="margin-left: 100px;">
+          <input type="text" placeholder="宫廷店" class="gysgl_07 inputxt" name="dept_name" value="<?php echo $model->dept_name; ?>"/>
+        </div>
+      </div>
+      <div class="list">
+        <label>房间数量：</label>
+        <div style="margin-left: 100px;">
+          <input type="text" class="gysgl_07 inputxt" placeholder="请填写该房间拥有的实操房间数量" name="room_num" value="<?php echo $model->room_num; ?>"/>
+        </div>
+      </div>
+      <div class="list">
+        <label>门店位置：</label>
+        <div style="margin-left: 100px;">
+          <select class="mdgl_06" datatype="*" name="pca_province"><option  value=>--省--</option></select>
+          <select class="mdgl_06" datatype="*" name="pca_city"><option value=>--市--</option></select>
+          <select class="mdgl_06" datatype="*" name="pca_area"><option  value=>--区--</option></select>
+        </div>
+      </div>
+      <div class="list">
+        <label>详细地址：</label>
+        <div style="margin-left: 100px;">
+          <input type="text" datatype="*" placeholder="" class="gysgl_07" name="address" value="<?php echo $model->address; ?>"/>
+        </div>
+      </div>
+      <div class="list" title="点击地图定位门店">
+        <label>地图标记：</label>
+        <input name="lng" id="lng" type="hidden" value="<?php echo $model->lng ?>" />
+        <input name="lat" id="lat" type="hidden" value="<?php echo $model->lat ?>" />
+        <div id="allmap" style="height: 200px;"></div>
+      </div>
+      <div class="list">
+        <label>门店电话：</label>
+        <div style="margin-left: 100px;">
+          <input type="text" class="gysgl_07 inputxt" placeholder="请填写门店电话以便客户联系!" name="tel" value="<?php echo $model->tel; ?>"/>
+        </div>
+      </div>
+      <div class="list">
+        <label>上传门店照片：</label>
+        <p style="clear:none; padding-bottom:10px;">
+          支持.jpg .jpeg .png .bmp格式照片，大小不超过2M。</p>
+          <div class="zhizhao"></div>
+          <textarea style="display:none;" id="avatar" name="img"><?php echo $model->img?></textarea>
+          <div class="zhizhao_update">上传</div>
+      </div>
+      <div class="list" style="margin-top: 170px;">
+        <label>门店介绍:</label>
+                
+          <textarea  name="content"><?php echo $model->content?></textarea>
+      </div>
+    	<input name="id" type="hidden" value="<?php echo $model->id ?>" />
+    </form>
+  </div>
+</div>
+<!-- 头像裁剪隐藏域 -->
+<div class="avatar_box" style="width:550px;display:none">
+    <div class="imageBox">
+        <div class="thumbBox"></div>
+        <div class="spinner" style="display: none">Loading...</div>
+    </div>
+</div>
+<input type="file" id="file" style="display:none;">
+<!-- 头像裁剪隐藏域 -->
+<!--content_right_con!end-->
+
+<script type="text/javascript">
+$(function() {
+    var options =
+    {
+        imageBox: '.imageBox',
+        thumbBox: '.thumbBox',
+        spinner: '.spinner',
+        imgSrc: ''
+    }
+    console.log(options);
+    var cropper = new cropbox(options);
+    document.querySelector('#file').addEventListener('change', function(){
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          console.log(e);
+          if(e.total>1024000*2){
+            alert('图片大于2M，请处理后上传。');
+            return;
+          }
+            options.imgSrc = e.target.result;
+            cropper = new cropbox(options);
+
+          var img = e.target.result;
+          document.querySelector('.zhizhao').innerHTML = '<img width="152px" height="152px" src="'+img+'">';
+          document.querySelector('#avatar').innerHTML = img;
+        }
+        reader.readAsDataURL(this.files[0]);
+        this.files = [];
+
+    })
+
+});
+
+$('.zhizhao_update').click(function() {
+  $("#file").trigger("click");
+});
+</script>
+<script type="text/javascript">
+$(function(){
+	
+	new PCAS("pca_province="+"<?php echo $model->pca_province==''?'--省--':$model->pca_province; ?>"+",--省--","pca_city="+"<?php echo $model->pca_city==''?'--市--':$model->pca_city; ?>"+",--市--","pca_area="+"<?php echo $model->pca_area==''?'--区--':$model->pca_area; ?>"+",--区--");
+   
+  //百度API
+   var map =new BMap.Map('allmap');
+   <?php if($model->pca_city):?>
+   map.centerAndZoom("<?php echo in_array($model->pca_province, array('北京市','天津市','上海市','重庆市'))?$model->pca_province:$model->pca_city ?>",15);
+   <?php endif;?>
+  map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
+  map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+  function showInfo(e){
+    //console.log(e)
+    addMark(e.point.lng , e.point.lat);
+    $('#lng').val(e.point.lng);
+    $('#lat').val(e.point.lat);
+  }
+  function addMark(lng,lat){
+    map.clearOverlays();
+    var point = new BMap.Point(lng,lat);
+    var marker = new BMap.Marker(point);// 创建标注
+    map.addOverlay(marker);             // 将标注添加到地图中
+    //marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+    marker.enableDragging();
+  }
+  <?php if($model->lng && $model->lat):?>
+    addMark('<?php echo $model->lng?>','<?php echo $model->lat?>')
+  <?php endif;?>
+  <?php if($model->img):?>
+  document.querySelector('.zhizhao').innerHTML = '<img width="152px" height="152px" src="<?php echo $model->img?>">';
+  <?php endif;?>
+  map.addEventListener("click", showInfo);
+  $('.mdgl_06').change(function(event) {
+    map.centerAndZoom($.inArray($('.mdgl_06[name="pca_province"]').val(), ['北京市','天津市','上海市','重庆市'])<0?$('.mdgl_06[name="pca_city"]').val():$('.mdgl_06[name="pca_province"]').val(),15);
+  });
+});
+
+</script>

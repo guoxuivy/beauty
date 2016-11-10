@@ -1,0 +1,270 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+    <title>HOWA</title>
+
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileColor" content="#0e90d2">
+
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/amazeui.min.css">
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/app.css">
+</head>
+<body class="has-header">
+
+<header class="am-text-center am-padding-sm fixed-top">
+    <div class="am-fl out"><i class="am-icon-angle-left am-icon-sm"></i>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+    <b>品项业绩报表</b>
+    <div class="am-fr" data-am-offcanvas="{target: '#filter'}">筛选</div>
+</header>
+
+<div class="am-text-center am-padding-sm">
+    <!-- am-selected 用法参考 http://amazeui.org/javascript/selected -->
+    <select class="am-round" data-am-selected="{btnWidth:'150px',btnStyle:'select'}">
+        <option value="0" <?php if ($md_ids==0): ?>selected<?php endif ?> >全连锁</option>
+        <?php foreach ($md_list as $v): ?>
+            <option value="<?php echo $v['id'] ?>" <?php if ($md_ids==$v['id']): ?>selected<?php endif ?> ><?php echo $v['dept_name'] ?></option>
+        <?php endforeach ?>
+    </select>
+</div>
+
+<ul class="am-avg-sm-3 datepicker">
+    <li class="am-text-center am-padding-xs am-date-prev" placeholder="<?php echo date('Y-m', strtotime('-1 month',strtotime($date)) ) ?>">前一月</li>
+    <li class="am-text-center">
+        <input type="text" class="am-date" placeholder="<?php echo $date ?>" data-am-datepicker="{format: 'yyyy-mm', viewMode: 'years', minViewMode: 'months'}" readonly />
+    </li>
+    <li class="am-text-center am-padding-xs am-date-prev" placeholder="<?php echo date('Y-m', strtotime('+1 month',strtotime($date)) ) ?>">后一月</li>
+</ul>
+
+<?php foreach ($model as $value): ?>
+<div class="list-title am-padding-sm"><span class="am-text-primary"><?php echo $value['name'] ?></span> 销售<?php echo $value['type']==1?"+实操":""; ?>业绩</div>
+<ul class="am-list am-margin-0">
+    <li class="am-padding-sm">现金收入<span class="am-fr"><?php echo $value['XJSR'] ?></span></li>
+    <li class="am-padding-sm">现金账户卡扣<span class="am-fr"><?php echo $value['XJZHKK'] ?></span></li>
+    <li class="am-padding-sm">赠送账户卡扣<span class="am-fr"><?php echo $value['ZSZHKK'] ?></span></li>
+    <li class="am-padding-sm">成交人头<span class="am-fr"><?php echo $value['CJRT'] ?></span></li>
+
+    <?php if ($value['type']==1): ?>
+    <li class="am-padding-sm">购买消耗<span class="am-fr"><?php echo $value['GMXH'] ?></span></li>
+    <li class="am-padding-sm">赠送消耗次数<span class="am-fr"><?php echo $value['ZSXH'] ?></span></li>
+    <li class="am-padding-sm">卡券消耗<span class="am-fr"><?php echo $value['KJXH'] ?></span></li>
+    <li class="am-padding-sm">实耗人头<span class="am-fr"><?php echo $value['SHRT'] ?></span></li>
+    <?php endif ?>
+</ul>
+<?php endforeach ?>
+
+
+<!-- 侧边栏内容 -->
+<div id="filter" class="am-offcanvas filter">
+    <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+        <div class="am-offcanvas-content am-padding-0">
+            <div class="filter-header am-padding-sm am-text-center"><i class="am-icon-angle-left am-icon-sm am-fl"></i> <span class="am-text-primary">筛选</span> <div class="am-fr btn-ok">确定</div></div>
+            <ul class="am-list">
+                <li id="btn-subject-filter" class="am-padding-sm" data-am-offcanvas="{target: '#subject-filter'}">项目范围<span class="am-fr"><span class="filter-value am-text-truncate am-inline-block am-vertical-align-middle"></span> <i class="am-icon-angle-right am-icon-sm am-vertical-align-middle"></i></span></li>
+                <li id="btn-product-filter" class="am-padding-sm" data-am-offcanvas="{target: '#product-filter'}">产品范围<span class="am-fr"><span class="filter-value am-text-truncate am-inline-block am-vertical-align-middle"></span> <i class="am-icon-angle-right am-icon-sm am-vertical-align-middle"></i></span></li>
+            </ul>
+            <div class="am-text-center am-padding-sm"><button class="am-btn am-btn-secondary am-padding-left-lg am-padding-right-lg">清除选项</button> </div>
+        </div>
+    </div>
+</div>
+
+<div id="subject-filter" class="am-offcanvas filter sub-filter">
+    <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+        <div class="am-offcanvas-content am-padding-0">
+            <div class="filter-header am-padding-sm am-text-center"><i class="am-icon-angle-left am-icon-sm am-fl"></i> <span class="am-text-primary">项目范围</span> <div class="am-fr btn-ok">确定</div></div>
+            <?php foreach ($all_xm_list as $v): ?>
+                <div class="list-title am-padding-sm am-padding-top-xs am-padding-bottom-xs"><?php echo $v["name"] ?></div>
+                <ul class="am-list am-margin-0">
+                    <?php foreach ($v["list"] as $pro): ?>
+                    <li id="<?php echo $pro["id"] ?>" class="am-padding-sm" data-rel="<?php echo $pro["name"] ?>"><?php echo $pro["name"] ?></li>
+                    <?php endforeach ?>
+                </ul>
+            <?php endforeach ?>
+            <div class="am-text-center am-padding-sm"><button class="am-btn am-btn-secondary btn-clear am-padding-left-lg am-padding-right-lg">清除选项</button> </div>
+        </div>
+    </div>
+</div>
+
+<div id="product-filter" class="am-offcanvas filter sub-filter">
+    <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+        <div class="am-offcanvas-content am-padding-0">
+            <div class="filter-header am-padding-sm am-text-center"><i class="am-icon-angle-left am-icon-sm am-fl"></i> <span class="am-text-primary">产品范围</span> <div class="am-fr btn-ok">确定</div></div>
+            <?php foreach ($all_cp_list as $v): ?>
+                <div class="list-title am-padding-sm am-padding-top-xs am-padding-bottom-xs"><?php echo $v["name"] ?></div>
+                <ul class="am-list am-margin-0">
+                    <?php foreach ($v["list"] as $pro): ?>
+                    <li id="<?php echo $pro["id"] ?>" class="am-padding-sm" data-rel="<?php echo $pro["name"] ?>"><?php echo $pro["name"] ?></li>
+                    <?php endforeach ?>
+                </ul>
+            <?php endforeach ?>
+            <div class="am-text-center am-padding-sm"><button class="am-btn am-btn-secondary btn-clear am-padding-left-lg am-padding-right-lg">清除选项</button> </div>
+        </div>
+    </div>
+</div>
+
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/jquery.min.js"></script>
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/amazeui.min.js"></script>
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/my.js"></script>
+
+
+<script>
+    $(function () {
+        var subjectFilters = {};
+        var productFilters = {};
+
+        $("#filter .filter-header i").click(function() {
+            $("#filter").offCanvas("close");
+        });
+
+        $("#subject-filter").on("open.offcanvas.amui", function() {
+            $("#subject-filter ul li").removeClass("selected");
+            for (k in subjectFilters) {
+                $("#subject-filter ul li#" + k).addClass("selected");
+            }
+        });
+
+        $("#subject-filter .filter-header i").click(function() {
+            $("#subject-filter").offCanvas("close");
+        });
+
+        $("#subject-filter .filter-header .btn-ok").click(function() {
+            $("#subject-filter").offCanvas("close");
+            subjectFilters = {};
+            var values = [];
+            $("#subject-filter ul li.selected").each(function(i, el) {
+                var $el = $(el);
+                subjectFilters[$el.attr("id")] = $el.data("rel");
+                values.push($el.data("rel"));
+            })
+            $("#btn-subject-filter .filter-value").text(values.join("+"))
+        });
+
+        $("#product-filter").on("open.offcanvas.amui", function() {
+            $("#product-filter ul li").removeClass("selected");
+            for (k in productFilters) {
+                $("#product-filter ul li#" + k).addClass("selected");
+            }
+        });
+
+
+        $("#product-filter .filter-header i").click(function() {
+            $("#product-filter").offCanvas("close");
+        });
+
+        $("#product-filter .filter-header .btn-ok").click(function() {
+            $("#product-filter").offCanvas("close");
+            productFilters = {};
+            var values = [];
+            $("#product-filter ul li.selected").each(function(i, el) {
+                var $el = $(el);
+                productFilters[$el.attr("id")] = $el.data("rel");
+                values.push($el.data("rel"));
+            })
+            $("#btn-product-filter .filter-value").text(values.join("+"))
+        });
+
+        $(".sub-filter ul li").click(function(e) {
+            e.preventDefault();
+            $(e.target).toggleClass("selected");
+        });
+
+        $("#filter button").click(function(e) {
+            e.preventDefault();
+            subjectFilters = {};
+            productFilters = {};
+            $("#btn-subject-filter .filter-value").text("")
+            $("#btn-product-filter .filter-value").text("")
+        })
+
+        $(".sub-filter .btn-clear").click(function(e) {
+            $(e.target).parent().parent().find("ul li").removeClass("selected")
+        });
+
+        $("#filter .filter-header .btn-ok").click(function() {
+            run_url($('.am-date').attr("placeholder"));
+        });
+
+
+        $('.out').click(function(){
+            to_url('<?php echo $this->url("index") ?>')
+        });
+
+        //获取项目、产品ids
+        function getP(type){
+            if(type=='proj'){
+                var pro = subjectFilters;
+            }else{
+                var pro = productFilters;
+            }
+            var arr = [];
+            for (k in pro) {
+                arr.push(k)
+            }
+            return arr.join(",");
+        }
+
+        function run_url(date){
+            to_url('<?php echo $this->url("PXYJ") ?>&DATE='+date+'&md_id='+$('.am-round').val()+"&xm="+getP('proj')+"&cp="+getP('prod'));
+        }
+
+        $('.am-date').datepicker().on('close.datepicker.amui', function(event) {
+            var d = $(this).val();
+            run_url(d)
+        });
+        $('.am-date-prev,.am-date-next').click(function(){
+            var d = $(this).attr('placeholder');
+            run_url(d)
+        });
+
+        $('.am-round').on("change",function(){
+            var md = $(this).val();
+            var d = $(".am-date").attr('placeholder');
+            to_url('<?php echo $this->url("PXYJ") ?>&DATE='+d+'&md_id='+md+"&xm="+getP('proj')+"&cp="+getP('prod'));
+        });
+
+
+        //项目产品初始化
+        <?php if ($xm_list): ?>
+            var tmp_values = [];
+            <?php foreach ($xm_list as $id => $name): ?>
+                subjectFilters[<?php echo $id ?>] = "<?php echo $name ?>";
+                tmp_values.push("<?php echo $name ?>");
+            <?php endforeach ?>
+            $("#btn-subject-filter .filter-value").text(tmp_values.join("+"))
+        <?php endif ?>
+        //项目产品初始化
+        <?php if ($cp_list): ?>
+            var tmp_values = [];
+            <?php foreach ($cp_list as $id => $name): ?>
+                productFilters[<?php echo $id ?>] = "<?php echo $name ?>";
+                tmp_values.push("<?php echo $name ?>");
+            <?php endforeach ?>
+            $("#btn-product-filter .filter-value").text(tmp_values.join("+"))
+        <?php endif ?>
+
+    });
+</script>
+
+
+
+</body>
+</html>

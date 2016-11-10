@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="/favicon.ico" rel="icon" type="image/x-icon" />
+    <title><?php echo  isset($seo_title)?$seo_title:"美业连锁管理平台" ?></title>
+
+    <script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/jquery.min.js"></script>
+    <script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/common.js"></script>
+    <script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/func.js?3.30"></script>
+    <script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Idialog.js"></script>
+    <link href="<?php echo $this->basePath('public');?>/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $this->basePath('public');?>/css/myStyle.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!--整体-->
+<div class="containter">
+    <!--头部-->
+    <?php $this->import('/_include/header');?>
+    <!--头部!end-->
+    <!--content-->
+    <div class="content">
+        <!--左边导航-->
+        <?php $light_nav=isset($light_nav)?$light_nav:null; ?>
+        <div class="content_left"><?php echo Ivy::app()->widget('top/nav',$light_nav); ?></div>
+        <!--左边导航end-->
+        <!--右边主体内容  从 content_right_con 标签开始 -->
+        <div class="content_right">
+            <div class="content_right_son">
+            <?php echo $content; ?>
+            </div>
+        </div>
+        <!--右边!end-->
+    </div>
+    <!--content!end-->
+
+</div>
+<!--整体!end-->
+</body>
+</html>

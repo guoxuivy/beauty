@@ -1,0 +1,173 @@
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+        仓库管理>库存盘点记录>盘库
+    </div>
+    <div class="khgl_pk_top" style="margin-bottom: 0;">
+        <span class="khgl_pk_top_02 c_add" style="width: 100px;">选择盘库商品</span>
+    </div>
+    <div class="khgl_pk_two" style="display: none;">
+        <span>
+            <input value="1" name="is_extra_num" type="checkbox" style="margin: 7px 5px;"/>
+            <span>不盘点额用量外</span>
+        </span>
+    </div>
+
+    <!--table_container-->
+    <div class="table_container clear box_cp" style="display: none;">
+        <!--table_con-->
+        <div class="table_con">
+            <!--table_con_son-->
+            <div class="table_con_son">
+                <div class="table_title">
+                    <ul>
+                        <li>商品分类</li>
+                        <li>商品系列</li>
+                        <li>商品名称</li>
+                        <li>商品编码</li>
+                        <li>实时库存</li>
+                        <li>寄存（实时数据）</li>
+                        <li>额外用量（实时数据）</li>
+                        <li>盘点数量</li>
+                        <li class="extra_num">盘点额外用量</li>
+                    </ul>
+                </div>
+                <div id="pro_list" style="max-height:500px; overflow:auto;">
+
+                </div>
+            </div><!--table_con_son!end-->
+        </div><!--table_con!end-->
+        <div class="khgl_pk_butom">
+            <a href="javascript:" class="ck_splb_foot_01">保存盘库</a>
+            <a href="javascript:" class="ck_splb_foot_02">取消</a>
+        </div>
+    </div>
+    <!--table_containter!end-->
+</div>
+<!--content_right_con!end-->
+
+<div class="none" id="widget_product">
+    <?php echo \Ivy::app()->widget('common/selectProduct',"rich"); ?>
+</div>
+
+<div class="tjfj" style="display:none">
+    <div class="tjfj_two pos_gm_th">
+        <div class="khgl_pk_th">
+            <div class="khgl_pk_th_top"><img src="<?php echo $this->basePath("public"); ?>/images/pk_10.png" />盘库成功</div>
+            <div class="khgl_pk_th_two">本次盘库发现有商品出现损溢，请至“盘库损溢”进行处理！</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    //产品的添加
+    $('.c_add').click(function(){
+        var self=$('#pro_list');//box对象
+        var d = Idialog({
+            top:150,
+            width:800,
+            title:'添加产品',
+            content:$('#widget_product'),
+            cancel:false,
+            ok:function(obj){
+                var ids = new Array;
+                var _self=obj._self;
+                var has_list = self.find('.table_list');//已经存在的列
+                var result_list=_self.find('.result_pro li');
+                $.each( result_list, function(i, pro) {
+                    pro = $(pro);
+                    var p_id = pro.attr('rel');
+                    if(has_list.filter("[data-pid='"+p_id+"']").length>0) return ;
+                    ids.push(pro.attr('rel'));
+                });
+                var _html = "<div id='loading' style='position:fixed;left:0;width:100%;height:100%;top:0;background:rgb(0, 0, 0);opacity:0.5;filter:alpha(opacity=50);'><div style='position:absolute;  cursor1:wait;left:50%;top:50%;width:auto;height:16px;padding:13px 22px 28px 30px;background: url(<?php echo $this->basePath('public');?>/images/loading.gif) no-repeat scroll 5px 10px;text-indent: -99999px;color:#000;'>正在加载，请等待...</div></div>";
+                $('body').append(_html);
+                setTimeout(function(){
+                    $.post('<?php echo $this->url("pro_list")?>',{ids:ids.join(',')}, function(data) {
+                        $("#pro_list").append(data);
+                        $(".table_title ul li:last-child").css('min-width','110px');
+                        if(ids.length>0){
+                            $(".khgl_pk_two,.box_cp").show();
+                        }
+                        table_flash();
+                        $('#loading').remove();
+                    });
+                },500);
+            }
+        })
+    });
+
+    $("input[name=is_extra_num]").click(function(){
+        if($(this).attr('checked')=='checked'){
+            $(this).attr('checked',false);
+            $(this).val('1');
+            $(".table_title").find("li.extra_num").show();
+            $(".table_list").find("li.extra_num").show();
+        } else{
+            $(this).attr('checked',true);
+            $(this).val('0');
+            $(".table_title").find("li.extra_num").hide();
+            $(".table_list").find("li.extra_num").hide();
+        }
+    });
+
+    function to_url(url){
+        window.location.href=url;
+    }
+
+    $(".ck_splb_foot_01").click(function(){
+        var data={},i= 0,flat=false;
+        var is_check_ext = $("input[name=is_extra_num]").val();
+        var _html = "<div id='loading' style='position:fixed;left:0;width:100%;height:100%;top:0;background:rgb(0, 0, 0);opacity:0.5;filter:alpha(opacity=50);'><div style='position:absolute;  cursor1:wait;left:50%;top:50%;width:auto;height:16px;padding:13px 22px 28px 30px;background: url(<?php echo $this->basePath('public');?>/images/loading.gif) no-repeat scroll 5px 10px;text-indent: -99999px;color:#000;'>正在加载，请等待...</div></div>";
+        $('body').append(_html);
+        $(".table_list").each(function(){
+            var item={};
+            item.dept_pro_id = $(this).attr('data-id');
+            item.product_id = $(this).attr('data-pid');
+            if($(this).find("input[name=num]").val()!=''){
+                flat = true;
+            }
+            item.num = $(this).find("input[name=num]").val();
+            item.extra_num = $(this).find("input[name=extra_num]").val();
+            data[i] = item;
+            i++;
+        });
+        if(flat==true){
+            setTimeout(function(){
+                $.post('<?php echo $this->url("save")?>',{data:data,is_check_ext:is_check_ext}, function(data) {
+                    $("#loading").remove();
+                    if(data.code==200){
+                        var d = Idialog({
+                            top:120,
+                            width:500,
+                            title:'盘库成功',
+                            content:$(".tjfj"),
+                            cancel:function(e){
+                                $('body').append(_html);
+                                window.location.href = '<?php echo $this->url("index");?>';
+                            },
+                            close:function(e){
+                                $('body').append(_html);
+                                window.location.href = '<?php echo $this->url("index");?>';
+                            },
+                            ok:function(html){
+                                $('body').append(_html);
+                                setTimeout(function(){window.location.href = '<?php echo $this->url("edit");?>&id='+data.data;},100);
+                            }
+                        });
+                        $(".idialog_cancel").text('稍后处理');
+                        $(".idialog_ok").text('立即处理');
+                    }else if(data.code==500){
+                        Idialog.tips(data.msg,2);
+                    }
+                }, "json");
+            },500);
+        }else{
+            $("#loading").remove();
+            Idialog.tips("商品盘点数量不能为空！",2);
+        }
+
+    });
+
+</script>

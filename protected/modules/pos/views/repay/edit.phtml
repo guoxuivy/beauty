@@ -1,0 +1,345 @@
+<style>
+    .add_capitals.cpm{
+        border: 1px solid #ccc;border-radius: 2px;height: 24px;text-align: center;color: #999999;font-size: 11px;cursor: pointer;
+    }
+</style>
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+        <!--<div class="fjgl_top_r">
+          <a href="javascript:" class="khgl_02 fpkhn">分配客户</a><a href="javascript:" class="fjgl_top_r_01">筛选</a><a href="javascript:" class="fjgl_top_r_02 tjfjz">添加客户</a>
+        </div>-->
+        <div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>POS开单><span>还款</span>
+    </div>
+
+    <!--khgl_shouye-->
+    <?php echo $cu_info ?>
+    <!--khgl_shouye!end-->
+    <!--销售人员及业绩比例-->
+    <?php echo $effect ?>
+    <!--销售人员及业绩比例!end-->
+
+    <!--欠款订单-->
+    <div class="pos_cz_tow">
+        <div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>欠款订单</div>
+        <div class="pos_cz_tow_two">
+            <!--table_container-->
+            <div class="table_container" style="border:none;">
+                <!--table_con-->
+                <div class="table_con">
+                    <!--table_con_son-->
+                    <div class="table_con_son">
+                        <div class="table_title">
+                            <ul>
+                                <li style="width: 150px;">订单成交日期</li>
+                                <li>订单号</li>
+                                <li>欠款商品名称</li>
+                                <li>欠款金额(元)</li>
+                                <li style="width: 130px;">现金账户卡扣还款(元)</li>
+                                <li>现金还款(元)</li>
+                                <li>操作</li>
+                            </ul>
+                        </div>
+                        <?php $total=0; foreach($arrears_order_detail as $detail):?>
+                            <?php
+                                $order_sale = \OrderSale::model()->findByPk($detail['order_id']);
+                                $cpm = $detail['repay_capitals']['money'];
+                            ?>
+                            <div id="order_detail<?php echo $detail['id']?>" class="table_list clear khgl_com order_detail">
+                                <!--<div class="khgl_radio_list"><input value="<?php /*echo $detail['id'];*/?>" type="checkbox" /></div>-->
+                                <ul>
+                                    <li class="li001"><?php echo $detail['create_time'];?></li>
+                                    <li class="li002"><?php echo $order_sale->sn?></li>
+                                    <li class="li003"><?php echo $detail['pro_name'];?></li>
+                                    <li class="li004 arrears"><?php echo $detail['arrears']?></li>
+                                    <li class="li005">
+                                        <input type="hidden" name="capitals[]" value="<?php echo $detail['repay_capitals']['capital']?>">
+                                        <input type="hidden" name="proInfo[]" value="<?php echo $detail['pro_id'].'|'.$detail['pro_type'].'|'.$detail['id']?>">
+                                        <input value="<?php echo !empty($cpm)?$cpm:'点击选择还款账户'?>" class="add_capitals <?php echo !empty($cpm)?'pos_cz_tow_two05':'cpm'?>" datatype="<?php echo $detail['pro_id'].'|'.$detail['pro_type'].'|'.$detail['id']?>" type="text" readonly="readonly" style="cursor: pointer;"/>
+                                    </li>
+                                    <li class="li006"><input value="<?php echo empty($detail['repay_cash'])?'':(int)$detail['repay_cash'];?>" name="cash[]" type="text" class="pos_cz_tow_two05" /></li>
+                                    <li class="li006">
+                                        <a class="view khca" href="<?php echo $this->url('/pos/sale/edit',array('id'=>$order_sale->id));?>">
+                                            <span class="khca_son"><img src="<?php echo $this->basePath('public');?>/images/kh_05.png"></span>查看
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        <?php $total+=$cpm+$detail['repay_cash'];endforeach;?>
+                    </div><!--table_con_son!end-->
+                </div><!--table_con!end-->
+            </div>
+            <!--table_containter!end-->
+            <div class="pos_cz_tow_two_two">
+                <span class="pos_cz_tow_two04 pos_gm_02">应付金额：<em><?php echo sprintf("%.2f",$total);?></em>&nbsp;元</span>
+                <span class="pos_gm_01">还款订单<span class="pos_gm_03"><?php echo count($arrears_order_detail);?></span>个</span>
+                <span class="pos_gm_01">还款总额：<span class="pos_gm_04">￥<?php echo sprintf("%.2f",$total);?></span></span>
+            </div>
+        </div>
+    </div><!--欠款订单!end-->
+
+    <!--备注-->
+    <div class="pos_cz_tow pos_cz_for_bz">
+        <div class="pos_cz_for_bz01">备注</div>
+        <div class="pos_cz_for_bz02">
+            <div class="pos_cz_for_bz02_son"><textarea rows="4"></textarea></div>
+        </div>
+    </div><!--备注!end-->
+
+    <!---->
+    <div class="pos_cz_tow pos_cz_zh before">
+        <a href="javascript:" class="pos_cz_zh_an">
+            <!--<img src="<?php /*echo $this->basePath('public');*/?>/images/pos_cz_10.png" />-->
+            提交订单
+        </a>
+        <div class="pos_cz_zh_01">应付总金额：<span class="pos_cz_zh_02">￥<?php echo sprintf("%.2f",$total);?></span></div>
+    </div><!--!end-->
+
+    <!---->
+    <div class="pos_cz_tow pos_cz_zh after" style="display: none;">
+        <a href="javascript:" class="pos_cz_zh_an_hover">
+            <!--<img src="<?php /*echo $this->basePath('public');*/?>/images/pos_cz_011.png" />-->
+            正在提交订单
+        </a>
+        <div class="pos_cz_zh_03">应付总金额：<span class="pos_cz_zh_02">￥<?php echo sprintf("%.2f",$total);?></span></div>
+    </div><!--!end-->
+</div>
+<!--content_right_con!end-->
+
+<!--tjfj-->
+<div class="tjfj" style="top:100px; display:none;z-index: 1;">
+
+</div>
+
+{__TOKEN__}
+
+<script type="text/javascript">
+
+    //收起效果
+    $(".pos_cz_tow_top_r").click(function(){
+        var self=$(this);
+        self.parent().next().slideToggle("fast",function(){
+            //alert("Animation Done.");
+            if(self.hasClass("pos_cz_tow_top_rcl")){
+                self.removeClass("pos_cz_tow_top_rcl");
+            }else{
+                self.addClass("pos_cz_tow_top_rcl");
+            }
+        });
+    });
+
+    $("input[name='cash[]']").blur(function(){
+        var reg = /^\+?[1-9][0-9]*$/;
+        var total=0;
+        if($(this).val()!=''&&!reg.test($(this).val())){
+            Idialog.tips("请输入正整数",2);
+            $(this).val('');
+        }else{
+            $("input[name='cash[]']").each(function(){
+                if($(this).val()!=''){
+                    total += parseInt($(this).val());
+                }
+            });
+            $(".add_capitals").each(function(){
+                if($(this).val()!=''&&reg.test($(this).val())){
+                    total += parseInt($(this).val());
+                }
+            });
+        }
+        $('.pos_cz_tow_two04').find('em').text(total.toFixed(2));
+        $('.pos_cz_zh_02').html('￥'+total.toFixed(2));
+        $('.pos_gm_04').html('￥'+total.toFixed(2));
+    });
+
+    $(".add_capitals").click(function(){
+        var url="<?php echo $this->url('capitals_view',array('id'=>empty($model->o_s->cu_id)?$_GET['id']:$model->o_s->cu_id))?>";
+        var _self = $(this);var capitals = _self.parents(".order_detail").find("input[name='capitals[]']").val();
+        $.post(url,
+            {'param':_self.attr('datatype'),cu_id:'<?php echo empty($model->o_s->cu_id)?$_GET['id']:$model->o_s->cu_id?>',capitals:capitals},
+            function(html){
+                $('.tjfj').html(html);
+                var title = $("#tck_title").val();
+                var d = Idialog({
+                    top:150,
+                    width:550,
+                    title:title,
+                    content:$('.tjfj'),
+                    close:function(e){
+                        $(".idialog").remove();
+                    },
+                    cancel:function(e){
+                        $(".idialog").remove();
+                    },
+                    ok:function(obj){
+                        var detail_id = $("#tck").val();
+                        $('.tjfj').empty();
+                        var data=[],cash= 0,flat=true,msg='';
+                        $("input[name='add_capitals[]']").each(function(){
+                            var reg = /^\+?[1-9][0-9]*$/;
+                            if($(this).val()!=''&&!reg.test($(this).val())){
+                                msg = '请输入正整数';
+                                $(this).val('');
+                                flat = false;
+                                $(this).attr('style','width: 80px;border:dashed 1px #ff0000;background-color:#fff1eb;');
+                                return false;
+                            }else{
+                                if(parseFloat($(this).val())>parseFloat($(this).attr('balance'))){
+                                    msg = '卡扣金额不能大于账户余额';
+                                    flat = false;
+                                    $(this).attr('style','width: 80px;border:dashed 1px #ff0000;background-color:#fff1eb;');
+                                    return false;
+                                }
+                                if(parseFloat($(this).val())>parseFloat($(this).attr('arrears'))){
+                                    msg = '卡扣金额不能大于欠款金额';
+                                    flat = false;
+                                    $(this).attr('style','width: 80px;border:dashed 1px #ff0000;background-color:#fff1eb;');
+                                    return false;
+                                }
+                                if($(this).val()!=''){
+                                    data.push($(this).attr('capitalid')+'|'+$(this).val());
+                                    cash += parseInt($(this).val());
+                                }
+                                $(this).attr('style','width: 80px;');
+                            }
+                        });
+                        if(flat==false){
+                            Idialog.tips(msg,2);
+                            return false;
+                        }
+                        $('#order_detail'+detail_id).find("input[name='capitals[]']").val(data.join(','));
+                        var add_capitals = $('#order_detail'+detail_id).find(".add_capitals");
+                        if(cash>0){
+                            add_capitals.val(cash);
+                            add_capitals.attr('style','');
+                            if(!add_capitals.hasClass('pos_cz_tow_two05')){
+                                add_capitals.addClass('pos_cz_tow_two05').removeClass('cpm');
+                            }
+                        }else{
+                            add_capitals.val('点击选择还款账户');
+                            add_capitals.attr('style','border: 1px solid #ccc;border-radius: 2px;height: 24px;text-align: center;color: #999999;font-size: 11px;cursor: pointer;');
+                            if(add_capitals.hasClass('pos_cz_tow_two05')){
+                                add_capitals.removeClass('pos_cz_tow_two05')
+                            }
+                        }
+                        var total=0;var reg = /^\+?[1-9][0-9]*$/;
+                        $("input[name='cash[]']").each(function(){
+                            if($(this).val()!=''){
+                                total += parseInt($(this).val());
+                            }
+
+                        });
+                        $(".add_capitals").each(function(){
+                            if($(this).val()!=''&&reg.test($(this).val())){
+                                total += parseInt($(this).val());
+                            }
+                        });
+                        $('.pos_cz_tow_two04').find('em').text(total.toFixed(2));
+                        $('.pos_cz_zh_02').html('￥'+total.toFixed(2));
+                        $('.pos_gm_04').html('￥'+total.toFixed(2));
+                    }
+                });
+                table_flash();
+
+        });
+
+    });
+
+    //数据提交
+    $(".before .pos_cz_zh_an").click(function(){
+        var post_data=submit_data();
+        if(post_data==false){
+            return false;
+        }
+        $('.pos_cz_tow.pos_cz_zh.before').hide();
+        $('.pos_cz_tow.pos_cz_zh.after').show();
+        <?php if ($model): ?>
+            var url="<?php echo $this->url('editSave',array('id'=>$model->o_s->id)) ?>";
+        <?php else: ?>
+            var url="<?php echo $this->url('addSave') ?>";
+        <?php endif ?>
+        $.post(url, post_data,function(data){
+            Idialog.tips(data.msg,2);
+            if(data.code==200){
+                //转到付款界面
+                setTimeout(function(){to_url('<?php echo $this->url("order");?>&id='+data.data)},1000);
+            }
+        }, "json");
+    });
+
+    function to_url(url){
+        window.location.href=url;
+    }
+
+    //提交保存数据构造
+    function submit_data(){
+        var data={};
+        data.__hash__ = $("input[name='__hash__']").val();//表单令牌
+        //业绩比例相关
+        data.effect=[];
+        err = false;
+        $(".effect_user").each(function(i){
+            data.effect.push({"e_id":$(this).val(),"e_rate":$(this).next().val()});
+            if($(this).next().val()==0||$(this).next().val()==''){
+                Idialog.tips("业绩不能为空",2);
+                err = true;
+            }
+        });
+        data.repay=[];
+        var total= 0,_total=0;
+        var price_check = true;var arrears=0;
+        $(".add_capitals").attr('style','');
+        $("input[name='cash[]']").attr('style','');
+        $('.order_detail').each(function(i){
+            arrears = $(this).find(".arrears").text();
+            data.repay.push({
+                "capitals":$(this).find("input[name='capitals[]']").val(),
+                "proInfo":$(this).find("input[name='proInfo[]']").val(),
+                "cash":$(this).find("input[name='cash[]']").val(),
+                "arrears":arrears
+            });
+            total=0;
+            if($(this).find("input[name='capitals[]']").val()!=''){
+                var capitals = $(this).find("input[name='capitals[]']").val().split('|');
+                total += parseInt(capitals[1]);
+            }
+            if($(this).find("input[name='cash[]']").val()!=''){
+                total += parseInt($(this).find("input[name='cash[]']").val());
+            }
+
+            if($(this).find("input[name='capitals[]']").val()!=''||$(this).find("input[name='cash[]']").val()!=''){
+                if(total>parseFloat(arrears)){
+                    $(this).find(".add_capitals").attr('style','border:dashed 1px #ff0000;background-color:#fff1eb;');
+                    $(this).find("input[name='cash[]']").attr('style','border:dashed 1px #ff0000;background-color:#fff1eb;');
+                    price_check = false;
+                }
+            }
+            _total += total;
+        });
+        if(_total==0){
+            Idialog.tips("还款金额不能为空",2);
+            err = true;
+        }
+        //整单信息-原价
+        data.price = _total;
+        //整单信息-应付金额
+        data.pay_price = _total;
+        //整单信息-原价
+        data.rebate = 100;
+
+        data.type = 0;
+
+        data.cu_id=$('.cu_info').attr("data-id");
+
+        data.note=$('.pos_cz_for_bz02_son textarea').val();
+        if(price_check==false){
+            Idialog.tips("还款金额不能大于欠款金额！",2);
+            return false;
+        }
+        if(err)
+            return false; //发生验证错误 返回false
+        return data;
+    }
+
+</script>
+
+

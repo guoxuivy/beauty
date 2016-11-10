@@ -1,0 +1,18 @@
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top" style="border-bottom: solid 1px #ddd;">已发消息 <a style="float: right;font-size: 16px;color: #006393" href="<?php echo $this->url('edit') ?>">发消息</a></div>
+	<div class="xufei_page">
+		<?php foreach ($pager['list'] as $value): ?>
+		<div class="plat_xiaoxi_list">
+			<span class="plat_xiaoxi_list_img"><img src="<?php echo $this->basePath('public');?>/images/plat_baojing.png" width="34" height="34" /></span>
+			<dl>
+			<dt><a href="<?php echo $this->url('outView',array('id'=>$value['id'])) ?>"><?php echo $value['title'] ?></a></dt>
+			<dd><?php echo date("Y-m-d H:i:s",$value['create_time'])  ?></dd>
+			</dl>
+			<div class="clear"></div>
+		</div>
+		<?php endforeach ?>
+	</div>
+	<?php echo $pager['page_code'] ?>
+</div>
+<!--content_right_con!end-->

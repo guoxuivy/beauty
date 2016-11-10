@@ -1,0 +1,113 @@
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top"> 
+		功能设置>有效会员设置 </div>
+		
+	<div class="gnsz_jf_top" style="margin-bottom: 16px;">
+		<span class="span"><input type="radio" name="auto" value="0"  <?php if($auto=='0') echo 'checked="checked"' ;?>>不开启自动更新</span>
+		<span><input type="radio" name="auto" value="1" <?php if($auto=='1') echo 'checked="checked"' ;?> >开启自动更新</span>
+	</div>
+
+	<div class="fjgl_two" style=" padding:20px 0px;">
+		<form>
+		<div class="fjgl_two_son" style="color:#666666; background:url(<?php echo $this->basePath("public"); ?>/images/2.png) no-repeat 20px; height:38px;  line-height:38px; padding-left:100px;"> 
+			<span class="span">活跃客户</span>
+			<span class="gnsz_yxh_01">
+				<?php echo $this->dropDownList('member_config',array('30'=>'30天内有到店实操','60'=>'60天内有到店实操','90'=>'90天内有到店实操'),$config,array('class'=>'gnsz_yxh_021 gnsz_yxh_02')) ?>
+			</span> 
+		</div>
+		</form>
+	</div>
+	<div class="fjgl_two gnsz_yxh_03" style=" padding:20px 0px;">
+		<div class="fjgl_two_son" style="color:#666666; background:url(<?php echo $this->basePath("public"); ?>/images/3.png) no-repeat 20px; height:38px;  line-height:38px; padding-left:100px;"> <span class="span">久档客户</span><span class="gnsz_yxh_01">
+			<input type="text" disabled="disabled" class="gnsz_yxh_021" value="<?php echo $config ?>天内未有到店实操" style="background-color: white;"/>
+			</span> </div>
+	</div>
+	<div class="fjgl_two gnsz_yxh_03" style=" padding:20px 0px;">
+		<div class="fjgl_two_son" style="color:#666666; background:url(<?php echo $this->basePath("public"); ?>/images/4.png) no-repeat 20px; height:38px;  line-height:38px; padding-left:100px;"> <span class="span">死档客户</span><span class="gnsz_yxh_01">已流失客户</span> </div>
+	</div>
+	<div class="fjgl_two" style=" margin-top:20px;">
+		<div class="fjgl_two_son" style="color:#666666; background:none; line-height:24px; padding-left:20px;">
+			&nbsp;<span>30天内有到店实操</span>
+			<div class="gnsz_yxh_04">以减肥、针灸等需要客人每月到店次数比较高的商家，可以将有效客人的判断标准定为30天。正常情况下，项目要求客人每月到店次数超过6次以上的，建议选择30天</div>
+		</div>
+	</div>
+	<div class="fjgl_two" style=" margin-top:20px;">
+		<div class="fjgl_two_son" style="color:#666666; background:none; line-height:24px; padding-left:20px;">
+			&nbsp;<span>60天内有到店实操</span>
+			<div class="gnsz_yxh_04">以常规美容美体项目为主的商家，月到店次数较高的商家，可以将有效客人的判断标准定为30天。正常情况下，项目要求客人每月到店为4次左右（每周到店1次），建议选择60天</div>
+		</div>
+	</div>
+	<div class="fjgl_two" style=" margin-top:20px;">
+		<div class="fjgl_two_son" style="color:#666666; background:none; line-height:24px; padding-left:20px;">
+			&nbsp;<span>90天内有到店实操</span>
+			<div class="gnsz_yxh_04">如商家项目要求客人每周到店不足1次的，建议选择90天</div>
+		</div>
+	</div>
+</div>
+<!--content_right_con!end--> 
+<script type="text/javascript">
+	$('select[name="member_config"] option:first').remove()
+	$('select[name="member_config"]').change(function(event) {
+		var _data=$(this).parents('form').serialize();
+		$.ajax({
+			url: window.location.href,
+			type: 'POST',
+			data: _data,
+		})
+		.done(function(html) {
+			var jobj = $.parseJSON(html);
+				if(jobj['code']=='200'){
+					var d = Idialog({
+						top:120,
+						width:500,
+						title:'通知',
+						content:'设置成功',
+						ok:function(html){
+							window.location.href=window.location.href;
+							return true;
+						},
+						cancel:false,
+					});
+				}else{
+					var d = Idialog({
+						top:120,
+						width:500,
+						title:'通知',
+						content:'设置失败',
+						ok:function(obj){
+							return true;
+						},
+						cancel:false,
+					});
+				}
+			console.log("success");
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
+		
+	});
+
+$(function(){
+	var auto = $('input[name="auto"]:checked').val();
+	if(auto=='0'){
+		$(".fjgl_two").hide();
+	}
+
+	$('input[name="auto"]').click(function(){
+		var auto = $('input[name="auto"]:checked').val();
+		$.getJSON("<?php echo $this->url('memberAuto') ;?>&auto="+auto, function(json){
+			if(json.code=="400"){
+				Idialog.tips("更新失败！",2);
+			}else{
+				window.location.href=window.location.href;
+			}
+		});
+	})
+});
+</script>

@@ -1,0 +1,32 @@
+
+
+<div class="table_title">
+    <ul>
+        <li style="min-width: 20px;"></li>
+        <li>客户</li>
+        <li>项目</li>
+        <li>实操美疗师</li>
+        <li>是否耗卡</li>
+        <li>到店时间</li>
+    </ul>
+</div>
+<?php if(!empty($list)):?>
+    <?php foreach($list as $key=>$_list):?>
+        <div class="table_list clear">
+            <ul>
+                <li class="li002"><?php echo $key+1;?></li>
+                <li class="li002"><?php echo $_list['cu_name'];?></li>
+                <li class="li001"><?php echo \ReBook::model()->getPraProNames($_list['id']);?></li>
+                <li class="li004"><?php echo implode(';',\ReBook::model()->getPraOperName($_list['id']));?></li>
+                <li class="li005"><?php echo $_list['status']==1?'耗卡':'未耗卡';?></li>
+                <li class="li005"><?php echo $_list['last_time'];?></li>
+            </ul>
+        </div>
+    <?php endforeach;?>
+<?php else:?>
+    <div class="table_list clear">
+        <ul style="margin-left: 350px;">
+            暂无数据！
+        </ul>
+    </div>
+<?php endif;?>

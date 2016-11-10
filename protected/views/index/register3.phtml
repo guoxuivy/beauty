@@ -1,0 +1,272 @@
+<?php
+	$themePath = $this->basePath('public');
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>HOWA连锁管控平台-注册</title>
+<link href="<?php echo $this->basePath('public'); ?>/css/login.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?php echo $this->basePath('public/js/jquery.js'); ?>"></script>
+<script src="<?php echo $this->basePath('public'); ?>/js/Idialog.js" type="text/javascript"></script>
+<link href="<?php echo $this->basePath('public/js/Validform/Validform_style.css'); ?>" rel="stylesheet">
+<script type="text/javascript" src="<?php echo $this->basePath('public/js/PCASClass.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo $this->basePath('public/js/Validform/Validform_v5.3.2_min.js'); ?>"></script>
+
+<!--
+<script id="adLayer" type="text/javascript" src="<?php echo $this->basePath('public/js/King_Chance_Layer.js');?>" data="<?php echo $themePath;?>"></script>
+-->
+<style type="text/css">
+	.idialog_tips {
+		background-color: #fff;
+		border: 1px solid #00dddd;
+		left: 50%;
+		overflow: hidden;
+		padding: 20px;
+		position: fixed;
+		top: 200px;
+		z-index: 999;
+	}
+	#loading {
+		position:fixed;
+		left:0;
+		width:100%;
+		height:100%;
+		top:0;
+		background:rgb(0, 0, 0);
+		opacity:0.5;
+		filter:alpha(opacity=50);
+	}
+	#loading div{
+		position:absolute;  cursor1:wait;left:50%;top:50%;width:auto;height:16px;padding:13px 22px 28px 30px;background: url(<?php echo $this->basePath('public');?>/images/loading.gif) no-repeat scroll 5px 10px;text-indent: -99999px;color:#000;
+	}
+</style>
+</head>
+<body>
+
+	<div class="top">
+		<div class="top_center">
+			<span id="go_back_home" style="float: right; background-color: #fff; border: solid 1px #ddd; display: inline-block; line-height: 25px; height: 25px; padding-left: 15px; padding-right: 15px; color: #666; font-size: 12px; margin-top: 25px; cursor: pointer;">返回首页</span>
+			<div class="logo">
+				<img src="<?php echo $this->basePath('public'); ?>/images/howa_logo.png" width="170" height="42" />
+			</div>
+			<span class="logo_span">注册</span>
+		</div>
+	</div>
+	<div class="advertising">
+		<div class="advertising_page">
+			<a href="###"><img src="<?php echo $themePath; ?>/images/top.jpg"></a><br><br>
+	    </div>
+	</div>
+	<div class="page">
+		<div class="page_tit buzhou_3">
+			<ul>
+		    	<li class="buzhou_visit">1、基本资料</li>
+		        <li class="buzhou_visit">2、选择版本</li>
+				<li class="buzhou_1_li">3、上传营业执照</li>
+		        <li class="buzhou_visit">4、完成</li>
+		    </ul>
+		</div>
+	<div class="main">
+		<form class="post_form" action="<?php echo $this->url('register3'); ?>" method="post">
+		<div class="main_left_pp">
+			<div class="plat_list_tit">HOWA智能云平台信息填写</div>
+			<input name="has_invo" type="hidden"  value="<?php echo $has_invo ?>" />
+			<div class="plat_list">
+				<div class="plat_list_left">老板姓名</div>
+				<div class="plat_list_right">
+				<input datatype="*" name="boss_name" type="text" class="input_1" value="" />
+				<p></p>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="plat_list">
+				<div class="plat_list_left">公司名称</div>
+				<div class="plat_list_right">
+				<input datatype="*" name="comp_name" type="text" class="input_1" value="" />
+				<p>需与营业执照上的名称完全一致，信息审核成功后，企业名称不可修改。</p>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="plat_list">
+				<div class="plat_list_left">总部地址</div>
+				<div class="plat_list_right">
+					<select datatype="*" name="pca_province" id="pca_province" class="select_1" ></select>
+					<select datatype="*" name="pca_city" id="pca_city" class="select_1" ></select>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="plat_list">
+				<div class="plat_list_left">详细地址</div>
+				<div class="plat_list_right"><input datatype="*" name="address" type="text" class="input_1" value="" /><!--<p class="red_text">密码不一致</p>--></div>
+				<div class="clear"></div>
+			</div>
+			<div class="plat_list">
+				<div class="plat_list_left">门店数量</div>
+				<div class="plat_list_right">
+					<select datatype="*" name="store_num" class="select_2">
+						<option value="">--请选择--</option>
+						<?php for($i = 1; $i <= 50; $i++): ?>
+						<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+						<?php endfor; ?>
+					</select>
+				<p>标准版最多可创建3家门店,超过3家将额外收取软件费。<!--<a href="#" target="_blank">收费说明</a>--></p>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="plat_list">
+				<div class="plat_list_left">营业执照</div>
+				<div class="plat_list_right">
+					<p style="clear:none; padding-bottom:10px;">请上传营业执照原件的<font style="color:#f00; font-weight:bold;">高清彩色</font>扫描件或数码照
+在有效期内且年检章齐全（当年成立的可无年检章）
+由中国大陆工商局或市场监督管理局颁发
+支持.jpg .jpeg .png .bmp格式照片，大小不超过4M。</p>
+					<div class="zhizhao"></div>
+					<textarea style="display:none;" id="avatar" name="avatar"></textarea>
+					<div class="zhizhao_update">上传</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+
+
+<?php if ($has_invo=='Y'): ?>
+<div class="plat_list_tit"><span><a href="http://kf.qq.com/faq/120911VrYVrA130805byM32u.html" target="_blank">什么是微信服务号？</a></span>微信功能信息填写</div>
+<div class="plat_list">
+	<div class="plat_list_left">微信服务号</div>
+	<div class="plat_list_right">
+		<div class="three_you">
+			<span><input class="hs_sn" name="server_sn" type="radio" value="" />&nbsp;已有微信服务号</span>
+			<p style="padding-left:18px;">如您之前已申请有微信服务号，请提供服务号的账号和密码，以便于我们进行相关配置。</p>
+		</div>
+		<div class="three_you">
+			<span><input class="no_sn" name="server_sn" type="radio" value="" />&nbsp;没有微信服务号</span>
+			<p style="padding-left:18px;">如您从未申请过微信服务号，请前往微信平台自行注册微信服务号，<a href="https://mp.weixin.qq.com/cgi-bin/readtemplate?t=register/step1_tmpl&amp;lang=zh_CN" target="_blank">立即前往注册</a></p>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+<div class="plat_list has_server" style="display:none;">
+	<div class="plat_list_left">已有服务号</div>
+	<div class="plat_list_right">
+		<div class="serv_biao">
+			<div class="plat_list">
+				<div class="plat_list_left">服务号账号</div>
+				<div class="plat_list_right">
+					<input type="text" class="input_1" name="wx_server_sn" value="" />
+					<p>请输入微信服务号账号</p>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="plat_list">
+				<div class="plat_list_left">服务号密码</div>
+				<div class="plat_list_right">
+					<input type="password" class="input_1" name="wx_server_pass" value="" />
+					<p>请输入微信服务号密码</p>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+<?php endif ?>	
+
+
+
+			<div class="start_goto"><!-- <a href="注册2.html" class="go_back">上一步</a> --><a id="form_submit" href="javascript:;"class="next_button">提 交</a></div>
+		</div>
+		</form>
+	</div>
+
+<!-- 头像裁剪隐藏域 -->
+<div class="avatar_box" style="width:550px;display:none">
+    <div class="imageBox">
+        <div class="thumbBox"></div>
+        <div class="spinner" style="display: none">Loading...</div>
+    </div>
+</div>
+<input type="file" id="file" style="display:none;">
+<!-- 头像裁剪隐藏域 -->
+
+	</div>
+	<div class="footer">
+		<div class="footer_center">© Copyright 2011-2016 武汉好哇商业技术有限公司
+			鄂ICP备14003221号</div>
+	</div>
+
+</body>
+</html>
+
+
+
+
+<!--content_right_con!end-->
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/cropbox-min.js"></script>
+<script type="text/javascript">
+window.onload = function() {
+    var options =
+    {
+        imageBox: '.imageBox',
+        thumbBox: '.thumbBox',
+        spinner: '.spinner',
+        imgSrc: ''
+    }
+    var cropper = new cropbox(options);
+    document.querySelector('#file').addEventListener('change', function(){
+        var reader = new FileReader();
+        reader.onload = function(e) {
+        	if(e.total>1024000){
+        		alert('图片大于1M，请处理后上传。');
+        		return;
+        	}
+            options.imgSrc = e.target.result;
+            cropper = new cropbox(options);
+
+        	var img = e.target.result;
+        	document.querySelector('.zhizhao').innerHTML = '<img width="152px" height="152px" src="'+img+'">';
+        	document.querySelector('#avatar').innerHTML = img;
+        }
+        reader.readAsDataURL(this.files[0]);
+        this.files = [];
+
+    })
+
+};
+
+$('.zhizhao_update').click(function() {
+	$("#file").trigger("click");
+});
+</script>
+
+<script type="text/javascript">
+new PCAS("pca_province,--省--","pca_city,--市--");
+
+$('#go_back_home').click(function() {
+	var url = 'http://www.howa.com.cn';
+	window.location.href = url;
+});
+
+$(".hs_sn").click(function(){
+	$('.has_server').show();
+});
+$(".no_sn").click(function(){
+	$('.has_server').hide();
+});
+
+$('#form_submit').click(function() {
+	$('.post_form').submit();
+});
+
+//提交前验证
+$('.post_form').Validform({
+	tiptype:3,
+	ignoreHidden:true,
+	beforeSubmit:function() {
+		if($('#avatar').val()==""){
+			Idialog.tips("请上传营业执照！",3);
+			return false;
+		}
+		return true;
+	}
+});
+</script>

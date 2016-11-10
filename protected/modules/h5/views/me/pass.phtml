@@ -1,0 +1,115 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+    <title>HOWA</title>
+
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileColor" content="#0e90d2">
+
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/amazeui.min.css">
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/app.css">
+</head>
+<body class="has-header has-nav">
+
+<header class="am-text-center am-padding-sm fixed-top">
+    <div class="am-fl"><i class="am-icon-angle-left am-icon-sm">&nbsp;&nbsp;&nbsp;</i></div>
+    <b>修改密码</b>
+    <div class="am-fr">确定</div>
+</header>
+
+<form id="change-password-form" class="am-margin-top-sm">
+<ul class="am-list">
+    <li class="am-padding-sm">
+        <div class="am-form-group am-form-icon am-margin-bottom-0">
+            <i class="am-icon-lock"><span class="am-padding-left-sm">原密码：</span></i>
+            <input class="am-form-field am-text-right no-border" type="text" name="oldpass" placeholder="请输入原密码（必填）">
+        </div>
+    </li>
+</ul>
+
+<ul class="am-list">
+    <li class="am-padding-sm">
+        <div class="am-form-group am-form-icon am-margin-bottom-0">
+            <i class="am-icon-lock"><span class="am-padding-left-sm">新密码：</span></i>
+            <input class="am-form-field am-text-right no-border" type="text" name="newpass" placeholder="请输入新密码（必填）">
+        </div>
+    </li>
+</ul>
+
+<ul class="am-list">
+    <li class="am-padding-sm">
+        <div class="am-form-group am-form-icon am-margin-bottom-0">
+            <i class="am-icon-lock"><span class="am-padding-left-sm">确认密码：</span></i>
+            <input class="am-form-field am-text-right no-border" type="text" name="dnewpass" placeholder="再次输入新密码（必填）">
+        </div>
+    </li>
+</ul>
+</form>
+
+<nav>
+    <ul class="am-avg-sm-3">
+        <li class="am-text-center"><i class="am-icon-md am-icon-home"></i><div>首页</div></li>
+        <li class="am-text-center"><i class="am-icon-md am-icon-bar-chart"></i><div>数据报表</div></li>
+        <li class="am-text-center active"><i class="am-icon-md am-icon-user"></i><div>我</div></li>
+    </ul>
+</nav>
+
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/jquery.min.js"></script>
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/amazeui.min.js"></script>
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/my.js"></script>
+
+
+<script>
+$(function(){
+    $('.am-fr').click(function(){
+        var oldpass = $('input[name="oldpass"]').val();
+        var newpass = $('input[name="newpass"]').val();
+        var dnewpass = $('input[name="dnewpass"]').val();
+        if(oldpass==''||newpass==''||dnewpass=='') {
+            alert('请填写完整！');
+            return false;
+        }
+        if(newpass!=dnewpass) {
+            alert('重复密码不一致！');
+            return false;
+        }
+        $.post("<?php echo $this->url('pass') ?>", { old_pw: oldpass, new_pw: newpass },function(json){
+            alert(json.msg);
+            if(json.code==200){
+                to_url('<?php echo $this->url("index") ?>');
+            }
+        }, "json");
+
+    });
+
+    $('.am-fl').click(function(){
+        to_url('<?php echo $this->url("index") ?>')
+    });
+    
+});
+</script>
+
+</body>
+</html>
+
+

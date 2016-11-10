@@ -1,0 +1,266 @@
+
+        <!--content_right_con-->
+        <div class="content_right_con">
+          <div class="content_right_con_top">
+             <!--<div class="fjgl_top_r">
+              <a href="javascript:" class="fjgl_top_r_04">导出</a><a href="javascript:" class="fjgl_top_r_01">筛选</a><a href="javascript:" class="fjgl_top_r_02 tjfjz">新建出库</a>
+             </div>-->
+             仓库管理>出库记录>新建出库
+          </div>
+          <div class="fjgl_two" >
+               <div class="ck_splb_ckjl_01 ck_splb_ckjl_01_l">出库日期：<?php echo $model->create_time?date('Y-m-d',$model->create_time):date('Y-m-d'); ?></div>
+               <div class="ck_splb_ckjl_01 ck_splb_ckjl_01_m">部门：<?php echo \EmployDept::getSName($model->dept_id?$model->dept_id:\Ivy::app()->user->dept_id); ?></div>
+               <div class="ck_splb_ckjl_01 ck_splb_ckjl_01_r">制单人：<?php echo \EmployUser::getUserNames($model->create_user?$model->create_user:\Ivy::app()->user->id); ?></div>
+          </div>
+          
+         <div class="ck_splb_ckjl_top">
+             <div class="ck_splb_ckjl_top_l">出库类型：</div>
+             <div class="ck_splb_ckjl_top_r">
+                 <div class="ck_splb_ckjl_top_r_son">
+                    <?php echo $this->dropDownList('type',$model->getType(null,true),$model->type,array('class'=>'ck_splb_ckjl_top_01 action_type'));?>
+                    
+                     <span class="ck_splb_ckjl_top_02 action_dx">出库对象：</span>
+                     <select name="to_id" type="text" class="ck_splb_ckjl_top_01 action_dx action_dx_se"></select>
+                 </div>
+             </div>
+         </div> 
+         
+         
+         <div class="ck_splb_ckjl_top">
+             <div class="ck_splb_ckjl_top_l">出库商品：</div>
+             <div class="ck_splb_ckjl_top_r">
+                 <div class="ck_splb_ckjl_top_r_son">
+                     <div class="ck_splb_ckjl_top_03 action_add">选择商品</div>
+                     <!--赠送-->
+                    <div class="pos_cz_tow" style=" margin-top:0px;">
+                        
+                        <div class="pos_cz_tow_two">
+                            <!--table_container-->  
+                            <div class="table_container" style=" border:none">
+                               <!--table_con-->
+                               <div class="table_con">
+                                  <!--table_con_son-->
+                                   <div class="table_con_son">
+                                     <div class="table_title">
+                                       <ul>
+                                         <li>商品分类</li>
+                                         <li>品牌或系列</li>
+                                         <li>商品名称</li>
+                                         <li>商品编码</li>
+                                         <li>规格</li>
+                                         <li>单位</li>
+                                         <li>出库数量</li>
+                                         <li>操作</li>
+          
+                                       </ul>
+                                    </div>
+ 
+                                    <?php if ($model):?>
+                                        <?php if($model->detail)foreach ($model->detail as $pro): ?>
+                                        <div  data-id="<?php echo $pro['product_id']; ?>"  class="table_list clear">
+                                            <ul>
+                                                <li class="li001"><?php echo $pro['top_name'] ?></li>
+                                                <li class="li002"><?php echo $pro['c_name'] ?></li>
+                                                <li class="li003"><?php echo $pro['p_name'] ?></li>
+                                                <li class="li004"><?php echo $pro['p_code'] ?></li>
+                                                <li class="li005"><?php echo $pro['p_specs'] ?></li>
+                                                <li class="li006"><?php echo $pro['p_unit'] ?></li>
+                                                <li class="li007"><input type="text" value="<?php echo $pro['out_num'] ?>" data-pro-id="<?php echo $pro['product_id'];?>" data-max-num="<?php echo $pro['max_num'] ?>" class="pos_cz_tow_two05"></li>
+                                                <li class="li008"><a class="delete c_del" href="javascript:">删除</a></li>
+                                            </ul>
+                                        </div>
+                                        <?php endforeach ?>
+                                     <?php endif ?>
+
+                                 </div><!--table_con_son!end-->
+                               </div><!--table_con!end-->
+                             </div>
+                            <!--table_containter!end-->
+                            <div class="pos_cz_tow_two_two pos_cz_qr_top_02"><span class="spantj action_add">继续添加</span></div>
+                        </div>
+                    </div><!--赠送!end-->
+                 </div>
+             </div>
+         </div> 
+         
+         
+         <div class="ck_splb_ckjl_top">
+             <div class="ck_splb_ckjl_top_l">备注：</div>
+             <div class="ck_splb_ckjl_top_r">
+                 <div class="ck_splb_ckjl_top_r_son">
+                     <textarea rows="4" class="order_note" style=" width:98%;"><?php echo $model->note ?></textarea>
+                 </div>
+             </div>
+         </div> 
+         
+         
+         <div class="ck_splb_ckjl_top">
+             <div class="ck_splb_ckjl_top_l"></div>
+             <div class="ck_splb_ckjl_top_r">
+                 <div class="ck_splb_ckjl_top_r_son">
+                     <a href="javascript:" class="ck_splb_ckjl_top_04 ck_splb_ckjl_top_05 c_submit" status=1>确认出库</a>
+                     <a href="javascript:" class="ck_splb_ckjl_top_04">取 消</a>
+                     <!-- <a href="javascript:" class="ck_splb_ckjl_top_04 c_submit" status=0>暂缓出库</a> -->
+                     
+                 </div>
+             </div>
+         </div> 
+          
+        </div>
+        <!--content_right_con!end-->
+{__TOKEN__}
+<div class="none" id="widget_product">
+<?php echo \Ivy::app()->widget('common/selectProduct',"rich"); ?>
+</div>
+<script type="text/javascript">
+    //选择出库类型
+    $('.action_type').change(function(event) {
+        /* Act on the event */
+        $('.action_dx_se').empty();
+        if ($(this).val()==2) {//领用
+            $('.action_dx').hide();
+        } else
+        {
+            $('.action_dx').show();
+            $.get('<?php echo $this->url("getobj")?>&type='+$(this).val(), function(data) {
+                json = eval('('+data+')');
+                data=json.msg;
+                //console.log(json.msg);
+                $.each(json.msg, function(index, val) {
+                    $('.action_dx_se').append('<option value="'+index+'">'+val+'</option>');
+                     
+                });
+  
+            });
+        }
+    });
+    <?php if(isset($_GET['type'])): ?>
+    $('.action_type').val(<?php echo $_GET['type'];?>).trigger('change');
+    <?php endif; ?>
+    //删除产品
+    $(document).on('click', '.c_del', function(event) {
+        event.preventDefault();
+        /* Act on the event */
+        $(this).closest('.table_list').remove();
+    });
+    //添加产品
+    $('.action_add').click(function(event) {
+        /* Act on the event */
+        var d = Idialog({
+            top:150,
+            width:800,
+            title:'添加产品',
+            content:$('#widget_product'),
+            cancel:false,
+            ok:function(obj){
+                var _self=obj._self;
+                var has_list = $('.table_list');//已经存在的列
+                var pro_k=has_list.length;//当前序号
+
+                var result_list=_self.find('.result_pro li');
+                $.each( result_list, function(i, pro){
+                    pro=$(pro);
+                    var p_name=pro.attr('data-name');
+                    var p_id=pro.attr('rel');
+                    var p_num=pro.attr('data-num');
+                    var p_price=pro.attr('data-price');
+                    var p_unit=pro.attr('data-unit');//产品规格
+                    var max_num=pro.attr('data-max-num');
+                    //如果存在 则略过
+                    if(has_list.filter("[data-id='"+p_id+"']").length>0) return ;
+
+                    var str  ='<div class="table_list clear" data-id="'+p_id+'"><ul>';
+                        str +='<li class="li001">'+pro.attr('data-top_name')+'</li>';
+                        str +='<li class="li002">'+pro.attr('data-c_name')+'</li>';
+                        str +='<li class="li003">'+p_name+'</li>';
+                        str +='<li class="li004">'+pro.attr('data-code')+'</li>';
+                        str +='<li class="li005">'+pro.attr('data-specs')+'</li>';
+                        str +='<li class="li006">'+p_unit+'</li>';
+                        str +='<li class="li007"><input type="text" class="pos_cz_tow_two05" value="1" data-pro-id="'+p_id+'" data-max-num="'+max_num+'" /></li>';
+                        str +='<li class="li008"><a href="javascript:" class="delete c_del">删除</a></li>';
+                        str +='</ul></div>';
+                    
+                    $('.table_con_son').append(str);
+                    pro_k++;
+                });
+                table_flash();
+            }
+        });
+    });
+//数据提交
+    $(".c_submit").click(function(){
+        submit(this);
+    });
+    function submit(obj){
+        var post_data=submit_data(obj);
+        if(post_data==false){
+            return false;
+        }
+
+        $(obj).html("正在提交订单...").off();
+
+        <?php if ($model): ?>
+        var url="<?php echo $this->url('save',array('id'=>$model->id)) ?>";            
+        <?php else: ?>
+        var url="<?php echo $this->url('save') ?>";  
+        <?php endif ?>
+        $.post(url, post_data,function(data){
+            $(obj).click(function(){
+                    submit(obj);
+                }).html('确认出库');
+            Idialog.tips(data.msg,2);
+            if(data.code==200){
+                //转到付款界面
+                setTimeout(function(){to_url('<?php echo $this->url("index");?>&id='+data.data)},3000);
+            }
+
+        }, "json");
+    }
+    //提交保存数据构造
+    function submit_data(obj){
+        var err=false;
+        var data={};
+        data.__hash__ = $("input[name='__hash__']").val();//表单令牌
+        data.type=$("select[name='type']").val();
+        if(data.type=='')
+        {
+            Idialog.tips("请选择出库类型",2);
+            err = true;
+        }
+        data.to_id=$("select[name='to_id']").val();
+        if(data.to_id=='' && $("input[name='to_id']").is(':visible'))
+        {
+            Idialog.tips("请选择出库对象",2);
+            err = true;
+        }
+        data.status=$(obj).attr('status');
+        var is_not_null=false;//检查订单数据是否为空
+        //出口商品和数量
+        data.detail=[];
+        $(".table_list").each(function(i){
+            num=parseInt($(this).find(".pos_cz_tow_two05").val());
+            max_num=parseInt($(this).find(".pos_cz_tow_two05").attr('data-max-num'));
+            if(num>max_num){
+                Idialog.tips("出库数量不足！",2);
+                err = true;
+                return false;
+            }else{
+                is_not_null=true;
+                data.detail.push({
+                    "pro_id":$(this).attr("data-id"),
+                    "num":num,
+                });
+            }
+        });
+        data.note=$('.order_note').val();
+
+        if(err)
+            return false; //发生验证错误 返回false
+        
+        if (is_not_null==false) {
+            Idialog.tips("出库商品不能为空",2);
+            err = true;
+        };
+        return data;
+    }
+</script>

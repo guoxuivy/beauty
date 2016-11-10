@@ -1,0 +1,152 @@
+<!--content_right_con-->
+
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r"> 
+			<!--<a href="javascript:" class="fjgl_top_r_03">批量上传</a><a href="javascript:" class="fjgl_top_r_01">筛选</a><a href="javascript:" class="fjgl_top_r_02 tjfjz">新建账户</a>--> </div>
+		功能设置>积分设置 </div>
+	<div class="fjgl_two">
+		<div class="fjgl_two_son" style="color:#666666; background:none; line-height:24px; padding-left:20px;">对积分账户的含义进行说明的文字对积分账户的含义进行说明的文字对积分账户的含义进行说明的文字对积分账户的含义进行说明的文字对积分账户的含义进行说明的文字对积分账户的含义进行说明的文字对积分账户的含义进行说明的文字对积分账户的含义进行说明的文字对积分账户的含义进行说明的文字对积分账户的含义进行说明的文字对积分账户的含义进行说明的文字对积分账户的含义进行说明的文字 </div>
+	</div>
+	<form id="config">
+		<div class="gnsz_jf_top"> <span <?php if($config['openAll']=='true'): ?>class="span"<?php endif; ?>>
+			<input type="radio" name="score_config[openAll]" value="true" <?php if($config['openAll']=='true'): ?> checked="checked" <?php endif; ?>/>
+			开启积分账户</span><span <?php if($config['openAll']=='false'): ?>class="span"<?php endif; ?>>
+			<input type="radio" name="score_config[openAll]" value="false" <?php if($config['openAll']=='false'): ?> checked="checked" <?php endif; ?>/>
+			不开启积分账户</span> </div>
+		<div class="gnsz_xs_01"> 选择积分获得方式 </div>
+		
+		<!--gnsz_xs-->
+		<div class="gnsz_xs gnsz_jf_two action_view">
+			<div class="gnsz_jf_two_top">购买获得积分&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="score_config[openBySale]" value="true" <?php if($config['openBySale']=='true'): ?> checked="checked" <?php endif; ?>/>
+				&nbsp;<span <?php if($config['openBySale']=='true'): ?>class="span"<?php endif; ?>>开启</span>&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="score_config[openBySale]"  value="false" <?php if($config['openBySale']=='false'): ?> checked="checked" <?php endif; ?>/>
+				&nbsp;<span <?php if($config['openBySale']=='false'): ?>class="span"<?php endif; ?>>不开启</span></div>
+			<div class="gnsz_jf_two_two">客户通过购买或充值方式，完成交易后，系统根据设定的比例，将客户消费的现金金额换算成相应的积分</div>
+			<!--fjgl_th-->
+			<div class="fjgl_th413" style="width:60%; padding-bottom:0px;">
+				<div class="fjgl_th_toplk">
+					<ul>
+						<li class="gnsz_jf_1">积分状态</li>
+						<li class="gnsz_jf_2">积分范围</li>
+						<li class="gnsz_jf_3">积分比例</li>
+						<li class="gnsz_jf_4" style="text-align:center;">操作</li>
+					</ul>
+				</div>
+				<div class="fjgl_th_th clear">
+					<ul>
+						<li class="gnsz_jf_11"><?php echo $config['openBySale']=='true'?'开启':'关闭' ?></li>
+						<li class="gnsz_jf_21"><?php echo \CompanyInfo::getScoreFor($config['scoreFor']);?></li>
+						<li class="gnsz_jf_31">消费金额1元=<?php echo $config['scoreBl'] ?>积分 </li>
+						<li class="gnsz_jf_41" style="text-align:center"><a class="action_edit" href="javascript:">修改</a></li>
+					</ul>
+				</div>
+			</div>
+			<!--fjgl_th-->
+			
+			<div class="gnsz_jf_two_th">
+				<div class="gnsz_jf_two_top">赠送获得积分&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="score_config[openByGive]"  value="true" <?php if($config['openByGive']=='true'): ?> checked="checked" <?php endif; ?>/>
+					&nbsp;<span <?php if($config['openByGive']=='true'): ?>class="span"<?php endif; ?>>开启</span>&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="score_config[openByGive]"  value="false" <?php if($config['openByGive']=='false'): ?> checked="checked" <?php endif; ?>/>
+					&nbsp;<span <?php if($config['openByGive']=='false'): ?>class="span"<?php endif; ?>>不开启</span></div>
+				<div class="gnsz_jf_two_for">允许门店前台对客户进行积分赠送的操作（客户即使未消费，也可以获得积分）</div>
+			</div>
+		</div>
+		<div class="tjfj edit none" style="display: block;">
+			<div class="tjfj_two">
+				<div class="list">
+					<label>积分范围：</label>
+					<div style="margin-left: 100px;"> <?php echo $this->dropDownList('score_config[scoreFor]',\CompanyInfo::getScoreFor(),$config['scoreFor'],array('class'=>'scoreFor')) ?> </div>
+				</div>
+				<div class="list">
+					<label>积分比例：</label>
+					<div style="margin-left: 100px;">
+						<input type="text" placeholder="1元=" class="gysgl_07 inputxt scoreBl" name="score_config[scoreBl]" value="<?php echo $config['scoreBl'] ?>"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<!--gnsz_xs!end--> 
+</div>
+<!--content_right_con!end--> 
+<script type ="text/javascript">
+	$(function(){
+		$('input[name="score_config[openAll]"]:radio:checked').trigger('click');
+	});
+	
+	$('input[name="score_config[openAll]"]').click(function(event) {
+		if ($(this).val()=='false') {
+			$('.action_view').hide();
+		}else{
+			$('.action_view').show();
+		}
+	})
+	
+	//修改
+	$(document).on('click','.action_edit',function(){
+		var d = Idialog({
+			top:120,
+			width:600,
+			title:'修改',
+			content:$('.edit'),
+			ok:function(obj){
+				console.log(obj._self.find('.scoreBl').val())
+				$('.scoreFor').val(obj._self.find('.scoreFor').val());
+				$('.scoreBl').val(obj._self.find('.scoreBl').val());
+
+				$('input').trigger('change')
+				return true;
+			},
+			init:function(self){
+				
+			}
+		});
+	});
+	$('#config input').change(function(event) {
+		var _data=$(this).closest('form').serialize();
+		$.ajax({
+			url: window.location.href,
+			type: 'POST',
+			data: _data,
+		})
+		.done(function(html) {
+			var jobj = $.parseJSON(html);
+				if(jobj['code']=='200'){
+					var d = Idialog({
+						top:120,
+						width:500,
+						title:'通知',
+						content:'设置成功',
+						ok:function(html){
+							window.location.href=window.location.href;
+							return true;
+						},
+						cancel:false,
+					});
+				}else{
+					var d = Idialog({
+						top:120,
+						width:500,
+						title:'通知',
+						content:'设置失败',
+						ok:function(obj){
+							return true;
+						},
+						cancel:false,
+					});
+				}
+			console.log("success");
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
+		
+	});
+</script>

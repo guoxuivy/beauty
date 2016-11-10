@@ -1,0 +1,288 @@
+
+<link href="<?php echo $this->basePath('public');?>/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="<?php echo $this->basePath('public');?>/umeditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?php echo $this->basePath('public');?>/umeditor/umeditor.min.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/umeditor/lang/zh-cn/zh-cn.js"></script>
+
+<style type="text/css">
+.search_cu_id_list{position: absolute;width: 310px;background-color: wheat}
+.search_cu_id_list li{cursor: pointer;padding-left: 5px;}
+.search_cu_id_list li:hover{background-color:#B5EEEB;}
+
+#zjl ,#mdjl ,#qt{display: none;}
+</style>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top" style="border-bottom:solid 1px #ddd;">消息中心</div>
+	<div class="xufei_page">
+    <form class="sms_form">
+		<div class="message_list">
+			<div class="message_list_left">发送目标：</div>
+			<div class="message_list_right">
+				<div class="message_list_xuan">
+					<div class="message_list_xuan_list">
+						<input id="to_uids" name="to_uids" type="hidden" value="" />
+						<dl>
+							<dt>选择公司：</dt>
+							<dd>
+							<div style="display: inline-block;">
+							    <input type="hidden" value="" id="search_comp_id">
+							    <input class="search_cu_input_19401  message_input" type="text" value="" placeholder="搜索" style="width:300px;">
+							    <ul class="search_cu_id_list"></ul>
+							</div>
+							</dd>
+							<div class="clear"></div>
+						</dl>
+						<dl>
+							<dt>选择职位：</dt>
+							<dd>
+								<div class="message_zhiwei">
+
+										<!-- <span class="message_zhiwei_mo">所有人</span> -->
+										<span rel='zjl' class="zhiwei message_zhiwei_alink">总经理</span>
+									<!-- <span class="message_zhiwei_visit">总经理</span> -->
+										<span rel='mdjl' class="zhiwei message_zhiwei_alink">门店经理</span>
+										<span rel='qt' class="zhiwei message_zhiwei_alink">前台</span>
+							 	</div>
+							</dd>
+							<div class="clear"></div>
+						</dl>
+						<div id="zw_list">
+						<dl id="zjl">
+							<dt>总经理：</dt>
+							<dd>
+								<div class="message_zhiwei">
+							 	</div>
+							</dd>
+							<div class="clear"></div>
+						</dl>
+						<dl id="mdjl">
+							<dt>门店经理：</dt>
+							<dd>
+								<div class="message_zhiwei">
+							 	</div>
+							</dd>
+							<div class="clear"></div>
+						</dl>
+						<dl id="qt">
+							<dt>前台：</dt>
+							<dd>
+								<div class="message_zhiwei">
+							 	</div>
+							</dd>
+							<div class="clear"></div>
+						</dl>
+						</div>
+					</div>
+					<!-- <div class="message_more" ><span>添加公司</span></div> -->
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="message_list">
+			<div class="message_list_left">消息标题：</div>
+			<div class="message_list_right"><input id="title" name="title" type="text" class="message_input" style="width:500px;"/></div>
+			<div class="clear"></div>
+		</div>
+		<div class="message_list">
+			<div class="message_list_left">消息内容：</div>
+			<div class="message_list_right">
+			<script type="text/plain" id="myEditor" style="width:1000px;height:240px;">
+			</script>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div style="margin-top:15px;" class="message_button"><span class="message_ok">发送消息</span><span class="message_back">取消</span></div>
+	</form>
+	</div>
+</div>
+<!--content_right_con!end--> 
+<script type="text/javascript">
+//实例化编辑器
+    //var um = UM.getEditor('myEditor');
+
+var um = UM.getEditor('myEditor', {
+        toolbar: ['source bold italic underline insertorderedlist insertunorderedlist  forecolor emotion image video '],
+        UEDITOR_HOME_URL: "<?php echo $this->basePath('public');?>/umeditor/",
+        imageUrl: "<?php echo $this->url('upload') ?>", //上传处理url
+        imagePath: "<?php echo SITE_URL ?>",
+        textarea: 'content'
+    });
+console.log(window.UMEDITOR_CONFIG);
+//客户模糊搜索
+$(function(){
+    $(".search_cu_input_19401").keyup(function(event){    //为搜索框加键盘事件监听
+        var _input = $(this);
+        var _now_input_val=$.trim(_input.val());//过滤头尾空格
+        if(_now_input_val!=''){ //过滤空置 和 重复提交
+           
+            if((event.keyCode!=38)&&(event.keyCode!=40)&&(event.keyCode!=13)){    //判断键盘事件，抛弃上下键跟回车键
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $this->url('comp') ?>",
+                    data: "name="+_now_input_val+"",
+                    dataType: "json",
+                    success: function(json){
+                        _input.next().empty();
+                        _input.next().show();
+                        if(json.code==200){
+                            $.each( json.data, function(i, v){
+                                if(i==0&&_now_input_val==v.name){
+                                    _input.prev().val(v.id);
+                                }
+                                 _input.next().append("<li rel='"+v.id+"'>"+v.name+"</li>");
+                            });
+                            _input.next().find('li').click( function () { 
+                                _input.val($(this).html());
+                                _input.prev().val($(this).attr('rel'));
+                                _input.next().empty();
+                                _input.prev().trigger("change");
+                            }).mouseover(function(){
+                                $(this).addClass('search_cu_id_list_li_hover');
+                            }).mouseout(function(){
+                                $(this).removeClass('search_cu_id_list_li_hover');
+                            });
+                        }
+                    }
+                });
+            }
+            //下
+            if(event.keyCode==40){
+                var c_li = _input.next().find('.search_cu_id_list_li_hover').first();
+                var li_first = _input.next().find('li:first');
+                if(li_first.length==1){
+                    if(c_li.length==0){
+                        //无选中状态
+                        li_first.trigger("mouseover")
+                    }else{
+                        //有选中状态
+                        if(c_li.next().length==1){
+                            c_li.trigger("mouseout")
+                            c_li.next().trigger("mouseover")
+                        }
+                        return false;
+                    }
+                }
+                return false;
+            }
+            //上
+            if(event.keyCode==38){
+                var c_li = _input.next().find('.search_cu_id_list_li_hover').first();
+                var li_first = _input.next().find('li:first');
+                if(c_li.length==1&&c_li.prev().length==1){
+                    c_li.trigger("mouseout")
+                    c_li.prev().trigger("mouseover")
+                }
+                return false;
+            }
+            //回车
+            if(event.keyCode==13){
+                var c_li = _input.next().find('.search_cu_id_list_li_hover').first();
+                if(c_li.length==1){
+                    c_li.trigger("click")
+                }
+                return false;
+            }
+        }else{
+            $(".search_cu_id_list").text('');
+        }
+    });
+
+
+
+	//获取职位
+	$('#search_comp_id').change(function(){
+		var id = $(this).val();
+		$.getJSON("<?php echo $this->url('compUser') ?>", { id: id}, function(json){
+			//清空
+			$('#zw_list .message_zhiwei').empty();
+			if(json.code==200){
+				$.each( json.data, function(i, v){
+					switch(v.position_id){
+					case "1":
+						$('#zjl .message_zhiwei').append('<span rel="'+v.id+'" class="zhiwei_child message_zhiwei_alink">'+v.netname+'</span>');
+						break;
+					case "5":
+						$('#mdjl .message_zhiwei').append('<span rel="'+v.id+'" class="zhiwei_child message_zhiwei_alink">'+v.netname+'</span>');
+						break;
+					case "8":
+						$('#qt .message_zhiwei').append('<span rel="'+v.id+'" class="zhiwei_child message_zhiwei_alink">'+v.netname+'</span>');
+						break;
+					default:
+					}
+				});
+
+			}
+		});
+	});
+
+	$('.zhiwei').click(function(){
+		var id = $(this).attr('rel');
+		if ( $(this).hasClass("message_zhiwei_alink") ){
+			$(this).addClass('message_zhiwei_visit');
+			$(this).removeClass('message_zhiwei_alink');
+			$('#'+id).show();
+		}else{
+			$(this).removeClass('message_zhiwei_visit');
+			$(this).addClass('message_zhiwei_alink');
+			$('#'+id).hide();
+			$('#'+id).find('.zhiwei_child').removeClass('message_zhiwei_visit').addClass('message_zhiwei_alink');
+
+		}
+	});
+
+	$('.message_list_xuan').on('click','.zhiwei_child',function(){
+		var id = $(this).attr('rel');
+		if ( $(this).hasClass("message_zhiwei_alink") ){
+			$(this).addClass('message_zhiwei_visit');
+			$(this).removeClass('message_zhiwei_alink');
+			//$('#'+id).show();
+		}else{
+			$(this).removeClass('message_zhiwei_visit');
+			$(this).addClass('message_zhiwei_alink');
+			//$('#'+id).hide();
+		}
+	});
+
+	//获取收件人ids
+	function get_to_uids(){
+		var ids = $.map( $('#zw_list .message_zhiwei_visit'), function(n){
+			return $(n).attr('rel');
+		}).join(',');
+		return ids;
+	}
+
+	$('.message_ok').click(function(){
+		var ids = get_to_uids();
+		var title=$('#title').val();
+		var content=UM.getEditor('myEditor').getContent();
+		if(ids==''){
+			Idialog.tips('无收件人！',2);
+			return false;
+		}
+		if(title==''){
+			Idialog.tips('无标题！',2);
+			return false;
+		}
+		if(content==''){
+			Idialog.tips('无内容！',2);
+			return false;
+		}
+
+		$.post("<?php echo $this->url('editSave') ?>", { to_uids: ids, title: title, content: content },function(json){
+			Idialog.tips(json.msg,2);
+			if(json.code==200){
+				setTimeout(function(){to_url('<?php echo $this->url("outList");?>')},3000);
+			}
+
+		},"json");
+	});
+	$('.message_back').click(function(){
+		window.history.back();
+	});
+	
+
+
+	
+});   
+</script>

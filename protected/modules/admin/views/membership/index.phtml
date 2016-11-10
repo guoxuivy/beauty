@@ -1,0 +1,248 @@
+<link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
+
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r">
+			<span><a href="javascript:" class="fjgl_top_r_01 filter_search">筛选</a></span>
+			<span><a href="javascript:" class="fjgl_top_r_02 tjfjz">新增会员卡</a></span>
+		</div>
+		会员卡管理
+	</div>
+
+	<!--table_container-->
+<!--  模版引擎扩展 -->
+<?php echo $this->datagrid(array(
+	'id'=>'list',
+	'dataProvider'=>$pager,
+	'columns'=>array(
+		array(
+			'header' => '会员卡名称',
+			'name'  => 'level_name',
+			'filter'=>"t.level_name",
+		),
+		array(
+			'header' => '会员卡说明',
+			'name'  => 'note',
+		),
+		array(
+			'header' => '是否正式会员',
+			'headerCss'=>'min-width:60px',
+			'name' => 'is_member',
+			'value'=>'{$data["is_member"]==1?"正式会员":"非正式会员"}'
+		),
+		array(
+			'header' => '状态',
+			'headerCss'=>'min-width:60px',
+			'name' => 'status',
+			'value'=>'{$data["status"]==1?"启用":"<fone style=\"color:red\">停用</font>"}'
+		),
+		array(
+			'header' => '操作',
+			'headerCss'=>'min-width:281px',
+			'rel'=>'id',
+			'template'=>'<a rel="{$data[id]}" href="javascript:" class="change" {$data["status"]==0?"":"style=\"background-color: #ddd;color: #666;\""}>{$data["status"]==0?"启用":"停用"}</a>
+				<a href="javascript:" class="edit">修改</a>
+				<a href="javascript:" class="delete">删除</a>'
+		)
+	),
+));?>
+	<!--table_containter!end-->
+
+	<?php if(!empty($_GET['yd'])):?>
+		<div class="zhezhao">
+			<div class="zhezhao_center">
+				<span>第四步</span>
+				<a class="zhezhao_center_back" href="<?php echo $this->url('/admin/room/index',array('yd'=>1));?>">返回上一步</a>
+				<a class="zhezhao_center_next" href="<?php echo $this->url('/admin/config/capital',array('yd'=>1));?>">进入下一步</a>
+			</div>
+		</div>
+	<?php endif;?>
+
+</div>
+<!--content_right_con!end-->
+
+
+<!--tjfj-->
+<div class="tjfj add_card none" style="display: block;">
+	<div class="tjfj_two">
+		<form method="post" action="<?php echo $this->url('add') ?>">
+			<input type="hidden" name="yd" value="<?php echo $_GET['yd'];?>" />
+			<div class="list">
+				<label>是否正式会员：</label>
+                <div style="margin-left: 100px;">
+				<?php echo $this->dropDownList('is_member',array('非正式会员','正式会员'),$model->is_member===0?0:1) ?>
+                </div>
+			</div>
+			<div class="list">
+				<label>会员卡名称：</label>
+                <div style="margin-left: 100px;"><input type="text" placeholder="黃金卡" class="gysgl_07 inputxt" name="level_name" /></div>
+			</div>
+			<div class="list">
+				<label>会员卡说明：</label>
+				<div style="margin-left: 100px;"><textarea rows="3" style="width: auto;" name='note'></textarea></div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	<?php if(!empty($_GET['yd'])):?>
+		$("body").css("padding-bottom","100px");
+		$(".content_left").hide();
+		$(".content_right_son").css('margin-left','20px');
+	<?php endif;?>
+
+$('select[name="is_member"] option:first').remove()
+function validate(classname){
+	var nf = classname.Validform({
+		tiptype:3,
+		beforeSubmit:function() {
+			var next = false;
+			var ajax_url = "<?php echo $this->url('check_name'); ?>";
+			var data = classname.serialize();
+			$.ajax({
+				url : ajax_url,
+				data : data,
+				type : 'post',
+				async : false,
+				dataType : 'json',
+				success : function(json) {
+					if(json.code == '400') {
+						Idialog.tips(json.msg,2);
+					}
+					else {
+						next = true;
+					}
+				},
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+					Idialog.tips(textStatus,2);
+				}
+			});
+			return next;
+		}
+	});
+
+	nf.addRule([
+	{
+		ele:".new_inputxt:eq(0)",
+		datatype:"*",
+		nullmsg:"请输入会员卡名称！"
+	}
+	]);
+}
+
+	//添加会员卡
+	$(document).on('click','.tjfjz',function(){
+		var d = Idialog({
+			top:120,
+			width:600,
+			title:'新增会员卡',
+			content:$('.add_card'),
+			ok:function(obj){
+				obj._self.find('form').submit();
+				return false;
+			},
+			init:function(self){
+				self.find("form").attr("class","newform");
+
+				self.find(".inputxt").attr("class","new_inputxt");
+
+				validate($('.newform'));
+			}
+		});
+	});
+	
+	/**
+	 * 修改会员卡
+	 */
+	$(document).on('click','.edit',function(){
+		var obj = $(this).parent().parent();
+		var id = $(this).parent().attr('rel'),yd='<?php echo $_GET['yd'];?>';
+		$.get("<?php echo $this->url('edit') ?>", { id: id },function(html){
+			var d = Idialog({
+				top:120,
+				width:450,
+				title:'编辑会员卡',
+				content:html,
+				ok:function(obj){
+					obj._self.find('form').submit();
+					return false;
+				},
+				init:function(self){
+					self.find("form").attr("class","newform");
+
+					self.find(".inputxt").attr("class","new_inputxt");
+
+					validate($('.newform'));
+				},
+			});
+			$("input[name=yd]").val(yd);
+		});
+	});
+	
+	// 修改商品状态
+	$('.change').click(function(){
+		var id=$(this).attr('rel');
+		var obj = $(this);
+		$.get("<?php echo $this->url('change') ?>", { id: id },function(html){
+			var jobj = $.parseJSON(html);
+			var dataobj = jobj['data'];
+			var status = dataobj['status'];
+			obj.html(status==0?"启用":"停用");
+			obj.attr('style',status==0?'':'background-color: #ddd;color: #666;');
+			obj.parent().prev().attr('title',status==1?"启用":"停用").html(status==1?"启用":'<fone style="color:red">停用</fone>');
+		});
+	});
+	
+	/**
+	 * 删除会员卡
+	 */
+	
+
+	$(document).on('click','.delete',function(){
+		var obj = $(this).parent().parent();
+		var id = $(this).parent().attr('rel');
+
+		var d = Idialog({
+			top:120,
+			width:500,
+			title:'通知',
+			content:'您确认删除吗？',
+			ok:function(html){
+				$.get("<?php echo $this->url('delete') ?>", { id: id },function(html){
+					var jobj = $.parseJSON(html);
+					if(jobj['code']=='200'){
+						var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'删除成功',
+							ok:function(html){
+								obj.remove();
+								return true;
+							},
+							cancel:false,
+						});
+					}else{
+						var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'删除失败',
+							ok:function(obj){
+								return true;
+							},
+							cancel:false,
+						});
+					}
+				});
+				return true;
+			},
+			cancel:true,
+		});
+	});
+
+</script>

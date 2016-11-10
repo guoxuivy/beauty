@@ -1,0 +1,116 @@
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r khuihu" style=" padding-top:0px;">
+			<a class="jlsy_one_01"><?php $weekarray=array("日","一","二","三","四","五","六"); echo date('Y-m-d'),"&nbsp;&nbsp;&nbsp;星期".$weekarray[date("w")] ?></a><big class="jlsy_one_02"><a href="javascript:"><img src="<?php echo $this->basePath('public'); ?>/images/jlsy_02.png" /></a></big>
+		</div>
+		<?php echo $comp_name."-".$dept_name ?>
+	</div>
+	
+	<!---qtsy_top-->
+	<div class="qtsy_top clear">
+		<ul>
+			<li class="qtsy_top_01" onclick="to_url('<?php echo $this->url("rebook/index/index");?>')">
+				<div class="qtsy_top_top"><span><?php echo $YDD;?></span>已到店人数</div>
+				<div class="qtsy_two_01"><a href="<?php echo $this->url("rebook/index/index");?>" class="qtsy_two_011"><img src="<?php echo $this->basePath('public'); ?>/images/qt_05.png" /></a>查看更多</div>
+			</li>
+			<li class="qtsy_top_02" onclick="to_url('<?php echo $this->url("rebook/index/index");?>')">
+				<div class="qtsy_top_top_02"><span><?php echo $DDD;?></span>待到店人数</div>
+				<div class="qtsy_two_02"><a href="<?php echo $this->url("rebook/index/index");?>" class="qtsy_two_011"><img src="<?php echo $this->basePath('public'); ?>/images/qt_05.png" /></a>查看更多</div>
+			</li>
+			<li class="qtsy_top_03" style=" margin-right:0px;" onclick="to_url('<?php echo $this->url("rebook/index/index");?>')">
+				<div class="qtsy_top_top_03"><span><?php echo $FWZ;?></span>服务中人数</div>
+				<div class="qtsy_two_03"><a href="<?php echo $this->url("rebook/index/index");?>" class="qtsy_two_011"><img src="<?php echo $this->basePath('public'); ?>/images/qt_05.png" /></a>查看更多</div>
+			</li>
+		</ul>
+	</div><!---qtsy_top-->
+	
+	<div class="qtsy_two">待处理订单</div>
+
+	<div class="table_table table_container">
+		<div class="table_hiddle">
+		<table width='100%' cellspacing='0' cellpadding='0' border='0'>
+			<thead>
+				<tr class="table_title">
+					<th>订单号</th>
+					<th>客户</th>
+					<th>订单类型</th>
+					<th>订单内容</th>
+					<th>订单状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ($list as $row): ?>
+					<?php if ($row['ptype']): ?>
+						<tr class="table_list clear">
+							<td><?php echo $row['sn'] ?></td>
+							<td><span class="khgl_xmpic"><img src="<?php echo $this->basePath("public") ?>/images/kh_06.png" height="24" width="24"></span><span class="khgl_03"><?php echo $row['cu_name'] ?></span></td>
+							<td><?php echo \OrderSale::getType($row['type']) ?></td>
+							<td><?php echo \OrderSale::getBody($row['id']) ?></td>
+							<td>待付款</td>
+							<td class="order"><a rel="<?php echo $row['id'] ?>" data-type="<?php echo $row['type'] ?>" href="javascript:;" class="view khca"><span class="khca_son"><img src="<?php echo $this->basePath('public'); ?>/images/kh_05.png"></span>查看</a></td>
+						</tr>
+					<?php else: ?>
+						<tr class="table_list clear">
+							<td><?php echo $row['sn'] ?></td>
+							<td><span class="khgl_xmpic"><img src="<?php echo $this->basePath("public") ?>/images/kh_06.png" height="24" width="24"></span><span class="khgl_03"><?php echo $row['cu_name'] ?></span></td>
+							<td>实操</td>
+							<td><?php echo \PracticeOrder::getBody($row['id']) ?></td>
+							<td>待确认</td>
+							<td class="practice"><a rel="<?php echo $row['id'] ?>" href="javascript:;" class="view khca"><span class="khca_son"><img src="<?php echo $this->basePath('public'); ?>/images/kh_05.png"></span>查看</a></td>
+						</tr>
+					<?php endif ?>
+			<?php endforeach ?>
+			
+			</tbody>
+		</table>
+		</div>
+	</div>
+</div>
+<!--content_right_con!end-->
+
+<?php if ($cu_count==0): ?>
+	<!-- 没有客户列表 认为是新系统 -->
+	<div id="qt_cover">
+		<div class="qtcover" style="display:block;"></div>
+		<div class="qtcover_02" style=" top:357px; left:606px;">
+		    <div class="qtcover_01_top"><p>检测到您是第一次登录系统，请务必建立《期初客户档案》与《商品期初库存》！<span style=" color:#ff0000;">否则系统将无法正常运行</span></p></div>
+		    <div class="qtcover_01_two"><a href="javascript:$('#qt_cover').remove();">确 认</a></div>
+		</div>
+	</div>
+<?php endif ?>
+
+
+<script type="text/javascript">
+$(function(){
+	$(".order a").click(function(){
+		var type=$(this).attr("data-type");
+		var id=$(this).attr("rel");
+		switch(type){
+			case '0':
+				//还款
+				to_url('<?php echo $this->url("pos/repay/edit") ?>&id='+id);
+				break;
+			case '1':
+				//购买
+				to_url('<?php echo $this->url("pos/sale/edit") ?>&id='+id);
+				break;
+			case '2':
+				//充值
+				to_url('<?php echo $this->url("pos/recharge/edit") ?>&id='+id);
+				break;
+			default:
+				
+		}
+
+	});
+
+	$(".practice a").click(function(){
+		var id=$(this).attr("rel");
+		to_url('<?php echo $this->url("pos/practice/pay") ?>&id='+id);
+	});
+
+
+});
+</script>

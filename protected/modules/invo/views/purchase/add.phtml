@@ -1,0 +1,226 @@
+
+<!--content_right_con-->
+<div class="content_right_con">
+  <div class="content_right_con_top">
+     仓库管理>采购记录>新建采购单
+  </div>
+  <div class="fjgl_two" >
+       <div class="ck_splb_ckjl_01 ck_splb_ckjl_01_l">采购日期：<?php echo $model->create_time?date('Y-m-d',$model->create_time):date('Y-m-d'); ?></div>
+       <div class="ck_splb_ckjl_01 ck_splb_ckjl_01_m">部门：<?php echo \EmployDept::getSName($model->dept_id?$model->dept_id:\Ivy::app()->user->dept_id); ?></div>
+       <div class="ck_splb_ckjl_01 ck_splb_ckjl_01_r">制单人：<?php echo \EmployUser::getUserNames($model->create_user?$model->create_user:\Ivy::app()->user->id); ?></div>
+  </div>
+  
+ <div class="ck_splb_ckjl_top">
+     <div class="ck_splb_ckjl_top_l">供应商：</div>
+     <div class="ck_splb_ckjl_top_r">
+         <div class="ck_splb_ckjl_top_r_son">
+         <?php
+                $company_info = \SupplierInfo::getList();
+        ?>
+         <select class="ck_splb_ckjl_top_01 supply_c" name="supply_id">
+            <?php foreach($company_info as $k=>$v):?>
+             <option value="<?php echo $k; ?>"><?php echo $v; ?></option>
+         <?php endforeach ?>
+         </select>
+         </div>
+     </div>
+ </div> 
+ 
+ 
+ <div class="ck_splb_ckjl_top">
+     <div class="ck_splb_ckjl_top_l">采购商品：</div>
+     <div class="ck_splb_ckjl_top_r">
+         <div class="ck_splb_ckjl_top_r_son">
+             <div class="ck_splb_ckjl_top_03 action_add">选择商品</div>
+             <!--赠送-->
+            <div class="pos_cz_tow" style=" margin-top:0px;">
+                
+                <div class="pos_cz_tow_two">
+                    <!--table_container-->  
+                    <div class="table_container" style=" border:none">
+                       <!--table_con-->
+                       <div class="table_con">
+                          <!--table_con_son-->
+                           <div class="table_con_son">
+                             <div class="table_title">
+                               <ul>
+                                 <li>商品分类</li>
+                                 <li>品牌或系列</li>
+                                 <li>商品名称</li>
+                                 <li>商品编码</li>
+                                 <li>规格</li>
+                                 <li>单位</li>
+                                 <li>采购数量</li>
+                                 <li>操作</li>
+  
+                               </ul>
+                            </div>
+                         </div><!--table_con_son!end-->
+                       </div><!--table_con!end-->
+                     </div>
+                    <!--table_containter!end-->
+                    <div class="pos_cz_tow_two_two pos_cz_qr_top_02"><span class="spantj action_add">继续添加</span></div>
+                </div>
+            </div><!--赠送!end-->
+         </div>
+     </div>
+ </div> 
+ 
+ 
+ <div class="ck_splb_ckjl_top">
+     <div class="ck_splb_ckjl_top_l">备注：</div>
+     <div class="ck_splb_ckjl_top_r">
+         <div class="ck_splb_ckjl_top_r_son">
+             <textarea rows="4" class="order_note" style=" width:98%;"><?php echo $model->note ?></textarea>
+         </div>
+     </div>
+ </div> 
+ 
+ 
+ <div class="ck_splb_ckjl_top">
+     <div class="ck_splb_ckjl_top_l"></div>
+     <div class="ck_splb_ckjl_top_r">
+         <div class="ck_splb_ckjl_top_r_son">
+             <a href="javascript:" class="ck_splb_ckjl_top_04 ck_splb_ckjl_top_05 c_submit" status=1>确认采购</a>
+             <a href="javascript:" class="ck_splb_ckjl_top_04 c_cancel">取 消</a>
+         </div>
+     </div>
+ </div> 
+  
+</div>
+<!--content_right_con!end-->
+{__TOKEN__}
+<div class="none" id="widget_product">
+<?php echo \Ivy::app()->widget('common/selectProduct',"rich"); ?>
+</div>
+
+<script type="text/javascript">
+    //删除产品
+    $(document).on('click', '.c_del', function(event) {
+        event.preventDefault();
+        /* Act on the event */
+        $(this).closest('.table_list').remove();
+    });
+    $(".supply_c").change(function(){
+        $(".table_list").remove();
+    });
+    $(".c_cancel").click(function(){
+        to_url('<?php echo $this->url("index") ?>');
+    });
+    //添加产品
+    $('.action_add').click(function(event) {
+        /* Act on the event */
+        var d = Idialog({
+            top:150,
+            width:800,
+            title:'添加产品',
+            content:$('#widget_product'),
+            cancel:false,
+            ok:function(obj){
+                var _self=obj._self;
+                var has_list = $('.table_list');//已经存在的列
+                var pro_k=has_list.length;//当前序号
+
+                var result_list=_self.find('.result_pro li');
+                $.each( result_list, function(i, pro){
+                    pro=$(pro);
+                    var p_name=pro.attr('data-name');
+                    var p_id=pro.attr('rel');
+                    var p_num=pro.attr('data-num');
+                    var p_price=pro.attr('data-price');
+                    var p_unit=pro.attr('data-unit');//产品规格
+                    var max_num=pro.attr('data-max-num');
+                    //如果存在 则略过
+                    if(has_list.filter("[data-id='"+p_id+"']").length>0) return ;
+
+                    var str  ='<div class="table_list clear" data-id="'+p_id+'"><ul>';
+                        str +='<li class="li001">'+pro.attr('data-top_name')+'</li>';
+                        str +='<li class="li002">'+pro.attr('data-c_name')+'</li>';
+                        str +='<li class="li003">'+p_name+'</li>';
+                        str +='<li class="li004">'+pro.attr('data-code')+'</li>';
+                        str +='<li class="li005">'+pro.attr('data-specs')+'</li>';
+                        str +='<li class="li006">'+p_unit+'</li>';
+                        str +='<li class="li007"><input type="text" class="pos_cz_tow_two05" value="1" data-pro-id="'+p_id+'" data-max-num="'+max_num+'" /></li>';
+                        str +='<li class="li008"><a href="javascript:" class="delete c_del">删除</a></li>';
+                        str +='</ul></div>';
+                    
+                    $('.table_con_son').append(str);
+                    pro_k++;
+                });
+                table_flash();
+            }
+        });
+    });
+//数据提交
+    $(".c_submit").click(function(){
+        var obj = this;
+        var post_data=submit_data(obj);
+        if(post_data==false){
+            return false;
+        }
+        var d = Idialog({
+            top:150,
+            width:800,
+            title:'通知',
+            content:"采购单一经建立，不可修改。是否确定建立完毕？",
+            cancel:true,
+            ok:function(){
+                submit(obj,post_data);
+                return true;
+            }
+        });
+    });
+
+    function submit(obj,post_data){
+        $(obj).html("正在提交订单...").off();
+
+        <?php if ($model): ?>
+        var url="<?php echo $this->url('edit',array('id'=>$model->id)) ?>";            
+        <?php else: ?>
+        var url="<?php echo $this->url('edit') ?>";  
+        <?php endif ?>
+
+        $.post(url, post_data,function(resp){
+            if (resp.code == '200') {
+                to_url('<?php echo $this->url("index"); ?>');
+            }
+        },'json');
+        
+    }
+    //提交保存数据构造
+    function submit_data(obj){
+        var err=false;
+        var data={};
+        data.__hash__ = $("input[name='__hash__']").val();//表单令牌
+        data.supply_id = $("[name='supply_id']").val();
+
+        data.to_id=$("select[name='to_id']").val();
+        if(!$(".table_list").hasClass('table_list'))
+        {
+            Idialog.tips("请添加采购商品",2);
+            err = true;
+        }
+        data.status=$(obj).attr('status');
+        var is_not_null=false;//检查订单数据是否为空
+        //购买商品和数量
+        data.detail=[];
+        $(".table_list").each(function(i){
+            num=parseInt($(this).find(".pos_cz_tow_two05").val());
+            is_not_null=true;
+            data.detail.push({
+                "pro_id":$(this).attr("data-id"),
+                "num":num,
+            });
+        });
+        data.note=$('.order_note').val();
+
+        if(err)
+            return false; //发生验证错误 返回false
+        
+        if (is_not_null==false) {
+            Idialog.tips("采购商品不能为空",2);
+            err = true;
+        };
+        return data;
+    }
+</script>

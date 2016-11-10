@@ -1,0 +1,234 @@
+<link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
+
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/PCASClass.js"></script>
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+        <div class="fjgl_top_r">
+            <span><a href="javascript:" class="fjgl_top_r_02 tjfjz">新增房间</a></span>
+        </div>
+         房间管理
+    </div>
+
+<?php 
+$s_data=array();
+foreach ($store_list as $value) {
+	$s_data[$value['id']]=$value['dept_name'];
+}
+
+?>
+<!--  模版引擎扩展 -->
+<?php echo $this->datagrid(array(
+	'id'=>'order-list',
+	'dataProvider'=>$pager,
+	'search'=>$is_store?false:true,
+	'columns'=>array(
+		array(
+			'header' => '门店',
+			'name' => 'store_id',
+			'value'=>'{\EmployDept::getSName($data["store_id"])}',
+			'filter'=>array('store_id',$s_data)
+		),
+		array(
+			'header' => '房间名称',
+			'name' => 'name',
+		),
+		array(
+			'header' => '床位数',
+			'name' => 'bad_num',
+			'value'=>'{\CompanyRoomBed::model()->getBedNum($data["id"])}',
+		),
+		array(
+			'header' => '床位名称',
+			'name' => 'bed_name',
+			'value'=>'{\CompanyRoomBed::model()->getBedStr($data["id"])}',
+		),
+		array(
+			'header' => '状态',
+			'headerCss'=>'min-width:60px',
+			'name' => 'status',
+			'value'=>'{$data["status"]==1?"启用":"<fone style=\"color:red\">停用</font>"}</a>'
+		),
+		array(
+			'header' => '操作',
+			'headerCss'=>'min-width:281px',
+			'name' => 'status',
+			'rel'=>'id',
+			'template'=>'<a rel="{$data[id]}" href="javascript:" class="change" {$data["status"]==0?"":"style=\"background-color: #ddd;color: #666;\""}>{$data["status"]==0?"启用":"停用"}</a>
+				<a class="edit" href="javascript:">修改</a>
+				<a href="javascript:;" class="delete">删除</a>'
+		),
+		/*array(
+			'header' => '操作',
+			'rel'=>'id',
+			'template'=> '<a href="javascript:" class="edit">修改</a>,delete',
+		)*/
+	),
+));?>
+
+
+	<?php if(!empty($_GET['yd'])):?>
+		<div class="zhezhao">
+			<div class="zhezhao_center">
+				<span>第三步</span>
+				<a class="zhezhao_center_back" href="<?php echo $this->url('/admin/employ/index',array('yd'=>1));?>">返回上一步</a>
+				<a class="zhezhao_center_next" href="<?php echo $this->url('/admin/membership/index',array('yd'=>1));?>">进入下一步</a>
+			</div>
+		</div>
+	<?php endif;?>
+    
+</div>
+<!--content_right_con!end-->
+
+
+<!--tjfj-->
+
+<div class="add_store none" title="新增房间">
+	<div class="tjfj_two">
+		<form method="post" action="<?php echo $this->url('add') ?>" class="form">
+			<input type="hidden" name="yd" value="<?php echo $_GET['yd'];?>" />
+			<div class="list">
+				<label>所属门店：</label><div style="margin-left: 100px;">
+				<select name="store_id">
+					<?php foreach ($store_list as $value): ?>
+						<option value="<?php echo $value['id'] ?>"><?php echo $value['dept_name'] ?></option>
+					<?php endforeach ?>
+				</select><span class="com_gbt">（必填）</span></div>
+			</div>
+			<div class="list">
+				<label>房间名称：</label><div style="margin-left: 100px;"><input type="text" placeholder="天字一号" class="gysgl_07 inputxt" name="name"/><span class="com_gbt">（必填）</span></div>
+			</div>
+			<div class="list">
+				<label>床位名称：</label><div style="margin-left: 100px;"><input type="text" class="gysgl_07 inputxt" placeholder="请用@号分割多个床位" name="room_name"/><span class="com_gbt">（必填）请用@号分割多个床位</span></div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	<?php if(!empty($_GET['yd'])):?>
+		$("body").css("padding-bottom","100px");
+		$(".content_left").hide();
+		$(".content_right_son").css('margin-left','20px');
+	<?php endif;?>
+
+function validate(classname){
+	var nf = classname.Validform({
+		tiptype:3,
+	});
+
+	nf.addRule([
+	{
+		ele:".new_inputxt:eq(0)",
+		datatype:"*",
+		nullmsg:"请输入房间名称！"
+	},
+	{
+		ele:".new_inputxt:eq(1)",
+		datatype:"*",
+		nullmsg:"请输入床位名称！"
+	}
+	]);
+}
+
+
+	//添加房间
+	$(document).on('click','.s_add,.tjfjz',function(){
+		var d = Idialog({
+			top:120,
+			width:650,
+			title:'新增房间',
+			content:$('.add_store'),
+			ok:function(obj){
+				obj._self.find('form').submit();
+				return false;
+			},
+			init:function(self){
+				self.find("form").attr("class","newform");
+				self.find(".inputxt").attr("class","new_inputxt");
+				validate($('.newform'));
+			}
+		});
+	});
+	
+	$(document).on('click','.delete',function(){
+		var obj = $(this).parent().parent();
+
+		var id = $(this).parent().attr('rel');
+
+		var d = Idialog({
+			top:120,
+			width:500,
+			title:'通知',
+			content:'您确认删除吗？',
+			ok:function(html){
+				$.get("<?php echo $this->url('delete') ?>", { id: id },function(html){
+					var jobj = $.parseJSON(html);
+					if(jobj['code']=='200'){
+						var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'删除成功',
+							ok:function(html){
+								obj.remove();
+								if($('.table_con_son').children().length == 1){
+									$('.table_con_son').append('<div class="table_search" style=" background:#FFF; text-align:center; position:relative; height:40px; padding-top:0px; line-height:40px;display:block;">无房间信息,请<a href="javascript:" class="md_04 s_add"></a></div>');
+								}
+								return true;
+							},
+							cancel:false,
+						});
+					}else{
+						Idialog.tips('删除失败',2);
+					}
+				});
+				return true;
+			},
+			cancel:true,
+		});
+	});
+	
+	// 修改商品状态
+	$('.change').click(function(){
+		var id=$(this).attr('rel');
+		var obj = $(this);
+		$.get("<?php echo $this->url('change') ?>", { id: id },function(html){
+			var jobj = $.parseJSON(html);
+			var dataobj = jobj['data'];
+			var status = dataobj['status'];
+			//obj.html(status==1?"启用":"<fone style='color:red'>停用</font>");
+			obj.html(status==0?"启用":"停用");
+			obj.attr('style',status==0?'':'background-color: #ddd;color: #666;');
+			obj.parent().prev().attr('title',status==1?"启用":"停用").html(status==1?"启用":'<fone style="color:red">停用</fone>');
+		});
+	});
+	
+	$(document).on('click','.edit',function(){
+		var obj = $(this).parent();
+		var id = obj.attr('rel'),yd='<?php echo $_GET['yd'];?>';
+		var thisobj = $(this);
+		$.get("<?php echo $this->url('edit') ?>", { id: id },function(html){
+			var d = Idialog({
+				top:120,
+				width:650,
+				title:'编辑房间',
+				content:html,
+				ok:function(obj){
+					obj._self.find('form').submit();
+					return false;
+				},
+				init:function(self){
+					self.find("form").attr("class","newform");
+					self.find(".inputxt").attr("class","new_inputxt");
+					validate($('.newform'));
+				}
+			});
+			$("input[name=yd]").val(yd);
+		});
+	});
+	
+
+</script>

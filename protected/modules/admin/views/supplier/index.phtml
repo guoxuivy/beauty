@@ -1,0 +1,330 @@
+<link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
+
+<script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/PCASClass.js"></script>
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+        <div class="fjgl_top_r">
+        	<span><a href="javascript:" class="fjgl_top_r_02 relation">关联供应商</a></span>
+            <span><a href="javascript:" class="fjgl_top_r_02 tjfjz">新增供应商</a></span>
+        </div>
+         供应商管理
+    </div>
+
+
+	<div id="supplier-list" class="table_table ">
+		<div class="table_hiddle">
+		<table width="100%" cellspacing="0" cellpadding="0" border="0" last-float="false">
+			<thead>
+				<tr class="table_title">
+					<th>供应商名称</th>
+					<th>联系人</th>
+					<th>联系电话</th>
+					<th>联系地址</th>
+					<th>状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php if ($list): ?>
+			<?php foreach ($list as $store): ?>
+				<tr class="table_list clear" rel="<?php echo $store['id'];?>">
+					<td><?php echo $store['comp_name'] ?></td>
+					<td><?php echo $store['boss_name'] ?></td>
+			
+					<td><?php echo  $store['phone'][0]=="0"?substr($store['phone'],1):$store['phone'] ?></td>
+					<td><?php echo $store['address'] ?></td>
+					<td><?php echo $store['status']==1?"启用":"<fone style=\"color:red\">停用</font>" ?></td>
+
+					<td>
+					<?php if ($store['beauty_id']==\Ivy::app()->user->comp_id): ?>
+						<a href="javascript:" class="edit">修改</a><a href="javascript:" class="delete">删除</a>
+					<?php else: ?>
+						<a href="javascript:" class="red_button_bg">删除</a>
+					<?php endif ?>
+					
+					</td>
+				</tr> 
+				<?php endforeach ?>
+			<?php endif ?>
+			</tbody>
+		</table>
+		</div><!--table_hiddle!end-->
+		
+	</div>
+	<!--table_container-->
+</div>
+<!--content_right_con!end-->
+
+
+<!--tjfj-->
+
+<div class="add_store none" title="新增">
+  <div class="tjfj_two">
+    <form method="post" action="<?php echo $this->url('add') ?>" class="form">
+      <div class="list">
+      	<label>供应商名称：</label>
+      	<div style="margin-left: 100px;"><input type="text"  class="gysgl_07 new_inputxt" name="comp_name"/>（必填）</div>
+      </div>
+      <div class="list">
+      	<label>联系人：</label>
+      	<div style="margin-left: 100px;"><input type="text" class="gysgl_07" name="boss_name"/></div>
+      </div>
+      <div class="list">
+      	<label>联系电话：</label>
+        <div style="margin-left: 100px;"><input type="text"  class="gysgl_07 new_inputxt" name="phone"/>（必填）</div>
+      </div>
+      <div class="list">
+      	<label>联系地址：</label>
+        <div style="margin-left: 100px;"><input type="text"  class="gysgl_07" name="address"/></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="rel_store none" title="关联">
+<div class="tjfj_two">
+	<div class="list" style="border-bottom:#ccc 1px dashed;">
+		<div style="margin-bottom:10px"><input type="text"  class="gysgl_07 new_inputxt supplier_name" name="supplier_name" placeholder="输入供应商名称" />
+		<span class="xjxm_ok_buttom" style="position: relative;top: 2px;cursor: pointer;">搜索</span></div>
+	</div>
+	<div class="list">
+		<div id="supplier-search" class="table_table ">
+			<div class="table_hiddle">
+			<table width="100%" cellspacing="0" cellpadding="0" border="0" last-float="false" style="min-width:100%">
+				<thead>
+					<tr class="table_title">
+						<th></th>
+						<th>供应商</th>
+						<th>联系人</th>
+						<th>联系电话</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			</div><!--table_hiddle!end-->
+		</div>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+
+
+
+function validate(classname){
+	var nf = classname.Validform({
+		tiptype:3,
+	});
+	nf.addRule([
+		{
+			ele:".new_inputxt:eq(1)",
+			datatype:"m",
+			nullmsg:"请输入手机号！"
+		},
+		{
+			ele:".new_inputxt:eq(0)",
+			datatype:"*",
+			nullmsg:"请输入供应商名称！"
+		}
+	]);
+}
+
+	//关联供应商
+	$(document).on('click','.relation',function(){
+		var d = Idialog({
+			top:120,
+			width:500,
+			title:'关联供应商',
+			content:$('.rel_store'),
+			ok:function(obj){
+				var id = obj._self.find('input:radio:checked').val();
+				if(id==undefined){
+					alert('请选择供应商');
+					return false;
+				}
+				//保存关系
+				$.getJSON("<?php echo $this->url('relsave') ?>", { id: id }, function(json){
+					if(json.code==200){
+						location.reload();
+					}
+				});
+				//console.log(id);
+				return false;
+			},
+			init:function(self){
+				self.find("table").attr("class","rel_table");
+			}
+		});
+	});
+
+	//关联供应商
+	$(document).on('click','.xjxm_ok_buttom',function(){
+		var key = $(this).prev().val();
+		if(key==''){
+			alert('无搜索关键字！');
+			return false;
+		}
+
+		$.getJSON("<?php echo $this->url('search') ?>", { name: key }, function(json){
+			$('.rel_table').find('tbody').empty();
+			if(json.code==200){
+				$.each(json.data, function(i, n){
+					var tr = "<tr><td><input style='width:15px' name='rel' type='radio' value='"+n.id+"' /></td><td>"+n.comp_name+"</td><td>"+n.boss_name+"</td><td>"+n.phone+"</td></tr>";
+
+					$('.rel_table').find('tbody').append(tr);
+				});
+			}
+		});
+	
+	});
+
+
+	//添加供应商
+	$(document).on('click','.tjfjz',function(){
+		var d = Idialog({
+			top:120,
+			width:500,
+			title:'新增供应商',
+			content:$('.add_store'),
+			ok:function(obj){
+				obj._self.find('form').submit();
+				return false;
+			},
+			init:function(self){
+				self.find("form").attr("class","newform");
+				self.find(".inputxt").attr("class","new_inputxt");
+
+				validate($('.newform'));
+			}
+		});
+	});
+	//解除供应商
+	$(document).on('click','.red_button_bg',function(){
+		var obj = $(this).parent().parent();
+		var id = obj.attr('rel');
+
+		var d = Idialog({
+			top:120,
+			width:500,
+			title:'通知',
+			content:'您确认解除供应关系吗？',
+			ok:function(html){
+				$.get("<?php echo $this->url('delrel') ?>", { id: id },function(html){
+					var jobj = $.parseJSON(html);
+					if(jobj['code']=='200'){
+						var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'解除成功',
+							ok:function(html){
+								obj.remove();
+								return true;
+							},
+							cancel:false,
+						});
+					}else{
+						var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'解除失败',
+							ok:function(obj){
+								return true;
+							},
+							cancel:false,
+						});
+					}
+				});
+				return true;
+			},
+			cancel:true,
+		});
+	});
+	
+	$(document).on('click','.delete',function(){
+		var obj = $(this).parent().parent();
+		var id = obj.attr('rel');
+
+		var d = Idialog({
+			top:120,
+			width:500,
+			title:'通知',
+			content:'您确认删除吗？',
+			ok:function(html){
+				$.get("<?php echo $this->url('delete') ?>", { id: id },function(html){
+					var jobj = $.parseJSON(html);
+					if(jobj['code']=='200'){
+						var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'删除成功',
+							ok:function(html){
+								obj.remove();
+								return true;
+							},
+							cancel:false,
+						});
+					}else{
+						var d = Idialog({
+							top:120,
+							width:500,
+							title:'通知',
+							content:'删除失败',
+							ok:function(obj){
+								return true;
+							},
+							cancel:false,
+						});
+					}
+				});
+				return true;
+			},
+			cancel:true,
+		});
+	});
+	
+	$(document).on('click','.change',function(){
+		var obj = $(this).parent().parent();
+		var id = obj.attr('rel');
+		var thisobj = $(this);
+		$.get("<?php echo $this->url('change') ?>", { id: id },function(html){
+			var jobj = $.parseJSON(html);
+			var dataobj = jobj['data'];
+			var status = dataobj['status'];
+			//thisobj.html(status==1?"启用":"<fone style='color:red'>停用</font>");
+			thisobj.html(status==0?"启用":"停用");
+			thisobj.attr('style',status==0?'':'background-color: #ddd;color: #666;');
+			thisobj.parent().prev().attr('title',status==1?"启用":"停用").html(status==1?"启用":'<fone style="color:red">停用</fone>');
+		});
+	});
+	
+	$(document).on('click','.edit',function(){
+		var obj = $(this).parent().parent();
+		var id = obj.attr('rel');
+		var thisobj = $(this);
+		$.get("<?php echo $this->url('edit') ?>", { id: id },function(html){
+			var d = Idialog({
+				top:120,
+				width:500,
+				title:'编辑供应商',
+				content:html,
+				ok:function(obj){
+					obj._self.find('form').submit();
+					return false;
+				},
+				init:function(self){
+					self.find("form").attr("class","newform");
+					self.find(".inputxt").attr("class","new_inputxt");
+
+					validate($('.newform'));
+				},
+			});
+		});
+	});
+	
+
+</script>

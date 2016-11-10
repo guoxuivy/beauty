@@ -1,0 +1,168 @@
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Itime.js"></script>
+<?php 
+	$md_list=\EmployDept::getList(true);
+	$config=\CompanyInfo::getConfig('payee');
+?>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r"><span><a class="fjgl_top_r_05" href="javascript:">导出</a></span></div>
+		数据报表><span><a class="to_back khgl_03" href="javascript:">现金流水报表</a>></span><span>现金明细</span>
+	</div>
+
+	<!--sjbb_ddkl_one-->
+	<div class="sjbb_ddkl_one">
+		<ul>
+		<li>
+			<div class="sjbb_ddkl_one_l">门店范围：</div>
+			<div class="sjbb_ddkl_one_r">
+				<div class="sjbb_ddkl_one_r_son choose_md">
+					<?php if(!$this->controller->is_store):?>
+					<a href="javascript:" rel="0"><span ></span>全连锁</a>
+					<?php endif;?>
+					<?php foreach ($md_list as $key => $value): ?>
+					<a href="javascript:" rel="<?php echo $key ?>"><span></span><?php echo $value ?></a>
+					<?php endforeach ?>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div class="sjbb_ddkl_one_l">日期：</div>
+			<div class="sjbb_ddkl_one_r">
+				<div class="sjbb_ddkl_one_r_son" id="choose_time">
+				</div>
+			</div>
+		</li>
+		<li class="lastli">
+				<div class="sjbb_ddkl_one_l">
+				</div>
+				<div class="sjbb_ddkl_one_r">
+					<div class="sjbb_ddkl_one_r_son">
+						<a href="javascript:" class="changa01">搜索</a>
+					</div>
+				</div>
+		</li>
+		</ul>
+	</div> <!--sjbb_index_onesjbb_ddkl_oneend-->
+
+	<div class="sjbb_ryyj_top">
+	<?php echo date("Y-m-d", strtotime($_GET['day'])) ?> 合计现金收入：<span class="two"><?php echo $_GET['all'] ?></span> 元
+	</div>
+	<!--table_container-->  
+	<div class="table_container">
+		<!--table_con-->
+		<div class="table_con">
+			<!--table_con_son-->
+			<div class="table_con_son">
+				<div class="table_title">
+				<ul>
+					<li>门店</li>
+					<li>客户</li>
+					<li>业务类型</li>
+					<?php if ($config['money']['open']=='true'): ?><li>实收现金</li><?php endif ?>
+					<?php if ($config['post']['open']=='true'): ?>
+					<?php foreach ($config['post']['has'] as $key => $value): ?>
+						<li><?php echo $value ?></li>
+					<?php endforeach ?>
+					<?php endif ?>
+					<?php if ($config['bank']['open']=='true'): ?>
+					<?php foreach ($config['bank']['has'] as $key => $value): ?>
+						<li><?php echo $value ?></li>
+					<?php endforeach ?>
+					<?php endif ?>
+					<?php if ($config['other']['open']=='true'): ?>
+					<?php foreach ($config['other']['has'] as $key => $value): ?>
+						<li><?php echo $value ?></li>
+					<?php endforeach ?>
+					<?php endif ?>
+
+					<li>合计</li>
+					<li>操作</li>
+				</ul>
+				</div>
+				<?php $i=0; ?>
+				<?php foreach ($list as $k => $row): ?>
+					<?php $o=$row;unset($o['id'],$o['cu_id']); $_all=array_sum($o); ?>
+					<?php if($_all==0) continue; ?>
+				<div class="table_list clear <?php $i++; if($i%2==0): ?>sjbb_ddkl_tablefoot01<?php endif ?> ">
+					<ul>
+						<li ><?php echo $row['dept_name'] ?></li>
+						<li ><?php echo $row['name'] ?></li>
+						<li ><?php echo $row['type'] ?></li>
+						<?php if ($config['money']['open']=='true'): ?><li><?php echo $row['xj']?$row['xj']:0 ?></li><?php endif ?>
+						<?php foreach ($config['post']['has'] as $key => $value): ?>
+							<li><?php echo $row[$value]?$row[$value]:0 ?></li>
+						<?php endforeach ?>
+						<?php if ($config['bank']['open']=='true'): ?>
+						<?php foreach ($config['bank']['has'] as $key => $value): ?>
+							<li><?php echo $row[$value]?$row[$value]:0 ?></li>
+						<?php endforeach ?>
+						<?php endif ?>
+						<?php if ($config['other']['open']=='true'): ?>
+						<?php foreach ($config['other']['has'] as $key => $value): ?>
+							<li><?php echo $row[$value]?$row[$value]:0 ?></li>
+						<?php endforeach ?>
+						<?php endif ?>
+						<li><?php echo $_all ?></li>
+						<li><a rel="<?php echo $row['cu_id'] ?>" href="javascript:" class="khgl_03 detail">查看</a></li>
+					</ul>
+				</div>
+				<?php endforeach ?>
+			</div><!--table_con_son!end-->
+		</div><!--table_con!end-->
+	<!--分页-->
+	<!--分页！end-->
+	</div>
+</div>
+<!--content_right_con!end-->
+
+
+<script type="text/javascript">
+$(function(){
+	var t = Itime({
+		content:$('#choose_time'),
+		endoff:true,
+		<?php if (isset($_GET['month'])): ?>
+		begin:'<?php echo $_GET["month"]?>', //填充默认时间
+		<?php endif ?>
+		//end:'201507', //默认当前时间
+		type:'m',  	  // 日 模式
+	})._self.find("a[rel='y'], a[rel='d']").remove(); //屏蔽 年 日 选择
+
+	//门店范围选择
+	$(".choose_md a").click(function(){
+		var rel=$(this).attr("rel");
+		if($(this).find("span").hasClass("span_01")){
+			$(this).find("span").removeClass("span_01");
+			if(rel=="0")
+				$(".choose_md span").removeClass("span_01");
+		}else{
+			$(this).find("span").addClass("span_01");
+			if(rel=="0")
+				$(".choose_md span").addClass("span_01");
+		}
+	});
+
+	
+	<?php if ($this->controller->is_store): ?>
+		$(".choose_md").find("a").trigger("click");
+	<?php else: ?>
+	//填充默认门店
+	<?php if (isset($_GET['md_id'])): ?>
+	<?php foreach (explode(',', $_GET['md_id']) as $v): ?>
+		$(".choose_md").find("a[rel='<?php echo $v ?>']").trigger("click");
+	<?php endforeach ?>
+	<?php endif ?>
+	<?php endif ?>
+
+	$(".to_back").click(function(){
+		history.go(-1);
+	});
+
+	$(".table_container").on("click",".detail",function(){
+		var cu_id=$(this).attr("rel");
+		to_url('<?php echo $this->url("customer/index/view&id=") ?>'+cu_id);
+	})
+
+});
+</script>

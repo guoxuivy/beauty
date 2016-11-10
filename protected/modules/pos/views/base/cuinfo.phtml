@@ -1,0 +1,52 @@
+<?php $cu_avatar=$info->getAvatar($info->id);?>
+<!--khgl_shouye-->
+<div class="khgl_shouye">
+	<div class="khgl_shouye_l"><img width="102" height="102" src="<?php echo $cu_avatar;?>"></div>
+	<div class="khgl_shouye_r">
+		<div class="khgl_shouye_r_son">
+			<div class="khgl_shouye_r_top">
+				<ul>
+					<li>
+						<span class="khgl_shouye_r_top_01 cu_info" data-id="<?php echo $info->id ?>"><?php echo $info->name ?></span>
+						<span class="khgl_shouye_r_top_02"><?php echo mb_substr($info->cu_type,0,1,'utf-8');?></span>
+						（<?php echo $info->store_name ?>）
+					</li>
+					<li>会员卡：<span class="khgl_shouye_r_top_07"><?php echo $info->membership_name ?></span></li>
+					<li>卡号：<span class="khgl_shouye_r_top_04"><?php echo $info->cardid ?></span></li>
+				</ul>
+			</div>
+			<div style=" border-bottom:none;" class="khgl_shouye_r_top">
+				<ul>
+					<?php foreach ($capital_list as $key => $capital): ?>
+					<li><?php echo $capital['name'] ?>余额：<span class="khgl_shouye_r_top_04">￥<?php echo $capital['balance'] ?></span></li>
+					<?php endforeach ?>
+
+					<li class="pos_cz_01">账户欠款：<span class="khgl_shouye_r_top_04 pos_cz_01">￥<font class="cu_arrears"><?php echo $info->arrears ?></font></span></li>
+					<?php 
+						$config=\CompanyInfo::getConfig('score_config'); 
+						if($config['openAll']=='true'):
+					?>
+					<li>会员可用积分：<span class="khgl_shouye_r_top_04 cu_score"><?php echo $info->score ?></span></li>
+					<?php endif; ?>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div><!--khgl_shouye!end-->
+
+<script type="text/javascript">
+//赠送账户信息
+var capital_zs=[];
+//现金账户信息
+var capital_xj=[];
+<?php 
+foreach ($capital_list as $key => $capital){ 
+	if($capital['type']==2){
+		echo 'capital_zs.push({id:"'.$capital['id'].'",name:"'.$capital['name'].'",balance:"'.$capital['balance'].'",is_project:"'.$capital['is_project'].'",is_product:"'.$capital['is_product'].'",is_voucher:"'.$capital['is_voucher'].'",type:"'.$capital['type'].'"});';
+	}else{
+		echo 'capital_xj.push({id:"'.$capital['id'].'",name:"'.$capital['name'].'",balance:"'.$capital['balance'].'",is_project:"'.$capital['is_project'].'",is_product:"'.$capital['is_product'].'",is_voucher:"'.$capital['is_voucher'].'",type:"'.$capital['type'].'"});';
+	}
+}
+?>
+//console.log(capital_xj);
+</script>

@@ -1,0 +1,35 @@
+
+
+<div class="table_title">
+    <ul>
+        <li style="min-width: 20px;"></li>
+        <li>房间</li>
+        <li>客户</li>
+        <li>实操时长</li>
+        <li>预约时间</li>
+        <li>实操美疗师</li>
+        <li id="re_time">取约操作时间</li>
+    </ul>
+</div>
+<?php if(!empty($list)):?>
+    <?php foreach($list as $key=>$_list):?>
+        <div class="table_list clear">
+            <ul>
+                <li class="li001"><?php echo $key+1;?></li>
+                <li class="li001"><?php echo $_list['room_name'];?></li>
+                <li class="li002"><?php echo $_list['cu_name'];?></li>
+                <?php $rebook_times = explode(',',$_list['times']);$count_times = count($rebook_times);?>
+                <li class="li003"><?php echo $count_times/2;?>个小时</li>
+                <li class="li003"><?php echo $times[$rebook_times[0]].'~'.$times[$rebook_times[$count_times-1]+1];?></li>
+                <li class="li004"><?php echo implode(';',\ReBook::model()->getOperatorNames($_list['operator_ids']));?></li>
+                <li class="li005"><?php echo $_list['update_time'];?></li>
+            </ul>
+        </div>
+    <?php endforeach;?>
+<?php else:?>
+    <div class="table_list clear">
+        <ul style="margin-left: 350px;">
+            暂无数据！
+        </ul>
+    </div>
+<?php endif;?>

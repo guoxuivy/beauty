@@ -1,0 +1,156 @@
+<?php
+$themePath = $this->basePath ( 'public' );
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>美业连锁管控平台-注册</title>
+<link href="<?php echo $this->basePath('public'); ?>/css/login.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?php echo $this->basePath('public/js/jquery.js'); ?>"></script>
+
+<!--
+<script id="adLayer" type="text/javascript" src="<?php echo $this->basePath('public/js/King_Chance_Layer.js');?>" data="<?php echo $themePath;?>"></script>
+-->
+
+<style type="text/css">
+.tan_mf ,.tan_sf{ display: none;}
+.style_list_button a{color: #333;text-decoration: none;}
+.style_list_button a:hover{color: #07f;}
+</style>
+
+</head>
+<body>
+	<div class="top">
+		<div class="top_center">
+			<span id="go_back_home" style="float: right; background-color: #fff; border: solid 1px #ddd; display: inline-block; line-height: 25px; height: 25px; padding-left: 15px; padding-right: 15px; color: #666; font-size: 12px; margin-top: 25px; cursor: pointer;">返回首页</span>
+			<div class="logo">
+				<img src="<?php echo $themePath; ?>/images/howa_logo.png" width="170" height="42" />
+			</div>
+			<span class="logo_span">注册</span>
+		</div>
+	</div>
+	<div class="advertising">
+		<div class="advertising_page">
+			<a href="###"><img src="<?php echo $themePath; ?>/images/top.jpg"></a><br><br>
+	    </div>
+	</div>
+	<div class="page">
+		<div class="page_tit buzhou_2">
+			<ul>
+		    	<li class="buzhou_visit">1、基本资料</li>
+		        <li class="buzhou_1_li">2、选择版本</li>
+				<li class="buzhou_visit">3、上传营业执照</li>
+		        <li class="buzhou_visit">4、完成</li>
+		    </ul>
+		</div>
+		<div class="main">
+			<div class="two_page">
+				<div class="style_list style_left">
+			    	<h2><span style="background-color:#0bcf55;">standard</span>标准版</h2>
+			        <div class="style_list_text">财务管理规范化，高效数据整合</div>
+			        <div class="style_list_text1">适用于1-3家店的, 小规模的美容院</div>
+			        <div class="style_list_text2">
+			        	<ul>
+			                <li>部门管理</li>
+			                <li>员工管理</li>
+			                <li>客户管理</li>
+			                <li>财务管理</li>
+			                <li>经营报表</li>
+			                <li>项目管理</li>
+			                <li>E-learning 在线学习</li>
+			            </ul>
+			            <p><a id="tan_mf" href="javascript:;" target="_blank">了解详情</a></p>
+			        </div>
+			        <div class="style_list_button"><span><a href="<?php echo $this->url('register3') ?>&has_invo=N" >选择并继续</a></span></div>
+			    </div>
+			    <div class="style_list style_right">
+			    	<h2><span style="background-color:#f7ad00;">VIP</span>全功能版</h2>
+			        <div class="style_list_text">在基础版的功能之上, 添加美业专属功能的进销存功能模块, 帮助精细成本控制</div>
+			        <div class="style_list_text1">适用于3家以上的连锁美容院</div>
+			        <div class="style_list_text2">
+			        	<ul>
+			                <li>包括所有标准版功能</li>
+			                <li>微信基础功能版</li>
+			                <li>供应商管理</li>
+			                <li>采购管理</li>
+			                <li>调拨管理</li>
+			                <li>盘库管理</li>
+			                <li>库存损益管理</li>
+			            </ul>
+			            <p><a id="tan_sf" href="javascript:;" target="_blank">了解详情</a></p>
+			        </div>
+			        <div class="style_list_button"><span><a href="<?php echo $this->url('register3') ?>&has_invo=Y" >选择并继续</a></span></div>
+			    </div>
+			    <div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		<div class="footer_center">© Copyright 2011-2015 武汉好哇商业技术有限公司
+			鄂ICP备14003221号</div>
+	</div>
+
+
+<!--标准版弹窗-->
+<div class="two_tan tan_mf" >
+	<div class="two_tan_tit"><span></span>温馨提示</div>
+<div class="two_tan_page">
+    	<div class="two_tan_page_text">
+        	<span>!</span>
+            <p style="padding-bottom:8px;">您选择的类型是：标准版</p>
+          <p style="color:#999;">选择注册类型之后不可更改，是否继续操作？</p>
+        </div>
+        <div class="two_tan_page_text1">
+        	<p>注：标准版仅收取服务费：100元/店/月，除此之外不另收费</p>
+        	<p>&nbsp;</p>
+            <p>注册成功后您可试用一个自然月。</p>
+        </div>
+  </div>
+    <div class="two_tan_button">
+    	<a href="<?php echo $this->url('register3') ?>&has_invo=N" class="two_tan_button_ok">确定</a><a class="two_tan_button_no" href="javascript:;">取消</a>
+    </div>
+</div>
+<!--全功能版弹窗-->
+<div class="two_tan tan_sf" >
+	<div class="two_tan_tit"><span></span>温馨提示</div>
+<div class="two_tan_page">
+    	<div class="two_tan_page_text">
+        	<span>!</span>
+            <p style="padding-bottom:8px;">您选择的类型是：全功能版</p>
+          <p style="color:#999;">选择注册类型之后不可更改，是否继续操作？</p>
+        </div>
+        <div class="two_tan_page_text1">
+        	<p>注：全功能版售价：50,000元/套，服务费： 2000元/店/年</p>
+        	<p>&nbsp;</p>
+            <p>注册成功并通过审核，付款成功后即可使用系统</p>
+        </div>
+  </div>
+    <div class="two_tan_button">
+    	<a href="<?php echo $this->url('register3') ?>&has_invo=Y" class="two_tan_button_ok">确定</a><a class="two_tan_button_no" href="javascript:;">取消</a>
+    </div>
+</div>
+
+<div class="zhezhao" style="display:none;background-color:#000; width:100%; height:100%; position:fixed; z-index:100; top:0; left:0;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8;opacity: 0.8;"></div>
+
+<script type="text/javascript">
+	$('#go_back_home').click(function() {
+		var url = 'http://www.howa.com.cn';
+		window.location.href = url;
+	});
+
+	$('#tan_mf').click(function(){
+		$('.tan_mf').show();
+		$('.zhezhao').show();
+	})
+	$('#tan_sf').click(function(){
+		$('.tan_sf').show();
+		$('.zhezhao').show();
+	})
+	$('.two_tan_tit span,.two_tan_button_no').click(function(){
+		$('.two_tan').hide();
+		$('.zhezhao').hide();
+	})
+</script>
+</body>
+</html>

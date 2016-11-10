@@ -1,0 +1,243 @@
+
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+        <!--<div class="fjgl_top_r">
+          <a href="javascript:" class="khgl_02 fpkhn">分配客户</a><a href="javascript:" class="fjgl_top_r_01">筛选</a><a href="javascript:" class="fjgl_top_r_02 tjfjz">添加客户</a>
+        </div>-->
+        <div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>POS开单><span>充值</span>>订单编辑
+    </div>
+
+    <!--khgl_shouye-->
+    <?php echo $cu_info ?>
+    <!--khgl_shouye!end-->
+    <!--销售人员及业绩比例-->
+    <?php echo $effect ?>
+    <!--销售人员及业绩比例!end-->
+
+    <!--充值-->
+    <div class="pos_cz_tow">
+        <div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>充值</div>
+        <div class="pos_cz_tow_two">
+            <!--table_container-->
+            <div class="table_container" style="border:none;">
+                <div class="table_title_tj pos_cz_tow_two06">...</div>
+                <!--table_con-->
+                <div class="table_con" style="border:none; margin-right:0px;">
+                    <!--table_con_son-->
+                    <div class="table_con_son">
+                        <div class="table_title">
+                            <ul>
+                                <?php foreach($cu_capitals as $cu_capital):?>
+                                    <li><?php echo $cu_capital['name']?>（元）</li>
+                                <?php endforeach;?>
+                            </ul>
+                        </div>
+                        <?php //var_dump($cu_capitals);?>
+                        <div id="cz_money" class="table_list clear">
+                            <ul>
+                                <?php for($i=0;$i<count($cu_capitals);$i++):?>
+                                    <li class="li00<?php echo $i+1;?>">
+                                        <input capitalid="<?php echo $cu_capitals[$i]['id']?>" type="text" class="pos_cz_tow_two05" value="<?php echo empty($details[$cu_capitals[$i]['id']])?'':(int)$details[$cu_capitals[$i]['id']];?>"/>
+                                    </li>
+                                <?php endfor;?>
+                            </ul>
+                        </div>
+
+                    </div><!--table_con_son!end-->
+                </div><!--table_con!end-->
+            </div>
+            <!--table_containter!end-->
+            <div class="pos_cz_tow_two_two pos_cz_qr_top_02"><span class="pos_cz_tow_two04">应付金额：<em><?php echo empty($model)?0:$model->o_s->pay_price?></em>&nbsp;元</span></div>
+        </div>
+    </div><!--充值!end-->
+
+    <!--赠送-->
+    <?php echo $gift ?>
+    <!--赠送!end-->
+
+    <!--备注-->
+    <div class="pos_cz_tow pos_cz_for_bz">
+        <div class="pos_cz_for_bz01">备注</div>
+        <div class="pos_cz_for_bz02">
+            <div class="pos_cz_for_bz02_son"><textarea class="order_note" rows="4"><?php echo empty($model)?'':$model->o_s->note?></textarea></div>
+        </div>
+    </div><!--备注!end-->
+
+    <!---->
+    <div class="pos_cz_tow pos_cz_zh before">
+        <a href="javascript:" class="pos_cz_zh_an">提交订单</a>
+        <div class="pos_cz_zh_01">应付总金额：<span class="pos_cz_zh_02">￥<?php echo empty($model)?0:$model->o_s->pay_price?></span></div>
+    </div><!--!end-->
+    <!---->
+    <div class="pos_cz_tow pos_cz_zh after" style="display: none;">
+        <a href="javascript:" class="pos_cz_zh_an_hover">正在提交订单，请稍后...</a>
+        <div class="pos_cz_zh_03">应付总金额：<span class="pos_cz_zh_02">￥<?php echo empty($model)?0:$model->o_s->pay_price?></span></div>
+    </div><!--!end-->
+</div>
+<!--content_right_con!end-->
+
+{__TOKEN__}
+
+<script type="text/javascript">
+
+    <?php if(empty($cu_capitals)):?>
+        Idialog.tips('当前系统没有建立必须的现金账户，请联系公司管理员进行新增后，再来充值！',3);
+    <?php endif;?>
+
+    //收起效果
+    $(".pos_cz_tow_top_r").click(function(){
+        var self=$(this);
+        self.parent().next().slideToggle("fast",function(){
+            //alert("Animation Done.");
+            if(self.hasClass("pos_cz_tow_top_rcl")){
+                self.removeClass("pos_cz_tow_top_rcl");
+            }else{
+                self.addClass("pos_cz_tow_top_rcl");
+            }
+        });
+    });
+
+    $('#cz_money .pos_cz_tow_two05').keyup(function(){
+        var reg = /^\+?[1-9][0-9]*$/;
+        var total=0;
+        if($(this).val()!=''){
+            if(!reg.test($(this).val())){
+                Idialog.tips('请输入正整数！',2);
+                $(this).val('');
+            }else{
+                $('#cz_money .pos_cz_tow_two05').each(function(){
+                    if($(this).val()!=''){
+                        total += parseInt($(this).val());
+                    }
+                });
+            }
+        }
+        $('.pos_cz_tow_two04').find('em').text(total);
+        $('.pos_cz_zh_02').html('￥'+total);
+    });
+
+    //数据提交
+    $(".before .pos_cz_zh_an").click(function(){
+        var post_data=submit_data();
+        if(post_data==false){
+            return false;
+        }
+        $('.pos_cz_tow.pos_cz_zh.before').hide();
+        $('.pos_cz_tow.pos_cz_zh.after').show();
+
+        <?php if ($model): ?>
+            var url="<?php echo $this->url('editSave',array('id'=>$model->o_s->id)) ?>";
+        <?php else: ?>
+            var url="<?php echo $this->url('addSave') ?>";
+        <?php endif ?>
+        $.post(url, post_data,function(data){
+            $('.c_submit img').attr("src","<?php echo $this->basePath('public');?>/images/pos_cz_10.png");
+            Idialog.tips(data.msg,2);
+            if(data.code==200){
+                //转到付款界面
+                setTimeout(function(){to_url('<?php echo $this->url("order");?>&id='+data.data)},1000);
+            }
+        }, "json");
+    });
+
+    function to_url(url){
+        window.location.href=url;
+    }
+
+    //提交保存数据构造
+    function submit_data(){
+        var data={};var err = false;
+        data.__hash__ = $("input[name='__hash__']").val();//表单令牌
+        //业绩比例相关
+        data.effect=[];
+        $(".effect_user").each(function(i){
+            data.effect.push({"e_id":$(this).val(),"e_rate":$(this).next().val()});
+            if($(this).next().val()==0){
+                Idialog.tips("业绩不能为空",2);
+                err = true;
+            } 
+        });
+        //业绩人员验证
+        var e_u=$("input[name='effect_user']").val().split(",").sort();
+        for(i = 0; i < e_u.length; i++) {
+            if( e_u[i] == e_u[i+1]) {
+                Idialog.tips("业绩人员重复",2);
+                err = true;
+            }
+        }
+
+        data.pro=[];
+        var total=0;
+        $('#cz_money').find(".pos_cz_tow_two05").each(function(i){
+            var pro_type = 4;
+            data.pro.push({
+                "pro_id":$(this).attr('capitalid'),//原价
+                "price":$(this).val(),//原价
+                "pro_type":pro_type,
+                "rebate":100 //面折率
+            });
+            if($(this).val()!=''){
+                total += parseInt($(this).val());
+            }
+
+        });
+        if(parseFloat(total)<=0)
+        {
+            Idialog.tips("充值金额必须大于0",2);
+            err = true;
+        }
+        //赠送项目、产品、卡券相关
+        data.gift=[];
+        $('.box_gift_xm,.box_gift_cp,.box_gift_kq').find(".table_list").each(function(i){
+            var pro_type=3;
+            if($(this).closest('.box_gift_xm').length>0)
+                var pro_type=1;
+            if($(this).closest('.box_gift_cp').length>0)
+                var pro_type=2;
+            data.gift.push({
+                "pro_id":$(this).attr("data-id"),
+                "num":$(this).find(".li002 input").val(),
+                "price":$(this).attr("data-dj")*$(this).find(".li002 input").val(),//原价 = 单价*数量
+                "pro_type":pro_type //商品类型
+            });
+        });
+        //赠送现金
+        data.gift_xj=[];
+        $('.box_gift_xj').find("input").each(function(i){
+            if($(this).val()!=''){
+                data.gift_xj.push({
+                    "capital_id":$(this).attr("data-id"),
+                    "cash":$(this).val()
+                });
+            }
+
+        });
+        //赠送j积分
+        data.gift_jf=$('.box_gift_jf').find("input").val();
+
+
+        //整单信息-原价
+        data.price = total;
+        //整单信息-应付金额
+        data.pay_price = total;
+        //整单信息-原价
+        data.rebate = 100;
+        data.type = 2;
+
+        data.cu_id=$('.cu_info').attr("data-id");
+
+        data.note=$('.order_note').val();
+
+        <?php if ($tag&&$tag=='rh'): ?>
+            data.rh_id='-1';
+        <?php endif ?>
+        if(err)
+            return false; //发生验证错误 返回false
+        //return false; 发生验证错误 返回false
+        return data;
+    }
+
+</script>
+
+

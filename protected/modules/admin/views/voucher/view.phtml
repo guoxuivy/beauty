@@ -1,0 +1,144 @@
+<?php 
+$proj_top_cate=\ProCate::getProjectTopCate();
+$prod_top_cate=\ProCate::getProductTopCate();
+?>
+<style type="text/css">
+.qradio{height:13px !important;; width:13px !important;;margin-left:10px !important;; margin-right:5px !important;}
+.fjgl_th413{margin-top: 0px;}
+</style>
+<script src="<?php echo $this->basePath('public') ?>/laydate/laydate.js" type="text/javascript"></script>
+<form method="post" action="<?php echo $this->url('edit') ?>">
+<!--content_right_con-->
+<div class="content_right_con">
+	<div style=" border-bottom:1px solid #CCC;" class="content_right_con_top">卡券管理>卡券详情</div>
+	<!--xjxm_con-->
+	<div class="xjxm_con">
+		<!--xjxm_con_top-->
+		<div class="xjxm_con_top">
+			<div class="list"><label>卡券名称：</label>
+            	<div class="list_right">
+				<input readonly="readonly" name="name" class="xjxm_input" style="width:290px;" value="<?php echo $model->name ?>" type="text" placeholder="" />
+                </div>
+			</div>
+			<div class="list jcDateBtn"><label>有效期：</label>
+            	<div class="list_right">
+				<input readonly="readonly" type="text" style=" width:118px;" name="stime" class="laydate-icon xjxm_input" value="<?php echo $model->isNewRecord?"":date("Y-m-d",$model->stime);?>">
+				<span style=" padding:0 10px;">至</span>
+				<input readonly="readonly" type="text" style=" width:118px;" name="etime" class="laydate-icon xjxm_input" value="<?php echo $model->isNewRecord?"":date("Y-m-d",$model->etime);?>">
+                </div>
+			</div>
+			<div class="list"><label>卡券售价：</label>
+            	<div class="list_right">
+				<input readonly="readonly" name="price" class="xjxm_input" style="width:290px;" value="<?php echo $model->price ?>" type="text" placeholder="" />
+                </div>
+			</div>
+			<div class="list"><label>使用范围：</label>
+            	<div class="list_right" style="height: 28px;">
+					<?php if($model->scope==1):?>
+						<input style="margin-top: 8px;" name="scope" type="radio" checked="checked" value="1" class="qradio">
+						<snap style="margin-top: 6px;position: absolute;">仅限正式会员</snap>
+					<?php elseif($model->scope==2):?>
+						<input style="margin-top: 8px;" name="scope" type="radio" checked="checked" value="2" class="qradio">
+						<snap style="margin-top: 6px;position: absolute;">仅限非正式会员</snap>
+					<?php else:?>
+						<input style="margin-top: 8px;" name="scope" type="radio" checked="checked" value="0" class="qradio">
+						<snap style="margin-top: 6px;position: absolute;">不限</snap>
+					<?php endif;?>
+                </div>
+			</div>
+
+			<div class="list"><label>发行数量：</label>
+            	<div class="list_right">
+				<input readonly="readonly" type="text" class="xjxm_input"  value="<?php echo $model->num!=-1?$model->num:'不限数量';?>"  style="width:100px;" class="c_num">
+				</div>
+			</div>
+
+			<div class="list"><label style="font-size:14px;padding-left:5px">卡券内容：</label></div>
+			<!--卡券组成-->
+			<div class="kj_xzkj_con" style="">
+			    <!--1-->
+				<div class="kj_xzkj">
+			    	<div class="xjxm_con_th_l">包含现金：</div>
+			  		<!--右边-->
+			   		<div class="xjxm_con_th_r">  
+			           <p>
+						   <input readonly="readonly" type="text" value="<?php echo $model->price ?>" disabled="true" class="input">元
+						   <span style=" padding-left:50px;">卡券内赠送金额：</span>
+						   <input readonly="readonly" type="text" name="give_money" value="<?php echo $model->give_money ?>" class="input">元
+					   </p>
+			        </div><!--右边-->
+
+			    </div><!--1!end-->
+			    <!--1-->
+				<div class="kj_xzkj">
+			    	<div class="xjxm_con_th_l">卡券内项目：</div>
+			  		<!--右边-->
+			   		<div class="xjxm_con_th_r">
+			           <!---->
+			           <div class="fjgl_th413">
+			               <div class="fjgl_th_top">
+			                   <ul>
+			                     <li class="kj_xzkj_01">项目名称</li>
+			                     <li class="kj_xzkj_03">数量（疗次）</li>
+			                   </ul>
+			               </div>
+
+			               <?php if ($model->proj_list): ?>
+							<?php foreach ($model->proj_list as $proj_k=>$project): ?>
+							<div class="fjgl_th_th clear">
+								<ul>
+								<li class="kj_xzkj_011"><?php echo $project['pro_name'] ?></li>
+								<li class="kj_xzkj_022"><input readonly="readonly" type="text" name="proj_list[<?php echo $proj_k ?>][num]" value="<?php echo $project['num'] ?>"></li>
+								</ul>
+							</div>
+							<?php endforeach ?>
+							<?php endif ?>
+			           </div><!---->
+			           
+			        </div><!--右边-->
+
+			    </div><!--1!end-->
+			    <!--1-->
+				<div class="kj_xzkj">
+			    	<div class="xjxm_con_th_l">卡券内产品：</div>
+			  		<!--右边-->
+			   		<div class="xjxm_con_th_r">
+			           <!---->
+			           <div class="fjgl_th413">
+			               <div class="fjgl_th_top">
+			                   <ul>
+			                     <li class="kj_xzkj_01">产品名称</li>
+			                     <li class="kj_xzkj_03">数量</li>
+			                   </ul>
+			               </div>
+
+			               <?php if ($model->prod_list): ?>
+							<?php foreach ($model->prod_list as $prod_k=>$product): ?>
+							<div class="fjgl_th_th clear">
+								<ul>
+								<li class="kj_xzkj_011"><?php echo $product['pro_name'] ?></li>
+								<li class="kj_xzkj_022"><input readonly="readonly" type="text" name="prod_list[<?php echo $prod_k ?>][num]" value="<?php echo $product['num'] ?>"></li>
+								</ul>
+							</div>
+							<?php endforeach ?>
+							<?php endif ?>
+			           </div><!---->
+			           
+			        </div><!--右边-->
+
+			    </div><!--1!end-->
+			</div><!--卡券组成 end-->
+		</div>
+		<!--xjxm_con_top-->
+	<!--xjxm_con_th-->
+	<div class="xjxm_con_th" style=" padding:10px 0px;">
+		<div class="xjxm_con_th_l">卡券备注：</div>
+		<!--右边-->
+		<div class="xjxm_con_th_r">
+		<textarea readonly="readonly" name="note" rows="4" style=" width:90%;"><?php echo $model->note ?></textarea>
+		</div>
+	</div><!--xjxm_con_th!end-->
+</div><!--content_right_con!end-->
+</div><!--xjxm_con!end-->
+</form>
+

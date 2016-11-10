@@ -1,0 +1,382 @@
+<style type="text/css">
+	.step li{display: none}
+</style>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r" style=" font-size:14px; color:#666666;">
+			<?php echo date('Y年m月d日 H:i:s')?>
+		</div>
+		<?php echo $company_name?>
+	</div>
+	<!--1-->
+	<div class="sy_in_top fx_jdt">
+		<div class="sy_in_top_ico"><img src="<?php echo $this->basePath("public") ?>/images/ind_1.png" /></div>
+		<div class="sy_in_top_top">正在进行系统全面分析</div>	
+		<div class="sy_in_top_two">
+				<div class="span votebox">
+				<dl class="barbox">
+					<dd class="barline">
+						<div percent="60" style="width:0px;" class="charts"></div>
+					</dd>
+					</dl>
+				</div>
+				<a href="javascript:"><img src="<?php echo $this->basePath("public") ?>/images/ind_3.png" /></a>
+		</div>	
+		<div class="sy_in_top_th">分析时间较长，请耐心等待</div>	
+	</div><!--1-->
+	<!--1-->
+	<div class="sy_in_top all_score_error" style="display: none;">
+		<div class="sy_in_top_ico"><img src="<?php echo $this->basePath("public") ?>/images/ind_2.png" /></div>
+		<div class="sy_in_top_top sy_in_top_th_02">全面分析得分：<span id="fx_score">0</span></div>
+		<div class="sy_in_top_th sy_in_top_th_01">
+			本次共分析7项，其中<span id="fx_error" class="span"> 0</span> 项有问题
+			<span class="span01"><a href="javascript:location.reload();">重新分析</a></span>
+		</div>
+	</div><!--1-->
+
+	<!--2-->
+	<div class="sy_in_two" id="all_error">
+		<div class="sy_in_two01">检测内容</div>
+		<ul class="step">
+			<li id="step1" class="warn">
+				门店管理：&nbsp;
+				<span class="step1"></span>&nbsp;
+				<div class="sy_in_two02">
+					<a href="<?php echo $this->url('admin/store/index') ?>">
+						<img src="<?php echo $this->basePath("public") ?>/images/ind_8.png" />
+					</a>
+				</div>
+			</li>
+			<li id="step2" class="warn">
+				员工管理：&nbsp;
+				<span class="step2"></span><span></span>&nbsp;
+				<div class="sy_in_two02">
+					<a href="<?php echo $this->url('admin/employ/index') ?>">
+						<img src="<?php echo $this->basePath("public") ?>/images/ind_8.png" />
+					</a>
+				</div>
+			</li>
+			<li id="step3" class="warn">
+				房间管理：&nbsp;
+				<span class="step3"></span>&nbsp;
+				<div class="sy_in_two02">
+					<a href="<?php echo $this->url('admin/room/index') ?>">
+						<img src="<?php echo $this->basePath("public") ?>/images/ind_8.png" />
+					</a>
+				</div>
+			</li>
+			<li id="step4" class="warn">
+				会员卡管理：&nbsp;
+				<span class="step4"></span>&nbsp;
+				<div class="sy_in_two02">
+					<a href="<?php echo $this->url('admin/membership/index') ?>">
+						<img src="<?php echo $this->basePath("public") ?>/images/ind_8.png" />
+					</a>
+				</div>
+			</li>
+			<li id="step5" class="warn">
+				会员账户管理：&nbsp;
+				<span class="step5"></span>&nbsp;
+				<div class="sy_in_two02">
+					<a href="<?php echo $this->url('admin/config/capital') ?>">
+						<img src="<?php echo $this->basePath("public") ?>/images/ind_8.png" />
+					</a>
+				</div>
+			</li>
+			<li id="step6" class="warn">
+				产品管理：&nbsp;
+				<span class="step6"></span>&nbsp;
+				<div class="sy_in_two02">
+					<a href="<?php echo $this->url('admin/product/index') ?>">
+						<img src="<?php echo $this->basePath("public") ?>/images/ind_8.png" />
+					</a>
+				</div>
+			</li>
+			<li id="step7" class="warn">
+				项目管理：&nbsp;
+				<span class="step7"></span>&nbsp;
+				<div class="sy_in_two02">
+					<a href="<?php echo $this->url('admin/project/index') ?>">
+						<img src="<?php echo $this->basePath("public") ?>/images/ind_8.png" />
+					</a>
+				</div>
+			</li>
+			<li id="step8" class="warn">
+				项目配方检测：<span style="color: #333333;"></span>
+				<span class="step8">0</span><span style="color: #333333;"></span>
+				<div class="sy_in_two02">
+					<a href="<?php echo $this->url('admin/project/index') ?>">
+						<img src="<?php echo $this->basePath("public") ?>/images/ind_8.png" />
+					</a>
+				</div>
+			</li>
+		</ul>
+	</div><!--2-->
+	<!--3-->
+	<div id="all_pd" class="sy_in_th">
+
+	</div><!--3-->
+
+
+
+	<!--<div class="sy_in_top" style=" margin-top:30px;">
+		<div class="sy_in_top_ico"><img src="<?php /*echo $this->basePath("public") */?>/images/ind_2.png" /></div>
+		<div class="sy_in_top_top sy_in_top_th_02">全面分析得分：<span>100</span></div>
+		<div class="sy_in_top_th sy_in_top_th_01">您的系统很正常<span class="span01"><a href="javascript:">重新分析</a></span></div>
+	</div>
+	<div class="sy_in_th sy_in_th_01">
+	您的系统很正常，可以进行任何操作！
+	</div>-->
+	
+	<!--底部-->
+	<div class="sy_in_footewr">
+		关于好哇	|	服务条款 Copyright©2014 好哇（武汉）商业技术有限责任公司
+	</div><!--底部!end-->
+	<div class="yin_dao" style="display: none;">
+		检测到您是第一次登陆本系统，请点击“确定”按钮，按照引导流程完成系统配置。
+	</div>
+</div>
+<?php if($yinDao):?>
+	<div id='loading'><div></div></div>
+<?php endif;?>
+<!--content_right_con!end-->
+<script type="text/javascript">
+	<?php if($yinDao):?>
+		var d = Idialog({
+			top:250,
+			width:600,
+			title:'',
+			content:$('.yin_dao'),
+			cancel:false,
+			close:function(obj){
+				$('.yin_dao').hide();
+				window.location.href = '<?php echo $this->url('admin/store/index',array('yd'=>1));?>'
+			},
+			ok:function(obj){
+				$('.yin_dao').hide();
+				window.location.href = '<?php echo $this->url('admin/store/index',array('yd'=>1));?>'
+			}
+		});
+	<?php endif;?>
+
+function anim (n) {
+	var c=100/8;
+	$(".charts").animate({
+		width: "+="+c+"%"
+	},1000);
+}
+
+$(function(){
+	var score=0,error=0;
+	//门店检测
+	$("#step1").show().find(".step1").html('正在检测'+'<img src="<?php echo $this->basePath("public") ?>/images/load.gif">');
+	$.ajax({
+		type: "GET",
+		url: "<?php echo $this->url('md') ?>",
+		async: false,
+		dataType: "json",
+		success: function(json){
+			if(json.code==200){
+				anim(1);
+				if(json.data.num<=0){
+					setTimeout(function(){$("#step1").show().find(".step1").html('未创建门店');},500);
+					error += 1;
+				}else{
+					score += 20;
+					setTimeout(function(){
+						$("#step1").removeClass('warn').addClass('current');
+						$("#step1").show().find(".step1").css('color','#1bab70').html('正常');
+						$("#step1").show().find(".sy_in_two02").hide();
+					},500);
+				}
+			}
+		}
+	});
+	setTimeout(function(){$("#step2").show().find(".step2").html('正在检测'+'<img src="<?php echo $this->basePath("public") ?>/images/load.gif">');},510);
+	//员工检测
+	$.ajax({
+		type: "GET",
+		url: "<?php echo $this->url('yg') ?>",
+		async: false,
+		dataType: "json",
+		success: function(json){
+			if(json.code==200){
+				anim(1);
+				if(json.msg=='false'){
+					setTimeout(function(){$("#step2").show().find(".step2").html('未创建'+json.data.wjl);},1500);
+					/*if(json.data.wjl.length>0){
+						setTimeout(function(){$("#step2").show().find(".step2").next().css('color','#1bab70').html('；已创建'+json.data.yjl);},1500);
+					}*/
+					error += 1;
+				}else{
+					score += 20;
+					setTimeout(function(){
+						$("#step2").removeClass('warn').addClass('current');
+						$("#step2").show().find(".step2").css('color','#1bab70').html('正常');
+						$("#step2").show().find(".sy_in_two02").hide();
+					},1500);
+				}
+			}
+		}
+	});
+	setTimeout(function(){$("#step3").show().find(".step3").html('正在检测'+'<img src="<?php echo $this->basePath("public") ?>/images/load.gif">');},1510);
+	//房间检测
+	$.ajax({
+		type: "GET",
+		url: "<?php echo $this->url('fj') ?>",
+		async: false,
+		dataType: "json",
+		success: function(json){
+			if(json.code==200){
+				anim(1);
+				if(json.data.num<=0){
+					setTimeout(function(){$("#step3").show().find(".step3").html('未创建房间');},2500);
+					error += 1;
+				}else{
+					score += 10;
+					setTimeout(function(){
+						$("#step3").removeClass('warn').addClass('current');
+						$("#step3").show().find(".step3").css('color','#1bab70').html('正常');
+						$("#step3").show().find(".sy_in_two02").hide();
+					},2500);
+				}
+			}
+		}
+	});
+	setTimeout(function(){$("#step4").show().find(".step4").html('正在检测'+'<img src="<?php echo $this->basePath("public") ?>/images/load.gif">');},2510);
+	//会员卡检测
+	$.ajax({
+		type: "GET",
+		url: "<?php echo $this->url('hyk') ?>",
+		async: false,
+		dataType: "json",
+		success: function(json){
+			if(json.code==200){
+				anim(1);
+				if(json.data.num<=0){
+					setTimeout(function(){$("#step4").show().find(".step4").html('未创建会员卡');},3500);
+					error += 1;
+				}else{
+					score += 10;
+					setTimeout(function(){
+						$("#step4").removeClass('warn').addClass('current');
+						$("#step4").show().find(".step4").css('color','#1bab70').html('正常');
+						$("#step4").show().find(".sy_in_two02").hide();
+					},3500);
+				}
+			}
+		}
+	});
+	setTimeout(function(){$("#step5").show().find(".step5").html('正在检测'+'<img src="<?php echo $this->basePath("public") ?>/images/load.gif">');},3510);
+	//会员账户检测
+	$.ajax({
+		type: "GET",
+		url: "<?php echo $this->url('hyzh') ?>",
+		async: false,
+		dataType: "json",
+		success: function(json){
+			if(json.code==200){
+				anim(1);
+				if(json.data.num<=0){
+					setTimeout(function(){$("#step5").show().find(".step5").html('未创建会员账户');},4500);
+					error += 1;
+				}else{
+					score += 10;
+					setTimeout(function(){
+						$("#step5").removeClass('warn').addClass('current');
+						$("#step5").show().find(".step5").css('color','#1bab70').html('正常');
+						$("#step5").show().find(".sy_in_two02").hide();
+					},4500);
+				}
+			}
+		}
+	});
+	setTimeout(function(){$("#step6").show().find(".step6").html('正在检测'+'<img src="<?php echo $this->basePath("public") ?>/images/load.gif">');},4510);
+	//产品管理检测
+	$.ajax({
+		type: "GET",
+		url: "<?php echo $this->url('pd') ?>",
+		async: false,
+		dataType: "json",
+		success: function(json){
+			if(json.code==200){
+				anim(1);
+				if(json.data.num<=0){
+					setTimeout(function(){$("#step6").show().find(".step6").html('未创建产品');},5500);
+					error += 1;
+				}else{
+					score += 10;
+					setTimeout(function(){
+						$("#step6").removeClass('warn').addClass('current');
+						$("#step6").show().find(".step6").css('color','#1bab70').html('正常');
+						$("#step6").show().find(".sy_in_two02").hide();
+					},5500);
+				}
+			}
+		}
+	});
+	setTimeout(function(){$("#step7").show().find(".step7").html('正在检测'+'<img src="<?php echo $this->basePath("public") ?>/images/load.gif">');},5510);
+	//项目管理检测
+	$.ajax({
+		type: "GET",
+		url: "<?php echo $this->url('pj') ?>",
+		async: false,
+		dataType: "json",
+		success: function(json){
+			if(json.code==200){
+				anim(1);
+				if(json.data.num<=0){
+					setTimeout(function(){$("#step7").show().find(".step7").html('未创建项目');},6500);
+					error += 1;
+				}else{
+					score += 10;
+					setTimeout(function(){
+						$("#step7").removeClass('warn').addClass('current');
+						$("#step7").show().find(".step7").css('color','#1bab70').html('正常');
+						$("#step7").show().find(".sy_in_two02").hide();
+					},6500);
+				}
+			}
+		}
+	});
+	setTimeout(function(){$("#step8").show().find(".step8").html('正在检测'+'<img src="<?php echo $this->basePath("public") ?>/images/load.gif">');},6510);
+	//配方检测
+	$.ajax({
+		type: "GET",
+		url: "<?php echo $this->url('pf') ?>",
+		async: false,
+		dataType: "json",
+		success: function(json){
+			if(json.code==200){
+				anim(1);
+				if(json.data>0){
+					setTimeout(function(){$("#step8").show().find(".step8").prev().html('项目管理栏目中有&nbsp;');},7500);
+					setTimeout(function(){$("#step8").show().find(".step8").html(json.data);},7500);
+					setTimeout(function(){$("#step8").show().find(".step8").next().html('&nbsp;个项目未进行配方设置');},7500);
+					error += 1;
+				}else{
+					score += 10;
+					setTimeout(function(){
+						$("#step8").removeClass('warn').addClass('current');
+						$("#step8").show().find(".step8").css('color','#1bab70').html('项目管理栏目中的项目都已进行配方设置');
+						$("#step8").show().find(".sy_in_two02").hide();
+					},7500);
+				}
+			}
+		}
+	});
+	setTimeout(function(){
+		$("#fx_score").text(score);$("#fx_error").text(error);
+		$(".all_score_error").show();
+		$(".fx_jdt").hide();
+		if(error==0){
+			$("#all_pd").addClass('sy_in_th_01').html('您的系统很正常，可以进行任何操作！');
+		}else{
+			$("#all_pd").html('您的系统可以开始使用了，由于存在'+error+'个问题，强烈建议修复后再使用本系统！');
+		}
+	},8000);
+
+
+});
+</script>

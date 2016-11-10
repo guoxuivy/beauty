@@ -1,0 +1,30 @@
+<div class="add_store" title="编辑业绩">
+	<div class="tjfj_two">
+	<form method="post" action="<?php echo $this->url('add') ?>" class="form">
+		<div class="list">
+			<label>业绩人员：</label><div style="margin-left: 100px;">
+			<select name="user_id" style="width:276px;" <?php if($model){echo 'disabled="disabled"';} ?>>
+				<?php foreach ($user_list as $value): ?>
+				<option <?php if ($value['id']==$model->user_id): ?>  selected="selected" <?php endif ?> value="<?php echo $value['id'] ?>"><?php echo $value['netname'] ?></option>
+				<?php endforeach ?>
+			</select><span class="com_gbt">（必填）</span></div>
+		</div>
+		<div class="list">
+			<label>销售业绩目标：</label><div style="margin-left: 100px;"><input type="text" value="<?php echo $model->sale_target ?>" placeholder="" class="gysgl_07 inputxt" name="sale_target"/><span class="com_gbt">（必填）</span></div>
+		</div>
+		<div class="list">
+			<label>实操业绩目标：</label><div style="margin-left: 100px;"><input type="text" value="<?php echo $model->prac_target ?>" class="gysgl_07 inputxt" placeholder="" name="prac_target"/><span class="com_gbt">（必填）</span></div>
+		</div>
+		<input type="hidden" name="id" value="<?php echo $model->id ?>">
+		<input type="hidden" id="month" name="month" value="<?php echo $model->month ?>">
+	</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+<?php if (!$model): ?>
+	$("#month").val($(".month").val());
+<?php endif ?>
+});
+</script>

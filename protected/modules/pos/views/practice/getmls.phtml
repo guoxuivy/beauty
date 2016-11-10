@@ -1,0 +1,16 @@
+<div class="pos_peifang_page">
+  	<ul>
+		<?php if($model): ?>
+		<?php foreach ($model as $key => $value): ?>
+		<label for="mls_<?php echo $key ?>">
+			<li><input id="mls_<?php echo $key ?>" name="mls_xz[]" class="mls_xz"  type="checkbox" value="<?php echo $key ?>"  <?php if(in_array($key,(array)$operators)):?>checked="checked"<?php endif; ?> data-name="<?php echo $value ?>">
+				
+					<?php echo $value?>
+			</li>	
+		</label>
+		<?php endforeach ?>
+		<?php else: ?>
+		<li>暂无美疗师!</li>
+		<?php endif; ?>
+    </ul>
+</div>

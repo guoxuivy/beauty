@@ -1,0 +1,170 @@
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Itime.js"></script>
+<?php 
+	$md_list=\EmployDept::getList(true);
+?>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="fjgl_top_r"><span><a class="fjgl_top_r_05" href="javascript:">导出</a></span></div>
+		仓库管理><span>出入库记录</span>
+	</div>
+
+	<!--sjbb_ddkl_one-->
+	<div class="sjbb_ddkl_one">
+		<ul>
+            <li>
+                <div class="sjbb_ddkl_one_l">门店：</div>
+                <div class="sjbb_ddkl_one_r">
+                    <div class="sjbb_ddkl_one_r_son choose_md">
+                        <?php foreach ($md_list as $key => $value): ?>
+                        <a href="javascript:" rel="<?php echo $key ?>" class="sjbb_ddklchanga"><?php echo $value ?></a>
+                        <?php endforeach ?>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="sjbb_ddkl_one_l">类型：</div>
+                <div class="sjbb_ddkl_one_r">
+                    <div class="sjbb_ddkl_one_r_son choose_type">
+                        <a href="javascript:" rel="1" class="sjbb_ddklchanga">入库</a>
+                        <a href="javascript:" rel="2" class="">出库</a>
+                        <a href="javascript:" rel="3" class="">损益</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+              <div class="sjbb_ddkl_one_l">月份：</div>
+              <div class="sjbb_ddkl_one_r">
+                <div class="sjbb_ddkl_one_r_son" id="choose_time">
+                </div>
+              </div>
+            </li>
+    		<li class="lastli">
+				<div class="sjbb_ddkl_one_l">
+				</div>
+				<div class="sjbb_ddkl_one_r">
+					<div class="sjbb_ddkl_one_r_son">
+						<a href="javascript:" class="changa01">搜索</a>
+					</div>
+				</div>
+    		</li>
+		</ul>
+	</div> <!--sjbb_index_onesjbb_ddkl_oneend-->
+<!--  模版引擎扩展 -->
+
+    <?php echo $this->datagrid(array(
+        'id'=>'list',
+        'dataProvider'=>$pager,
+        'search'=>false,
+        'columns'=>array(
+            array(
+                'header' => '单号',
+                'name'  => 'sn',
+            ),
+            array(
+                'header' => '日期',
+                'name'  => 'create_time',
+            ),
+            array(
+                'header' => '类型',
+                'name'  => 'type',
+                'value'=>array('{$model->getType($data["type"])}','model'=>$model),
+            ),
+            array(
+                'header' => '发出单位',
+                'name' => 'from_id',
+                'value'=>array('{$model->getFromDept($data["id"])}','model'=>$model),
+            ),
+            array(
+                'header' => '接收单位',
+                'name' => 'dept_name',
+            ),
+            array(
+                'header' => '状态',
+                'name' => 'status',
+                'value'=>array('{$model->getStatus($data["status"])}','model'=>$model),
+            ),
+
+            array(
+                'header' => '操作',
+                'rel' => 'id',
+                'value'=> '<a href="'.$this->url($view_url).'&id={$data["id"]}" class="view khca">查看</a>',
+            ),
+           
+        ),
+    ));?>
+
+	
+</div>
+<!--content_right_con!end-->
+
+
+
+<script type="text/javascript">
+
+$(function(){
+
+	var t = Itime({
+		content:$('#choose_time'),
+		<?php if (isset($_GET['begin'])): ?>
+		begin:'<?php echo $_GET["begin"]?>', //填充默认时间
+		<?php endif ?>
+		<?php if (isset($_GET['end'])): ?>
+		end:'<?php echo $_GET["end"]?>', //填充默认时间
+		<?php endif ?>
+		type:'m',  	  // 日 模式
+	})._self.find("a,br,.itime_end").remove();
+
+	//门店、范围选择
+	$(".choose_md a").click(function(){
+		var rel=$(this).attr("rel");
+		$(this).siblings('.sjbb_ddklchanga').removeClass('sjbb_ddklchanga');
+        $(this).addClass('sjbb_ddklchanga');
+	});
+    //选择
+    $(".choose_type a").click(function(){
+        $(this).siblings('.sjbb_ddklchanga').removeClass('sjbb_ddklchanga');
+        $(this).addClass('sjbb_ddklchanga');
+    });
+
+    <?php if (isset($_GET['type'])): ?>
+        $(".choose_type").find("a[rel='<?php echo $_GET['type'] ?>']").trigger("click");
+    <?php endif ?>
+    //搜索提交
+    $(".changa01").click(function(){
+        var md_id=getMd();
+        if(md_id==''){
+            Idialog.tips('门店未选择！',2);
+            return;
+        }
+        var begin=$(".itime").find(".b_y").val()+""+$(".itime").find(".b_m").val();
+        var type =$(".choose_type .sjbb_ddklchanga").attr('rel');
+        to_url('<?php echo $this->url("list") ?>&type='+type+'&md_id='+md_id+'&begin='+begin);
+    });
+
+<?php if ($this->controller->is_store): ?>
+    $(".choose_md").find("a").trigger("click");
+    <?php if (!isset($_GET['md_id'])): ?>
+    //$(".changa01").trigger('click');
+    <?php endif ?>
+<?php else: ?>
+    //填充默认门店
+    <?php if (isset($_GET['md_id'])): ?>
+        <?php foreach (explode(',', $_GET['md_id']) as $v): ?>
+        $(".choose_md").find("a[rel='<?php echo $v ?>']").trigger("click");
+        <?php endforeach ?>
+    <?php endif ?>
+<?php endif ?>
+
+	function getMd(){
+		if($(".choose_md a[rel='0']").hasClass("sjbb_ddklchanga"))
+			return "0";
+		var l = $(".choose_md a").map(function(){
+			if($(this).hasClass("sjbb_ddklchanga"))
+				return $(this).attr("rel");
+		}).get().join(",");
+		return l;
+	}
+
+});
+</script>

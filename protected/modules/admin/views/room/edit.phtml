@@ -1,0 +1,27 @@
+<div class="add_store " title="编辑房间">
+  <div class="tjfj_two">
+    <form method="post" action="<?php echo $this->url('add') ?>" class="form">
+      <input type="hidden" name="yd" value="" /> <!-- 引导转跳 -->
+      <div class="list">
+        <label>所属门店：</label><div style="margin-left: 100px;">
+        <select name="store_id">
+          <?php foreach ($store_list as $value): ?>
+            <option <?php if ($value['id']==$model->store_id): ?> selected="selected" <?php endif ?> value="<?php echo $value['id'] ?>"><?php echo $value['dept_name'] ?></option>
+          <?php endforeach ?>
+        </select><span class="com_gbt">（必填）</span></div>
+      </div>
+      <div class="list">
+        <label>房间名称：</label><div style="margin-left: 100px;"><input type="text" value="<?php echo $model->name ?>" placeholder="天字一号" class="gysgl_07 inputxt" name="name"/><span class="com_gbt">（必填）</span></div>
+      </div>
+      <div class="list">
+        <label>床位名称：</label>
+        <div style="margin-left: 100px;">
+          <input type="text" value="<?php echo $bed_str ?>" class="gysgl_07 inputxt" placeholder="请用@号分割多个床位" name="room_name"/>
+          <span class="com_gbt">（必填）请用@号分割多个床位</span>
+        </div>
+      </div>
+      <input type="hidden" name="id" value="<?php echo $model->id ?>">
+    </form>
+  </div>
+</div>
+

@@ -1,0 +1,103 @@
+
+<style>
+    .zszh,.xjzh{color:#0077ff;cursor: pointer;}
+    .pos_other{  float: left;font-size: 16px;color: #1eb488; margin-right: -86px;margin-right:30px}
+</style>
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/jquery.PrintArea.js"></script>
+<!--content_right_con-->
+<div class="content_right_con">
+    <div class="content_right_con_top">
+        <!--<div class="fjgl_top_r">
+          <a href="javascript:" class="khgl_02 fpkhn">分配客户</a><a href="javascript:" class="fjgl_top_r_01">筛选</a><a href="javascript:" class="fjgl_top_r_02 tjfjz">添加客户</a>
+        </div>-->
+        <div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>POS开单><span>充值</span>>订单详情
+    </div>
+    <div class="print_show">
+    <div class="jyjl_top jyjl_czda_top">
+        <div class="jyjl_czda_top_l">
+            <div class="jyjl_czda_top_top">交易成功</div>
+            <div class="jyjl_czda_top_two">订单编号：<span><?php echo $model->o_s->sn ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 订单状态：<span class="spanll"><?php echo \OrderSale::getPayStatus($model->o_s->pay_status);?></span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="spanll"><?php echo $model->o_s->rh_id==0?'':'新客入会订单';?></span>
+            </span></div>
+        </div> 
+        <div class="jyjl_czda_top_r">
+            <a class="aysh01 to_print" href="javascript:">打印订单</a>
+             
+            <!-- <a class="aysh" href="javascript:">审核订单</a>
+            <a class="aysh02" href="javascript:">审核已订单</a> -->
+        </div>
+    </div>
+    <!--khgl_shouye-->
+    <?php echo $cu_info ?>
+    <!--khgl_shouye!end-->
+    <!--销售人员及业绩比例-->
+    <?php echo $effect ?>
+    <!--销售人员及业绩比例!end-->
+
+    <!--充值-->
+    <div class="pos_cz_tow">
+        <div class="pos_cz_tow_top pos_cz_qr_02">订单信息</div>
+        <div class="pos_cz_tow_two pos_cz_qr_top">
+            <!--table_container-->
+            <div class="table_container">
+                <!--<div class="table_title_tj  pos_cz_qr_top_01">...</div>-->
+                <!--table_con-->
+                <div class="table_con pos_cz_qr_top_04" style="margin-right:0px;">
+
+                    <!--table_con_son-->
+                    <div class="table_con_son">
+                        <div class="pos_cz_tow_top pos_cz_qr_02">充值</div>
+                        <div class="table_title">
+                            <ul>
+                                <?php foreach($cu_capitals as $cu_capital):?>
+                                    <li><?php echo $cu_capital['name'];?></li>
+                                <?php endforeach;?>
+                            </ul>
+                        </div>
+
+                        <div class="table_list clear">
+                            <ul>
+                                <?php $i=1;foreach($cu_capitals as $cu_capital):?>
+                                    <li class="li00<?php echo $i;?>"><?php echo $cu_capital['price'];?></li>
+                                <?php $i++;endforeach;?>
+                            </ul>
+                        </div>
+
+                        <div class="pos_cz_tow_two_two"><span class="pos_cz_tow_two04">应付金额：<em><?php echo $model->o_s->price;?></em>&nbsp;元</span></div>
+
+                    </div><!--table_con_son!end-->
+
+                </div><!--table_con!end-->
+            </div>
+            <!--table_containter!end-->
+
+
+            <?php echo $gift;?>
+
+        </div>
+    </div><!--充值!end-->
+
+        <!--备注-->
+        <div class="pos_cz_tow pos_cz_for_bz">
+            <div class="pos_cz_for_bz01">备注</div>
+            <div class="pos_cz_for_bz02">
+                <div class="pos_cz_for_bz02_son"><textarea readonly="readonly" class="order_note" rows="4"><?php echo empty($model)?'':$model->o_s->note?></textarea></div>
+            </div>
+        </div><!--备注!end-->
+
+    <div class="pos_cz_tow pos_cz_for_bz">
+        <div class="pos_other" >现金支付：￥<?php echo $model->o_s->cash ?></div>
+        <div class="pos_other" >POS刷卡：￥<?php echo $model->o_s->cash_pos ?></div>
+        <div class="pos_other" >银行转账：￥<?php echo $model->o_s->cash_tra ?></div>
+        <div class="pos_other" >其他付款：￥<?php echo $model->o_s->cash_other ?></div>
+    </div>
+
+</div>
+<!--content_right_con!end-->
+</div>
+<script type="text/javascript">
+    $(".to_print").click(function(){
+        $(".print_show").printArea();
+    });
+</script>
+

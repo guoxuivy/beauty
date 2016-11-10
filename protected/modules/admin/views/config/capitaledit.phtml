@@ -1,0 +1,61 @@
+<div class="add_card">
+	<div class="tjfj_two">
+		<form method="post">
+			<input type="hidden" name="yd" value="" />
+			<div class="list">
+				<label>账户名称：</label>
+				<input type="text" name="name" class="inputxt" value="<?php echo $model->name; ?>" />
+			</div>
+      		<div class="list" style=" margin-bottom:0px;">
+      			<label>账户属性：</label>
+      			<input type="radio" style=" height:14px; width:14px;" name="type" value="1" <?php if($model->type==1): ?> checked="checked" <?php endif; ?>/>&nbsp;<span <?php if($model->type==1): ?>class="span"<?php endif; ?>>现金</span>
+      			&nbsp;&nbsp;
+      			<input type="radio" style=" height:14px; width:14px;" name="type" value="2" <?php if($model->type==2): ?> checked="checked" <?php endif; ?>/>&nbsp;<span <?php if($model->type==2): ?>class="span"<?php endif; ?>>赠送</span>
+      		</div>
+     		 <div style=" background-color:#fafafa; border:dotted 1px #ddd;line-height:25px; text-align:center; margin-top:8px; margin-left:100px; margin-bottom:20px; color:#333;">
+          		客户实际支付了同等数额的钱，即常说的预存款、储值或充值
+     		 </div>
+      		<div class="gnsz_zh_1 list">
+      			<label>账户状态：</label>
+      			<input type="hidden" name="status" value="<?php echo $model->status;?>">
+      			<a href="javascript:" data="1" class="action_o <?php if($model->status==1):?>schang<?php endif;?>" >开启</a>
+      			<a href="javascript:" data="-1" class="action_o <?php if($model->status==-1):?>schang<?php endif;?>">停用</a>
+      		</div>
+      		<div class="gnsz_zh_1 list">
+      			<label>能否购买项目：</label>
+      			<input type="hidden" name="is_project" value="<?php echo $model->is_project;?>">
+      			<a href="javascript:" data="1" class="action_o <?php if($model->is_project==1):?>schang<?php endif;?>" >能</a>
+      			<a href="javascript:" data="0" class="action_o <?php if($model->is_project==0):?>schang<?php endif;?>">否</a>
+      		</div>
+      		<div class="gnsz_zh_1 list">
+      			<label>购买产品：</label>
+      			<input type="hidden" name="is_product" value="<?php echo $model->is_product;?>">
+      			<a href="javascript:" data="1" class="action_o <?php if($model->is_product==1):?>schang<?php endif;?>" >能</a>
+      			<a href="javascript:" data="0" class="action_o <?php if($model->is_product==0):?>schang<?php endif;?>">否</a>
+      		</div>
+                  <div class="gnsz_zh_1 list">
+                        <label>购买卡券：</label>
+                        <input type="hidden" name="is_voucher" value="<?php echo $model->is_voucher;?>">
+                        <a href="javascript:" data="1" class="action_o <?php if($model->is_voucher==1):?>schang<?php endif;?>" >能</a>
+                        <a href="javascript:" data="0" class="action_o <?php if($model->is_voucher==0):?>schang<?php endif;?>">否</a>
+                  </div>
+      		<div class="list">
+      			<label>账户说明：</label>
+      			<textarea rows="3" style=" width:70%;" name="note"><?php echo $model->note; ?></textarea>
+      		</div>
+                  <input type="hidden" name="id" value="<?php echo $model->id?>">
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+$('.action_o').click(function(event) {
+	var _input=$(this).siblings('input')
+	$(this).siblings('.schang').removeClass('schang');
+	$(this).addClass('schang');
+	_input.val($(this).attr('data'));
+});
+$('input[name="type"]').click(function(event) {
+      $(this).siblings('.span').removeClass('span')
+      $(this).next('span').addClass('span');
+});
+</script>

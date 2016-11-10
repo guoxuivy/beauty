@@ -1,0 +1,278 @@
+<?php
+$themePath = $this->basePath('public');
+//var_dump(md5(4007));die;
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>美业连锁管控平台-注册</title>
+<link href="<?php echo $this->basePath('public'); ?>/css/login.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?php echo $this->basePath('public/js/jquery.js'); ?>"></script>
+<script src="<?php echo $this->basePath('public'); ?>/js/Idialog.js" type="text/javascript"></script>
+<link href="<?php echo $this->basePath('public/js/Validform/Validform_style.css'); ?>" rel="stylesheet">
+<script type="text/javascript" src="<?php echo $this->basePath('public/js/Validform/Validform_v5.3.2_min.js'); ?>"></script>
+<!--
+<script id="adLayer" type="text/javascript" src="<?php echo $this->basePath('public/js/King_Chance_Layer.js');?>" data="<?php echo $themePath;?>"></script>
+-->
+<style type="text/css">
+	.idialog_tips {
+		background-color: #fff;
+		border: 1px solid #00dddd;
+		left: 50%;
+		overflow: hidden;
+		padding: 20px;
+		position: fixed;
+		top: 200px;
+		z-index: 999;
+	}
+	#loading {
+		position:fixed;
+		left:0;
+		width:100%;
+		height:100%;
+		top:0;
+		background:rgb(0, 0, 0);
+		opacity:0.5;
+		filter:alpha(opacity=50);
+	}
+	#loading div{
+		position:absolute;  cursor1:wait;left:50%;top:50%;width:auto;height:16px;padding:13px 22px 28px 30px;background: url(<?php echo $this->basePath('public');?>/images/loading.gif) no-repeat scroll 5px 10px;text-indent: -99999px;color:#000;
+	}
+</style>
+</head>
+<body>
+	<div class="top">
+		<div class="top_center">
+			<span
+				id="go_back_home" style="float: right; background-color: #fff; border: solid 1px #ddd; display: inline-block; line-height: 25px; height: 25px; padding-left: 15px; padding-right: 15px; color: #666; font-size: 12px; margin-top: 25px; cursor: pointer;">返回首页</span>
+			<div class="logo">
+				<img src="<?php echo $themePath; ?>/images/howa_logo.png" width="170" height="42" />
+			</div>
+			<span class="logo_span">注册</span>
+		</div>
+	</div>
+	<div class="advertising">
+		<div class="advertising_page">
+			<a href="###"><img src="<?php echo $themePath; ?>/images/top.jpg"></a><br><br>
+	    </div>
+	</div>
+	<div class="page">
+		<div class="page_tit buzhou_1">
+			<ul>
+		    	<li class="buzhou_1_li">1、基本资料</li>
+		        <li class="buzhou_visit">2、选择版本</li>
+				<li class="buzhou_visit">3、上传营业执照</li>
+		        <li class="buzhou_visit">4、完成</li>
+		    </ul>
+		</div>
+		<div class="main">
+        	<div style="display:block; margin:20px 40px 0px 40px; padding:7px; font-size:12px; color:#f00; line-height:22px; border:solid 1px #ddd; background-color:#fafafa;">
+        		<p>注册须知：1. 您即将注册的是HOWA美业连锁管理平台，注册用户只针对美容院；</p>
+                <p style="padding-left:60px;">2. 请确保您提交的资料和营业执照（必须为原件的高清彩色版）真实有效，HOWA在审核通过后方能为您开通使用。</p>
+        </div>
+			<form action="<?php echo $this->url('register1'); ?>" method="post">
+			<div class="main_left">
+				<div class="plat_list">
+					<div class="plat_list_left">手机号</div>
+					<div class="plat_list_right">
+						<input name="phone" datatype="m" type="text" class="input_1" placeholder="请填写老板的手机号" value="" />
+						<p>作为登录账号，填写未被注册的手机号，系统将验证</p>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<?php if (\Ivy::app()->user->position_id!=11) :?>
+				<div class="plat_list">
+				<div class="plat_list_left">图形验证码</div>
+
+					<div class="plat_list_right">
+					<input id="verifyCode" type="text" class="input_login" placeholder="请输入4位验证码" style="width: 150px; float: left; margin-right: 10px;" />
+						<span class="login_img">
+							<img src="<?php echo $this->url('verify'); ?>" width="111" height="48" />
+						</span> 
+						<span style="float: left; font-size: 12px; line-height: 26px;">看不清<br />
+						<a href="javascript:changeVerify();" class="blue">换一张</a></span>
+					</div>
+					
+					<div class="clear"></div>
+				</div>
+				<div class="plat_list">
+					<div class="plat_list_left">短信验证码</div>
+					<div class="plat_list_right">
+					<input name="phoneCode" datatype="n" type="text" class="input_2" value="" /><span class="msmCode input_3">获取验证码</span><span style="display:none;" class="input_4"><font id='outtime'>120</font>秒后可重发</span><p><a class="yanzheng" href="javascript:;">无法接收验证码</a></p></div>
+					<div class="clear"></div>
+				</div>
+				<?php endif;?>
+				<div class="plat_list">
+					<div class="plat_list_left">密码</div>
+					<div class="plat_list_right"><input datatype="*6-16" name="password" type="password" class="input_1" value="" /><p>字母、数字或者英文符号，最短6位，区分大小写</p></div>
+					<div class="clear"></div>
+				</div>
+				<div class="plat_list">
+					<div class="plat_list_left">再次输入密码</div>
+					<div class="plat_list_right"><input recheck="password" datatype="*"  type="password" class="input_1" value="" /><p></p></div>
+					<div class="clear"></div>
+				</div>
+				<div class="plat_xieyi"><p><input name="xie_yi" type="checkbox" value="1" checked="checked" />&nbsp;我同意并遵守上述的 <a href="<?php echo $this->url("tiaokuan"); ?>" target="_blank">《HOWA平台注册协议》</a></p></div>
+				<div class="start_goto"><a id="form_submit" href="javascript:;" class="xiayibu_a">注 册</a></div>
+			</div>
+			</form>
+			<div class="main_right">
+				<p>已有Howa账户？  	<a href="<?php echo $this->url('login');?>">立即登录</a></p>
+				<div class="advertising_right"><a href="http://www.howa.com.cn/version.html" target="_blank"><img src="<?php echo $themePath;?>/images/middle.jpg" width="200" height="350" /></a></div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+	</div>
+	<div class="footer">
+		<div class="footer_center">© Copyright 2011-2016 武汉好哇商业技术有限公司
+			鄂ICP备14003221号</div>
+	</div>
+
+<div class="yanzheng_tan" style="left:50%;margin-left:-290px; top:50%;margin-top:-134px;display:none;">
+	<div class="yanzheng_tan_tit"><span></span>没有收到验证码怎么办？</div>
+    <div class="yanzheng_tan_page">
+      <p>亲爱的用户，验证码短信正常都会在数秒钟内发送，如果您未收到短信/邮件，请参照如下常见情况进行解决：</p>
+      <p>1、由于您的手机设定了某些安全设置，验证码短信可能被拦截进了垃圾箱。请打开垃圾箱查看，并将HOWA智能云平台号码添加为白名单。</p>
+      <p>2、由于运营商通道故障造成了短信/邮件发送时间延迟，请耐心稍候片刻或点击重新获取验证码。</p>
+      <p>3、关于手机号验证，目前支持移动、联通和电信的所有号码，暂不支持国际及港澳台地区号码。</p>
+      <p>如果您尝试了上述方式后均未解决，或存有其他疑问，请通过热线电话027-87050575获取客户协助。</p>
+    </div>
+</div>
+<div class="zhezhao" style="display:none;background-color:#000; width:100%; height:100%; position:fixed; z-index:100; top:0; left:0;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8;opacity: 0.8;"></div>
+
+
+<script type="text/javascript">
+$('.yanzheng').click(function(){
+	$('.yanzheng_tan,.zhezhao').show();
+});
+$('.yanzheng_tan_tit span').click(function(){
+	$('.yanzheng_tan,.zhezhao').hide();
+});
+
+//new PCAS("pca_province,--省--","pca_city,--市--");
+$('#go_back_home').click(function() {
+	var url = 'http://www.howa.com.cn';
+	window.location.href = url;
+});
+$('#form_submit').click(function() {
+	$('form').submit();
+});
+$("input[name=xie_yi]").click(function() {
+	if($(this).attr('checked')=='checked'){
+		$(this).attr('checked',false);
+		$(this).val('0');
+	}else{
+		$(this).attr('checked',true);
+		$(this).val('1');
+	}
+});
+
+var s = 120, t;
+function times(){
+	s--;
+	$("#outtime").html(s);
+	t = setTimeout('times()', 1000);
+	if ( s <= 0 ){
+		s = 120;
+		clearTimeout(t);
+		$('.msmCode').show();
+		$('.msmCode').next().hide();
+
+	}
+}
+ 
+//times();
+
+//短信验证码
+$('.msmCode').click(function(){
+	var verifyCode = $('#verifyCode').val();
+	if(verifyCode==''){
+		Idialog.tips('请输入图形验证码！',3);
+		return false;
+	}
+
+	var phone = $('input[name="phone"]').val();
+	if(phone==''){
+		Idialog.tips('请输入手机号！',3);
+		return false;
+	}
+	var error = false;
+	$.ajax({
+		type: "POST",   
+		data: "verifyCode="+verifyCode,
+		async:false,
+		url: "<?php echo $this->url('checkdecode') ?>",
+		dataType: "json" ,
+		cache: false,
+		success: function(json){
+			if(json.code==200){
+			}else{
+				Idialog.tips(json.msg,3);
+				error = true ;
+			}
+
+		}
+	});
+	if(error){
+		return false;
+	}
+
+	$('.msmCode').hide();
+	$('.msmCode').next().show();
+	$('input[name="phone"]').attr('readonly','readonly');
+	times();
+	$.post("<?php echo $this->url('phoneCode') ?>", { phone: phone, verifyCode: verifyCode },function(json){
+		if(json.code == '200'){
+		}else{
+			Idialog.tips(json.msg,3);
+		}
+	},"json");
+});
+
+//提交前验证
+$('form').Validform({
+	tiptype:3,
+	ignoreHidden:true,
+	beforeSubmit:function() {
+		var next = false;
+		var ajax_url = "<?php echo $this->url('validate1'); ?>";
+		var data = $('form').serialize();
+		var _html = "<div id='loading'><div>正在加载，请等待...</div></div>";
+	    $('body').append(_html);
+		$.ajax({
+			url : ajax_url,
+			data : data,
+			type : 'post',
+			async : false,
+			dataType : 'json',
+			complete : function() {
+				$('#loading').remove();
+				//setTimeout(function(){$('#loading').remove();},3000);
+			},
+			success : function(json) {
+				if(json.code == '200') {
+					next = true;
+				}else{
+					Idialog.tips(json.msg,3);
+				}
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				alert('连接失败！');
+			}
+		});
+
+		return next;
+	}
+});
+
+function changeVerify() {
+	var timestamp=new Date().getTime();
+	var url = "<?php echo $this->url('verify'); ?>";
+	url += '&timestamp=' + timestamp;
+	$('.login_img').children('img').attr('src', url);
+}
+</script>
+</body>
+</html>

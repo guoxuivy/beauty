@@ -1,0 +1,175 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+    <title>HOWA</title>
+
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileColor" content="#0e90d2">
+
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/amazeui.min.css">
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/app.css">
+    <style type="text/css">
+    .none{display: none;}
+    </style>
+</head>
+<body class="has-header">
+
+<header class="am-text-center am-padding-sm fixed-top">
+    <div class="am-fl out"><i class="am-icon-angle-left am-icon-sm"></i></div>
+    <div class="am-fl in none"><i class="am-icon-angle-left am-icon-sm"></i></div>
+    <b>门店业绩报表</b>
+</header>
+
+<div class="am-text-center am-padding-sm">
+    <!-- am-selected 用法参考 http://amazeui.org/javascript/selected -->
+    <select class="am-round" data-am-selected="{btnWidth:'150px',btnStyle:'select'}">
+        <option value="0" <?php if ($md_ids==0): ?>selected<?php endif ?> >全连锁</option>
+        <?php foreach ($md_list as $v): ?>
+            <option value="<?php echo $v['id'] ?>" <?php if ($md_ids==$v['id']): ?>selected<?php endif ?> ><?php echo $v['dept_name'] ?></option>
+        <?php endforeach ?>
+    </select>
+</div>
+
+<!--<ul class="am-nav am-nav-pills am-nav-justify am-round am-margin-top-0 am-margin-bottom-sm am-padding-left-sm am-padding-right-sm">
+    <li class="am-active am-round"><a href="#">日报表</a></li>
+    <li class="am-round"><a href="#">月报表</a></li>
+</ul>-->
+
+<ul class="am-avg-sm-3 datepicker">
+    <li class="am-text-center am-padding-xs am-date-prev" placeholder="<?php echo date('Y-m-d', strtotime('-1 day',strtotime($date)) ) ?>">前一天</li>
+    <li class="am-text-center">
+        <input type="text" class="am-date" placeholder="<?php echo $date ?>" data-am-datepicker readonly />
+    </li>
+    <li class="am-text-center am-padding-xs am-date-next" placeholder="<?php echo date('Y-m-d', strtotime('+1 day',strtotime($date)) ) ?>">后一天</li>
+</ul>
+
+<ul class="am-list my-nav">
+    <li class="am-padding-sm">现金业绩<span class="am-fr"><?php echo array_sum($model['XJYJ']) ?><i class="am-icon-angle-right am-icon-sm am-margin-left-sm"></i></span></li>
+    <li class="am-padding-sm">卡扣业绩<span class="am-fr"><?php echo array_sum($model['KKYJ']) ?><i class="am-icon-angle-right am-icon-sm am-margin-left-sm"></i></span></li>
+    <li class="am-padding-sm">实耗业绩<span class="am-fr"><?php echo array_sum($model['SHYJ']) ?><i class="am-icon-angle-right am-icon-sm am-margin-left-sm"></i></span></li>
+    <li class="am-padding-sm">到店客流<span class="am-fr"><?php echo $model['DDKL'] ?><i class="am-icon-angle-right am-icon-sm am-margin-left-sm"></i></span></li>
+    <li class="am-padding-sm">成交人头<span class="am-fr"><?php echo $model['CJRT'] ?><i class="am-icon-angle-right am-icon-sm am-margin-left-sm"></i></span></li>
+</ul>
+
+<ul class="am-list my-xj none">
+    <li class="am-padding-sm">充值<span class="am-fr"><?php echo $model['XJYJ']['CZ'] ?></span></li>
+    <li class="am-padding-sm">还款<span class="am-fr"><?php echo $model['XJYJ']['HK'] ?></span></li>
+    <li class="am-padding-sm">购买<span class="am-fr"><?php echo $model['XJYJ']['GM'] ?></span></li>
+</ul>
+
+<ul class="am-list my-kk none">
+    <li class="am-padding-sm">现金账户<span class="am-fr"><?php echo $model['KKYJ']['XJ'] ?></span></li>
+    <li class="am-padding-sm">赠送账户<span class="am-fr"><?php echo $model['KKYJ']['ZS'] ?></span></li>
+</ul>
+
+<ul class="am-list my-sh none">
+    <li class="am-padding-sm">购买消耗业绩<span class="am-fr"><?php echo $model['SHYJ']['GM'] ?></span></li>
+    <li class="am-padding-sm">赠送消耗次数<span class="am-fr"><?php echo $model['SHYJ']['ZS'] ?></span></li>
+    <li class="am-padding-sm">卡券消耗次数<span class="am-fr"><?php echo $model['SHYJ']['KJ'] ?></span></li>
+</ul>
+
+<ul class="am-list my-kl none">
+    <?php foreach ($model['KLXX'] as $v1): ?>
+        <li class="am-padding-sm"><?php echo $v1['name'] ?><span class="am-fr"><?php echo date("y-m-d",$v1['last_time'] ) ?></span></li>
+    <?php endforeach ?>
+</ul>
+
+<ul class="am-list my-cj none">
+    <?php foreach ($model['RTXX'] as $v2): ?>
+        <li class="am-padding-sm"><?php echo $v2['name'] ?><span class="am-fr"><?php echo $v2['XJ'] ?></span></li>
+    <?php endforeach ?>
+</ul>
+
+
+
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/jquery.min.js"></script>
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/amazeui.min.js"></script>
+<script src="<?php echo $this->basePath('public/h5/assets');?>/js/my.js"></script>
+
+<script>
+$(function(){
+   //底部导航
+    $('.my-nav li').each(function(i){
+        switch(i){
+        case 0:
+            var to = $('.my-xj');
+            break;
+        case 1:
+            var to = $('.my-kk');
+            break;
+        case 2:
+            var to = $('.my-sh');
+            break;
+        case 3:
+            var to = $('.my-kl');
+            break;
+        case 4:
+            var to = $('.my-cj');
+            break;
+        }
+        $(this).click(function(){
+            $('.my-nav').addClass('none');
+            $('.out').addClass('none');
+
+            to.removeClass('none');
+            $('.in').removeClass('none');
+        });
+    });
+
+    $('.in').click(function(){
+        $('.am-list').addClass('none');
+        $('.my-nav').removeClass('none');
+
+        $(this).addClass('none');
+        $('.out').removeClass('none');
+    });
+
+    $('.out').click(function(){
+        to_url('<?php echo $this->url("index") ?>')
+    });
+
+ 
+
+    $('.am-date').datepicker().on('changeDate.datepicker.amui', function(event) {
+        console.log($('.am-round').val())
+        to_url('<?php echo $this->url("MDYJ") ?>&DATE='+$(this).val()+'&md_id='+$('.am-round').val());
+        //$(this).datepicker('close');
+    });
+    $('.am-date-prev,.am-date-next').click(function(){
+        var d = $(this).attr('placeholder');
+        to_url('<?php echo $this->url("MDYJ") ?>&DATE='+d+'&md_id='+$('.am-round').val());
+    });
+
+
+    $('.am-round').on("change",function(){
+        var md = $(this).val();
+        var d = $(".am-date").attr('placeholder');
+        to_url('<?php echo $this->url("MDYJ") ?>&DATE='+d+'&md_id='+md);
+    });
+
+
+    
+});
+</script>
+</body>
+</html>

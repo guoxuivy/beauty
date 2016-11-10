@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>系统错误</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/h5/assets');?>/css/app.css"/>
+
+
+</head>
+<body class="login-page">
+<div class="am-text-center">
+	<img class="logo" src="<?php echo $this->basePath('public'); ?>/images/qingwa.png" width="160" height="160" />
+</div>
+<section>
+    <form id="login-form" method="post" class="am-form">
+        <fieldset>
+            <div class="am-form-group am-form-icon">
+               	<?php echo $code; ?>
+            </div>
+            <hr>
+            <div class="am-form-group am-form-icon">
+                <?php echo $msg; ?>
+            </div>
+            <hr>
+        </fieldset>
+        <div class="am-padding-sm">
+        	<a href="<?php echo $this->url('h5/index/index'); ?>"><input type="submit" value="返回首页" class="am-btn am-btn-primary am-btn-block am-padding-sm"></a>
+        </div>
+    </form>
+</section>
+<footer class="am-text-center copyright fixed-bottom">
+    <div>好哇商业咨询技术</div>
+    <div>Howa Business Technology Copyright</div>
+</footer>
+</body>
+</html>

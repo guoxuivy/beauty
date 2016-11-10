@@ -1,0 +1,252 @@
+<style type="text/css">
+.xzzh {
+	color:#0077ff;
+	cursor: pointer;
+}
+</style>
+<!--content_right_con-->
+<div class="content_right_con">
+	<div class="content_right_con_top">
+		<div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>
+		POS开单>卡券兑换 </div>
+	<!-- 上操作按钮  付款后有效-->
+	<?php if ($model): ?>
+	<div class="jyjl_top jyjl_czda_top">
+		<div class="jyjl_czda_top_l">
+			<div class="jyjl_czda_top_top">订单提交成功</div>
+			<div class="jyjl_czda_top_two">订单编号：<span><?php echo $model->o_s->sn ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 订单状态：<span class="spanll"><?php echo \OrderVoucher::getPayStatus($model->o_s->status);?></span></span></div>
+		</div>
+		<div class="jyjl_czda_top_r">
+			<?php if ($model->o_s->status): ?>
+			<a class="aysh01" href="<?php echo $this->url('pos/refund/order',array('id'=>$model->o_s->id)) ?>">退单</a> <a class="aysh01" href="javascript:">打印订单</a>
+			<?php else: ?>
+			<a class="aysh01" href="<?php echo $this->url("pay",array('id'=>$model->o_s->id)) ?>">确认兑换</a>
+			<?php endif ?>
+			
+			<!-- <a class="aysh" href="javascript:">审核订单</a>
+				<a class="aysh02" href="javascript:">审核已订单</a> --> 
+		</div>
+	</div>
+	<?php endif; ?>
+	
+	<!--khgl_shouye--> 
+	<?php echo $cu_info ?> 
+	<!--khgl_shouye!end--> 
+	
+	<!--可用卡券-->
+	<div class="pos_cz_tow box_xm">
+		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>可用卡券</div>
+		<div class="pos_cz_tow_two"> 
+			<!--table_container-->
+			<div class="table_container" style="border:none;"> 
+				<!--table_con-->
+				<div class="table_con" style="border:none; margin-right:0px;"> 
+					<!--table_con_son-->
+					<div class="table_con_son">
+						<div class="table_title">
+							<ul>
+								<li style="min-width:40px">选择</li>
+								<li>卡券来源</li>
+								<li>时效</li>
+								<li>卡券名称</li>
+								<li>卡券数量</li>
+								<li>可用现金金额（元）</li>
+								<li>可用赠送金额（元）</li>
+								<li>可用项目</li>
+								<li>可用产品</li>
+								<li>备注</li>
+								<li>操作</li>
+							</ul>
+						</div>
+						<?php if ($CustomerVoucher): ?>
+						<?php 
+						foreach ($CustomerVoucher as $value): 
+							$pro=\CustomerVoucher::getLastProNames($value['id']);
+						?>
+						<div class="table_list clear">
+							<ul>
+								<li class="li001">
+									<input class="vo_idr" name="vo_idr" type="radio" value="<?php echo $value['id'] ?>" />
+								</li>
+								<li><?php echo \OrderSaleDetail::getBuyType($value['buy_type']);?></li>
+								<li class="li002"><?php echo date('Y/m/d',$value['stime']),'-',date('Y/m/d',$value['etime']) ?></li>
+								<li class="li003"><?php echo $value['name'] ?></li>
+								<li class="li004">1</li>
+								<li class="li005"><?php echo \CustomerVoucher::getLastMoney($value['id']) ?></li>
+								<li class="li005"><?php echo \CustomerVoucher::getLastMoneyZS($value['id']) ?></li>
+								<li class="li006"><?php echo $pro['project'] ?></li>
+								<li class="li007"><?php echo $pro['product'] ?></li>
+								<li class="li008"><?php echo $value['note'] ?></li>
+								<li class="li009"><a href="javascript:" class="action_dh">兑换</a></li>
+							</ul>
+						</div>
+						<?php endforeach ?>
+						<?php endif ?>
+					</div>
+					<!--table_con_son!end--> 
+				</div>
+				<!--table_con!end--> 
+			</div>
+			<!--table_containter!end--> 
+			
+		</div>
+	</div>
+	<!--可用卡券!end--> 
+	
+	<!--兑换卡券-->
+	<div class="pos_cz_tow voucher_html">
+		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>选择卡券 兑换</div>
+	</div>
+	<!--兑换卡券!end--> 
+	
+	<!--备注-->
+	<div class="pos_cz_tow pos_cz_for_bz">
+		<div class="pos_cz_for_bz01">备注</div>
+		<div class="pos_cz_for_bz02">
+			<div class="pos_cz_for_bz02_son">
+				<textarea class="order_note" rows="4"><?php echo $model?$model->o_s->note:"" ?></textarea>
+			</div>
+		</div>
+	</div>
+	<!--备注!end--> 
+	<div class="pos_cz_tow pos_cz_zh">
+	
+		<?php if (!$model || $model->o_s->status==0): ?>
+			<a href="javascript:" class="pos_cz_zh_an c_submit">提交订单</a>
+		<?php endif ?>
+		
+		
+	</div><!--!end-->
+	
+</div>
+<!--content_right_con!end--> 
+
+
+{__TOKEN__}
+
+<script type="text/javascript">
+
+$(function(){
+	//点击兑换按钮
+	$('.action_dh').click(function(event) {
+		$(this).parent().parent().find('.vo_idr').prop('checked', 'checked').trigger('click');
+	});
+	$('.vo_idr').click(function(event) {
+		$.get('<?php echo $this->url("getVoucher")?>&id='+$(this).val()+'&order_id=<?php echo $model?$model->o_s->id:0; ?>', function(data){
+			$('.voucher_html').html(data);
+		});
+	});
+	<?php if ($model): ?>
+		$(".vo_idr[value='<?php echo $model->o_s->vo_id ?>']").prop('checked', 'checked').trigger('click');
+	<?php endif ?>
+
+	//收起效果
+	$(".pos_cz_tow_top_r").click(function(){
+		var self=$(this);
+		self.parent().next().slideToggle("fast",function(){
+			//alert("Animation Done.");
+			if(self.hasClass("pos_cz_tow_top_rcl")){
+				self.removeClass("pos_cz_tow_top_rcl");
+			}else{
+				self.addClass("pos_cz_tow_top_rcl");
+			}
+		});
+	});
+
+
+	//数据提交
+	$(".c_submit").click(function(){
+		var post_data=submit_data();
+		if(post_data==false){
+			return false;
+		}
+		$('.c_submit').html("正在提交订单...").addClass("pos_cz_zh_an_hover").removeClass("pos_cz_zh_an");
+
+	<?php if ($model): ?>
+		var url="<?php echo $this->url('editSave',array('id'=>$model->o_s->id)) ?>";			
+	<?php else: ?>
+		var url="<?php echo $this->url('addSave') ?>";	
+	<?php endif ?>
+		$.post(url, post_data,function(data){
+			Idialog.tips(data.msg,2);
+			if(data.code==200){
+				//转到付款界面
+				setTimeout(function(){to_url('<?php echo $this->url("pay");?>&id='+data.data)},3000);
+			}
+		}, "json");
+	});
+
+	function to_url(url){
+		window.location.href=url;
+	}
+
+	//提交保存数据构造
+	function submit_data(){
+		var data={};
+		data.__hash__ = $("input[name='__hash__']").val();//表单令牌
+		if($('.vo_id').length>0){
+			data.vo_id=$('.vo_id').val();
+		}else
+		{
+			Idialog.tips('请选择可用卡券进行兑换',2);
+			return false;
+		}
+
+		//兑换赠送金额
+		data.gift_capital_id=$('.gift_capital_id').val();
+		data.gift_money=$('.gift_money').val();
+		data.order_id="<?php echo $model?$model->o_s->id:0; ?>";
+		data.sn="<?php echo $model?$model->o_s->sn:''; ?>";
+		data.cu_id="<?php echo $model?$model->o_s->cu_id:$id; ?>"
+		data.capital_id=$('.capital_id').val();
+		data.money=parseFloat($('.money').val()?$('.money').val():0);
+		data.gift_capital_id=$('.gift_capital_id').val();
+		data.gift_money=parseFloat($('.gift_money').val()?$('.gift_money').val():0);
+		data.note=$('.order_note').val();
+
+		var _is=false;
+		//兑换项目或者产品
+		data.pro=[];
+		$('.pro_num').each(function(index, el) {
+			if($(this).val()>0){
+				if ($(this).val()>$(this).attr('max_value')) {
+					Idialog.tips('兑换数量不能超出现有数量!',2);
+					_is=true;
+					return false;
+				};
+				data.pro.push({
+					"pro_id":$(this).attr("pro_id"),
+					"pro_type":$(this).attr("pro_type"),
+					"price":$(this).attr("pro_price"),
+					"num":$(this).val()
+				})
+			}
+		});
+		if (_is) {return false;};
+		if(data.pro.length==0&&data.gift_money==0&&data.money==0){
+			Idialog.tips('未兑换任何东西!',2);
+			return false;
+		}
+		if(data.gift_money!=0&&data.gift_capital_id==""){
+			Idialog.tips('兑换赠送账户未选择!',2);
+			return false;
+		}
+		if(data.money!=0&&data.capital_id==""){
+			Idialog.tips('兑换现金账户未选择!',2);
+			return false;
+		}
+		if(data.gift_capital_id>0 && data.gift_money>parseFloat($('.gift_money').attr('max_value')) ) {
+			Idialog.tips('兑换赠送金额不能超出现有金额!',2);
+			return false;
+		};
+		if(data.capital_id>0 && data.money>parseFloat($('.money').attr('max_value')) ) {
+			Idialog.tips('兑换现金金额不能超出现有金额!',2);
+			return false;
+		};
+		//return false; //发生验证错误 返回false
+		return data;
+	}
+
+
+});
+</script>
