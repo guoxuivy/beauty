@@ -17,7 +17,7 @@ a{text-decoration:none;}
 body{font-family:"22微软雅黑";}
 
 /*框架*/
-.containter{ width:100%; overflow:hidden;padding-bottom: 80px;}
+.containter{ width:100%; overflow:hidden;}
 /*-------------------------------------------------------------------头部开始-------------------------------------------------*/
 .head{ height:60px; width:100%; background:#252f36;}
 
