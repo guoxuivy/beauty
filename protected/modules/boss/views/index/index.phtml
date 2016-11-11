@@ -1,6 +1,7 @@
 <div class="wrapper wrapper-content">
+	<!-- 月数据 -->
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-success pull-right">月</span>
@@ -8,13 +9,13 @@
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins"><?php echo $target['xj_m'] ?></h1>
-                    <div class="stat-percent font-bold text-success"><?php echo round($target['xj_m']/$target['sale_target'],2)*100 ?>% <i class="fa fa-bolt"></i>
+                    <div class="stat-percent font-bold text-danger">目标：<?php echo $target['sale_target'] ?> <i class="fa fa-bolt"></i>
                     </div>
-                    <small>总收入</small>
+                    <small>总业绩</small>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-success pull-right">月</span>
@@ -22,157 +23,191 @@
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins"><?php echo $target['sc_m'] ?></h1>
-                    <div class="stat-percent font-bold text-info"><?php echo round($target['sc_m']/$target['prac_target'],2)*100 ?>% <i class="fa fa-level-up"></i>
+                    <div class="stat-percent font-bold text-danger">目标：<?php echo $target['prac_target'] ?> <i class="fa fa-bolt"></i>
                     </div>
-                    <small>总实操</small>
+                    <small>实操金额</small>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="label label-info pull-right">今天</span>
-                    <h5>销售业绩</h5>
+                    <span class="label label-success pull-right">月</span>
+                    <h5>客流量</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins"><?php echo $target['xj_d'] ?></h1>
-                    <div class="stat-percent font-bold text-navy">成交：<?php echo $target['cj_d'] ?> <i class="fa fa-level-up"></i>
+                    <h1 class="no-margins"><?php echo $target['kk_m'] ?></h1>
+                    <div class="stat-percent font-bold text-warning">成交人头：<?php echo $target['cj_m'] ?> <i class="fa fa-bolt"></i>
                     </div>
-                    <small>日业绩</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <span class="label label-info pull-right">今天</span>
-                    <h5>实操业绩</h5>
-                </div>
-                <div class="ibox-content">
-                    <h1 class="no-margins"><?php echo $target['sc_d'] ?></h1>
-                    <div class="stat-percent font-bold text-danger">客流：<?php echo $target['kk_d'] ?> <i class="fa fa-level-down"></i>
-                    </div>
-                    <small>日实操</small>
+                    <small>月客流</small>
                 </div>
             </div>
         </div>
     </div>
+    <!-- 日数据 -->
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right">今日</span>
+                    <h5>销售业绩</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins"><?php echo $target['xj_d'] ?></h1>
+                    <div class="stat-percent font-bold text-info">完成率：<?php echo round($target['xj_m']/$target['sale_target'],2)*100 ?>% <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>现金业绩</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right">今日</span>
+                    <h5>实操业绩</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins"><?php echo $target['sc_d'] ?></h1>
+                    <div class="stat-percent font-bold text-navy">完成率：<?php echo round($target['sc_m']/$target['prac_target'],2)*100 ?>% <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>实操金额</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right">今日</span>
+                    <h5>客流量</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins"><?php echo $target['kk_d'] ?></h1>
+                    <div class="stat-percent font-bold text-navy">成交人头：<?php echo $target['cj_d'] ?> <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>客流</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                	<a href="javascript:" >
+                    <span class="label label-danger pull-right chart_b" data="container">业绩</span>
+                    <span class="label label-warning pull-right chart_b" data="container1">客流</span>
+                    </a>
+                    <h5>本月数据曲线图</h5>
+                </div>
+                <div class="ibox-content">
+                    
+					<div id="container" style="height: 300px;"></div>
+			        <div id="container1" style="height: 300px;"></div>
+					
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-title">
+                    <span class="label label-warning pull-right"><?php echo $out["A"]+$out["B"]+$out["C"]+$out["D"]+$out["E"] ?></span>
+                    <h5>30天内将流失客户数</h5>
+                </div>
+                <div class="ibox-content">
+	                <div class="row">
+	                	<div class="col-lg-4">
+	                        <div class="widget style1 red-bg">
+	                        	<a style="color:#fff" href="<?php echo $this->url("customer/index/outlist") ?>&cu_type=A">
+	                            <div class="row vertical-align">
+	                                <div class="col-xs-3">
+	                                    <i class="fa fa-user fa-3x"></i>
+	                                </div>
+	                                <div class="col-xs-9 text-right">
+	                                    <h2 class="font-bold">A类客户：<?php echo $out["A"] ?></h2>
+	                                </div>
+	                            </div>
+	                            </a>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-4">
+	                        <div class="widget style1 yellow-bg">
+	                        	<a style="color:#fff" href="<?php echo $this->url("customer/index/outlist") ?>&cu_type=B">
+	                            <div class="row vertical-align">
+	                                <div class="col-xs-3">
+	                                    <i class="fa fa-user fa-3x"></i>
+	                                </div>
+	                                <div class="col-xs-9 text-right">
+	                                    <h2 class="font-bold">B类客户：<?php echo $out["B"] ?></h2>
+	                                </div>
+	                            </div>
+	                            </a>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-4">
+	                        <div class="widget style1 blue-bg">
+	                        	<a style="color:#fff" href="<?php echo $this->url("customer/index/outlist") ?>&cu_type=C">
+	                            <div class="row vertical-align">
+	                                <div class="col-xs-3">
+	                                    <i class="fa fa-user fa-3x"></i>
+	                                </div>
+	                                <div class="col-xs-9 text-right">
+	                                    <h2 class="font-bold">C类客户：<?php echo $out["C"] ?></h2>
+	                                </div>
+	                            </div>
+	                            </a>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="row">
+	                	<div class="col-lg-4">
+	                        <div class="widget style1 navy-bg">
+	                        	<a style="color:#fff" href="<?php echo $this->url("customer/index/outlist") ?>&cu_type=D">
+	                            <div class="row vertical-align">
+	                                <div class="col-xs-3">
+	                                    <i class="fa fa-user fa-3x"></i>
+	                                </div>
+	                                <div class="col-xs-9 text-right">
+	                                    <h2 class="font-bold">D类客户：<?php echo $out["D"] ?></h2>
+	                                </div>
+	                            </div>
+	                            </a>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-4">
+	                        <div class="widget style1 gray-bg">
+	                        	<a style="color:#fff" href="<?php echo $this->url("customer/index/outlist") ?>&cu_type=E">
+		                            <div class="row vertical-align">
+		                                <div class="col-xs-3">
+		                                    <i class="fa fa-user fa-3x"></i>
+		                                </div>
+		                                <div class="col-xs-9 text-right">
+		                                    <h2 class="font-bold">E类客户：<?php echo $out["E"] ?></h2>
+		                                </div>
+		                            </div>
+	                            </a>
+	                        </div>
+	                    </div>
+	                </div>
+					
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
-
-
-
-
-
-
-
 
 
 <script src="<?php echo $this->basePath('public');?>/js/Highcharts/highcharts.js"></script>
-<script src="<?php echo $this->basePath('public');?>/js/Highcharts/modules/exporting.js"></script>
+<!-- <script src="<?php echo $this->basePath('public');?>/js/Highcharts/modules/exporting.js"></script> -->
 <script src="<?php echo $this->basePath('public');?>/js/Highcharts/modules/draggable-legend.js"></script>
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		<div class="fjgl_top_r khuihu" style=" padding-top:0px;margin-top:18px">
-		<a class="jlsy_one_01"><?php $weekarray=array("日","一","二","三","四","五","六"); echo date('Y-m-d'),"&nbsp;&nbsp;&nbsp;星期".$weekarray[date("w")] ?></a>
-		<big class="jlsy_one_02" style="display:none;"><a href="javascript:"><img src="<?php echo $this->basePath('public'); ?>/images/jlsy_02.png" /></a></big>
-		</div>
-		<?php echo $store_name ?>
-	</div>
-		
-	<!--jlsy_top-->
-	<div class="jlsy_top clear">
-		<div class="jlsy_top_l">
-			<div class="jlsy_top_01"><span class="jlsy_top_l_02"><big class="jlsy_top_l_03"><?php echo $target['xj_d'] ?></big>元</span>今日销售业绩<span class="jlsy_top_l_01">现金</span></div>
-			<div class="jlsy_top_02">本月累计销售业绩：<?php echo $target['xj_m'] ?>&nbsp;元</div>
-			<div class="jlsy_top_01 jlsy_top_03"><span class="jlsy_top_l_02"><big class="jlsy_top_l_03"><?php echo $target['cj_d'] ?></big>人</span>今日成交人头</div>
-			<div class="jlsy_top_02">本月累计成交：<?php echo $target['cj_m'] ?>&nbsp;人</div>
-			<div class="jlsy_top_01 jlsy_top_04"><span class="jlsy_top_l_06"><?php echo round($target['xj_m']/$target['sale_target'],2)*100 ?>%</span>业绩完成率：<span class="jlsy_top_l_05"><?php echo $target['xj_m'] ?></span> / <?php echo $target['sale_target'] ?></div>
-		</div>
-		<div class="jlsy_top_r">
-			<div class="jlsy_top_01 jlsy_top_05"><span class="jlsy_top_l_02"><big class="jlsy_top_l_03"><?php echo $target['sc_d'] ?></big>元</span>今日实操业绩</div>
-			<div class="jlsy_top_02">本月累计实操业绩：<?php echo $target['sc_m'] ?>&nbsp;元</div>
-			<div class="jlsy_top_01 jlsy_top_03"><span class="jlsy_top_l_02"><big class="jlsy_top_l_03"><?php echo $target['kk_d'] ?></big>人</span>今日客流</div>
-			<div class="jlsy_top_02">本月累计客流：<?php echo $target['kk_m'] ?>&nbsp;人</div>
-			<div class="jlsy_top_01 jlsy_top_04"><span class="jlsy_top_l_06"><?php echo round($target['sc_m']/$target['prac_target'],2)*100 ?>%</span>业绩完成率：<span class="jlsy_top_l_05"><?php echo $target['sc_m'] ?></span> / <?php echo $target['prac_target'] ?></div>
-		</div>
-	</div><!--jlsy_top-->
-		
-	<!--jlsy_two-->
-	<div class="jlsy_two">
-		<div class="jlsy_two_top">
-		<span class="jlsy_two_top_02">
-			<a href="javascript:" data="container" class="chart_b jlchan">业绩</a><a href="javascript:" data="container1" class="chart_b">客流</a>
-		</span>
-		<a href="javascript:" class="jlsy_two_top_01">月数据曲线图</a>
-		</div>
-		<div class="jlsy_two_two">
-			<div id="container" style="height: 300px;"></div>
-	        <div id="container1" style="height: 300px;"></div>
-		</div>
-	
-	</div><!--jlsy_two-->
-		
-	<!--jlsy_th-->
-	<div class="jlsy_th">
-		<div class="jlsy_two_top" style=" padding-left:23px; padding-right:23px;"><span class="jlsy_two_top_02"><a href="javascript:" class="jlchan">30天内</a><!-- <a href="javascript:">一周内</a> --></span><a href="javascript:" class="jlsy_two_top_01 jlsy_th_01">将流失客户</a><span class="jlsy_th_02"><?php echo $out["A"]+$out["B"]+$out["C"]+$out["D"]+$out["E"] ?></span></div>
-		<div class="jlsy_th_two">
-			<ul>
-				<li>
-					<div class="jlsy_th_two_l">
-						<div class="jlsy_th_two_l_top_01">A</div>
-						<p>A类客户</p>
-					</div>
-					<div class="jlsy_th_two_r">
-						<div><span class="jlsy_th_two_r_top"><?php echo $out["A"] ?></span>人</div>
-						<div><a href='<?php echo $this->url("customer/index/outlist") ?>&cu_type=A'>查看</a></div>
-					</div>
-				</li>
-				<li>
-					<div class="jlsy_th_two_l">
-						<div class="jlsy_th_two_l_top_02">B</div>
-						<p>B类客户</p>
-					</div>
-					<div class="jlsy_th_two_r">
-						<div><span class="jlsy_th_two_r_top"><?php echo $out["B"] ?></span>人</div>
-						<div><a href='<?php echo $this->url("customer/index/outlist") ?>&cu_type=B'>查看</a></div>
-					</div>
-				</li>
-				<li>
-					<div class="jlsy_th_two_l">
-						<div class="jlsy_th_two_l_top_03">C</div>
-						<p>C类客户</p>
-					</div>
-					<div class="jlsy_th_two_r">
-						<div><span class="jlsy_th_two_r_top"><?php echo $out["C"] ?></span>人</div>
-						<div><a href='<?php echo $this->url("customer/index/outlist") ?>&cu_type=C'>查看</a></div>
-					</div>
-				</li>
-				<li>
-					<div class="jlsy_th_two_l">
-						<div class="jlsy_th_two_l_top_04">D</div>
-						<p>D类客户</p>
-					</div>
-					<div class="jlsy_th_two_r">
-						<div><span class="jlsy_th_two_r_top"><?php echo $out["D"] ?></span>人</div>
-						<div><a href='<?php echo $this->url("customer/index/outlist") ?>&cu_type=D'>查看</a></div>
-					</div>
-				</li>
-				<li style=" border-right:none;">
-					<div class="jlsy_th_two_l">
-						<div class="jlsy_th_two_l_top_05">E</div>
-						<p>E类客户</p>
-					</div>
-					<div class="jlsy_th_two_r">
-						<div><span class="jlsy_th_two_r_top"><?php echo $out["E"] ?></span>人</div>
-						<div><a href='<?php echo $this->url("customer/index/outlist") ?>&cu_type=E'>查看</a></div>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</div><!--jlsy_th-->
 
-</div>
 <!--content_right_con!end-->
 <script type="text/javascript">
 $(function () {
@@ -323,10 +358,6 @@ $(function () {
 		$("#container").hide();
 		$("#container1").hide();
 		$("#"+forid).show();
-		
-		$(".chart_b").removeClass("jlchan");
-		$(this).addClass("jlchan");
-		
 	});
 	
 });

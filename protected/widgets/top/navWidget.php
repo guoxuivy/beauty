@@ -12,9 +12,20 @@ class NavWidget extends Widget
 
     private function getNav(){
         $user=\Ivy::app()->user;
+        $company_info = $user->getState('company_info');//强制更新公司信息
+        $dept_info = \EmployDept::model()->findByPk($user->dept_id);
+        $show_user["name"] = $user->netname;
+        $show_user["title"] = $dept_info->dept_name;
+
+        
+
+        $this->assign("store_info",$store_info);
+        $this->assign("user_info",$user);
+
         switch ($user->position_id) {
             case '1'://公司总经理
                 $nav = $this->ZJLNav();
+                $show_user["title"] = $company_info->comp_name;
                 if(\Ivy::app()->user->getState('show_position') == 10)
                     $nav = $this->AdminNav();
                 break;
@@ -26,14 +37,17 @@ class NavWidget extends Widget
                 break;
             case '10'://公司管理员
                 $nav = $this->AdminNav();
+                $show_user["title"] = $company_info->comp_name;
                 break;
             case '11'://平台管理员
                 $nav = $this->PlatNav();
                 break;
             default:
                 $nav = $this->AdminNav();
+                $show_user["title"] = $company_info->comp_name;
                 break;
         }
+        $this->assign("show_user",$show_user);
         return $nav;
     }
 
