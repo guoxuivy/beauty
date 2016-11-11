@@ -226,20 +226,20 @@ class NavWidget extends Widget
         $light_url = is_null($light_url)?$this->getCUrl():$light_url;
         $nav_list = array();
         foreach ($_nav as $key => $nav) {
-            $tmp=[];
+            $tmp=array();
             $tmp["t_name"]  =$key;
             $tmp["t_icon"]   =self::icon($key);
 
             if(!is_array($nav)){
                 $tmp["t_url"]   =$nav;
                 $tmp["t_active"]= $nav==$light_url?"active":"";
-                $tmp["child"]   =[];
+                $tmp["child"]   =array();
             }else{
                 $tmp["t_url"]   ='javascript:;';
                 $tmp["t_active"]= "";
-                $tmp["child"]   =[];
+                $tmp["child"]   =array();
                 foreach ($nav as $k_c => $n_c) {
-                    $t_c=["name"=>$k_c,"url"=>$n_c,"active"=>""];
+                    $t_c=array("name"=>$k_c,"url"=>$n_c,"active"=>"");
                     if($n_c==$light_url){
                         $tmp["t_active"]=$t_c["active"]="active";
                     }
