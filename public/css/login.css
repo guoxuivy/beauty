@@ -18,7 +18,7 @@ input{outline:none;}
 .plat_color{ color:#999999;}
 body{ background-color:#f3f3f3;}
 .top{ height:80px; width:auto; display:block; background-color:#fff; border-bottom:solid 1px #ccc;}
-.top_center{width:1100px;height:80px;text-align:left;margin-top:0;margin-right:auto;margin-bottom:0;margin-left:auto;}
+.top_center{height:80px;text-align:left;margin-top:0;margin-right:auto;margin-bottom:0;margin-left:auto;}
 .logo{width:159px;height:45px;margin-top:17px;float:left;}
 .logo_span{font-size:24px;float:left;line-height:30px;height:30px;color:#999;display:block;padding-top:25px;padding-left:15px}
 
@@ -172,14 +172,14 @@ body{ background-color:#f3f3f3;}
 
 /*底部*/
 .footer{ height:80px; display:block; background-color:#666;}
-.footer_center{width:1000px;line-height:40px;font-size:12px;color:#fff;margin-right:auto;margin-left:auto;height:40px;padding-top:20px}
+.footer_center{line-height:40px;font-size:12px;color:#fff;margin-right:auto;margin-left:auto;height:40px;padding-top:20px}
 
 
 /*登录*/
-.denglu_body{display:block;min-height:700px;background-image:url(../images/login_bj.jpg);background-repeat:no-repeat;background-position:center top;padding-top:80px;padding-right:0;padding-left:0;}
-.login_page{width:1000px;background-color:#fff;min-height:550px;margin-right:auto;margin-left:auto;}
+.denglu_body{display:block;min-height:500px;background-image:url(../images/login_bj.jpg);background-repeat:no-repeat;background-position:center top;padding-top:80px;padding-right:0;padding-left:0;}
+.login_page{width:440px;background-color:#fff;margin-right:auto;margin-left:auto;}
 .login_page_main{padding:50px;text-align:left}
-.login_page_left{width:600px;float:left;border-right:solid 1px #eee}
+.login_page_left{float:left;}
 .login_page_left_tit{display:block;padding-bottom:25px}
 .login_page_left_tit span{ width:180px; text-align:center; line-height:40px; font-size:18px; height:40px; display:inline-block; margin-right:15px; cursor:pointer;}
 .login_mei{ border:solid 1px #21c16c; background-color:#21c16c; color:#fff;}
@@ -206,7 +206,7 @@ body{ background-color:#f3f3f3;}
 .forget_password:hover{ color:#07f;}
 
 /*忘记密码步骤*/
-.forget_page{background-color:#fff;width:1000px;min-height:600px;border:solid 1px #ddd;margin-top:30px;margin-right:auto;margin-bottom:30px;margin-left:auto;}
+.forget_page{background-color:#fff;min-height:600px;border:solid 1px #ddd;margin-top:30px;margin-right:auto;margin-bottom:30px;margin-left:auto;}
 .forget_page_tit{height:44px;border-bottom:solid 1px #ddd;}
 .forget_page_tit li{ height:44px; float:left;}
 .forget_buzhou_1{background-image:url(../images/forget_bj1.jpg); background-repeat:no-repeat;}
@@ -230,7 +230,7 @@ body{ background-color:#f3f3f3;}
 
 /*注册-top*/
 .advertising{ background-color:#ddd; display:block;box-shadow: 0px 2px 4px #ccc inset;}
-.advertising_page{ width:1100px; padding-top:15px; display:block; margin-top: 0; margin-right: auto; margin-bottom: 0; margin-left: auto; }
+.advertising_page{padding-top:15px; display:block; margin-top: 0; margin-right: auto; margin-bottom: 0; margin-left: auto; }
 .advertising_page img{ border:none; }
 
 /*注册-right*/

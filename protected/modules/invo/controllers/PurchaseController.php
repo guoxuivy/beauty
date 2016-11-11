@@ -1,6 +1,6 @@
 <?php
 /**
- * @author  guojh <[<guojh@howa.com.cn>]>
+ * @author  guojh <[<guojh@etwasd.com>]>
  * @Date 2016-03-07
  */
 namespace invo;

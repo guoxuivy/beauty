@@ -72,7 +72,7 @@ class Utils
 		return $tmp;
 	}
 	
-	public static function passport_key($txt, $encrypt_key = 'howa.com.cn') {
+	public static function passport_key($txt, $encrypt_key = 'etwasd.com') {
 		$encrypt_key = md5($encrypt_key);
 		$ctr = 0;
 		$tmp = '';

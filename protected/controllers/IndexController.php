@@ -336,7 +336,7 @@ class IndexController extends Controller {
 		}elseif($userModel['position_id']=="11"){ //平台管理员
 			$this->ajaxReturn('200', '验证成功');
 		}elseif((int)$userModel['comp_status'] < 1){
-			$this->ajaxReturn('400', '公司不可用，请联系好哇管理员。');
+			$this->ajaxReturn('400', '公司不可用，请联系美慧管理员。');
 		}else{
 			$this->ajaxReturn('200', '验证成功');
 		}
@@ -370,11 +370,11 @@ class IndexController extends Controller {
 	 */
 	public function sendEmail($model){
 		$to_mails = array(
-			0 => 'magq@howa.com.cn',
-			1 => 'kangcj@howa.com.cn',
-			2 => 'chenj@howa.com.cn',
+			0 => 'magq@etwasd.com',
+			1 => 'kangcj@etwasd.com',
+			2 => 'chenj@etwasd.com',
 		);
-		$title = 'HOWA平台新用户注册信息通知';
+		$title = 'meihui平台新用户注册信息通知';
 		$content = '
             <div class="table" style="width: 80%">
             <style>
@@ -505,7 +505,7 @@ class IndexController extends Controller {
 		$phoneCode=$_POST['phoneCode'];
 		$xieYi=$_POST['xie_yi'];
 		if(!$xieYi)
-			$this->ajaxReturn('400', '请勾选同意《好哇平台注册协议》');
+			$this->ajaxReturn('400', '请勾选同意《美慧平台注册协议》');
 
 		$ifCompanyExists = \CompanyInfo::model()->find("phone='$phone'");
 		$ifUserExists = \EmployUser::model()->find("user_name='$phone'");

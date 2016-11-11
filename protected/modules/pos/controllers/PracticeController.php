@@ -225,9 +225,9 @@ class PracticeController extends BaseController
 				$model->cu_id,
 				date('Y年m月d日').' 耗卡通知',
 				'亲,您本次实操已经耗卡成功.感谢您的光临!',
-				array('m'=>'howa_practice','do'=>'mylist','op'=>'detail','id'=>$id),
+				array('m'=>'meihui_practice','do'=>'mylist','op'=>'detail','id'=>$id),
 				'wechat_charge.jpg',
-				'howa_practice'
+				'meihui_practice'
 				);
 		
 		$this->ajaxReturn(200,"保存成功！",$res);
@@ -262,9 +262,9 @@ class PracticeController extends BaseController
 				$model->cu_id,
 				date('Y年m月d日').' 服务提醒',
 				$description,
-				array('m'=>'howa_satisfice','do'=>'create','id'=>$id),
+				array('m'=>'meihui_satisfice','do'=>'create','id'=>$id),
 				'survey_s.jpg',
-				'howa_satisfice'
+				'meihui_satisfice'
 				);
 	}
 	 /**

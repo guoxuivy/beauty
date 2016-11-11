@@ -7,11 +7,12 @@ use Ivy\core\CException;
 class IndexController extends \SController
 {
     //布局文件
-    public $layout='/layouts/main_new';
+    //public $layout='/layouts/main_new';
 	/**
 	 * 总经理首页
 	 */
 	public function indexAction(){
+        $this->layout='/layouts/main_new';
         //今日销售业绩
         $d_stime=strtotime(date("Ymd"));
         $d_etime=$d_stime+24*3600;

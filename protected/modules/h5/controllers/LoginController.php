@@ -114,7 +114,7 @@ class LoginController extends Controller
 		}elseif($userModel['position_id']=="11"){ //平台管理员
 			$this->ajaxReturn('200', '验证成功');
 		}elseif((int)$userModel['comp_status'] < 1){
-			$this->ajaxReturn('400', '公司不可用，请联系好哇管理员。');
+			$this->ajaxReturn('400', '公司不可用，请联系美慧管理员。');
 		}else{
 			$this->ajaxReturn('200', '验证成功');
 		}

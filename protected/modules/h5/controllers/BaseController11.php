@@ -51,7 +51,7 @@ class BaseController extends Controller
 			throw new CException('平台管理员！',400);
 			//return true;
 		}elseif((int)$userModel['comp_status'] < 1){
-			throw new CException('公司不可用，请联系好哇管理员。',400);
+			throw new CException('公司不可用，请联系美慧管理员。',400);
 		}else{
 			//return true;
 		}

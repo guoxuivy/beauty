@@ -156,7 +156,7 @@ class IndexController extends AuthController {
 	/**
 	 * 权限查看
 	 */
-	public function showAction() {
+	public function smeihuiction() {
 		if($this->isAjax){
 			$userId=$_REQUEST['userid'];
 			$role_list=Assignment::model()->field('itemname')->findAll("userid=".$userId);
