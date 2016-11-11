@@ -6,6 +6,8 @@ use Ivy\core\CException;
  */
 class IndexController extends \SController
 {
+    //布局文件
+    public $layout='/layouts/main_new';
 	/**
 	 * 总经理首页
 	 */

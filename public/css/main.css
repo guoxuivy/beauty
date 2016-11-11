@@ -17,8 +17,7 @@ a{text-decoration:none;}
 body{font-family:"22微软雅黑";}
 
 /*框架*/
-.containter{ width:100%; overflow:hidden;}
-
+.containter{ width:100%; overflow:hidden;padding-bottom: 80px;}
 /*-------------------------------------------------------------------头部开始-------------------------------------------------*/
 .head{ height:60px; width:100%; background:#252f36;}
 
@@ -183,7 +182,7 @@ body{font-family:"22微软雅黑";}
 /*行--td--样式-----end-----*/
 
 /*------------分页样式-----------*/
-.fjgl_th_for{min-height:35px;height:auto!important;padding-left:20px;padding-top:13px;background:#fafafa;font-size:12px;color:#666;border-bottom:1px solid #ddd;}
+.fjgl_th_for{min-height:35px;height:auto!important;padding-left:20px;padding-top:13px;padding-bottom:13px;background:#fafafa;font-size:12px;color:#666;border-bottom:1px solid #ddd;}
 .fjgl_th_for a{ display:inline-block; height:22px; width:22px;border:1px solid #dddddd; font-size:12px; color:#666666; line-height:22px; text-align:center; border-radius:3px; margin:0 5px;}
 .fjgl_th_for a:hover{border:1px solid #888;color:#fff; background-color:#999;}
 
@@ -875,12 +874,12 @@ a.but_no{ background-color:#f30; color:#fff;}
 
 
 /*客户管理*/
-.khgl_01{ position:relative; height:16px; width:16px; left:0px; top:23px; float:left; margin-right:10px; display:inline;}
+.khgl_01{ position:relative; height:16px; width:16px; left:0px; top:-2px; float:left; margin-right:10px; display:inline;}
 
 .khgl_com{ position:relative; zoom:1;}
 .khgl_com ul{}
 .khgl_radio_list{width:61px;position:absolute;text-align:center;left:0px;height:30px;padding-top:17px;}
-.table_list .khca{ font-size:12px; color:#FFF;display:inline-block; height:22px; width:60px; line-height:22px; background:#1eb488; text-align:center; margin:0 5px; border-radius:2px; }
+.table_list .khca{ font-size:12px; color:#FFF;display:inline-block; height:24px; width:60px; line-height:22px; background:#1eb488; text-align:center; margin:0 5px; border-radius:2px; }
 .khca_son{ position:relative; float:left; left:5px;}
 .khgl_xmpic{padding-right:2px;float:left;margin-top:10px;cursor:pointer;}
 .khgl_03{ color:#0077ff;cursor:pointer;}
@@ -1535,7 +1534,6 @@ box-shadow: 0px 1px 1px #54C094 inset;}
 .ad_time{ width:110px; height:18px;border-radius:4px; font-size:12px; color:#fff; background:#000; filter:alpha(opacity=50);-moz-opacity:0.5;opacity: 0.5; padding:5px; position:absolute; top:10px; right:10px;}
 .ad_time span{ font-weight:bold; color:#f30; padding:0 5px;}
 .close{width:49px;height:20px;color:#000;text-align:right;top:40px;font-size:12px;right:10px;cursor:pointer;position: absolute;}
-.btn{ width:100px; height:30px; background:#eee; border:1px solid #ddd; font:normal 12px/30px '微软雅黑'; text-align:center; margin:20px auto; cursor:pointer;}
 
 /*右下角*/
 .King_Chance_Layer { position:fixed; right:0; bottom:0; width:0; height:0; z-index:999;}

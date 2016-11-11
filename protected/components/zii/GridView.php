@@ -134,7 +134,7 @@ class GridView extends CComponent
 	public function buildRow(){
 		$str="";
 		foreach ($this->list as $key=>$data){
-			$str .=   "<tr class='table_list clear'>";
+			$str .=   "<tr class='table_list '>";
 					if(isset($this->conf['check'])){
 						$str.="<td><input value='".$data[$this->conf['check']]."' name='table_check' type='checkbox' /></td>";
 					}
