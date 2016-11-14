@@ -5,9 +5,9 @@
 return array (
 		//pdo数据库配置
 		'db_pdo' => array (
-			'dsn' => 'mysql:dbname=platform;host=127.0.0.1;port=3306',
-			'password' => 'root',
-			'user' => 'root',
+			'dsn' => 'mysql:dbname=etwasd;host=localhost;port=3306',
+			'user' => 'etwasd',
+			'password' => '8y3j5m4l',
 			//'dsn' => 'mysql:dbname=platform;host=127.0.0.1;port=3306',
 			//'password' => '',
 			
