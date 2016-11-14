@@ -58,7 +58,7 @@
 								}
 							}
 							?>
-							<div class="table_list clear">
+							<div class="table_list">
 								<ul>
 									<?php foreach ($capital_list as $key=>$value): ?>
 										<li class="li00<?php echo ++$key ?>">
@@ -98,7 +98,7 @@
 									<?php if($pro['buy_type']!=1) continue; ?>
 									<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
 
-									<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list clear">
+									<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
 										<ul>
 											<li class="li001"><?php echo $info->name ?>（<?php echo $info->num*$info->price ?>元/<?php echo $info->num ?>疗次）</li>
 											<li class="li002"><?php echo $pro['num'] ?></li>
@@ -136,7 +136,7 @@
 									<?php if($pro['buy_type']!=2) continue; ?>
 									<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
 
-									<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list clear">
+									<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
 										<ul>
 											<li class="li001"><?php echo $info->name ?>（<?php echo $info->num*$info->price ?>元/<?php echo $info->num ?>疗次）</li>
 											<li class="li002"><?php echo $pro['num'] ?></li>

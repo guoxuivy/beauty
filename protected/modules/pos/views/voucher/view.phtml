@@ -54,7 +54,7 @@
 						 	if ($CustomerVoucher): 
 							$pro=\CustomerVoucher::getLastProNames($CustomerVoucher->id);
 						?>
-						<div class="table_list clear">
+						<div class="table_list">
 							<ul>
 								<li class="li001"><?php echo date('Y/m/d',$CustomerVoucher->stime),'-',date('Y/m/d',$CustomerVoucher->etime) ?></li>
 								<li class="li002"><?php echo $CustomerVoucher->name ?></li>
@@ -126,7 +126,7 @@
 										$pro_num=$value['num'];
 										$pro=\pos\SaleModel::model()->getProInfo($value['pro_id'],$value['pro_type']);
 								 ?>
-								<div class="table_list clear">
+								<div class="table_list">
 									<ul>
 										<li class="li001"><?php echo $pro->name; ?></li>
 										<li class="li002">
@@ -168,7 +168,7 @@
 										$pro_num=$value['num'];
 										$pro=\pos\SaleModel::model()->getProInfo($value['pro_id'],$value['pro_type']);
 								 ?>
-								<div class="table_list clear">
+								<div class="table_list">
 									<ul>
 										<li class="li001"><?php echo $pro->name; ?></li>
 										<li class="li002">

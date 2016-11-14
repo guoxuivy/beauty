@@ -99,7 +99,7 @@
             <?php if ($data): ?>
             <?php $by_ddcs=0;$by_cjcs=0;$by_cjje=0;$sy_ddcs=0;$sy_cjcs=0;$sy_cjje=0;$qy_ddcs=0;$qy_cjcs=0;$qy_cjje=0;?>
             <?php foreach($data as $cu_id=>$_data):?>
-                <tr class="table_list clear">
+                <tr class="table_list">
                     <td><a href="<?php echo $this->url('/customer/index/view',array('id'=>$cu_id))?>" class="alinks"><?php echo $_data['cu_name']?></a></li>
                     <td><?php echo $_data['card_id']?></td>
                     <td><?php echo $_data['cu_mrs']?></td>

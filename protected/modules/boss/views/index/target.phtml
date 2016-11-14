@@ -44,7 +44,7 @@
 			</thead>
 			<tbody>
 			<?php foreach ($list as $row): ?>
-				<tr class="table_list clear">
+				<tr class="table_list">
 					<td><?php echo $row['dept_name'] ?></td><td><span class="khgl_xmpic"><img src="<?php echo $this->basePath('public');?>/images/kh_06.png" height="24" width="24"></span><span class="khgl_03"><?php echo $row['netname'] ?></span></td><td><?php echo $row['sale_target'] ?></td><td><?php echo $row['prac_target'] ?></td><td rel="<?php echo $row['id'] ?>"><a href="javascript:" class="edit">编辑</a></td>
 				</tr>
 			<?php endforeach ?>

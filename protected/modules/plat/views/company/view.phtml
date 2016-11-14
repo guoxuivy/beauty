@@ -256,7 +256,7 @@ $(function(){
 						var table=$("<div class='table_table table_container'><table cellspacing=0 cellpadding=0 border=0 style='min-width:100%'><thead><tr class='table_title'><th>时间</th><th>操作人</th></tr></thead><tbody><tr></tr></tbody></table></div>");
 
 						$.each(data.data, function(i, n){
-							table.find('tbody').append("<tr class='table_list clear'><td>"+n.create_time+"</td><td>"+n.netname+"</td></tr>");
+							table.find('tbody').append("<tr class='table_list'><td>"+n.create_time+"</td><td>"+n.netname+"</td></tr>");
 						});
 
 						obj.append(table);

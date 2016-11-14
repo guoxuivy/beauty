@@ -41,7 +41,7 @@
 					<?php foreach ($project_list as $pro): ?>
 						<?php $money_str=\pos\SaleModel::model()->proMoneyStr($pro['detail_id']); ?>
 
-						<div data-id="<?php echo $pro['id'] ?>" data-zh="<?php echo $money_str ?>" data-tk="<?php echo $pro['tk_money_str'] ?>" class="table_list clear">
+						<div data-id="<?php echo $pro['id'] ?>" data-zh="<?php echo $money_str ?>" data-tk="<?php echo $pro['tk_money_str'] ?>" class="table_list">
 							<ul>
 								<li class=""><?php echo \OrderSaleDetail::getSn($pro['detail_id']) ?></li>
 								<li class=""><?php echo $pro['name'] ?></li>
@@ -156,7 +156,7 @@ $(function(){
 			init:function(content){
 				$.each( capital_list, function(i, capital){
 					var money = str_money(capital_money,capital.id);
-					var s_list ='<div class="table_list clear"><ul>';
+					var s_list ='<div class="table_list"><ul>';
 						s_list+='<li class="">'+capital.name+'</li>';
 						s_list+='<li class="">'+capital.balance+'</li>';
 						s_list+='<li class="">'+money+'</li>';
@@ -181,7 +181,7 @@ $(function(){
 			init:function(content){
 				$.each( capital_list, function(i, capital){
 					var money = str_money(capital_money,capital.id);
-					var s_list ='<div class="table_list clear"><ul>';
+					var s_list ='<div class="table_list"><ul>';
 						s_list+='<li class="">'+capital.name+'</li>';
 						s_list+='<li class="">'+capital.balance+'</li>';
 						s_list+='<li class=""><input type="text" data-capital-id="'+capital.id+'" class="pos_cz_tow_two05 pos_gm_th_02" value="'+money+'"></li>';

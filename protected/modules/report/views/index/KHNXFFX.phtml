@@ -122,7 +122,7 @@
                 <?php $total=0;$total_1=0;$total_2=0;$total_3=0;$total_4=0;$total_5=0;$total_6=0;$total_7=0;$total_8=0;$total_9=0;$total_10=0;$total_11=0;$total_12=0;?>
                 <?php foreach($data as $cu_name=>$cu_info):?>
 
-                <tr class="table_list clear">
+                <tr class="table_list">
                     <td style="border-right:solid 1px #ddd;" rowspan="3"><a href="<?php echo $this->url('customer/index/view',array('id'=>$cu_info['total']['cu_id']))?>"><?php echo $cu_name;?></a></td>
                     <td style="border-right:solid 1px #ddd;" rowspan="3"><?php echo $cu_info['total']['cu_type'];?></td>
                     <td>现金</td>
@@ -141,7 +141,7 @@
                     <td><?php echo empty($cu_info['12']['cash'])?'0.00':$cu_info['12']['cash'];?></td>
                     <td style="border-left:solid 1px #ddd;" rowspan="3"><a href="<?php echo $this->url('customer/index/view',array('id'=>$cu_info['total']['cu_id']))?>">查看档案</a></td>
                 </tr>
-                <tr class="table_list clear">
+                <tr class="table_list">
                     <td>卡扣</li>
                     <td><?php echo $cu_info['total']['card_money'];?></td>
                     <td><?php echo empty($cu_info['1']['card'])?'0.00':$cu_info['1']['card'];?></td>
@@ -157,7 +157,7 @@
                     <td><?php echo empty($cu_info['11']['card'])?'0.00':$cu_info['11']['card'];?></td>
                     <td><?php echo empty($cu_info['12']['card'])?'0.00':$cu_info['12']['card'];?></td>
                 </tr>
-                <tr class="table_list clear">
+                <tr class="table_list">
                     <td>实耗</li>
                     <td><?php echo $cu_info['total']['sh_money'];?></td>
                     <td><?php echo empty($cu_info['1']['use_money'])?'0.00':$cu_info['1']['use_money'];?></td>

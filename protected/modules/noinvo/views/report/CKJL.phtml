@@ -61,7 +61,7 @@
 			</thead>
 			<tbody>
 			<?php foreach ($list1 as $value): ?>
-				<tr class="table_list clear">
+				<tr class="table_list">
 					<td><?php echo $value['sn']  ?></td>
 					<td><?php echo date("Y-m-d h:i",$value['create_time'])  ?></td>
 					<td>领用出库</td>
@@ -74,7 +74,7 @@
 
 
 			<?php foreach ($list2 as $value): ?>
-				<tr class="table_list clear">
+				<tr class="table_list">
 					<td><?php echo $value['sn']  ?></td>
 					<td><?php echo date("Y-m-d h:i",$value['receive_time'])  ?></td>
 					<td>领取出库</td>

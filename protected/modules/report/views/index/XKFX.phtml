@@ -82,7 +82,7 @@
             <?php if ($data): ?>
             <?php $xk_rs=0;$xk_scxj=0;$z_cjcs=0;$z_cjje=0;?>
             <?php foreach($data as $_data):?>
-                <tr class="table_list clear">
+                <tr class="table_list">
                     <td><a href="<?php echo $this->url('XKFX_X',array('dept_id'=>$_data['dept_id'],'year'=>$_GET['year'],'month'=>$_GET['month']))?>" class="alinks"><?php echo $_data['dept_name'];?></a></td>
                     <td><?php echo $_data['xk_rs'];?></td>
                     <td><?php echo $_data['xk_scxj'];?></td>

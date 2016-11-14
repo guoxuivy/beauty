@@ -91,7 +91,7 @@
 			</thead>
 			<tbody>
 				<?php foreach ($list['sale'] as $row): ?>
-				<tr class="table_list clear">
+				<tr class="table_list">
 					<td><?php echo $row['name'] ?></td>
 					<td><?php echo \OrderSale::getType($row['type']) ?></td>
 					<td><?php echo date("Ymd",$row['pay_time']) ?></td>
@@ -104,7 +104,7 @@
 				</tr> 
 				<?php endforeach ?>
 				<?php foreach ($list['practice'] as $row): ?>
-				<tr class="table_list clear">
+				<tr class="table_list">
 					<td><?php echo $row['name'] ?></td>
 					<td>实操</td>
 					<td><?php echo date("Ymd",$row['pay_time']) ?></td>

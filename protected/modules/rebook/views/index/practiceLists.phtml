@@ -12,7 +12,7 @@
 </div>
 <?php if(!empty($list)):?>
     <?php foreach($list as $key=>$_list):?>
-        <div class="table_list clear">
+        <div class="table_list">
             <ul>
                 <li class="li002"><?php echo $key+1;?></li>
                 <li class="li002"><?php echo $_list['cu_name'];?></li>
@@ -24,7 +24,7 @@
         </div>
     <?php endforeach;?>
 <?php else:?>
-    <div class="table_list clear">
+    <div class="table_list">
         <ul style="margin-left: 350px;">
             暂无数据！
         </ul>

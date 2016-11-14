@@ -43,7 +43,7 @@
 			<tbody>
 				<?php foreach ($list as $row): ?>
 					<?php if ($row['ptype']): ?>
-						<tr class="table_list clear">
+						<tr class="table_list">
 							<td><?php echo $row['sn'] ?></td>
 							<td><span class="khgl_xmpic"><img src="<?php echo $this->basePath("public") ?>/images/kh_06.png" height="24" width="24"></span><span class="khgl_03"><?php echo $row['cu_name'] ?></span></td>
 							<td><?php echo \OrderSale::getType($row['type']) ?></td>
@@ -52,7 +52,7 @@
 							<td class="order"><a rel="<?php echo $row['id'] ?>" data-type="<?php echo $row['type'] ?>" href="javascript:;" class="view khca"><span class="khca_son"><img src="<?php echo $this->basePath('public'); ?>/images/kh_05.png"></span>查看</a></td>
 						</tr>
 					<?php else: ?>
-						<tr class="table_list clear">
+						<tr class="table_list">
 							<td><?php echo $row['sn'] ?></td>
 							<td><span class="khgl_xmpic"><img src="<?php echo $this->basePath("public") ?>/images/kh_06.png" height="24" width="24"></span><span class="khgl_03"><?php echo $row['cu_name'] ?></span></td>
 							<td>实操</td>

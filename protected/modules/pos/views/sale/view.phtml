@@ -62,7 +62,7 @@
 							<?php if($pro['pro_type']!=1) continue; ?>
 							<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
 
-							<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list clear">
+							<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
 								<ul>
 									<li class="li001"><?php echo $info->name ?>（<?php echo $info->num*$info->price ?>元/<?php echo $info->num ?>疗次）</li>
 									<li class="li002"><?php echo $pro['num'] ?></li>
@@ -122,7 +122,7 @@
 						<?php if($pro['pro_type']!=2) continue; ?>
 						<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
 
-						<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list clear">
+						<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
 							<ul>
 							<li class="li001"><?php echo $info->name ?></li>
 							<li class="li002"><?php echo $pro['num'] ?> （<?php echo $info->unit ?>）</li>
@@ -182,7 +182,7 @@
 						<?php if($pro['pro_type']!=3) continue; ?>
 						<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
 
-						<div data-sold="<?php echo $info->sold_num ?>" data-num="<?php echo $info->num ?>" data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>"  data-zs="<?php echo $pro['money_str'] ?>" class="table_list clear">
+						<div data-sold="<?php echo $info->sold_num ?>" data-num="<?php echo $info->num ?>" data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>"  data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
 							<ul>
 								<li class="li001"><?php echo $info->name ?></li>
 								<li class="li002"><?php echo $pro['num'] ?></li>
@@ -355,7 +355,7 @@ $(function(){
 
 				$.each( capital_zs, function(i, capital){
 					var money = str_money(capital_money,capital.id);
-					var s_list ='<div class="table_list clear"><ul>';
+					var s_list ='<div class="table_list"><ul>';
 						s_list+='<li class="li001">'+capital.name+'</li>';
 						s_list+='<li class="li002">'+capital.balance+'</li>';
 						s_list+='<li class="li003">'+money+'</li>';
@@ -383,7 +383,7 @@ $(function(){
 
 				$.each( capital_xj, function(i, capital){
 					var money = str_money(capital_money,capital.id);
-					var s_list ='<div class="table_list clear"><ul>';
+					var s_list ='<div class="table_list"><ul>';
 						s_list+='<li class="li001">'+capital.name+'</li>';
 						s_list+='<li class="li002">'+capital.balance+'</li>';
 						s_list+='<li class="li003">'+money+'</li>';

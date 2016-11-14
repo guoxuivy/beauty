@@ -114,7 +114,7 @@ $(function(){
 		$.getJSON("<?php echo $this->url('inlist') ?>", { id: id }, function(json){
 			if(json.code==200){
 				$.each(json.data,function(i,v){
-					var tr=$('<tr class="table_list clear"></tr>');
+					var tr=$('<tr class="table_list"></tr>');
 					tr.append('<td>'+v.tcname+'</td>');
 					tr.append('<td>'+v.cname+'</td>');
 					tr.append('<td>'+v.name+'</td>');

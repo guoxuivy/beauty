@@ -51,7 +51,7 @@ if($order_id){
 							<?php foreach ($pros as $pro): ?>
 							<?php if($pro['pro_type']!=1) continue; ?>
 							<?php $pro_info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
-								<div data-dj="<?php echo $pro_info->price ?>" data-id="<?php echo $pro_info->id ?>" class="table_list clear"><ul>
+								<div data-dj="<?php echo $pro_info->price ?>" data-id="<?php echo $pro_info->id ?>" class="table_list"><ul>
 									<li class="li001"><?php echo $pro_info->name; ?>（<?php echo $pro_info->num*$pro_info->price; ?>元/<?php echo $pro_info->num; ?>疗次）</li>
 									<li class="li002"><input readonly="true" type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05"></li>
 									
@@ -91,7 +91,7 @@ if($order_id){
 							<?php if($pro['pro_type']!=2) continue; ?>
 							<?php $pro_info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
 
-								<div data-dj="<?php echo $pro_info->price ?>" data-id="<?php echo $pro_info->id ?>" class="table_list clear"><ul>
+								<div data-dj="<?php echo $pro_info->price ?>" data-id="<?php echo $pro_info->id ?>" class="table_list"><ul>
 									<li class="li001"><?php echo $pro_info->name; ?></li>
 									<li class="li002"><input readonly="true" type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05">（<?php echo $pro_info->unit ?>）</li>
 								</ul></div>
@@ -129,7 +129,7 @@ if($order_id){
 							<?php if($pro['pro_type']!=3) continue; ?>
 							<?php $pro_info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
 
-								<div data-sold="<?php echo $pro_info->sold_num ?>" data-num="<?php echo $pro_info->num ?>" data-dj="<?php echo $pro_info->price ?>" data-id="<?php echo $pro_info->id ?>" class="table_list clear"><ul>
+								<div data-sold="<?php echo $pro_info->sold_num ?>" data-num="<?php echo $pro_info->num ?>" data-dj="<?php echo $pro_info->price ?>" data-id="<?php echo $pro_info->id ?>" class="table_list"><ul>
 									<li class="li001"><?php echo $pro_info->name; ?>（<?php echo $pro_info->price ?>元）</li>
 									<li class="li002"><input readonly="true" type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05"></li>
 								</ul></div>
@@ -164,7 +164,7 @@ if($order_id){
 							</ul>
 						</div>
 
-						<div class="table_list clear">
+						<div class="table_list">
 							<ul>
 							<?php foreach ($capital_list as $key=>$value): ?>
 								<li class="li00<?php echo ++$key ?>">

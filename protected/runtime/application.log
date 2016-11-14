@@ -1,0 +1,2593 @@
+2016/11/12 16:45:38 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:E:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/12 16:45:38 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:E:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/12 16:45:38 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:136
+2016/11/12 16:45:54 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\models\ReBook.php->line:128
+2016/11/12 16:45:54 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:136
+2016/11/12 16:45:59 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\modules\rebook\controllers\IndexController.php->line:102
+2016/11/12 16:45:59 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\modules\rebook\controllers\IndexController.php->line:110
+2016/11/12 16:46:04 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\modules\rebook\controllers\IndexController.php->line:102
+2016/11/12 16:46:04 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\modules\rebook\controllers\IndexController.php->line:110
+2016/11/12 16:46:06 [warning] [application] [system-level-2] [in_array() expects parameter 2 to be array, null given] file:E:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml->line:59
+2016/11/12 16:46:06 [warning] [application] [system-level-2] [in_array() expects parameter 2 to be array, null given] file:E:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml->line:59
+2016/11/12 16:46:06 [warning] [application] [system-level-2] [in_array() expects parameter 2 to be array, null given] file:E:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml->line:59
+2016/11/12 16:46:17 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/12 16:46:17 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/12 16:46:17 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/12 16:46:17 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/12 16:46:17 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/12 16:46:17 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/12 16:46:17 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/12 16:46:45 [warning] [application] [system-level-2] [in_array() expects parameter 2 to be array, null given] file:E:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml->line:59
+2016/11/12 16:46:45 [warning] [application] [system-level-2] [in_array() expects parameter 2 to be array, null given] file:E:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml->line:59
+2016/11/12 16:46:45 [warning] [application] [system-level-2] [in_array() expects parameter 2 to be array, null given] file:E:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml->line:59
+2016/11/12 16:46:47 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\models\ReBook.php->line:128
+2016/11/12 16:46:47 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:136
+2016/11/12 16:47:54 [trace] [application] 
+<!--Fatal error-->
+未捕获的异常Ivy\db\DBException  
+异常抛出点：E:\xampp\htdocs\beauty\framework\db\pdo\mysql.php on line 53
+<!--Fatal error end-->
+异常消息：SQLSTATE[HY000] [2002] �������ӷ���һ��ʱ���û����ȷ�𸴻����ӵ�����û�з�Ӧ�����ӳ���ʧ�ܡ�
+  
+file:E:\xampp\htdocs\beauty\framework\db\pdo\mysql.php  
+line:31  
+function:connect  
+class:Ivy\db\pdo\mysql  
+type:->  
+args:Array
+(
+    [0] => Array
+        (
+            [dsn] => mysql:dbname=platform_supplier;host=192.168.0.202;port=13306
+            [password] => mysqladmin56
+            [user] => root
+        )
+
+)
+  
+file:E:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php  
+line:69  
+function:__construct  
+class:Ivy\db\pdo\mysql  
+type:->  
+args:Array
+(
+    [0] => Array
+        (
+            [dsn] => mysql:dbname=platform_supplier;host=192.168.0.202;port=13306
+            [password] => mysqladmin56
+            [user] => root
+        )
+
+)
+  
+function:factory  
+class:Ivy\db\AbsoluteDB  
+type:::  
+args:Array
+(
+    [0] => Array
+        (
+            [dsn] => mysql:dbname=platform_supplier;host=192.168.0.202;port=13306
+            [password] => mysqladmin56
+            [user] => root
+        )
+
+)
+  
+file:E:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php  
+line:53  
+function:call_user_func_array  
+args:Array
+(
+    [0] => Array
+        (
+            [0] => Ivy\db\AbsoluteDB
+            [1] => factory
+        )
+
+    [1] => Array
+        (
+            [0] => Array
+                (
+                    [dsn] => mysql:dbname=platform_supplier;host=192.168.0.202;port=13306
+                    [password] => mysqladmin56
+                    [user] => root
+                )
+
+        )
+
+)
+  
+file:E:\xampp\htdocs\beauty\framework\core\Application.php  
+line:66  
+function:getInstance  
+class:Ivy\db\AbsoluteDB  
+type:::  
+args:Array
+(
+    [0] => Array
+        (
+            [dsn] => mysql:dbname=platform_supplier;host=192.168.0.202;port=13306
+            [password] => mysqladmin56
+            [user] => root
+        )
+
+)
+  
+file:E:\xampp\htdocs\beauty\framework\core\Model.php  
+line:72  
+function:getDb  
+class:Ivy\core\Application  
+type:->  
+args:Array
+(
+    [0] => Array
+        (
+            [dsn] => mysql:dbname=platform_supplier;host=192.168.0.202;port=13306
+            [password] => mysqladmin56
+            [user] => root
+        )
+
+)
+  
+file:E:\xampp\htdocs\beauty\framework\core\CComponent.php  
+line:21  
+function:getDb  
+class:Ivy\core\Model  
+type:->  
+args:Array
+(
+)
+  
+file:E:\xampp\htdocs\beauty\framework\core\ActiveRecord.php  
+line:160  
+function:__get  
+class:Ivy\core\CComponent  
+type:->  
+args:Array
+(
+    [0] => db
+)
+  
+file:E:\xampp\htdocs\beauty\framework\core\Model.php  
+line:231  
+function:__get  
+class:Ivy\core\ActiveRecord  
+type:->  
+args:Array
+(
+    [0] => db
+)
+  
+file:E:\xampp\htdocs\beauty\framework\core\ActiveRecord.php  
+line:63  
+function:findAllBySql  
+class:Ivy\core\Model  
+type:->  
+args:Array
+(
+    [0] => DESCRIBE `company_info`
+)
+  
+file:E:\xampp\htdocs\beauty\framework\core\ActiveRecord.php  
+line:113  
+function:findAllBySql  
+class:Ivy\core\ActiveRecord  
+type:->  
+args:Array
+(
+    [0] => DESCRIBE `company_info`
+)
+  
+file:E:\xampp\htdocs\beauty\framework\core\ActiveRecord.php  
+line:39  
+function:initTableFields  
+class:Ivy\core\ActiveRecord  
+type:->  
+args:Array
+(
+)
+  
+file:E:\xampp\htdocs\beauty\protected\models\SupplierInfo.php  
+line:15  
+function:__construct  
+class:Ivy\core\ActiveRecord  
+type:->  
+args:Array
+(
+    [0] => 
+)
+  
+file:E:\xampp\htdocs\beauty\framework\core\Model.php  
+line:49  
+function:__construct  
+class:SupplierInfo  
+type:->  
+args:Array
+(
+    [0] => 
+)
+  
+file:E:\xampp\htdocs\beauty\protected\modules\invo\models\In.php  
+line:266  
+function:model  
+class:Ivy\core\Model  
+type:::  
+args:Array
+(
+)
+  
+file:E:\xampp\htdocs\beauty\protected\components\STemplate.php(34) : eval()'d code  
+line:1  
+function:getFromDept  
+class:invo\In  
+type:::  
+args:Array
+(
+    [0] => 59
+)
+  
+file:E:\xampp\htdocs\beauty\protected\components\STemplate.php  
+line:34  
+function:eval  
+function:evalStr  
+class:STemplate  
+type:->  
+args:Array
+(
+    [0] => \invo\In::getFromDept($data["id"])
+    [1] => Array
+        (
+            [data] => Array
+                (
+                    [id] => 59
+                    [detail_id] => 26
+                    [order_id] => 59
+                    [product_id] => 238
+                    [dept_pro_id] => 56
+                    [before_num] => 0
+                    [in_num] => 1
+                    [after_num] => 1
+                    [in_time] => 1458200971
+                    [in_type] => 4
+                    [in_status] => 1
+                    [from_dept] => 2
+                    [name] => 我的商品
+                    [code] => wdsp
+                    [specs] => 盒
+                    [unit] => 1
+                    [cname] => 精油
+                    [tcname] => 可售商品
+                )
+
+            [col] => Array
+                (
+                    [header] => 发出单位
+                    [name] => from_dept
+                    [value] => {\invo\In::getFromDept($data["id"])}
+                )
+
+        )
+
+)
+  
+file:E:\xampp\htdocs\beauty\framework\core\CComponent.php  
+line:104  
+function:call_user_func_array  
+args:Array
+(
+    [0] => Array
+        (
+            [0] => STemplate Object
+                (
+                    [data:protected] => Array
+                        (
+                            [light_nav] => /beauty/index.php?r=invo/in/index
+                            [pager] => Array
+                                (
+                                    [pagener] => Array
+                                        (
+                                            [recordsTotal] => 11
+                                            [pageSize] => 20
+                                            [pageNums] => 1
+                                            [currentPage] => 1
+                                            [linkList] => Array
+                                                (
+                                                    [0] => 1
+                                                )
+
+                                        )
+
+                                    [list] => Array
+                                        (
+                                            [0] => Array
+                                                (
+                                                    [id] => 59
+                                                    [detail_id] => 26
+                                                    [order_id] => 59
+                                                    [product_id] => 238
+                                                    [dept_pro_id] => 56
+                                                    [before_num] => 0
+                                                    [in_num] => 1
+                                                    [after_num] => 1
+                                                    [in_time] => 1458200971
+                                                    [in_type] => 4
+                                                    [in_status] => 1
+                                                    [from_dept] => 2
+                                                    [name] => 我的商品
+                                                    [code] => wdsp
+                                                    [specs] => 盒
+                                                    [unit] => 1
+                                                    [cname] => 精油
+                                                    [tcname] => 可售商品
+                                                )
+
+                                            [1] => Array
+                                                (
+                                                    [id] => 57
+                                                    [detail_id] => 18
+                                                    [order_id] => 57
+                                                    [product_id] => 1
+                                                    [dept_pro_id] => 43
+                                                    [before_num] => 7
+                                                    [in_num] => 1
+                                                    [after_num] => 8
+                                                    [in_time] => 1454046176
+                                                    [in_type] => 1
+                                                    [in_status] => 1
+                                                    [from_dept] => 101
+                                                    [name] => 大玫瑰小瓶精油2
+                                                    [code] => csmm1133
+                                                    [specs] => 
+                                                    [unit] => 瓶
+                                                    [cname] => 精油
+                                                    [tcname] => 可售商品
+                                                )
+
+                                            [2] => Array
+                                                (
+                                                    [id] => 55
+                                                    [detail_id] => 16
+                                                    [order_id] => 55
+                                                    [product_id] => 5
+                                                    [dept_pro_id] => 47
+                                                    [before_num] => 0
+                                                    [in_num] => 3
+                                                    [after_num] => 3
+                                                    [in_time] => 1445421922
+                                                    [in_type] => 5
+                                                    [in_status] => 1
+                                                    [from_dept] => 2
+                                                    [name] => 测试面膜1
+                                                    [code] => csmm1134
+                                                    [specs] => 
+                                                    [unit] => 12
+                                                    [cname] => 精油
+                                                    [tcname] => 可售商品
+                                                )
+
+                                            [3] => Array
+                                                (
+                                                    [id] => 55
+                                                    [detail_id] => 15
+                                                    [order_id] => 55
+                                                    [product_id] => 1
+                                                    [dept_pro_id] => 43
+                                                    [before_num] => 26
+                                                    [in_num] => 1
+                                                    [after_num] => 27
+                                                    [in_time] => 1445421922
+                                                    [in_type] => 5
+                                                    [in_status] => 1
+                                                    [from_dept] => 2
+                                                    [name] => 大玫瑰小瓶精油2
+                                                    [code] => csmm1133
+                                                    [specs] => 
+                                                    [unit] => 瓶
+                                                    [cname] => 精油
+                                                    [tcname] => 可售商品
+                                                )
+
+                                            [4] => Array
+                                                (
+                                                    [id] => 54
+                                                    [detail_id] => 14
+                                                    [order_id] => 54
+                                                    [product_id] => 1
+                                                    [dept_pro_id] => 43
+                                                    [before_num] => 25
+                                                    [in_num] => 1
+                                                    [after_num] => 26
+                                                    [in_time] => 1445421892
+                                                    [in_type] => 4
+                                                    [in_status] => 1
+                                                    [from_dept] => 1
+                                                    [name] => 大玫瑰小瓶精油2
+                                                    [code] => csmm1133
+                                                    [specs] => 
+                                                    [unit] => 瓶
+                                                    [cname] => 精油
+                                                    [tcname] => 可售商品
+                                                )
+
+                                            [5] => Array
+                                                (
+                                                    [id] => 53
+                                                    [detail_id] => 30
+                                                    [order_id] => 53
+                                                    [product_id] => 1
+                                                    [dept_pro_id] => 43
+                                                    [before_num] => 23
+                                                    [in_num] => 2
+                                                    [after_num] => 25
+                                                    [in_time] => 1445421736
+                                                    [in_type] => 4
+                                                    [in_status] => 1
+                                                    [from_dept] => 1
+                                                    [name] => 大玫瑰小瓶精油2
+                                                    [code] => csmm1133
+                                                    [specs] => 
+                                                    [unit] => 瓶
+                                                    [cname] => 精油
+                                                    [tcname] => 可售商品
+                                                )
+
+                                            [6] => Array
+                                                (
+                                                    [id] => 47
+                                                    [detail_id] => 7
+                                                    [order_id] => 47
+                                                    [product_id] => 4
+                                                    [dept_pro_id] => 46
+                                                    [before_num] => 0
+                                                    [in_num] => 5
+                                                    [after_num] => 5
+                                                    [in_time] => 1444809163
+                                                    [in_type] => 1
+                                                    [in_status] => 1
+                                                    [from_dept] => 100
+                                                    [name] => 多肽面膜
+                                                    [code] => dtsrmm
+                                                    [specs] => 盒
+                                                    [unit] => 片
+                                                    [cname] => 精油
+                                                    [tcname] => 可售商品
+                                                )
+
+                                            [7] => Array
+                                                (
+                                                    [id] => 47
+                                                    [detail_id] => 3
+                                                    [order_id] => 47
+                                                    [product_id] => 3
+                                                    [dept_pro_id] => 45
+                                                    [before_num] => 0
+                                                    [in_num] => 5
+                                                    [after_num] => 5
+                                                    [in_time] => 1444809163
+                                                    [in_type] => 1
+                                                    [in_status] => 1
+                                                    [from_dept] => 100
+                                                    [name] => 超高美丽面膜
+                                                    [code] => fsadfdf23423411
+                                                    [specs] => 盒
+                                                    [unit] => 片
+                                                    [cname] => 可售商品分类1
+                                                    [tcname] => 可售商品
+                                                )
+
+                                            [8] => Array
+                                                (
+                                                    [id] => 47
+                                                    [detail_id] => 2
+                                                    [order_id] => 47
+                                                    [product_id] => 2
+                                                    [dept_pro_id] => 44
+                                                    [before_num] => 0
+                                                    [in_num] => 5
+                                                    [after_num] => 5
+                                                    [in_time] => 1444809163
+                                                    [in_type] => 1
+                                                    [in_status] => 1
+                                                    [from_dept] => 100
+                                                    [name] => 胶原蛋白鱼皮面膜
+                                                    [code] => qeqwe
+                                                    [specs] => 0.5克
+                                                    [unit] => 张
+                                                    [cname] => 面膜
+                                                    [tcname] => 可售商品
+                                                )
+
+                                            [9] => Array
+                                                (
+                                                    [id] => 47
+                                                    [detail_id] => 1
+                                                    [order_id] => 47
+                                                    [product_id] => 1
+                                                    [dept_pro_id] => 43
+                                                    [before_num] => 8
+                                                    [in_num] => 2
+                                                    [after_num] => 10
+                                                    [in_time] => 1444809163
+                                                    [in_type] => 1
+                                                    [in_status] => 1
+                                                    [from_dept] => 100
+                                                    [name] => 大玫瑰小瓶精油2
+                                                    [code] => csmm1133
+                                                    [specs] => 
+                                                    [unit] => 瓶
+                                                    [cname] => 精油
+                                                    [tcname] => 可售商品
+                                                )
+
+                                            [10] => Array
+                                                (
+                                                    [id] => 46
+                                                    [detail_id] => 1
+                                                    [order_id] => 46
+                                                    [product_id] => 1
+                                                    [dept_pro_id] => 43
+                                                    [before_num] => 0
+                                                    [in_num] => 8
+                                                    [after_num] => 8
+                                                    [in_time] => 1444809148
+                                                    [in_type] => 1
+                                                    [in_status] => 1
+                                                    [from_dept] => 100
+                                                    [name] => 大玫瑰小瓶精油2
+                                                    [code] => csmm1133
+                                                    [specs] => 
+                                                    [unit] => 瓶
+                                                    [cname] => 精油
+                                                    [tcname] => 可售商品
+                                                )
+
+                                        )
+
+                                    [page_code] => <div class="fjgl_th_for clear">每页显示
+                 <select class="syy013 js_row">
+                 <option  value=20>20</option>
+                 <option  value=40>40</option>
+                 <option  value=60>60</option>
+                 <option  value=80>80</option>
+                 </select>&nbsp;条
+                 <span style="margin-left: 20px;">共 11 条</span>
+                 </div>
+                                )
+
+                        )
+
+                    [controller:protected] => invo\InController Object
+                        (
+                            [layout] => /layouts/main
+                            [title:protected] => 美业云平台
+                            [company:protected] => CompanyInfo Object
+                                (
+                                    [_cache:protected] => 
+                                    [_fields:Ivy\core\ActiveRecord:private] => Array
+                                        (
+                                            [id] => int(11)
+                                            [comp_name] => varchar(200)
+                                            [summary] => text
+                                            [create_time] => int(11)
+                                            [last_time] => timestamp
+                                            [status] => tinyint(2)
+                                            [check_time] => int(11)
+                                            [server_time] => int(11)
+                                            [config] => text
+                                            [auto_cu_status] => enum('0','1')
+                                            [pca_province] => varchar(50)
+                                            [pca_city] => varchar(50)
+                                            [address] => varchar(400)
+                                            [phone] => varchar(20)
+                                            [password] => varchar(100)
+                                            [boss_name] => varchar(100)
+                                            [store_num] => int(5)
+                                            [max_store_num] => int(5)
+                                            [wx_server_sn] => varchar(200)
+                                            [wx_server_pass] => varchar(200)
+                                            [step] => tinyint(4)
+                                            [has_invo] => enum('Y','N','C')
+                                            [avatar] => mediumtext
+                                            [position] => varchar(100)
+                                            [email] => varchar(100)
+                                            [check_code] => varchar(100)
+                                            [qq] => varchar(100)
+                                            [contact_name] => varchar(100)
+                                            [wx] => varchar(100)
+                                        )
+
+                                    [_new:Ivy\core\ActiveRecord:private] => 
+                                    [_attributes:Ivy\core\ActiveRecord:private] => Array
+                                        (
+                                            [id] => 2
+                                            [comp_name] => 艺福之家
+                                            [summary] => 
+                                            [create_time] => 1456369359
+                                            [last_time] => 0000-00-00 00:00:00
+                                            [status] => 9
+                                            [check_time] => 
+                                            [server_time] => 
+                                            [config] => a:4:{s:5:"payee";a:4:{s:5:"money";a:3:{s:4:"open";s:4:"true";s:3:"pre";i:0;s:4:"name";s:18:"现金（现钞）";}s:4:"post";a:3:{s:4:"open";s:4:"true";s:3:"pre";i:1;s:4:"name";s:6:"POS机";}s:4:"bank";a:3:{s:4:"open";s:4:"true";s:3:"pre";i:2;s:4:"name";s:12:"银行转账";}s:5:"other";a:3:{s:4:"open";s:5:"false";s:3:"pre";i:3;s:4:"name";s:18:"其它收款类型";}}s:12:"score_config";a:5:{s:7:"openAll";s:4:"true";s:10:"openBySale";s:4:"true";s:10:"openByGive";s:4:"true";s:8:"scoreFor";s:3:"all";s:7:"scoreBl";s:1:"1";}s:11:"sale_access";a:4:{s:7:"manager";s:4:"true";s:9:"counselor";s:4:"true";s:8:"operator";s:4:"true";s:9:"reception";s:4:"true";}s:13:"member_config";s:2:"60";}
+                                            [auto_cu_status] => 1
+                                            [pca_province] => 
+                                            [pca_city] => 
+                                            [address] => 
+                                            [phone] => 0
+                                            [password] => 
+                                            [boss_name] => 
+                                            [store_num] => 1
+                                            [max_store_num] => 5
+                                            [wx_server_sn] => 
+                                            [wx_server_pass] => 
+                                            [step] => 1
+                                            [has_invo] => Y
+                                            [avatar] => 
+                                            [position] => 
+                                            [email] => 
+                                            [check_code] => 2747
+                                            [qq] => 
+                                            [contact_name] => 
+                                            [wx] => 
+                                        )
+
+                                    [_pk:Ivy\core\ActiveRecord:private] => Array
+                                        (
+                                            [0] => id
+                                        )
+
+                                    [_alias:protected] => t
+                                    [_error:protected] => Array
+                                        (
+                                        )
+
+                                    [_config:protected] => Array
+                                        (
+                                            [dsn] => mysql:dbname=platform;host=127.0.0.1;port=3306
+                                            [password] => root
+                                            [user] => root
+                                            [profile] => 1
+                                            [ARcache] => 
+                                            [ARcacheTime] => 3600
+                                        )
+
+                                    [options:protected] => Array
+                                        (
+                                        )
+
+                                    [lastSql:protected] => SELECT * FROM `company_info` `t` WHERE ( t.id = '2' ) 
+                                    [methods:protected] => Array
+                                        (
+                                            [0] => table
+                                            [1] => distinct
+                                            [2] => field
+                                            [3] => join
+                                            [4] => where
+                                            [5] => group
+                                            [6] => having
+                                            [7] => union
+                                            [8] => order
+                                            [9] => limit
+                                            [10] => page
+                                        )
+
+                                    [_b:Ivy\core\CComponent:private] => Array
+                                        (
+                                        )
+
+                                    [_m:protected] => Array
+                                        (
+                                        )
+
+                                )
+
+                            [is_store:protected] => 1
+                            [_b:Ivy\core\CComponent:private] => Array
+                                (
+                                    [route] => Ivy\core\Route Object
+                                        (
+                                            [route:protected] => Array
+                                                (
+                                                    [module] => invo
+                                                    [controller] => in
+                                                    [action] => index
+                                                )
+
+                                            [param] => Array
+                                                (
+                                                )
+
+                                        )
+
+                                )
+
+                            [_m:protected] => Array
+                                (
+                                )
+
+                        )
+
+                )
+
+            [1] => evalStr
+        )
+
+    [1] => Array
+        (
+            [0] => \invo\In::getFromDept($data["id"])
+            [1] => Array
+                (
+                    [data] => Array
+                        (
+                            [id] => 59
+                            [detail_id] => 26
+                            [order_id] => 59
+                            [product_id] => 238
+                            [dept_pro_id] => 56
+                            [before_num] => 0
+                            [in_num] => 1
+                            [after_num] => 1
+                            [in_time] => 1458200971
+                            [in_type] => 4
+                            [in_status] => 1
+                            [from_dept] => 2
+                            [name] => 我的商品
+                            [code] => wdsp
+                            [specs] => 盒
+                            [unit] => 1
+                            [cname] => 精油
+                            [tcname] => 可售商品
+                        )
+
+                    [col] => Array
+                        (
+                            [header] => 发出单位
+                            [name] => from_dept
+                            [value] => {\invo\In::getFromDept($data["id"])}
+                        )
+
+                )
+
+        )
+
+)
+  
+file:E:\xampp\htdocs\beauty\protected\components\zii\GridView.php  
+line:184  
+function:__call  
+class:Ivy\core\CComponent  
+type:->  
+args:Array
+(
+    [0] => evalStr
+    [1] => Array
+        (
+            [0] => \invo\In::getFromDept($data["id"])
+            [1] => Array
+                (
+                    [data] => Array
+                        (
+                            [id] => 59
+                            [detail_id] => 26
+                            [order_id] => 59
+                            [product_id] => 238
+                            [dept_pro_id] => 56
+                            [before_num] => 0
+                            [in_num] => 1
+                            [after_num] => 1
+                            [in_time] => 1458200971
+                            [in_type] => 4
+                            [in_status] => 1
+                            [from_dept] => 2
+                            [name] => 我的商品
+                            [code] => wdsp
+                            [specs] => 盒
+                            [unit] => 1
+                            [cname] => 精油
+                            [tcname] => 可售商品
+                        )
+
+                    [col] => Array
+                        (
+                            [header] => 发出单位
+                            [name] => from_dept
+                            [value] => {\invo\In::getFromDept($data["id"])}
+                        )
+
+                )
+
+        )
+
+)
+  
+file:E:\xampp\htdocs\beauty\protected\components\zii\GridView.php  
+line:184  
+function:evalStr  
+class:zii\GridView  
+type:->  
+args:Array
+(
+    [0] => \invo\In::getFromDept($data["id"])
+    [1] => Array
+        (
+            [data] => Array
+                (
+                    [id] => 59
+                    [detail_id] => 26
+                    [order_id] => 59
+                    [product_id] => 238
+                    [dept_pro_id] => 56
+                    [before_num] => 0
+                    [in_num] => 1
+                    [after_num] => 1
+                    [in_time] => 1458200971
+                    [in_type] => 4
+                    [in_status] => 1
+                    [from_dept] => 2
+                    [name] => 我的商品
+                    [code] => wdsp
+                    [specs] => 盒
+                    [unit] => 1
+                    [cname] => 精油
+                    [tcname] => 可售商品
+                )
+
+            [col] => Array
+                (
+                    [header] => 发出单位
+                    [name] => from_dept
+                    [value] => {\invo\In::getFromDept($data["id"])}
+                )
+
+        )
+
+)
+  
+file:E:\xampp\htdocs\beauty\protected\components\zii\GridView.php  
+line:162  
+function:doString  
+class:zii\GridView  
+type:->  
+args:Array
+(
+    [0] => {\invo\In::getFromDept($data["id"])}
+    [1] => Array
+        (
+            [data] => Array
+                (
+                    [id] => 59
+                    [detail_id] => 26
+                    [order_id] => 59
+                    [product_id] => 238
+                    [dept_pro_id] => 56
+                    [before_num] => 0
+                    [in_num] => 1
+                    [after_num] => 1
+                    [in_time] => 1458200971
+                    [in_type] => 4
+                    [in_status] => 1
+                    [from_dept] => 2
+                    [name] => 我的商品
+                    [code] => wdsp
+                    [specs] => 盒
+                    [unit] => 1
+                    [cname] => 精油
+                    [tcname] => 可售商品
+                )
+
+            [col] => Array
+                (
+                    [header] => 发出单位
+                    [name] => from_dept
+                    [value] => {\invo\In::getFromDept($data["id"])}
+                )
+
+        )
+
+)
+  
+file:E:\xampp\htdocs\beauty\protected\components\zii\GridView.php  
+line:142  
+function:buildDataCell  
+class:zii\GridView  
+type:->  
+args:Array
+(
+    [0] => Array
+        (
+            [id] => 59
+            [detail_id] => 26
+            [order_id] => 59
+            [product_id] => 238
+            [dept_pro_id] => 56
+            [before_num] => 0
+            [in_num] => 1
+            [after_num] => 1
+            [in_time] => 1458200971
+            [in_type] => 4
+            [in_status] => 1
+            [from_dept] => 2
+            [name] => 我的商品
+            [code] => wdsp
+            [specs] => 盒
+            [unit] => 1
+            [cname] => 精油
+            [tcname] => 可售商品
+        )
+
+    [1] => Array
+        (
+            [header] => 发出单位
+            [name] => from_dept
+            [value] => {\invo\In::getFromDept($data["id"])}
+        )
+
+)
+  
+file:E:\xampp\htdocs\beauty\protected\components\zii\GridView.php  
+line:56  
+function:buildRow  
+class:zii\GridView  
+type:->  
+args:Array
+(
+)
+  
+file:E:\xampp\htdocs\beauty\protected\components\zii\GridView.php  
+line:31  
+function:_init  
+class:zii\GridView  
+type:->  
+args:Array
+(
+)
+  
+file:E:\xampp\htdocs\beauty\protected\components\STemplate.php  
+line:22  
+function:run  
+class:zii\GridView  
+type:::  
+args:Array
+(
+    [0] => Array
+        (
+            [id] => list
+            [dataProvider] => Array
+                (
+                    [pagener] => Array
+                        (
+                            [recordsTotal] => 11
+                            [pageSize] => 20
+                            [pageNums] => 1
+                            [currentPage] => 1
+                            [linkList] => Array
+                                (
+                                    [0] => 1
+                                )
+
+                        )
+
+                    [list] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [id] => 59
+                                    [detail_id] => 26
+                                    [order_id] => 59
+                                    [product_id] => 238
+                                    [dept_pro_id] => 56
+                                    [before_num] => 0
+                                    [in_num] => 1
+                                    [after_num] => 1
+                                    [in_time] => 1458200971
+                                    [in_type] => 4
+                                    [in_status] => 1
+                                    [from_dept] => 2
+                                    [name] => 我的商品
+                                    [code] => wdsp
+                                    [specs] => 盒
+                                    [unit] => 1
+                                    [cname] => 精油
+                                    [tcname] => 可售商品
+                                )
+
+                            [1] => Array
+                                (
+                                    [id] => 57
+                                    [detail_id] => 18
+                                    [order_id] => 57
+                                    [product_id] => 1
+                                    [dept_pro_id] => 43
+                                    [before_num] => 7
+                                    [in_num] => 1
+                                    [after_num] => 8
+                                    [in_time] => 1454046176
+                                    [in_type] => 1
+                                    [in_status] => 1
+                                    [from_dept] => 101
+                                    [name] => 大玫瑰小瓶精油2
+                                    [code] => csmm1133
+                                    [specs] => 
+                                    [unit] => 瓶
+                                    [cname] => 精油
+                                    [tcname] => 可售商品
+                                )
+
+                            [2] => Array
+                                (
+                                    [id] => 55
+                                    [detail_id] => 16
+                                    [order_id] => 55
+                                    [product_id] => 5
+                                    [dept_pro_id] => 47
+                                    [before_num] => 0
+                                    [in_num] => 3
+                                    [after_num] => 3
+                                    [in_time] => 1445421922
+                                    [in_type] => 5
+                                    [in_status] => 1
+                                    [from_dept] => 2
+                                    [name] => 测试面膜1
+                                    [code] => csmm1134
+                                    [specs] => 
+                                    [unit] => 12
+                                    [cname] => 精油
+                                    [tcname] => 可售商品
+                                )
+
+                            [3] => Array
+                                (
+                                    [id] => 55
+                                    [detail_id] => 15
+                                    [order_id] => 55
+                                    [product_id] => 1
+                                    [dept_pro_id] => 43
+                                    [before_num] => 26
+                                    [in_num] => 1
+                                    [after_num] => 27
+                                    [in_time] => 1445421922
+                                    [in_type] => 5
+                                    [in_status] => 1
+                                    [from_dept] => 2
+                                    [name] => 大玫瑰小瓶精油2
+                                    [code] => csmm1133
+                                    [specs] => 
+                                    [unit] => 瓶
+                                    [cname] => 精油
+                                    [tcname] => 可售商品
+                                )
+
+                            [4] => Array
+                                (
+                                    [id] => 54
+                                    [detail_id] => 14
+                                    [order_id] => 54
+                                    [product_id] => 1
+                                    [dept_pro_id] => 43
+                                    [before_num] => 25
+                                    [in_num] => 1
+                                    [after_num] => 26
+                                    [in_time] => 1445421892
+                                    [in_type] => 4
+                                    [in_status] => 1
+                                    [from_dept] => 1
+                                    [name] => 大玫瑰小瓶精油2
+                                    [code] => csmm1133
+                                    [specs] => 
+                                    [unit] => 瓶
+                                    [cname] => 精油
+                                    [tcname] => 可售商品
+                                )
+
+                            [5] => Array
+                                (
+                                    [id] => 53
+                                    [detail_id] => 30
+                                    [order_id] => 53
+                                    [product_id] => 1
+                                    [dept_pro_id] => 43
+                                    [before_num] => 23
+                                    [in_num] => 2
+                                    [after_num] => 25
+                                    [in_time] => 1445421736
+                                    [in_type] => 4
+                                    [in_status] => 1
+                                    [from_dept] => 1
+                                    [name] => 大玫瑰小瓶精油2
+                                    [code] => csmm1133
+                                    [specs] => 
+                                    [unit] => 瓶
+                                    [cname] => 精油
+                                    [tcname] => 可售商品
+                                )
+
+                            [6] => Array
+                                (
+                                    [id] => 47
+                                    [detail_id] => 7
+                                    [order_id] => 47
+                                    [product_id] => 4
+                                    [dept_pro_id] => 46
+                                    [before_num] => 0
+                                    [in_num] => 5
+                                    [after_num] => 5
+                                    [in_time] => 1444809163
+                                    [in_type] => 1
+                                    [in_status] => 1
+                                    [from_dept] => 100
+                                    [name] => 多肽面膜
+                                    [code] => dtsrmm
+                                    [specs] => 盒
+                                    [unit] => 片
+                                    [cname] => 精油
+                                    [tcname] => 可售商品
+                                )
+
+                            [7] => Array
+                                (
+                                    [id] => 47
+                                    [detail_id] => 3
+                                    [order_id] => 47
+                                    [product_id] => 3
+                                    [dept_pro_id] => 45
+                                    [before_num] => 0
+                                    [in_num] => 5
+                                    [after_num] => 5
+                                    [in_time] => 1444809163
+                                    [in_type] => 1
+                                    [in_status] => 1
+                                    [from_dept] => 100
+                                    [name] => 超高美丽面膜
+                                    [code] => fsadfdf23423411
+                                    [specs] => 盒
+                                    [unit] => 片
+                                    [cname] => 可售商品分类1
+                                    [tcname] => 可售商品
+                                )
+
+                            [8] => Array
+                                (
+                                    [id] => 47
+                                    [detail_id] => 2
+                                    [order_id] => 47
+                                    [product_id] => 2
+                                    [dept_pro_id] => 44
+                                    [before_num] => 0
+                                    [in_num] => 5
+                                    [after_num] => 5
+                                    [in_time] => 1444809163
+                                    [in_type] => 1
+                                    [in_status] => 1
+                                    [from_dept] => 100
+                                    [name] => 胶原蛋白鱼皮面膜
+                                    [code] => qeqwe
+                                    [specs] => 0.5克
+                                    [unit] => 张
+                                    [cname] => 面膜
+                                    [tcname] => 可售商品
+                                )
+
+                            [9] => Array
+                                (
+                                    [id] => 47
+                                    [detail_id] => 1
+                                    [order_id] => 47
+                                    [product_id] => 1
+                                    [dept_pro_id] => 43
+                                    [before_num] => 8
+                                    [in_num] => 2
+                                    [after_num] => 10
+                                    [in_time] => 1444809163
+                                    [in_type] => 1
+                                    [in_status] => 1
+                                    [from_dept] => 100
+                                    [name] => 大玫瑰小瓶精油2
+                                    [code] => csmm1133
+                                    [specs] => 
+                                    [unit] => 瓶
+                                    [cname] => 精油
+                                    [tcname] => 可售商品
+                                )
+
+                            [10] => Array
+                                (
+                                    [id] => 46
+                                    [detail_id] => 1
+                                    [order_id] => 46
+                                    [product_id] => 1
+                                    [dept_pro_id] => 43
+                                    [before_num] => 0
+                                    [in_num] => 8
+                                    [after_num] => 8
+                                    [in_time] => 1444809148
+                                    [in_type] => 1
+                                    [in_status] => 1
+                                    [from_dept] => 100
+                                    [name] => 大玫瑰小瓶精油2
+                                    [code] => csmm1133
+                                    [specs] => 
+                                    [unit] => 瓶
+                                    [cname] => 精油
+                                    [tcname] => 可售商品
+                                )
+
+                        )
+
+                    [page_code] => <div class="fjgl_th_for clear">每页显示
+                 <select class="syy013 js_row">
+                 <option  value=20>20</option>
+                 <option  value=40>40</option>
+                 <option  value=60>60</option>
+                 <option  value=80>80</option>
+                 </select>&nbsp;条
+                 <span style="margin-left: 20px;">共 11 条</span>
+                 </div>
+                )
+
+            [search] => 1
+            [columns] => Array
+                (
+                    [0] => Array
+                        (
+                            [header] => 商品分类
+                            [name] => tcname
+                            [filter] => Array
+                                (
+                                    [0] => tpc.id
+                                    [1] => Array
+                                        (
+                                            [1] => 可售商品
+                                            [2] => 礼品赠品
+                                            [3] => 油粉胶膜消耗品
+                                            [4] => 其他
+                                        )
+
+                                    [2] => 
+                                )
+
+                        )
+
+                    [1] => Array
+                        (
+                            [header] => 商品系列
+                            [name] => cname
+                            [filter] => Array
+                                (
+                                    [0] => pc.id
+                                    [1] => 
+                                    [2] => 
+                                )
+
+                        )
+
+                    [2] => Array
+                        (
+                            [header] => 商品名称
+                            [name] => name
+                            [filter] => pro.name
+                        )
+
+                    [3] => Array
+                        (
+                            [header] => 商品编码
+                            [name] => code
+                            [filter] => pro.code
+                        )
+
+                    [4] => Array
+                        (
+                            [header] => 入库日期
+                            [name] => in_time
+                            [value] => {date("Y-m-d",$data["in_time"])}
+                        )
+
+                    [5] => Array
+                        (
+                            [header] => 入库类型
+                            [name] => in_type
+                            [value] => {\invo\In::getType($data["in_type"])}
+                        )
+
+                    [6] => Array
+                        (
+                            [header] => 发出单位
+                            [name] => from_dept
+                            [value] => {\invo\In::getFromDept($data["id"])}
+                        )
+
+                    [7] => Array
+                        (
+                            [header] => 入前结存
+                            [name] => before_num
+                        )
+
+                    [8] => Array
+                        (
+                            [header] => 入库数量
+                            [name] => in_num
+                        )
+
+                    [9] => Array
+                        (
+                            [header] => 入后结存
+                            [name] => after_num
+                        )
+
+                    [10] => Array
+                        (
+                            [header] => 状态
+                            [name] => in_status
+                            [value] => {\invo\In::getStatus($data["in_status"])}
+                        )
+
+                    [11] => Array
+                        (
+                            [header] => 操作
+                            [rel] => id
+                            [template] => view+
+                        )
+
+                )
+
+        )
+
+    [1] => STemplate Object
+        (
+            [data:protected] => Array
+                (
+                    [light_nav] => /beauty/index.php?r=invo/in/index
+                    [pager] => Array
+                        (
+                            [pagener] => Array
+                                (
+                                    [recordsTotal] => 11
+                                    [pageSize] => 20
+                                    [pageNums] => 1
+                                    [currentPage] => 1
+                                    [linkList] => Array
+                                        (
+                                            [0] => 1
+                                        )
+
+                                )
+
+                            [list] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [id] => 59
+                                            [detail_id] => 26
+                                            [order_id] => 59
+                                            [product_id] => 238
+                                            [dept_pro_id] => 56
+                                            [before_num] => 0
+                                            [in_num] => 1
+                                            [after_num] => 1
+                                            [in_time] => 1458200971
+                                            [in_type] => 4
+                                            [in_status] => 1
+                                            [from_dept] => 2
+                                            [name] => 我的商品
+                                            [code] => wdsp
+                                            [specs] => 盒
+                                            [unit] => 1
+                                            [cname] => 精油
+                                            [tcname] => 可售商品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [id] => 57
+                                            [detail_id] => 18
+                                            [order_id] => 57
+                                            [product_id] => 1
+                                            [dept_pro_id] => 43
+                                            [before_num] => 7
+                                            [in_num] => 1
+                                            [after_num] => 8
+                                            [in_time] => 1454046176
+                                            [in_type] => 1
+                                            [in_status] => 1
+                                            [from_dept] => 101
+                                            [name] => 大玫瑰小瓶精油2
+                                            [code] => csmm1133
+                                            [specs] => 
+                                            [unit] => 瓶
+                                            [cname] => 精油
+                                            [tcname] => 可售商品
+                                        )
+
+                                    [2] => Array
+                                        (
+                                            [id] => 55
+                                            [detail_id] => 16
+                                            [order_id] => 55
+                                            [product_id] => 5
+                                            [dept_pro_id] => 47
+                                            [before_num] => 0
+                                            [in_num] => 3
+                                            [after_num] => 3
+                                            [in_time] => 1445421922
+                                            [in_type] => 5
+                                            [in_status] => 1
+                                            [from_dept] => 2
+                                            [name] => 测试面膜1
+                                            [code] => csmm1134
+                                            [specs] => 
+                                            [unit] => 12
+                                            [cname] => 精油
+                                            [tcname] => 可售商品
+                                        )
+
+                                    [3] => Array
+                                        (
+                                            [id] => 55
+                                            [detail_id] => 15
+                                            [order_id] => 55
+                                            [product_id] => 1
+                                            [dept_pro_id] => 43
+                                            [before_num] => 26
+                                            [in_num] => 1
+                                            [after_num] => 27
+                                            [in_time] => 1445421922
+                                            [in_type] => 5
+                                            [in_status] => 1
+                                            [from_dept] => 2
+                                            [name] => 大玫瑰小瓶精油2
+                                            [code] => csmm1133
+                                            [specs] => 
+                                            [unit] => 瓶
+                                            [cname] => 精油
+                                            [tcname] => 可售商品
+                                        )
+
+                                    [4] => Array
+                                        (
+                                            [id] => 54
+                                            [detail_id] => 14
+                                            [order_id] => 54
+                                            [product_id] => 1
+                                            [dept_pro_id] => 43
+                                            [before_num] => 25
+                                            [in_num] => 1
+                                            [after_num] => 26
+                                            [in_time] => 1445421892
+                                            [in_type] => 4
+                                            [in_status] => 1
+                                            [from_dept] => 1
+                                            [name] => 大玫瑰小瓶精油2
+                                            [code] => csmm1133
+                                            [specs] => 
+                                            [unit] => 瓶
+                                            [cname] => 精油
+                                            [tcname] => 可售商品
+                                        )
+
+                                    [5] => Array
+                                        (
+                                            [id] => 53
+                                            [detail_id] => 30
+                                            [order_id] => 53
+                                            [product_id] => 1
+                                            [dept_pro_id] => 43
+                                            [before_num] => 23
+                                            [in_num] => 2
+                                            [after_num] => 25
+                                            [in_time] => 1445421736
+                                            [in_type] => 4
+                                            [in_status] => 1
+                                            [from_dept] => 1
+                                            [name] => 大玫瑰小瓶精油2
+                                            [code] => csmm1133
+                                            [specs] => 
+                                            [unit] => 瓶
+                                            [cname] => 精油
+                                            [tcname] => 可售商品
+                                        )
+
+                                    [6] => Array
+                                        (
+                                            [id] => 47
+                                            [detail_id] => 7
+                                            [order_id] => 47
+                                            [product_id] => 4
+                                            [dept_pro_id] => 46
+                                            [before_num] => 0
+                                            [in_num] => 5
+                                            [after_num] => 5
+                                            [in_time] => 1444809163
+                                            [in_type] => 1
+                                            [in_status] => 1
+                                            [from_dept] => 100
+                                            [name] => 多肽面膜
+                                            [code] => dtsrmm
+                                            [specs] => 盒
+                                            [unit] => 片
+                                            [cname] => 精油
+                                            [tcname] => 可售商品
+                                        )
+
+                                    [7] => Array
+                                        (
+                                            [id] => 47
+                                            [detail_id] => 3
+                                            [order_id] => 47
+                                            [product_id] => 3
+                                            [dept_pro_id] => 45
+                                            [before_num] => 0
+                                            [in_num] => 5
+                                            [after_num] => 5
+                                            [in_time] => 1444809163
+                                            [in_type] => 1
+                                            [in_status] => 1
+                                            [from_dept] => 100
+                                            [name] => 超高美丽面膜
+                                            [code] => fsadfdf23423411
+                                            [specs] => 盒
+                                            [unit] => 片
+                                            [cname] => 可售商品分类1
+                                            [tcname] => 可售商品
+                                        )
+
+                                    [8] => Array
+                                        (
+                                            [id] => 47
+                                            [detail_id] => 2
+                                            [order_id] => 47
+                                            [product_id] => 2
+                                            [dept_pro_id] => 44
+                                            [before_num] => 0
+                                            [in_num] => 5
+                                            [after_num] => 5
+                                            [in_time] => 1444809163
+                                            [in_type] => 1
+                                            [in_status] => 1
+                                            [from_dept] => 100
+                                            [name] => 胶原蛋白鱼皮面膜
+                                            [code] => qeqwe
+                                            [specs] => 0.5克
+                                            [unit] => 张
+                                            [cname] => 面膜
+                                            [tcname] => 可售商品
+                                        )
+
+                                    [9] => Array
+                                        (
+                                            [id] => 47
+                                            [detail_id] => 1
+                                            [order_id] => 47
+                                            [product_id] => 1
+                                            [dept_pro_id] => 43
+                                            [before_num] => 8
+                                            [in_num] => 2
+                                            [after_num] => 10
+                                            [in_time] => 1444809163
+                                            [in_type] => 1
+                                            [in_status] => 1
+                                            [from_dept] => 100
+                                            [name] => 大玫瑰小瓶精油2
+                                            [code] => csmm1133
+                                            [specs] => 
+                                            [unit] => 瓶
+                                            [cname] => 精油
+                                            [tcname] => 可售商品
+                                        )
+
+                                    [10] => Array
+                                        (
+                                            [id] => 46
+                                            [detail_id] => 1
+                                            [order_id] => 46
+                                            [product_id] => 1
+                                            [dept_pro_id] => 43
+                                            [before_num] => 0
+                                            [in_num] => 8
+                                            [after_num] => 8
+                                            [in_time] => 1444809148
+                                            [in_type] => 1
+                                            [in_status] => 1
+                                            [from_dept] => 100
+                                            [name] => 大玫瑰小瓶精油2
+                                            [code] => csmm1133
+                                            [specs] => 
+                                            [unit] => 瓶
+                                            [cname] => 精油
+                                            [tcname] => 可售商品
+                                        )
+
+                                )
+
+                            [page_code] => <div class="fjgl_th_for clear">每页显示
+                 <select class="syy013 js_row">
+                 <option  value=20>20</option>
+                 <option  value=40>40</option>
+                 <option  value=60>60</option>
+                 <option  value=80>80</option>
+                 </select>&nbsp;条
+                 <span style="margin-left: 20px;">共 11 条</span>
+                 </div>
+                        )
+
+                )
+
+            [controller:protected] => invo\InController Object
+                (
+                    [layout] => /layouts/main
+                    [title:protected] => 美业云平台
+                    [company:protected] => CompanyInfo Object
+                        (
+                            [_cache:protected] => 
+                            [_fields:Ivy\core\ActiveRecord:private] => Array
+                                (
+                                    [id] => int(11)
+                                    [comp_name] => varchar(200)
+                                    [summary] => text
+                                    [create_time] => int(11)
+                                    [last_time] => timestamp
+                                    [status] => tinyint(2)
+                                    [check_time] => int(11)
+                                    [server_time] => int(11)
+                                    [config] => text
+                                    [auto_cu_status] => enum('0','1')
+                                    [pca_province] => varchar(50)
+                                    [pca_city] => varchar(50)
+                                    [address] => varchar(400)
+                                    [phone] => varchar(20)
+                                    [password] => varchar(100)
+                                    [boss_name] => varchar(100)
+                                    [store_num] => int(5)
+                                    [max_store_num] => int(5)
+                                    [wx_server_sn] => varchar(200)
+                                    [wx_server_pass] => varchar(200)
+                                    [step] => tinyint(4)
+                                    [has_invo] => enum('Y','N','C')
+                                    [avatar] => mediumtext
+                                    [position] => varchar(100)
+                                    [email] => varchar(100)
+                                    [check_code] => varchar(100)
+                                    [qq] => varchar(100)
+                                    [contact_name] => varchar(100)
+                                    [wx] => varchar(100)
+                                )
+
+                            [_new:Ivy\core\ActiveRecord:private] => 
+                            [_attributes:Ivy\core\ActiveRecord:private] => Array
+                                (
+                                    [id] => 2
+                                    [comp_name] => 艺福之家
+                                    [summary] => 
+                                    [create_time] => 1456369359
+                                    [last_time] => 0000-00-00 00:00:00
+                                    [status] => 9
+                                    [check_time] => 
+                                    [server_time] => 
+                                    [config] => a:4:{s:5:"payee";a:4:{s:5:"money";a:3:{s:4:"open";s:4:"true";s:3:"pre";i:0;s:4:"name";s:18:"现金（现钞）";}s:4:"post";a:3:{s:4:"open";s:4:"true";s:3:"pre";i:1;s:4:"name";s:6:"POS机";}s:4:"bank";a:3:{s:4:"open";s:4:"true";s:3:"pre";i:2;s:4:"name";s:12:"银行转账";}s:5:"other";a:3:{s:4:"open";s:5:"false";s:3:"pre";i:3;s:4:"name";s:18:"其它收款类型";}}s:12:"score_config";a:5:{s:7:"openAll";s:4:"true";s:10:"openBySale";s:4:"true";s:10:"openByGive";s:4:"true";s:8:"scoreFor";s:3:"all";s:7:"scoreBl";s:1:"1";}s:11:"sale_access";a:4:{s:7:"manager";s:4:"true";s:9:"counselor";s:4:"true";s:8:"operator";s:4:"true";s:9:"reception";s:4:"true";}s:13:"member_config";s:2:"60";}
+                                    [auto_cu_status] => 1
+                                    [pca_province] => 
+                                    [pca_city] => 
+                                    [address] => 
+                                    [phone] => 0
+                                    [password] => 
+                                    [boss_name] => 
+                                    [store_num] => 1
+                                    [max_store_num] => 5
+                                    [wx_server_sn] => 
+                                    [wx_server_pass] => 
+                                    [step] => 1
+                                    [has_invo] => Y
+                                    [avatar] => 
+                                    [position] => 
+                                    [email] => 
+                                    [check_code] => 2747
+                                    [qq] => 
+                                    [contact_name] => 
+                                    [wx] => 
+                                )
+
+                            [_pk:Ivy\core\ActiveRecord:private] => Array
+                                (
+                                    [0] => id
+                                )
+
+                            [_alias:protected] => t
+                            [_error:protected] => Array
+                                (
+                                )
+
+                            [_config:protected] => Array
+                                (
+                                    [dsn] => mysql:dbname=platform;host=127.0.0.1;port=3306
+                                    [password] => root
+                                    [user] => root
+                                    [profile] => 1
+                                    [ARcache] => 
+                                    [ARcacheTime] => 3600
+                                )
+
+                            [options:protected] => Array
+                                (
+                                )
+
+                            [lastSql:protected] => SELECT * FROM `company_info` `t` WHERE ( t.id = '2' ) 
+                            [methods:protected] => Array
+                                (
+                                    [0] => table
+                                    [1] => distinct
+                                    [2] => field
+                                    [3] => join
+                                    [4] => where
+                                    [5] => group
+                                    [6] => having
+                                    [7] => union
+                                    [8] => order
+                                    [9] => limit
+                                    [10] => page
+                                )
+
+                            [_b:Ivy\core\CComponent:private] => Array
+                                (
+                                )
+
+                            [_m:protected] => Array
+                                (
+                                )
+
+                        )
+
+                    [is_store:protected] => 1
+                    [_b:Ivy\core\CComponent:private] => Array
+                        (
+                            [route] => Ivy\core\Route Object
+                                (
+                                    [route:protected] => Array
+                                        (
+                                            [module] => invo
+                                            [controller] => in
+                                            [action] => index
+                                        )
+
+                                    [param] => Array
+                                        (
+                                        )
+
+                                )
+
+                        )
+
+                    [_m:protected] => Array
+                        (
+                        )
+
+                )
+
+        )
+
+)
+  
+file:E:\xampp\htdocs\beauty\protected\modules\invo\views\in\index.phtml  
+line:89  
+function:datagrid  
+class:STemplate  
+type:->  
+args:Array
+(
+    [0] => Array
+        (
+            [id] => list
+            [dataProvider] => Array
+                (
+                    [pagener] => Array
+                        (
+                            [recordsTotal] => 11
+                            [pageSize] => 20
+                            [pageNums] => 1
+                            [currentPage] => 1
+                            [linkList] => Array
+                                (
+                                    [0] => 1
+                                )
+
+                        )
+
+                    [list] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [id] => 59
+                                    [detail_id] => 26
+                                    [order_id] => 59
+                                    [product_id] => 238
+                                    [dept_pro_id] => 56
+                                    [before_num] => 0
+                                    [in_num] => 1
+                                    [after_num] => 1
+                                    [in_time] => 1458200971
+                                    [in_type] => 4
+                                    [in_status] => 1
+                                    [from_dept] => 2
+                                    [name] => 我的商品
+                                    [code] => wdsp
+                                    [specs] => 盒
+                                    [unit] => 1
+                                    [cname] => 精油
+                                    [tcname] => 可售商品
+                                )
+
+                            [1] => Array
+                                (
+                                    [id] => 57
+                                    [detail_id] => 18
+                                    [order_id] => 57
+                                    [product_id] => 1
+                                    [dept_pro_id] => 43
+                                    [before_num] => 7
+                                    [in_num] => 1
+                                    [after_num] => 8
+                                    [in_time] => 1454046176
+                                    [in_type] => 1
+                                    [in_status] => 1
+                                    [from_dept] => 101
+                                    [name] => 大玫瑰小瓶精油2
+                                    [code] => csmm1133
+                                    [specs] => 
+                                    [unit] => 瓶
+                                    [cname] => 精油
+                                    [tcname] => 可售商品
+                                )
+
+                            [2] => Array
+                                (
+                                    [id] => 55
+                                    [detail_id] => 16
+                                    [order_id] => 55
+                                    [product_id] => 5
+                                    [dept_pro_id] => 47
+                                    [before_num] => 0
+                                    [in_num] => 3
+                                    [after_num] => 3
+                                    [in_time] => 1445421922
+                                    [in_type] => 5
+                                    [in_status] => 1
+                                    [from_dept] => 2
+                                    [name] => 测试面膜1
+                                    [code] => csmm1134
+                                    [specs] => 
+                                    [unit] => 12
+                                    [cname] => 精油
+                                    [tcname] => 可售商品
+                                )
+
+                            [3] => Array
+                                (
+                                    [id] => 55
+                                    [detail_id] => 15
+                                    [order_id] => 55
+                                    [product_id] => 1
+                                    [dept_pro_id] => 43
+                                    [before_num] => 26
+                                    [in_num] => 1
+                                    [after_num] => 27
+                                    [in_time] => 1445421922
+                                    [in_type] => 5
+                                    [in_status] => 1
+                                    [from_dept] => 2
+                                    [name] => 大玫瑰小瓶精油2
+                                    [code] => csmm1133
+                                    [specs] => 
+                                    [unit] => 瓶
+                                    [cname] => 精油
+                                    [tcname] => 可售商品
+                                )
+
+                            [4] => Array
+                                (
+                                    [id] => 54
+                                    [detail_id] => 14
+                                    [order_id] => 54
+                                    [product_id] => 1
+                                    [dept_pro_id] => 43
+                                    [before_num] => 25
+                                    [in_num] => 1
+                                    [after_num] => 26
+                                    [in_time] => 1445421892
+                                    [in_type] => 4
+                                    [in_status] => 1
+                                    [from_dept] => 1
+                                    [name] => 大玫瑰小瓶精油2
+                                    [code] => csmm1133
+                                    [specs] => 
+                                    [unit] => 瓶
+                                    [cname] => 精油
+                                    [tcname] => 可售商品
+                                )
+
+                            [5] => Array
+                                (
+                                    [id] => 53
+                                    [detail_id] => 30
+                                    [order_id] => 53
+                                    [product_id] => 1
+                                    [dept_pro_id] => 43
+                                    [before_num] => 23
+                                    [in_num] => 2
+                                    [after_num] => 25
+                                    [in_time] => 1445421736
+                                    [in_type] => 4
+                                    [in_status] => 1
+                                    [from_dept] => 1
+                                    [name] => 大玫瑰小瓶精油2
+                                    [code] => csmm1133
+                                    [specs] => 
+                                    [unit] => 瓶
+                                    [cname] => 精油
+                                    [tcname] => 可售商品
+                                )
+
+                            [6] => Array
+                                (
+                                    [id] => 47
+                                    [detail_id] => 7
+                                    [order_id] => 47
+                                    [product_id] => 4
+                                    [dept_pro_id] => 46
+                                    [before_num] => 0
+                                    [in_num] => 5
+                                    [after_num] => 5
+                                    [in_time] => 1444809163
+                                    [in_type] => 1
+                                    [in_status] => 1
+                                    [from_dept] => 100
+                                    [name] => 多肽面膜
+                                    [code] => dtsrmm
+                                    [specs] => 盒
+                                    [unit] => 片
+                                    [cname] => 精油
+                                    [tcname] => 可售商品
+                                )
+
+                            [7] => Array
+                                (
+                                    [id] => 47
+                                    [detail_id] => 3
+                                    [order_id] => 47
+                                    [product_id] => 3
+                                    [dept_pro_id] => 45
+                                    [before_num] => 0
+                                    [in_num] => 5
+                                    [after_num] => 5
+                                    [in_time] => 1444809163
+                                    [in_type] => 1
+                                    [in_status] => 1
+                                    [from_dept] => 100
+                                    [name] => 超高美丽面膜
+                                    [code] => fsadfdf23423411
+                                    [specs] => 盒
+                                    [unit] => 片
+                                    [cname] => 可售商品分类1
+                                    [tcname] => 可售商品
+                                )
+
+                            [8] => Array
+                                (
+                                    [id] => 47
+                                    [detail_id] => 2
+                                    [order_id] => 47
+                                    [product_id] => 2
+                                    [dept_pro_id] => 44
+                                    [before_num] => 0
+                                    [in_num] => 5
+                                    [after_num] => 5
+                                    [in_time] => 1444809163
+                                    [in_type] => 1
+                                    [in_status] => 1
+                                    [from_dept] => 100
+                                    [name] => 胶原蛋白鱼皮面膜
+                                    [code] => qeqwe
+                                    [specs] => 0.5克
+                                    [unit] => 张
+                                    [cname] => 面膜
+                                    [tcname] => 可售商品
+                                )
+
+                            [9] => Array
+                                (
+                                    [id] => 47
+                                    [detail_id] => 1
+                                    [order_id] => 47
+                                    [product_id] => 1
+                                    [dept_pro_id] => 43
+                                    [before_num] => 8
+                                    [in_num] => 2
+                                    [after_num] => 10
+                                    [in_time] => 1444809163
+                                    [in_type] => 1
+                                    [in_status] => 1
+                                    [from_dept] => 100
+                                    [name] => 大玫瑰小瓶精油2
+                                    [code] => csmm1133
+                                    [specs] => 
+                                    [unit] => 瓶
+                                    [cname] => 精油
+                                    [tcname] => 可售商品
+                                )
+
+                            [10] => Array
+                                (
+                                    [id] => 46
+                                    [detail_id] => 1
+                                    [order_id] => 46
+                                    [product_id] => 1
+                                    [dept_pro_id] => 43
+                                    [before_num] => 0
+                                    [in_num] => 8
+                                    [after_num] => 8
+                                    [in_time] => 1444809148
+                                    [in_type] => 1
+                                    [in_status] => 1
+                                    [from_dept] => 100
+                                    [name] => 大玫瑰小瓶精油2
+                                    [code] => csmm1133
+                                    [specs] => 
+                                    [unit] => 瓶
+                                    [cname] => 精油
+                                    [tcname] => 可售商品
+                                )
+
+                        )
+
+                    [page_code] => <div class="fjgl_th_for clear">每页显示
+                 <select class="syy013 js_row">
+                 <option  value=20>20</option>
+                 <option  value=40>40</option>
+                 <option  value=60>60</option>
+                 <option  value=80>80</option>
+                 </select>&nbsp;条
+                 <span style="margin-left: 20px;">共 11 条</span>
+                 </div>
+                )
+
+            [search] => 1
+            [columns] => Array
+                (
+                    [0] => Array
+                        (
+                            [header] => 商品分类
+                            [name] => tcname
+                            [filter] => Array
+                                (
+                                    [0] => tpc.id
+                                    [1] => Array
+                                        (
+                                            [1] => 可售商品
+                                            [2] => 礼品赠品
+                                            [3] => 油粉胶膜消耗品
+                                            [4] => 其他
+                                        )
+
+                                    [2] => 
+                                )
+
+                        )
+
+                    [1] => Array
+                        (
+                            [header] => 商品系列
+                            [name] => cname
+                            [filter] => Array
+                                (
+                                    [0] => pc.id
+                                    [1] => 
+                                    [2] => 
+                                )
+
+                        )
+
+                    [2] => Array
+                        (
+                            [header] => 商品名称
+                            [name] => name
+                            [filter] => pro.name
+                        )
+
+                    [3] => Array
+                        (
+                            [header] => 商品编码
+                            [name] => code
+                            [filter] => pro.code
+                        )
+
+                    [4] => Array
+                        (
+                            [header] => 入库日期
+                            [name] => in_time
+                            [value] => {date("Y-m-d",$data["in_time"])}
+                        )
+
+                    [5] => Array
+                        (
+                            [header] => 入库类型
+                            [name] => in_type
+                            [value] => {\invo\In::getType($data["in_type"])}
+                        )
+
+                    [6] => Array
+                        (
+                            [header] => 发出单位
+                            [name] => from_dept
+                            [value] => {\invo\In::getFromDept($data["id"])}
+                        )
+
+                    [7] => Array
+                        (
+                            [header] => 入前结存
+                            [name] => before_num
+                        )
+
+                    [8] => Array
+                        (
+                            [header] => 入库数量
+                            [name] => in_num
+                        )
+
+                    [9] => Array
+                        (
+                            [header] => 入后结存
+                            [name] => after_num
+                        )
+
+                    [10] => Array
+                        (
+                            [header] => 状态
+                            [name] => in_status
+                            [value] => {\invo\In::getStatus($data["in_status"])}
+                        )
+
+                    [11] => Array
+                        (
+                            [header] => 操作
+                            [rel] => id
+                            [template] => view+
+                        )
+
+                )
+
+        )
+
+)
+  
+file:E:\xampp\htdocs\beauty\framework\core\Template.php  
+line:48  
+args:Array
+(
+    [0] => E:\xampp\htdocs\beauty\protected\modules\invo\views\in\index.phtml
+)
+  
+function:include  
+file:E:\xampp\htdocs\beauty\framework\core\Template.php  
+line:31  
+function:render  
+class:Ivy\core\Template  
+type:->  
+args:Array
+(
+    [0] => 
+)
+  
+file:E:\xampp\htdocs\beauty\protected\modules\invo\controllers\InController.php  
+line:36  
+function:display  
+class:Ivy\core\Template  
+type:->  
+args:Array
+(
+)
+  
+function:indexAction  
+class:invo\InController  
+type:->  
+args:Array
+(
+)
+  
+file:E:\xampp\htdocs\beauty\framework\core\Application.php  
+line:244  
+function:invokeArgs  
+class:ReflectionMethod  
+type:->  
+args:Array
+(
+    [0] => invo\InController Object
+        (
+            [layout] => /layouts/main
+            [title:protected] => 美业云平台
+            [company:protected] => CompanyInfo Object
+                (
+                    [_cache:protected] => 
+                    [_fields:Ivy\core\ActiveRecord:private] => Array
+                        (
+                            [id] => int(11)
+                            [comp_name] => varchar(200)
+                            [summary] => text
+                            [create_time] => int(11)
+                            [last_time] => timestamp
+                            [status] => tinyint(2)
+                            [check_time] => int(11)
+                            [server_time] => int(11)
+                            [config] => text
+                            [auto_cu_status] => enum('0','1')
+                            [pca_province] => varchar(50)
+                            [pca_city] => varchar(50)
+                            [address] => varchar(400)
+                            [phone] => varchar(20)
+                            [password] => varchar(100)
+                            [boss_name] => varchar(100)
+                            [store_num] => int(5)
+                            [max_store_num] => int(5)
+                            [wx_server_sn] => varchar(200)
+                            [wx_server_pass] => varchar(200)
+                            [step] => tinyint(4)
+                            [has_invo] => enum('Y','N','C')
+                            [avatar] => mediumtext
+                            [position] => varchar(100)
+                            [email] => varchar(100)
+                            [check_code] => varchar(100)
+                            [qq] => varchar(100)
+                            [contact_name] => varchar(100)
+                            [wx] => varchar(100)
+                        )
+
+                    [_new:Ivy\core\ActiveRecord:private] => 
+                    [_attributes:Ivy\core\ActiveRecord:private] => Array
+                        (
+                            [id] => 2
+                            [comp_name] => 艺福之家
+                            [summary] => 
+                            [create_time] => 1456369359
+                            [last_time] => 0000-00-00 00:00:00
+                            [status] => 9
+                            [check_time] => 
+                            [server_time] => 
+                            [config] => a:4:{s:5:"payee";a:4:{s:5:"money";a:3:{s:4:"open";s:4:"true";s:3:"pre";i:0;s:4:"name";s:18:"现金（现钞）";}s:4:"post";a:3:{s:4:"open";s:4:"true";s:3:"pre";i:1;s:4:"name";s:6:"POS机";}s:4:"bank";a:3:{s:4:"open";s:4:"true";s:3:"pre";i:2;s:4:"name";s:12:"银行转账";}s:5:"other";a:3:{s:4:"open";s:5:"false";s:3:"pre";i:3;s:4:"name";s:18:"其它收款类型";}}s:12:"score_config";a:5:{s:7:"openAll";s:4:"true";s:10:"openBySale";s:4:"true";s:10:"openByGive";s:4:"true";s:8:"scoreFor";s:3:"all";s:7:"scoreBl";s:1:"1";}s:11:"sale_access";a:4:{s:7:"manager";s:4:"true";s:9:"counselor";s:4:"true";s:8:"operator";s:4:"true";s:9:"reception";s:4:"true";}s:13:"member_config";s:2:"60";}
+                            [auto_cu_status] => 1
+                            [pca_province] => 
+                            [pca_city] => 
+                            [address] => 
+                            [phone] => 0
+                            [password] => 
+                            [boss_name] => 
+                            [store_num] => 1
+                            [max_store_num] => 5
+                            [wx_server_sn] => 
+                            [wx_server_pass] => 
+                            [step] => 1
+                            [has_invo] => Y
+                            [avatar] => 
+                            [position] => 
+                            [email] => 
+                            [check_code] => 2747
+                            [qq] => 
+                            [contact_name] => 
+                            [wx] => 
+                        )
+
+                    [_pk:Ivy\core\ActiveRecord:private] => Array
+                        (
+                            [0] => id
+                        )
+
+                    [_alias:protected] => t
+                    [_error:protected] => Array
+                        (
+                        )
+
+                    [_config:protected] => Array
+                        (
+                            [dsn] => mysql:dbname=platform;host=127.0.0.1;port=3306
+                            [password] => root
+                            [user] => root
+                            [profile] => 1
+                            [ARcache] => 
+                            [ARcacheTime] => 3600
+                        )
+
+                    [options:protected] => Array
+                        (
+                        )
+
+                    [lastSql:protected] => SELECT * FROM `company_info` `t` WHERE ( t.id = '2' ) 
+                    [methods:protected] => Array
+                        (
+                            [0] => table
+                            [1] => distinct
+                            [2] => field
+                            [3] => join
+                            [4] => where
+                            [5] => group
+                            [6] => having
+                            [7] => union
+                            [8] => order
+                            [9] => limit
+                            [10] => page
+                        )
+
+                    [_b:Ivy\core\CComponent:private] => Array
+                        (
+                        )
+
+                    [_m:protected] => Array
+                        (
+                        )
+
+                )
+
+            [is_store:protected] => 1
+            [_b:Ivy\core\CComponent:private] => Array
+                (
+                    [route] => Ivy\core\Route Object
+                        (
+                            [route:protected] => Array
+                                (
+                                    [module] => invo
+                                    [controller] => in
+                                    [action] => index
+                                )
+
+                            [param] => Array
+                                (
+                                )
+
+                        )
+
+                )
+
+            [_m:protected] => Array
+                (
+                )
+
+        )
+
+    [1] => Array
+        (
+        )
+
+)
+  
+file:E:\xampp\htdocs\beauty\framework\core\Application.php  
+line:212  
+function:_doMethod  
+class:Ivy\core\Application  
+type:->  
+args:Array
+(
+    [0] => invo\InController Object
+        (
+            [layout] => /layouts/main
+            [title:protected] => 美业云平台
+            [company:protected] => CompanyInfo Object
+                (
+                    [_cache:protected] => 
+                    [_fields:Ivy\core\ActiveRecord:private] => Array
+                        (
+                            [id] => int(11)
+                            [comp_name] => varchar(200)
+                            [summary] => text
+                            [create_time] => int(11)
+                            [last_time] => timestamp
+                            [status] => tinyint(2)
+                            [check_time] => int(11)
+                            [server_time] => int(11)
+                            [config] => text
+                            [auto_cu_status] => enum('0','1')
+                            [pca_province] => varchar(50)
+                            [pca_city] => varchar(50)
+                            [address] => varchar(400)
+                            [phone] => varchar(20)
+                            [password] => varchar(100)
+                            [boss_name] => varchar(100)
+                            [store_num] => int(5)
+                            [max_store_num] => int(5)
+                            [wx_server_sn] => varchar(200)
+                            [wx_server_pass] => varchar(200)
+                            [step] => tinyint(4)
+                            [has_invo] => enum('Y','N','C')
+                            [avatar] => mediumtext
+                            [position] => varchar(100)
+                            [email] => varchar(100)
+                            [check_code] => varchar(100)
+                            [qq] => varchar(100)
+                            [contact_name] => varchar(100)
+                            [wx] => varchar(100)
+                        )
+
+                    [_new:Ivy\core\ActiveRecord:private] => 
+                    [_attributes:Ivy\core\ActiveRecord:private] => Array
+                        (
+                            [id] => 2
+                            [comp_name] => 艺福之家
+                            [summary] => 
+                            [create_time] => 1456369359
+                            [last_time] => 0000-00-00 00:00:00
+                            [status] => 9
+                            [check_time] => 
+                            [server_time] => 
+                            [config] => a:4:{s:5:"payee";a:4:{s:5:"money";a:3:{s:4:"open";s:4:"true";s:3:"pre";i:0;s:4:"name";s:18:"现金（现钞）";}s:4:"post";a:3:{s:4:"open";s:4:"true";s:3:"pre";i:1;s:4:"name";s:6:"POS机";}s:4:"bank";a:3:{s:4:"open";s:4:"true";s:3:"pre";i:2;s:4:"name";s:12:"银行转账";}s:5:"other";a:3:{s:4:"open";s:5:"false";s:3:"pre";i:3;s:4:"name";s:18:"其它收款类型";}}s:12:"score_config";a:5:{s:7:"openAll";s:4:"true";s:10:"openBySale";s:4:"true";s:10:"openByGive";s:4:"true";s:8:"scoreFor";s:3:"all";s:7:"scoreBl";s:1:"1";}s:11:"sale_access";a:4:{s:7:"manager";s:4:"true";s:9:"counselor";s:4:"true";s:8:"operator";s:4:"true";s:9:"reception";s:4:"true";}s:13:"member_config";s:2:"60";}
+                            [auto_cu_status] => 1
+                            [pca_province] => 
+                            [pca_city] => 
+                            [address] => 
+                            [phone] => 0
+                            [password] => 
+                            [boss_name] => 
+                            [store_num] => 1
+                            [max_store_num] => 5
+                            [wx_server_sn] => 
+                            [wx_server_pass] => 
+                            [step] => 1
+                            [has_invo] => Y
+                            [avatar] => 
+                            [position] => 
+                            [email] => 
+                            [check_code] => 2747
+                            [qq] => 
+                            [contact_name] => 
+                            [wx] => 
+                        )
+
+                    [_pk:Ivy\core\ActiveRecord:private] => Array
+                        (
+                            [0] => id
+                        )
+
+                    [_alias:protected] => t
+                    [_error:protected] => Array
+                        (
+                        )
+
+                    [_config:protected] => Array
+                        (
+                            [dsn] => mysql:dbname=platform;host=127.0.0.1;port=3306
+                            [password] => root
+                            [user] => root
+                            [profile] => 1
+                            [ARcache] => 
+                            [ARcacheTime] => 3600
+                        )
+
+                    [options:protected] => Array
+                        (
+                        )
+
+                    [lastSql:protected] => SELECT * FROM `company_info` `t` WHERE ( t.id = '2' ) 
+                    [methods:protected] => Array
+                        (
+                            [0] => table
+                            [1] => distinct
+                            [2] => field
+                            [3] => join
+                            [4] => where
+                            [5] => group
+                            [6] => having
+                            [7] => union
+                            [8] => order
+                            [9] => limit
+                            [10] => page
+                        )
+
+                    [_b:Ivy\core\CComponent:private] => Array
+                        (
+                        )
+
+                    [_m:protected] => Array
+                        (
+                        )
+
+                )
+
+            [is_store:protected] => 1
+            [_b:Ivy\core\CComponent:private] => Array
+                (
+                    [route] => Ivy\core\Route Object
+                        (
+                            [route:protected] => Array
+                                (
+                                    [module] => invo
+                                    [controller] => in
+                                    [action] => index
+                                )
+
+                            [param] => Array
+                                (
+                                )
+
+                        )
+
+                )
+
+            [_m:protected] => Array
+                (
+                )
+
+        )
+
+    [1] => indexAction
+    [2] => Array
+        (
+        )
+
+)
+  
+file:E:\xampp\htdocs\beauty\framework\core\Application.php  
+line:164  
+function:dispatch  
+class:Ivy\core\Application  
+type:->  
+args:Array
+(
+    [0] => Ivy\core\Route Object
+        (
+            [route:protected] => Array
+                (
+                    [module] => invo
+                    [controller] => in
+                    [action] => index
+                )
+
+            [param] => Array
+                (
+                )
+
+        )
+
+)
+  
+file:E:\xampp\htdocs\beauty\index.php  
+line:7  
+function:run  
+class:Ivy\core\Application  
+type:->  
+args:Array
+(
+)
+  
+
+2016/11/12 16:49:51 [warning] [application] [system-level-2] [in_array() expects parameter 2 to be array, null given] file:E:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml->line:59
+in E:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml (59)
+2016/11/12 16:49:51 [warning] [application] [system-level-2] [in_array() expects parameter 2 to be array, null given] file:E:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml->line:59
+in E:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml (59)
+2016/11/12 16:49:51 [warning] [application] [system-level-2] [in_array() expects parameter 2 to be array, null given] file:E:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml->line:59
+in E:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml (59)
+2016/11/12 16:49:56 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:E:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+in E:\xampp\htdocs\beauty\protected\modules\pos\controllers\SaleController.php (48)
+2016/11/12 16:49:56 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:E:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+in E:\xampp\htdocs\beauty\protected\modules\pos\controllers\SaleController.php (48)
+2016/11/12 16:49:56 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:136
+in E:\xampp\htdocs\beauty\protected\components\zii\GridView.php (136)
+2016/11/12 16:50:58 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+in E:\xampp\htdocs\beauty\protected\models\OrderSale.php (288)
+2016/11/12 16:50:58 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+in E:\xampp\htdocs\beauty\protected\models\OrderSale.php (288)
+2016/11/12 16:50:58 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+in E:\xampp\htdocs\beauty\protected\models\OrderSale.php (288)
+2016/11/12 16:50:58 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+in E:\xampp\htdocs\beauty\protected\models\OrderSale.php (288)
+2016/11/12 16:50:58 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+in E:\xampp\htdocs\beauty\protected\models\OrderSale.php (288)
+2016/11/12 16:50:58 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+in E:\xampp\htdocs\beauty\protected\models\OrderSale.php (288)
+2016/11/12 16:50:58 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+in E:\xampp\htdocs\beauty\protected\models\OrderSale.php (288)
+2016/11/12 16:51:12 [warning] [application] [system-level-2] [in_array() expects parameter 2 to be array, null given] file:E:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml->line:59
+in E:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml (59)
+2016/11/12 16:51:12 [warning] [application] [system-level-2] [in_array() expects parameter 2 to be array, null given] file:E:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml->line:59
+in E:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml (59)
+2016/11/12 16:51:12 [warning] [application] [system-level-2] [in_array() expects parameter 2 to be array, null given] file:E:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml->line:59
+in E:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml (59)
+2016/11/12 16:51:22 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:E:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+in E:\xampp\htdocs\beauty\protected\modules\pos\controllers\SaleController.php (48)
+2016/11/12 16:51:22 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:E:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+in E:\xampp\htdocs\beauty\protected\modules\pos\controllers\SaleController.php (48)
+2016/11/12 16:51:22 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:136
+in E:\xampp\htdocs\beauty\protected\components\zii\GridView.php (136)
+2016/11/12 16:53:10 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:136
+in E:\xampp\htdocs\beauty\protected\components\zii\GridView.php (136)

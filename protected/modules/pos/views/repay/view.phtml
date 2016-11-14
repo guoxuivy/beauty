@@ -57,7 +57,7 @@
                                 $order_sale = \OrderSale::model()->findByPk($detail['order_id']);
                                 $cpm = $detail['repay_capitals']['money'];
                             ?>
-                            <div id="order_detail<?php echo $detail['id']?>" class="table_list clear khgl_com order_detail">
+                            <div id="order_detail<?php echo $detail['id']?>" class="table_list khgl_com order_detail">
                                 <ul>
                                     <li class="li001"><?php echo $detail['create_time'];?></li>
                                     <li class="li002"><?php echo $order_sale->sn?></li>
@@ -131,7 +131,7 @@
                         </ul>
                     </div>
                     <?php foreach($cu_capitals as $cu_capital):?>
-                        <div class="table_list clear">
+                        <div class="table_list">
                             <ul>
                                 <li class="li001"><?php echo $cu_capital['name'];?></li>
                                 <li class="li002"><?php echo $cu_capital['balance'];?></li>

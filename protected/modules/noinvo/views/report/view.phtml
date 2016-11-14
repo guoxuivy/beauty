@@ -100,7 +100,7 @@ $(function(){
                     cancel:false,
                     init:function(self){
                         $.each( json.data, function(i,v){
-                            self.find('tbody').append('<tr class="table_list clear"><td>'+v.receive_time+'</td><td>'+v.num+'</td><td>'+v.after_num+'</td><td><a target="_blank" href="<?php echo $this->url('pos/receive/edit') ?>&id='+v.id+'">查看领用订单</a></td></tr>');
+                            self.find('tbody').append('<tr class="table_list"><td>'+v.receive_time+'</td><td>'+v.num+'</td><td>'+v.after_num+'</td><td><a target="_blank" href="<?php echo $this->url('pos/receive/edit') ?>&id='+v.id+'">查看领用订单</a></td></tr>');
                         });
                     }
                 })

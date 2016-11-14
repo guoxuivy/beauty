@@ -1327,7 +1327,7 @@ overflow:hidden;}
 
 /*经理首页\前台*/
 .jlsy_one_01{ padding-left:30px; background:url(../images/jlsy_01.png) no-repeat 0px center; font-size:14px; color:#000000; margin-right:22px;}
-.jlsy_one_02{ position:relative; display:inline-block; height:40px; width:40px; right:0px; top:16px;}
+.jlsy_one_02{ position:relative; display:inline-block; height:40px; width:40px; right:0px; }
 .jlsy_one_02 a{ padding-left:0px;}
 .jlsy_top{overflow:hidden; font-size:16px; color:#333333;}
 .jlsy_top_l{ float:left; border:1px solid #1bab70; width:49.2%;}
@@ -1545,7 +1545,7 @@ box-shadow: 0px 1px 1px #54C094 inset;}
 
 
 /*表格模板*/
-.table_table{ border:solid 1px #ddd; border-bottom:none;position:relative; }
+.table_table{ border:solid 1px #ddd; border-bottom:none;position:relative; clear: both;}
 
 .table_hiddle{overflow:auto;}
 
@@ -1583,7 +1583,7 @@ a.zhezhao_center_next{ display:inline-block; height:40px; line-height:40px; colo
 .shuju_list{border:solid 1px #ededed;background-color:#fff;padding-top:10px;padding-bottom:10px;margin-bottom:15px}
 .shuju_list:hover{border:solid 1px #80cbff;}
 .shuju_list_left{width:140px;float:left;border-right:dotted 1px #ddd;line-height:60px;font-size:18px;}
-.shuju_list_left span{width:25px;height:25px;display:inline-block;float:left;margin-left:20px;margin-top:18px;line-height:40px;margin-right:5px}
+.shuju_list_left span{width:25px;height:25px;display:inline-block;float:left;margin-left:20px;margin-top:7px;line-height:40px;margin-right:5px}
 .shuju_list_right{margin-left:160px;line-height:30px;font-size:14px;padding-top:15px}
 .shuju_list_right a{ display:inline-block; margin-right:20px; color:#666;}
 .shuju_list_right a:hover{ color:#07f; text-decoration:underline;}

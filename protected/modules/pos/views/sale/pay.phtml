@@ -81,7 +81,7 @@
 					</ul>
 					</div>
 					<?php foreach ($model->pros as $key => $pro): ?>
-					<div class="table_list clear" pro-detail="<?php echo $pro['id'];?>">
+					<div class="table_list" pro-detail="<?php echo $pro['id'];?>">
 					<ul>
 						<?php $p_info=$model->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
 						<li><?php echo $p_info->name;?></li>

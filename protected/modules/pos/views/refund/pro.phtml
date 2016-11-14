@@ -34,7 +34,7 @@
 						</ul>
 					</div>
 
-					<div class="table_list clear">
+					<div class="table_list">
 						<ul>
 						<li class="">账户余额（元）</li>
 						<?php foreach ($capital_list as $value): ?>
@@ -43,7 +43,7 @@
 						</ul>
 					</div>
 					
-					<div class="table_list clear">
+					<div class="table_list">
 						<ul>
 						<li class="">退款现金（元）</li>
 						<?php foreach ($capital_list as $value): ?>
@@ -102,7 +102,7 @@
 							}
 						?>
 
-						<div data-id="<?php echo $pro['id'] ?>" data-zh="<?php echo $money_str ?>" data-tk="<?php echo $pro['tk_money_str'] ?>" class="table_list clear">
+						<div data-id="<?php echo $pro['id'] ?>" data-zh="<?php echo $money_str ?>" data-tk="<?php echo $pro['tk_money_str'] ?>" class="table_list">
 							<ul>
 								<li class=""><?php echo $sn; ?></li>
 								<li class=""><?php echo $pro['name'] ?></li>
@@ -163,7 +163,7 @@
 					<?php foreach ($product_list as $pro): ?>
 						<?php $money_str=\pos\SaleModel::model()->proMoneyStr($pro['detail_id']); ?>
 
-						<div data-id="<?php echo $pro['id'] ?>" data-zh="<?php echo $money_str ?>" data-tk="<?php echo $pro['tk_money_str'] ?>" class="table_list clear">
+						<div data-id="<?php echo $pro['id'] ?>" data-zh="<?php echo $money_str ?>" data-tk="<?php echo $pro['tk_money_str'] ?>" class="table_list">
 							<ul>
 								<li class=""><?php echo \OrderSaleDetail::getSn($pro['detail_id']) ?></li>
 								<li class=""><?php echo $pro['name'] ?></li>
@@ -224,7 +224,7 @@
 					<?php foreach ($voucher_list as $pro): ?>
 						<?php $money_str=\pos\SaleModel::model()->proMoneyStr($pro['detail_id']); ?>
 
-						<div data-id="<?php echo $pro['id'] ?>" data-zh="<?php echo $money_str ?>" data-tk="<?php echo $pro['tk_money_str'] ?>" class="table_list clear">
+						<div data-id="<?php echo $pro['id'] ?>" data-zh="<?php echo $money_str ?>" data-tk="<?php echo $pro['tk_money_str'] ?>" class="table_list">
 							<ul>
 								<li class=""><?php echo \OrderSaleDetail::getSn($pro['detail_id']); ?></li>
 								<li class="qk_name"><?php echo $pro['name'] ?></li>
@@ -383,7 +383,7 @@ $(function(){
 						content.find(".re_money").html(re.money);
 						if(re.xm){
 							$.each( re.xm, function(i, pro){
-								var s_list ='<div class="table_list clear"><ul>';
+								var s_list ='<div class="table_list"><ul>';
 									s_list+='<li class="">'+pro.name+'</li>';
 									s_list+='<li class="">'+pro.re_num+'</li>';
 									s_list+='</ul></div>';
@@ -392,7 +392,7 @@ $(function(){
 						}
 						if(re.cp){
 							$.each( re.cp, function(i, pro){
-								var s_list ='<div class="table_list clear"><ul>';
+								var s_list ='<div class="table_list"><ul>';
 									s_list+='<li class="">'+pro.name+'</li>';
 									s_list+='<li class="">'+pro.re_num+'</li>';
 									s_list+='</ul></div>';
@@ -437,7 +437,7 @@ $(function(){
 			init:function(content){
 				$.each( capital_list, function(i, capital){
 					var money = str_money(capital_money,capital.id);
-					var s_list ='<div class="table_list clear"><ul>';
+					var s_list ='<div class="table_list"><ul>';
 						s_list+='<li class="">'+capital.name+'</li>';
 						s_list+='<li class="">'+capital.balance+'</li>';
 						s_list+='<li class="">'+money+'</li>';
@@ -498,7 +498,7 @@ $(function(){
 						money=data_zs*parseInt(_input_obj.val());
 						first_zs=1;
 					};
-					var s_list ='<div class="table_list clear"><ul>';
+					var s_list ='<div class="table_list"><ul>';
 						s_list+='<li class="">'+capital.name+'</li>';
 						s_list+='<li class="">'+capital.balance+'</li>';
 						s_list+='<li class=""><input type="text" data-capital-type="'+capital.type+'" data-capital-id="'+capital.id+'" class="pos_cz_tow_two05 pos_gm_th_02" value="'+money+'"></li>';

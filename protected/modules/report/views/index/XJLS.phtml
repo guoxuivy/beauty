@@ -80,7 +80,7 @@
 			<?php foreach ($list as $k => $row): ?>
 					<?php $o=$row;unset($o['day']); $_all=array_sum($o); ?>
 					<?php if($_all==0) continue; ?>
-				<tr class="table_list clear">
+				<tr class="table_list">
 					<td><?php echo date("Y-m-d", strtotime($row['day'])) ?></td>
 					<?php if ($config['money']['open']=='true'): ?><td><?php echo $row['xj']?$row['xj']:0 ?></td><?php endif ?>
 					<?php foreach ($config['post']['has'] as $key => $value): ?>

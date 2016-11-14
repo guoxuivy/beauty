@@ -84,7 +84,7 @@
 				<?php foreach ($list as $k => $row): ?>
 					<?php $o=$row;unset($o['id'],$o['cu_id']); $_all=array_sum($o); ?>
 					<?php if($_all==0) continue; ?>
-				<div class="table_list clear <?php $i++; if($i%2==0): ?>sjbb_ddkl_tablefoot01<?php endif ?> ">
+				<div class="table_list <?php $i++; if($i%2==0): ?>sjbb_ddkl_tablefoot01<?php endif ?> ">
 					<ul>
 						<li ><?php echo $row['dept_name'] ?></li>
 						<li ><?php echo $row['name'] ?></li>

@@ -36,7 +36,7 @@
                         </div>
                         <?php $pnum=0; foreach($storageProducts as $storageProduct):?>
                             <?php if(array_key_exists($storageProduct['id'],$detail_nums)):?>
-                            <div class="table_list clear">
+                            <div class="table_list">
                                 <ul>
                                     <!--<li class="li001"><input type="checkbox" /></li>-->
                                     <li class="li001"><a href="#"><?php $orderSale = \OrderSale::model()->findByPk($storageProduct['order_id']);echo $orderSale->sn?></a></li>

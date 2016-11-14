@@ -57,7 +57,7 @@
  
                                     <?php if ($model):?>
                                         <?php if($model->detail)foreach ($model->detail as $pro): ?>
-                                        <div  data-id="<?php echo $pro['product_id']; ?>"  class="table_list clear">
+                                        <div  data-id="<?php echo $pro['product_id']; ?>"  class="table_list">
                                             <ul>
                                                 <li class="li001"><?php echo $pro['top_name'] ?></li>
                                                 <li class="li002"><?php echo $pro['c_name'] ?></li>
@@ -169,7 +169,7 @@
                     //如果存在 则略过
                     if(has_list.filter("[data-id='"+p_id+"']").length>0) return ;
 
-                    var str  ='<div class="table_list clear" data-id="'+p_id+'"><ul>';
+                    var str  ='<div class="table_list" data-id="'+p_id+'"><ul>';
                         str +='<li class="li001">'+pro.attr('data-top_name')+'</li>';
                         str +='<li class="li002">'+pro.attr('data-c_name')+'</li>';
                         str +='<li class="li003">'+p_name+'</li>';

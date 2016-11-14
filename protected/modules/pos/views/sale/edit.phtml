@@ -65,7 +65,7 @@
 							<?php if($pro['pro_type']!=1) continue; ?>
 							<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
 
-							<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list clear">
+							<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
 								<ul>
 									<li class="li001"><?php echo $info->name ?>（<?php echo $info->num*$info->price ?>元/<?php echo $info->num ?>疗次）</li>
 									<li class="li002"><input type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05"></li>
@@ -123,7 +123,7 @@
 						<?php if($pro['pro_type']!=2) continue; ?>
 						<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
 
-						<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list clear">
+						<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
 							<ul>
 							<li class="li001"><?php echo $info->name ?></li>
 							<li class="li002"><input type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05">（<?php echo $info->unit ?>）</li>
@@ -181,7 +181,7 @@
 						<?php if($pro['pro_type']!=3) continue; ?>
 						<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
 
-						<div data-sold="<?php echo $info->sold_num ?>" data-num="<?php echo $info->num ?>" data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>"  data-zs="<?php echo $pro['money_str'] ?>" class="table_list clear">
+						<div data-sold="<?php echo $info->sold_num ?>" data-num="<?php echo $info->num ?>" data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>"  data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
 							<ul>
 								<li class="li001"><?php echo $info->name ?></li>
 								<li class="li002"><input type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05"></li>
@@ -362,7 +362,7 @@ $(function(){
 					//如果存在 则略过
 					if(has_list.filter("[data-id='"+p_id+"']").length>0) return ;
 
-					var str  ='<div class="table_list clear" data-id="'+p_id+'" data-dj="'+p_price+'" ><ul>';
+					var str  ='<div class="table_list" data-id="'+p_id+'" data-dj="'+p_price+'" ><ul>';
 						str +='<li class="li001">'+p_name+'（'+p_old_price+'元/'+p_num+'疗次）</li>';
 						str +='<li class="li002"><input type="text" class="pos_cz_tow_two05" value="'+p_num+'" /></li>';
 						str +='<li class="li003">'+p_old_price+'</li>';
@@ -412,7 +412,7 @@ $(function(){
 					//如果存在 则略过
 					if(has_list.filter("[data-id='"+p_id+"']").length>0) return ;
 
-					var str  ='<div class="table_list clear" data-id="'+p_id+'" data-dj="'+p_price+'" ><ul>';
+					var str  ='<div class="table_list" data-id="'+p_id+'" data-dj="'+p_price+'" ><ul>';
 						str +='<li class="li001">'+p_name+'</li>';
 						str +='<li class="li002"><input type="text" class="pos_cz_tow_two05" value="'+p_num+'" />（'+p_unit+'）</li>';
 						str +='<li class="li003">'+p_price+'</li>';
@@ -462,7 +462,7 @@ $(function(){
 					//如果存在 则略过
 					if(has_list.filter("[data-id='"+p_id+"']").length>0) return ;
 
-					var str  ='<div class="table_list clear" data-id="'+p_id+'" data-dj="'+p_price+'"  data-num="'+p_num+'" data-sold="'+p_sold+'" ><ul>';
+					var str  ='<div class="table_list" data-id="'+p_id+'" data-dj="'+p_price+'"  data-num="'+p_num+'" data-sold="'+p_sold+'" ><ul>';
 						str +='<li class="li001">'+p_name+'</li>';
 						str +='<li class="li002"><input type="text" class="pos_cz_tow_two05" value="1" /></li>';
 						str +='<li class="li003">'+p_price+'</li>';
@@ -509,7 +509,7 @@ $(function(){
 				$.each( capital_zs, function(i, capital){
 					var money = str_money(capital_money,capital.id);
 					if((is_xm && capital.is_project==1) || (is_cp && capital.is_product==1) || (is_kq && capital.is_voucher==1)){
-						var s_list ='<div class="table_list clear"><ul>';
+						var s_list ='<div class="table_list"><ul>';
 							s_list+='<li class="li001">'+capital.name+'</li>';
 							s_list+='<li class="li002">'+capital.balance+'</li>';
 							s_list+='<li class="li003"><input type="text" data-max-value="'+capital.balance+'" data-capital-id="'+capital.id+'" class="pos_cz_tow_two05 pos_gm_th_02" value="'+money+'"></li>';

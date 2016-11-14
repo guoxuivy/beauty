@@ -139,7 +139,7 @@ class IndexController extends \SController
 		echo                       ' </ul>
 		                          </div>';
 
-        echo              '<div class="table_list clear">
+        echo              '<div class="table_list">
                                     <ul>
                                       <li  style="width: 130px;">购买项目消耗</li>';
                                       foreach ((array)$mdids as $key=>$value) {
@@ -152,7 +152,7 @@ class IndexController extends \SController
         echo                        '</ul>
                             </div>';
                           
-        echo              '<div class="table_list clear">
+        echo              '<div class="table_list">
                                     <ul>
                                       <li  style="width: 130px;">赠送项目消耗(疗次)</li>';
                                       foreach ((array)$mdids as $value) {
@@ -163,7 +163,7 @@ class IndexController extends \SController
 
         echo                        '</ul>
                             </div>';                 
-        echo              '<div class="table_list clear">
+        echo              '<div class="table_list">
                                     <ul>
                                       <li  style="width: 130px;">卡券内项目消耗(疗次)</li>';
                                       foreach ((array)$mdids as $value) {
@@ -225,7 +225,7 @@ class IndexController extends \SController
 		echo                       ' </ul>
 		                          </div>';
 
-        echo              '<div class="table_list clear">
+        echo              '<div class="table_list">
                                     <ul>
                                       <li >到店总客流</li>';
                                       foreach ((array)$mdids as $value) {
@@ -245,7 +245,7 @@ class IndexController extends \SController
         echo                        '</ul>
                             </div>';
                           
-        echo              '<div class="table_list clear">
+        echo              '<div class="table_list">
                                     <ul>
                                       <li >到店有效客流</li>';
                                       foreach ((array)$mdids as $value) {
@@ -264,7 +264,7 @@ class IndexController extends \SController
 
         echo                        '</ul>
                             </div>';                 
-        echo              '<div class="table_list clear">
+        echo              '<div class="table_list">
                                     <ul>
                                       <li >到店总人头</li>';
                                       foreach ((array)$mdids as $value) {
@@ -283,7 +283,7 @@ class IndexController extends \SController
 
         echo                        '</ul>
                             </div>';                  
-        echo              '<div class="table_list clear">
+        echo              '<div class="table_list">
                                     <ul>
                                       <li >到店总有效人头</li>';
                                       foreach ((array)$mdids as $value) {
@@ -302,7 +302,7 @@ class IndexController extends \SController
 
         echo                        '</ul>
                             </div>'; 
-        echo              '<div class="table_list clear">
+        echo              '<div class="table_list">
                                     <ul>
                                       <li >成交人头</li>';
                                       foreach ((array)$mdids as $value) {
@@ -356,7 +356,7 @@ class IndexController extends \SController
 		echo                       ' </ul>
 		                          </div>';
 
-        echo              '<div class="table_list clear">
+        echo              '<div class="table_list">
                                     <ul>
                                       <li >购买项目/疗程</li>';
                                       foreach ((array)$mdids as $value) {
@@ -376,7 +376,7 @@ class IndexController extends \SController
         echo                        '</ul>
                             </div>';
                           
-        echo              '<div class="table_list clear">
+        echo              '<div class="table_list">
                                     <ul>
                                       <li >购买产品</li>';
                                       foreach ((array)$mdids as $value) {
@@ -395,7 +395,7 @@ class IndexController extends \SController
 
         echo                        '</ul>
                             </div>';                 
-        echo              '<div class="table_list clear">
+        echo              '<div class="table_list">
                                     <ul>
                                       <li >购买卡券</li>';
                                       foreach ((array)$mdids as $value) {
@@ -414,7 +414,7 @@ class IndexController extends \SController
 
         echo                        '</ul>
                             </div>';                  
-        echo              '<div class="table_list clear">
+        echo              '<div class="table_list">
                                     <ul>
                                       <li >会员充值</li>';
                                       foreach ((array)$mdids as $value) {
@@ -433,7 +433,7 @@ class IndexController extends \SController
 
         echo                        '</ul>
                             </div>'; 
-        echo              '<div class="table_list clear">
+        echo              '<div class="table_list">
                                     <ul>
                                       <li >现金还款</li>';
                                       foreach ((array)$mdids as $value) {

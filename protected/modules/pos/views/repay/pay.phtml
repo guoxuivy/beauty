@@ -82,7 +82,7 @@ $config=\CompanyInfo::getConfig('payee');
                             $pay_price = ($detail['repay']['card']+$detail['repay']['cash'])?$detail['repay']['card']+$detail['repay']['cash']:0;
                             $cash_total += $detail['repay']['cash'];
                         ?>
-                        <div pro-detail="125" class="table_list clear">
+                        <div pro-detail="125" class="table_list">
                             <ul>
                                 <li title="<?php echo $detail['pro_name']?>"><?php echo $detail['pro_name']?></li>
                                 <li class="yfje" title="<?php echo $pay_price;?>"><?php echo sprintf("%.2f",$pay_price);?></li>

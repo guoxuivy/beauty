@@ -50,7 +50,7 @@
 			<tbody>
 
 			<?php foreach ($list as $k => $row): ?>
-				<tr class='table_list clear'>
+				<tr class='table_list'>
 					<td ><?php echo $row['dept_name'] ?></td>
 					<td ><?php echo $list_pre[$k]['xjye']?:"/" ?></td>
 					<td ><?php echo $list_kk[$k]['xjkk']?:"/" ?></td>
@@ -64,7 +64,7 @@
 				</tr>
 			<?php endforeach ?>
 			<?php if (!$list&&!$list_pre): ?>
-				<tr class='table_list clear'>
+				<tr class='table_list'>
 					<td colspan=12 >暂无数据</td>
 				</tr>
 			<?php endif ?>
