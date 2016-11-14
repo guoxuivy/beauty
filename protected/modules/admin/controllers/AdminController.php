@@ -3,8 +3,6 @@ namespace admin;
 use Ivy\core\CException;
 class AdminController extends \SController
 {
-	//布局文件
-	public $layout='/layouts/main';
 
 	public function indexAction() {
 		$comp_id = \Ivy::app()->user->comp_id;
@@ -138,6 +136,17 @@ class AdminController extends \SController
 	//设置检测 json
 	public function szAction(){
 		$this->ajaxReturn('200','OK');
+	}
+
+
+
+	/**
+	 * 全站检索
+	 */
+	public function searchAction() {
+		
+		$this->view->assign(
+		)->display();
 	}
 
 	

@@ -8,7 +8,7 @@ use Ivy\core\CException;
 class SController extends Controller
 {
 	//布局文件
-	public $layout='/layouts/main';
+	public $layout='/layouts/main_m';
 	
 	protected $title='美业云平台'; //页面标题
 

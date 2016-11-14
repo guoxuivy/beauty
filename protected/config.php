@@ -8,8 +8,10 @@ return array (
 			'dsn' => 'mysql:dbname=etwasd;host=localhost;port=3306',
 			'user' => 'etwasd',
 			'password' => '8y3j5m4l',
-			//'dsn' => 'mysql:dbname=platform;host=127.0.0.1;port=3306',
-			//'password' => '',
+
+			'dsn' => 'mysql:dbname=platform;host=127.0.0.1;port=3306',
+			'user' => 'root',
+			'password' => 'root',
 			
 			//从库读取数据 用户名密码保存请保持一致
 			// 'slave' = >array(

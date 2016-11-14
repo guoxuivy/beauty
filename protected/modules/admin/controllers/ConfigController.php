@@ -3,8 +3,7 @@ namespace admin;
 use Ivy\core\CException;
 class ConfigController extends \SController
 {
-	//布局文件
-	public $layout='/layouts/main';
+
 	//单据显示设置
 	public function indexAction() {
 		$config=\CompanyInfo::getConfig('order_show');

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+<meta charset="utf-8"/>
+<title>Metronic | Admin Dashboard Template</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="" name="description"/>
+<meta content="" name="author"/>
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
+<link href="<?php echo $this->basePath('public/M');?>/global/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/global/plugins/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
+
+<!-- END PAGE LEVEL PLUGIN STYLES -->
+<!-- BEGIN PAGE STYLES -->
+<link href="<?php echo $this->basePath('public/M');?>/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
+<!-- END PAGE STYLES -->
+<!-- BEGIN THEME STYLES -->
+<link href="<?php echo $this->basePath('public/M');?>/global/css/components.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css" id="style_color"/>
+<!-- <link href="<?php echo $this->basePath('public/M');?>/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/> -->
+<link href="<?php echo $this->basePath('public/M');?>/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico"/>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
+<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
+<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
+<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
+<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
+<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
+<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<?php $this->import('/_include/header_m');?>
+<!-- END HEADER -->
+<div class="clearfix">
+</div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+
+    <!-- BEGIN SIDEBAR -->
+    <?php echo Ivy::app()->widget('top/sidebar',$light_nav); ?>
+    <!-- END SIDEBAR -->
+
+    
+    <!-- BEGIN CONTENT -->
+
+    
+
+
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <!-- BEGIN STYLE CUSTOMIZER 模版设置-->
+            <div class="theme-panel hidden-xs hidden-sm">
+                <div class="toggler">
+                </div>
+                <div class="toggler-close">
+                </div>
+                <div class="theme-options">
+                    <div class="theme-option theme-colors clearfix">
+                        <span>
+                        THEME COLOR </span>
+                        <ul>
+                            <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="Default">
+                            </li>
+                            <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="Dark Blue">
+                            </li>
+                            <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="Blue">
+                            </li>
+                            <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="Grey">
+                            </li>
+                            <li class="color-light tooltips" data-style="light" data-container="body" data-original-title="Light">
+                            </li>
+                            <li class="color-light2 tooltips" data-style="light2" data-container="body" data-html="true" data-original-title="Light 2">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="theme-option">
+                        <span>
+                        Layout </span>
+                        <select class="layout-option form-control input-small">
+                            <option value="fluid" selected="selected">Fluid</option>
+                            <option value="boxed">Boxed</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span>
+                        Header </span>
+                        <select class="page-header-option form-control input-small">
+                            <option value="fixed" selected="selected">Fixed</option>
+                            <option value="default">Default</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span>
+                        Sidebar Mode</span>
+                        <select class="sidebar-option form-control input-small">
+                            <option value="fixed">Fixed</option>
+                            <option value="default" selected="selected">Default</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span>
+                        Sidebar Menu </span>
+                        <select class="sidebar-menu-option form-control input-small">
+                            <option value="accordion" selected="selected">Accordion</option>
+                            <option value="hover">Hover</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span>
+                        Sidebar Style </span>
+                        <select class="sidebar-style-option form-control input-small">
+                            <option value="default" selected="selected">Default</option>
+                            <option value="light">Light</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span>
+                        Sidebar Position </span>
+                        <select class="sidebar-pos-option form-control input-small">
+                            <option value="left" selected="selected">Left</option>
+                            <option value="right">Right</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span>
+                        Footer </span>
+                        <select class="page-footer-option form-control input-small">
+                            <option value="fixed">Fixed</option>
+                            <option value="default" selected="selected">Default</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- END STYLE CUSTOMIZER -->
+            <!-- BEGIN PAGE HEADER 面包屑导航-->
+            <h3 class="page-title">
+            Dashboard <small>dashboard & statistics</small>
+            </h3>
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                        <a href="index.html">Home</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">Dashboard</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">Dashboard</a>
+                    </li>
+                </ul>
+                <div class="page-toolbar">
+                    
+                </div>
+            </div>
+            <!-- END PAGE HEADER-->
+
+            <?php echo $content; ?>
+
+
+            <!-- BEGIN DASHBOARD STATS -->
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="dashboard-stat blue-madison">
+                        <div class="visual">
+                            <i class="fa fa-comments"></i>
+                        </div>
+                        <div class="details">
+                            <div class="number">
+                                 1349
+                            </div>
+                            <div class="desc">
+                                 New Feedbacks
+                            </div>
+                        </div>
+                        <a class="more" href="#">
+                        View more <i class="m-icon-swapright m-icon-white"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="dashboard-stat red-intense">
+                        <div class="visual">
+                            <i class="fa fa-bar-chart-o"></i>
+                        </div>
+                        <div class="details">
+                            <div class="number">
+                                 12,5M$
+                            </div>
+                            <div class="desc">
+                                 Total Profit
+                            </div>
+                        </div>
+                        <a class="more" href="#">
+                        View more <i class="m-icon-swapright m-icon-white"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="dashboard-stat green-haze">
+                        <div class="visual">
+                            <i class="fa fa-shopping-cart"></i>
+                        </div>
+                        <div class="details">
+                            <div class="number">
+                                 549
+                            </div>
+                            <div class="desc">
+                                 New Orders
+                            </div>
+                        </div>
+                        <a class="more" href="#">
+                        View more <i class="m-icon-swapright m-icon-white"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="dashboard-stat purple-plum">
+                        <div class="visual">
+                            <i class="fa fa-globe"></i>
+                        </div>
+                        <div class="details">
+                            <div class="number">
+                                 +89%
+                            </div>
+                            <div class="desc">
+                                 Brand Popularity
+                            </div>
+                        </div>
+                        <a class="more" href="#">
+                        View more <i class="m-icon-swapright m-icon-white"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- END DASHBOARD STATS -->
+            <div class="clearfix">
+            </div>
+
+        </div>
+    </div>
+    <!-- END CONTENT -->
+    
+</div>
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<div class="page-footer">
+    <div class="page-footer-inner">
+         2014 &copy; Metronic by keenthemes.
+    </div>
+    <div class="page-footer-tools">
+        <span class="go-top">
+        <i class="fa fa-angle-up"></i>
+        </span>
+    </div>
+</div>
+<!-- END FOOTER -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/respond.min.js"></script>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/excanvas.min.js"></script> 
+<![endif]-->
+
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+
+
+
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="<?php echo $this->basePath('public/M');?>/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script>
+jQuery(document).ready(function() {    
+   Metronic.init(); // init metronic core componets
+   Layout.init(); // init layout
+   Demo.init(); // init demo features 
+});
+</script>
+<!-- END JAVASCRIPTS -->
+</body>
+
+<!-- END BODY -->
+</html>

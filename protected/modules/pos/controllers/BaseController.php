@@ -9,7 +9,7 @@ use Ivy\core\CException;
 class BaseController extends \SController
 {
 	//布局文件
-	public $layout='/layouts/main';
+	public $layout='/layouts/main_m';
 
 	/**
 	 * [业务单据中客户信息的统一显示调用]

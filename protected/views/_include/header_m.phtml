@@ -1,0 +1,337 @@
+<?php 
+$mes_list = \SmsMessage::getInList();
+$mes_not_read = \SmsMessage::getNotNum();
+?>
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a href="index.html">
+            <img src="<?php echo $this->basePath('public/M');?>/admin/layout/img/logo.png" alt="logo" class="logo-default"/>
+            </a>
+            <div class="menu-toggler sidebar-toggler hide">
+                <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+            </div>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+        </a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                
+                <!-- BEGIN INBOX DROPDOWN -->
+                <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <i class="icon-envelope-open"></i>
+                    <span class="badge badge-default">
+                    <?php echo $mes_not_read ?> </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <p>
+                                 你有<?php echo $mes_not_read ?>条未读信息！
+                            </p>
+                        </li>
+
+                        <li>
+                            <ul class="dropdown-menu-list scroller" style="height: 250px;">
+
+                            <?php foreach ($mes_list as $value): ?>
+                            	<li>
+                                    <a href="<?php echo $this->url('sms/message/view',array("id"=>$value['id']))?>">
+                                    <span class="photo">
+                                    <img src="<?php echo $this->basePath('public/M');?>/admin/layout/img/avatar2.jpg" alt=""/>
+                                    </span>
+                                    <span class="subject">
+                                    <span class="from">
+                                    <?php echo $value['title'] ?> </span>
+                                    <span class="time">
+                                    <?php echo date("Y-m-d H:i",$value['create_time']) ?> </span>
+                                    </span>
+                                    <span class="message">
+                                    <?php echo $value['title'] ?> </span>
+                                    </a>
+                                </li>
+							<?php endforeach; ?>
+
+                            </ul>
+                        </li>
+                        <li class="external">
+                            <a href="<?php echo $this->url('sms/message/list') ?>">
+                            查看全部消息 <i class="m-icon-swapright"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- END INBOX DROPDOWN -->
+                
+                <!-- BEGIN USER LOGIN DROPDOWN -->
+                <li class="dropdown dropdown-user">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <img alt="" class="img-circle hide1" src="<?php echo $this->basePath('public/M');?>/admin/layout/img/avatar3_small.jpg"/>
+                    <span class="username username-hide-on-mobile">
+                    <?php echo $show_user["name"]; ?> </span>
+                    <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="javascript:;">
+                            <i class="icon-user"></i><?php echo \Ivy::app()->user->user_name ?><p style="color:#999"><?php echo \Ivy::app()->user->netname ?></p></a>
+                        </li>
+                  
+                     
+                        <?php if (\Ivy::app()->user->position_id==1): ?>
+						<?php $show_position = \Ivy::app()->user->getState('show_position');?>
+							<li rel='<?php echo $show_position ?>' class="change_position">
+							<a href="<?php echo $this->url("boss/index/change")?>">
+								<i class="icon-shuffle"></i>
+								<?php if ($show_position==1): ?>
+									切到管理员
+								<?php else: ?>
+									切到总经理
+								<?php endif ?>
+							</a>
+							</li>
+						<?php endif; ?>
+                        <li class="divider">
+                        </li>
+                        <li>
+                            <!-- <a class="to_cpassword" href="javascript:;"> -->
+                            <a href="#portlet-config" data-toggle="modal">
+                            <i class="icon-lock"></i> 修改密码 </a>
+                        </li>
+                        <li>
+                            <!-- <a class="to_cpassword" href="javascript:;"> -->
+                            <a href="#about-html" data-toggle="modal">
+                            <i class="icon-lock"></i> 关于平台 </a>
+                        </li>
+                        <li>
+                            <li><a href="<?php echo $this->url('index/logout') ?>">
+                            <i class="icon-key"></i> 安全退出 </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- END USER LOGIN DROPDOWN -->
+                <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                <li class="dropdown dropdown-quick-sidebar-toggler">
+                    <a href="<?php echo $this->url('index/logout') ?>" class="dropdown-toggle">
+                    <i class="icon-logout"></i>
+                    </a>
+                </li>
+                <!-- END QUICK SIDEBAR TOGGLER -->
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END HEADER INNER -->
+</div>
+
+
+
+<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM 弹出对话框-->
+<div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">修改密码</h4>
+            </div>
+            <div class="modal-body">
+		        <form method="post" action="" class="change_password_form" autocomplete="off">
+				<div class="list">
+					<label>输入原始密码：</label>
+					<div style="margin-left: 100px;">
+
+						<input  datatype="*" tabindex=1 name="opassword" type="text" class="gysgl_07" placeholder="原始密码" value='' autocomplete="off"/>
+					</div>
+				</div>
+				<div class="list">
+					<label>输入新密码：</label>
+					<div style="margin-left: 100px;">
+					<input class="js_none" type='text' display='none' style="width: 0px;position: absolute;top: 9999px;" />
+					<!-- 去浏览器自动填充用 -->
+						<input datatype="*" name="npassword" tabindex=2 type="password" class="gysgl_07" placeholder="新密码" value='' autocomplete="off"/>
+					</div>
+				</div>
+				<div class="list">
+					<label>输入验证码：</label>
+					<div style="margin-left: 100px;">
+						<div class="login_list">
+							<input datatype="*" name="verifyCode" tabindex=3 type="text" class="input_login" placeholder="请输入验证码" style="width:80px; float:left;margin-right:10px;" />
+								<span class="login_img">
+									<img src="<?php echo $this->url('index/verify'); ?>" width="100" height="30" />
+								</span> 
+								<span style="font-size: 12px; line-height: 26px;">看不清<a href="javascript:changeVerify();" class="blue">换一张</a></span>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+				</form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn blue save-portlet">Save changes</button>
+                <button type="button" class="btn default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+
+<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM 弹出对话框-->
+<div class="modal fade" id="about-html" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+	        <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+	            <h4 class="modal-title">平台信息</h4>
+	        </div>
+            <div class="modal-body">
+                 <?php $about=parse_ini_file(__PROTECTED__.DIRECTORY_SEPARATOR.'beauty.ini');?>
+					<div class="">
+						<div class="list">
+							<label>平台名称：</label>
+							<label style="width: auto;"><?php echo $about['product_name'];?></label>
+						</div>
+						<div style="clear:both"></div>
+						<div class="list">
+							<label>平台版本：</label>
+							<label style="width: auto;"><?php echo $about['version_number'];?></label>
+						</div>
+						<div style="clear:both"></div>
+						<div class="list">
+							<label>发布日期：</label>
+							<label style="width: auto;"><?php echo $about['release_date'];?></label>
+						</div>
+						<div style="clear:both"></div>
+						<div class="list">
+							<label>版权所有：</label>
+							<label style="width: auto;"><?php echo $about['copyright'];?></label>
+						</div>
+						<div style="clear:both"></div>
+						<div class="list">
+							<label>电子邮箱：</label>
+							<label style="width: auto;"><?php echo $about['email'];?></label>
+						</div>
+						<div style="clear:both"></div>
+						<div class="list">
+							<label>联系电话：</label>
+							<label style="width: auto;"><?php echo $about['tel'];?></label>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+
+<script type="text/javascript">
+//刷新验证码
+function changeVerify() {
+	var timestamp=new Date().getTime();
+	var url = "<?php echo $this->url('index/verify'); ?>";
+	url += '&timestamp=' + timestamp;
+	$('.login_img').children('img').attr('src', url);
+}
+
+$(function(){
+
+	$(".save-portlet").click(function(event) {
+		var _self = $("#portlet-config");
+
+		var err=false;
+			//obj._self.find('form').submit();
+			var o_pw=_self.find("input[name='opassword']").val();
+			var n_pw=_self.find("input[name='npassword']").val();
+			var v_code=_self.find("input[name='verifyCode']").val();
+			if(o_pw==""){
+				alert("原始密码不能为空！");
+				return false;
+			}
+			if(n_pw==""){
+				alert("新密码不能为空！");
+				return false;
+			}
+			if(v_code==""){
+				alert("验证码不能为空！");
+				return false;
+			}
+			$.ajax({
+				type: "POST",
+				url: "<?php echo $this->url('index/cpassword');?>",
+				data: {old_pw: o_pw, new_pw: n_pw,v_code: v_code},
+				async: false,
+				dataType: "json",
+				success: function(json){
+					if(json.code==200){
+						alert("修改成功！");
+					}else{
+						alert(json.msg);
+						err=true;
+					}
+				}
+			});
+			return !err;
+	});
+
+	$(".to_cpassword").click(function(){
+		var d = Idialog({
+			top:120,
+			width:450,
+			title:'修改密码',
+			content:$('.change_password'),
+			ok:function(obj){
+				var err=false;
+				//obj._self.find('form').submit();
+				var o_pw=obj._self.find("input[name='opassword']").val();
+				var n_pw=obj._self.find("input[name='npassword']").val();
+				var v_code=obj._self.find("input[name='verifyCode']").val();
+				if(o_pw==""){
+					Idialog.tips("原始密码不能为空！");
+					return false;
+				}
+				if(n_pw==""){
+					Idialog.tips("新密码不能为空！");
+					return false;
+				}
+				if(v_code==""){
+					Idialog.tips("验证码不能为空！");
+					return false;
+				}
+				$.ajax({
+					type: "POST",
+					url: "<?php echo $this->url('index/cpassword');?>",
+					data: {old_pw: o_pw, new_pw: n_pw,v_code: v_code},
+					async: false,
+					dataType: "json",
+					success: function(json){
+						if(json.code==200){
+							Idialog.tips("修改成功！");
+						}else{
+							Idialog.tips(json.msg);
+							err=true;
+						}
+					}
+				});
+				return !err;
+			},
+		});
+	});
+
+
+
+});
+</script>
+
