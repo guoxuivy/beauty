@@ -7,7 +7,81 @@ use Ivy\core\CComponent;
  * 数据列value构造说明:
  * 'value'=>array('{$model->getType($data["type"])}','model'=>$model),可传入依赖变量 ｛内容为php解析｝
  * 'value'=>"{\In::model()->getType($data["type"])}"
- *
+
+<!-- BEGIN EXAMPLE TABLE PORTLET-->
+					<div class="portlet box green-haze">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-globe"></i>Show/Hide Columns
+							</div>
+							<div class="actions">
+								<div class="btn-group">
+									<a class="btn default" href="#" data-toggle="dropdown">
+									Columns <i class="fa fa-angle-down"></i>
+									</a>
+									<div id="sample_4_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
+										<label><input type="checkbox" checked data-column="0">Rendering engine</label>
+										<label><input type="checkbox" checked data-column="1">Browser</label>
+										<label><input type="checkbox" checked data-column="2">Platform(s)</label>
+										<label><input type="checkbox" checked data-column="3">Engine version</label>
+										<label><input type="checkbox" checked data-column="4">CSS grade</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<table class="table table-striped table-bordered table-hover" id="sample_4">
+							<thead>
+							<tr>
+								<th class="table-checkbox">
+									<input type="checkbox" class="group-checkable" data-set="#sample_4 .checkboxes"/>
+								</th>
+								<th>
+									 Rendering engine
+								</th>
+								<th>
+									 Browser
+								</th>
+								<th class="hidden-xs">
+									 Platform(s)
+								</th>
+								<th class="hidden-xs">
+									 Engine version
+								</th>
+								<th class="hidden-xs">
+									 CSS grade
+								</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td>
+									<input type="checkbox" class="checkboxes" value="0"/>
+								</td>
+								<td>
+									 Presto
+								</td>
+								<td>
+									 Nintendo DS browser
+								</td>
+								<td>
+									 Nintendo DS
+								</td>
+								<td>
+									 8.5
+								</td>
+								<td>
+									 C/A<sup>1</sup>
+								</td>
+							</tr>
+							</tbody>
+							</table>
+						</div>
+					</div>
+					<!-- END EXAMPLE TABLE PORTLET-->
+
+
+
  */
 class GridView extends CComponent
 {
@@ -17,6 +91,10 @@ class GridView extends CComponent
 	public $list=null;
 	public $columns=null;
 	private static $_counter=0;
+
+
+
+
 
 	public static function run($conf,&$template){
 
@@ -39,30 +117,76 @@ class GridView extends CComponent
 	}
 	
 	public function _init(){
-		$lastFloat= ($this->conf['lastFloat']===false)?'false':'true'; //默认开启
-		$str = "
-			<!--table_table-->	
-			<div id='".$this->conf['id']."' class='table_table table_container'>
-			<!--<div class='table_title_tj'>...</div>-->
-			
-			<div class='table_hiddle'>
-			<table width='100%' cellspacing='0' cellpadding='0' border='0' last-float='".$lastFloat."'>";
+
+		$str = "<!--portlet-table-->	
+			<div id='".$this->conf['id']."' class='portlet box green-haze portlet-table'>";
+		$str .=	$this->portletTitle();
+
+		$str .=	"<div class='portlet-body'><table class='table table-striped table-bordered table-hover'>";
 		$str .= "<thead>";
 		$str .=		$this->buildHeader();
-
+		
+		$str .= "</thead>";
+		$str .= "<thead class='table_search none'>";
 		$str .=		$this->buildSearch();
 		$str .= "</thead>";
+
+
 		$str .= "<tbody>";
 		$str .=		$this->buildRow();
 		$str .= "</tbody>";
-		$str .= "
-			</table>
-			</div><!--table_hiddle!end-->
-			".$this->pager."</div><!--table_table!end-->";
+		$str .= "</table>
+			".$this->pager."</div></div><!--portlet-table!end-->";
 		
 		echo  $str;
 	}
 
+/**
+<div class="portlet-title">
+	<div class="caption">
+		<i class="fa fa-globe"></i>Show/Hide Columns
+	</div>
+	<div class="actions">
+		<div class="btn-group">
+			<a class="btn default" href="#" data-toggle="dropdown">
+			Columns <i class="fa fa-angle-down"></i>
+			</a>
+			<div id="sample_4_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
+				<label><input type="checkbox" checked data-column="0">Rendering engine</label>
+				<label><input type="checkbox" checked data-column="1">Browser</label>
+				<label><input type="checkbox" checked data-column="2">Platform(s)</label>
+				<label><input type="checkbox" checked data-column="3">Engine version</label>
+				<label><input type="checkbox" checked data-column="4">CSS grade</label>
+			</div>
+		</div>
+	</div>
+</div>
+ */
+	public function portletTitle(){
+		$opt = "";
+		foreach ($this->columns as $key => $col) {
+				$col = $col['header'];
+				$opt.='<label><input type="checkbox" checked data-column="'.$key.'">'.$col.'</label>';
+		}
+
+		$html='<div class="portlet-title">
+			<div class="caption">
+				<i class="fa fa-globe"></i>数据列表
+			</div>
+			<div class="actions">
+				<a href="javascript:;" class="btn btn-default btn-sm table-search"><i class="fa fa-search"></i> 筛选 </a>
+				<div class="btn-group">
+					<a class="btn default" href="#" data-toggle="dropdown">
+					列隐藏 <i class="fa fa-angle-down"></i>
+					</a>
+					<div class="dropdown-menu hold-on-click dropdown-checkboxes pull-right column_toggler">
+						'.$opt.'
+					</div>
+				</div>
+			</div>
+		</div>';
+		return $html;
+	}
 	/**
 	 * 构造表头
 	 * @return [type] [description]
@@ -70,9 +194,10 @@ class GridView extends CComponent
 	public function buildHeader(){
 		$str_check="";
 		if(isset($this->conf['check'])){
-			$str_check="<th class='table_check'><input type='checkbox'></th>";
+			$str_check="<th class='table_check table-checkbox'><input type='checkbox' class='group-checkable' data-set='#".$this->conf['id']." table .checkboxes'></th>";
 		}
-		$str  =	"<tr class='table_title'>".$str_check;
+	
+		$str  =	"<tr>".$str_check;
 			foreach ($this->columns as $key => $col) {
 				$style = isset($col['headerCss'])?$style=" style='".$col['headerCss']."'":"";
 				$str.="<th {$style}>{$col['header']}</th>";
@@ -109,18 +234,8 @@ class GridView extends CComponent
 			}
 		}
 		if($li&&$has_search){
-			if ($this->conf['search']===true){
-				@setcookie('show_search','true'); //强制打开
-				$str=  '<tr class="table_search" style="display:table-row;">';
-			}elseif($this->conf['search']===false){
-				@setcookie('show_search','false'); //强制打开
-				$str=  $str=  '<tr class="table_search" style="display:none;">';
-			}else{
-				$str=  '<tr class="table_search">';
-			}
-			
+			$str=  '<tr>';
 			$str.=	implode("",$li);
-						
 			$str.= '</tr>';
 			return $str;
 		}
@@ -136,7 +251,7 @@ class GridView extends CComponent
 		foreach ($this->list as $key=>$data){
 			$str .=   "<tr class='table_list '>";
 					if(isset($this->conf['check'])){
-						$str.="<td><input value='".$data[$this->conf['check']]."' name='table_check' type='checkbox' /></td>";
+						$str.="<td><input value='".$data[$this->conf['check']]."' name='table_check' type='checkbox' class='checkboxes' /></td>";
 					}
 					foreach ($this->columns as $col) {
 						$str.=$this->buildDataCell($data,$col);
@@ -217,22 +332,22 @@ class GridView extends CComponent
 	public function getButton($case,$data,$col){
 		switch ($case) {
 			case 'view':
-				$str='<a class="view khca" href="javascript:;"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看</a>';
+				$str='<a class="btn default btn-xs green-stripe view" href="javascript:;">查看</a>';
 				break;
 			case 'view+':
-				$str='<a href="'.$this->url('view',array($col['rel']=>$data[$col['rel']])).'" class="view khca"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看</a>';
+				$str='<a href="'.$this->url('view',array($col['rel']=>$data[$col['rel']])).'" class="btn default btn-xs green-stripe view">查看</a>';
 				break;
 			case 'edit':
-				$str='<a class="edit khca" href="javascript:;"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看</a>';
+				$str='<a class="btn default btn-xs blue-stripe" href="javascript:; edit">编辑</a>';
 				break;
 			case 'edit+':
-				$str='<a href="'.$this->url('edit',array($col['rel']=>$data[$col['rel']])).'" class="view khca"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看</a>';
+				$str='<a href="'.$this->url('edit',array($col['rel']=>$data[$col['rel']])).'" class="btn default btn-xs blue-stripe edit">编辑</a>';
 				break;
 			case 'delete':
-				$str='<a class="delete" href="javascript:;">删除</a>';
+				$str='<a class="btn default btn-xs red-stripe delete" href="javascript:;">删除</a>';
 				break;
 			case 'delete+':
-				$str='<a href="'.$this->url('delete',array($col['rel']=>$data[$col['rel']])).'" class="delete">删除</a>';
+				$str='<a href="'.$this->url('delete',array($col['rel']=>$data[$col['rel']])).'" class="btn default btn-xs red-stripe delete">删除</a>';
 				break;
 			case 'change':
 				$str='<a class="edit" href="javascript:;">启用</a>';

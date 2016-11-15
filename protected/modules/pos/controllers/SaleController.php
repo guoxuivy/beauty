@@ -11,7 +11,7 @@ class SaleController extends BaseController
 	 * @param [type] $id [description]
 	 */
 	public function indexAction(){
-		$timeType=isset($_GET['stime'])?$_GET['stime']:"1";
+		$timeType=isset($_GET['stime'])?$_GET['stime']:"4";
 		$stime = $this->sTime($timeType);
 		if($stime){
 			$map['t.create_time']	= 	array(array('gt',$stime['begin']),array('lt',$stime['end']));

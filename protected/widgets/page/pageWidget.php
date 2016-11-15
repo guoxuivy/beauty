@@ -20,34 +20,29 @@ class PageWidget extends Widget
         if((!is_array($data)) || (empty($tag))) throw new CException(500,'分页无效参数！');
         $g_row=@(int)$_GET['row'];
         $data=$data['data']['pagener'];
-        $str='<div class="fjgl_th_for clear">';
+        $str='<div class="row">';
+
+        $str.='<div class="col-sm-12">';
             if ($data['pageNums']>1) {
-                if ($data['currentPage']!=1) {
-                    $str.="<a href=\"".$this->getCUrl($tag,$data['currentPage']-1)."\" class=\"syy\">上一页</a>";
-                }
+
+                $str.='<span style="padding: 8px 12px;display:inline-block">共 '.$data['recordsTotal'].' 条</span><div class="dataTables_paginate paging_simple_numbers"><ul class="pagination">';
+
+                $str.='<li class="paginate_button previous " aria-controls="sample_1" tabindex="0" id="sample_1_previous"><a href="'.$this->getCUrl($tag,$data['currentPage']-1).'"><i class="fa fa-angle-left"></i></a></li>';
+                
                 foreach ($data['linkList'] as $key => $value) {
-                    $str.="<a href=\"".$this->getCUrl($tag,$value)."\" ".($data['currentPage']==$value?'class="fenye"':'').">{$value}</a>";
+                    $str.='<li class="paginate_button '.($data['currentPage']==$value?'active':'').'" aria-controls="sample_1" tabindex="0"><a href="'.$this->getCUrl($tag,$value).'">'.$value.'</a></li>';
                 }
                 if (end($data['linkList'])<$data['pageNums']) {
-                    $str.='<a href="javascript:">...</a>';
-                    $str.='<a href="'.$this->getCUrl($tag,$data['pageNums']).'">'.$data['pageNums'].'</a>';
+                    $str.='<li class="paginate_button " aria-controls="sample_1" tabindex="0"><a href="javascript:;">...</a></li>';
+                    $str.='<li class="paginate_button " aria-controls="sample_1" tabindex="0"><a href="'.$this->getCUrl($tag,$data['pageNums']).'">'.$data['pageNums'].'</a></li>';
                 }
                 if ($data['pageNums']>$data['currentPage']) {
-                    $str.='<a href="'.$this->getCUrl($tag,$data['currentPage']+1).'" class="syy">下一页</a>';
+                    $str.='<li class="paginate_button next" aria-controls="sample_1" tabindex="0" id="sample_1_next"><a href="'.$this->getCUrl($tag,$data['currentPage']+1).'"><i class="fa fa-angle-right"></i></a></li>';
                 }
-                 $str.='<span style=" margin-left:10px;">共&nbsp;'.$data['pageNums'].'&nbsp;页&nbsp;&nbsp;到第</span>
-                 <input name="topage" class="js_topage" type="text">页
-                 <a href="javascript:" class="syy012 js_go" tag="'.$tag.'">GO</a> &nbsp;&nbsp;&nbsp;';
+                $str.='</ul></div>';
             }
-        $str.='每页显示
-                 <select class="syy013 js_row">
-                 <option '.($g_row==20?'selected="selected"':'').' value=20>20</option>
-                 <option '.($g_row==40?'selected="selected"':'').' value=40>40</option>
-                 <option '.($g_row==60?'selected="selected"':'').' value=60>60</option>
-                 <option '.($g_row==80?'selected="selected"':'').' value=80>80</option>
-                 </select>&nbsp;条
-                 <span style="margin-left: 20px;">共 '.$data['recordsTotal'].' 条</span>
-                 </div>';
+            $str.='</div></div>';
+
         return $str;
     }
 

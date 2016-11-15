@@ -3194,3 +3194,219 @@ in E:\xampp\htdocs\beauty\protected\components\zii\GridView.php (136)
 2016/11/14 18:40:06 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
 2016/11/14 18:40:06 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
 2016/11/14 18:40:06 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 10:22:04 [warning] [application] [system-level-2] [Division by zero] file:D:\xampp\htdocs\beauty\protected\modules\boss\views\index\index.phtml->line:57
+2016/11/15 10:22:04 [warning] [application] [system-level-2] [Division by zero] file:D:\xampp\htdocs\beauty\protected\modules\boss\views\index\index.phtml->line:71
+2016/11/15 10:22:32 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 10:22:32 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 10:22:32 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:136
+2016/11/15 10:22:32 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 12:02:05 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 12:02:05 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 12:02:05 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:136
+2016/11/15 12:02:05 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 12:02:08 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 12:02:08 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 12:02:08 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:136
+2016/11/15 12:02:08 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 12:02:10 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 12:02:10 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 12:02:10 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:136
+2016/11/15 12:02:10 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 12:02:11 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 12:02:11 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 12:02:11 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:136
+2016/11/15 12:02:11 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 12:02:16 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 12:02:16 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 12:02:16 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:136
+2016/11/15 12:02:16 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 12:02:16 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 12:02:16 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 12:02:16 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:136
+2016/11/15 12:02:16 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:21:15 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 14:21:16 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 14:21:16 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:257
+2016/11/15 14:21:16 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:22:03 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/15 14:22:03 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/15 14:22:03 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/15 14:22:03 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/15 14:22:03 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/15 14:22:03 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/15 14:22:03 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/15 14:22:03 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:22:07 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/15 14:22:07 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/15 14:22:07 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/15 14:22:07 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/15 14:22:07 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/15 14:22:07 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/15 14:22:07 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/11/15 14:22:07 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:24:08 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 14:24:08 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 14:24:08 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:257
+2016/11/15 14:24:08 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:25:18 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 14:25:18 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 14:25:18 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:257
+2016/11/15 14:25:18 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:25:19 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 14:25:19 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 14:25:19 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:257
+2016/11/15 14:25:19 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:25:54 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:35:06 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:35:08 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:36:17 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:36:29 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:38:32 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:39:11 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:40:38 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:41:00 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:42:50 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:43:36 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:43:54 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:46:34 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:47:21 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:47:35 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:49:32 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:53:42 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 14:59:05 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:00:33 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:00:51 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:02:09 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:02:14 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:02:21 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:03:02 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:03:28 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:03:29 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:04:30 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:04:31 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:04:39 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:14:57 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:15:04 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:18:04 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:19:50 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:19:55 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:19:57 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:19:58 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:20:00 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:20:01 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:20:11 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:20:13 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:24:08 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:24:12 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:24:14 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:24:15 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:24:17 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:24:56 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:32:13 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:32:22 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\modules\pos\models\SaleModel.php->line:353
+2016/11/15 15:32:22 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\modules\pos\models\SaleModel.php->line:353
+2016/11/15 15:32:22 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\modules\pos\views\base\gift.phtml->line:8
+2016/11/15 15:32:22 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\SaleNoticeInfo.php->line:98
+2016/11/15 15:32:22 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:32:32 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:33:14 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:33:19 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:37:45 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:39:14 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:39:15 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:40:29 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:40:35 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:41:12 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:41:21 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:41:46 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:41:49 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:41:53 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:42:02 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:42:04 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:44:48 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:44:52 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:44:57 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:45:05 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 15:48:50 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:03:26 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:04:11 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:06:02 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:07:14 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:08:03 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:08:06 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:08:11 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:08:36 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:10:20 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:10:57 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:11:18 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:14:00 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:15:01 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:16:17 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:16:26 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:16:58 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:19:15 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:20:15 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:20:53 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:21:05 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:21:30 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:21:57 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:22:02 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:22:05 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:22:07 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:22:09 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:22:42 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:22:58 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:23:58 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:24:00 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:24:02 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:24:08 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:26:07 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:26:30 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:26:54 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:27:01 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 16:27:05 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 18:57:45 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 18:57:49 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 18:57:51 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 18:57:52 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 18:57:53 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 18:57:54 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 18:57:55 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 18:57:56 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 18:57:57 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 18:58:01 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 18:58:03 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 18:58:04 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 18:58:15 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 19:20:03 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 19:20:04 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 19:20:52 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 19:20:59 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 19:22:22 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 19:22:33 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:251
+2016/11/15 19:22:33 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 19:22:42 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:251
+2016/11/15 19:22:42 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 19:22:48 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 19:22:55 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 19:23:08 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 19:23:19 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 19:24:01 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 19:26:01 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 19:26:01 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 19:26:01 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:251
+2016/11/15 19:26:01 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 19:26:03 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 19:26:04 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 19:26:04 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 19:26:04 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:251
+2016/11/15 19:26:04 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 19:26:07 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 19:26:07 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 19:26:07 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:251
+2016/11/15 19:26:07 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 19:26:08 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 19:26:08 [warning] [application] [system-level-2] [strtoupper() expects parameter 1 to be string, array given] file:D:\xampp\htdocs\beauty\framework\db\AbsoluteDB.php->line:352
+2016/11/15 19:26:08 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\components\zii\GridView.php->line:251
+2016/11/15 19:26:08 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/15 19:26:09 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43

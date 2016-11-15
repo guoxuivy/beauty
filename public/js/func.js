@@ -190,7 +190,7 @@ function to_url(url){
     window.location.href=url;
 }
 
-//table 封装
+//table 查询 封装
 $(function(){
     if($.cookie('show_search')=='true'){
         $('.table_search').show();
