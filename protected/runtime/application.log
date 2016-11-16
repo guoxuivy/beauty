@@ -4782,3 +4782,13 @@ in E:\xampp\htdocs\beauty\protected\components\zii\GridView.php (136)
 2016/11/16 17:33:19 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
 2016/11/16 17:33:19 [warning] [application] [system-level-2] [Division by zero] file:D:\xampp\htdocs\beauty\protected\modules\boss\views\index\index.phtml->line:57
 2016/11/16 17:33:19 [warning] [application] [system-level-2] [Division by zero] file:D:\xampp\htdocs\beauty\protected\modules\boss\views\index\index.phtml->line:71
+2016/11/16 17:35:07 [warning] [application] [system-level-2] [in_array() expects parameter 2 to be array, null given] file:D:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml->line:61
+2016/11/16 17:35:07 [warning] [application] [system-level-2] [in_array() expects parameter 2 to be array, null given] file:D:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml->line:61
+2016/11/16 17:35:07 [warning] [application] [system-level-2] [in_array() expects parameter 2 to be array, null given] file:D:\xampp\htdocs\beauty\protected\widgets\common\view\selectcustomer.phtml->line:61
+2016/11/16 17:35:07 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/16 17:35:08 [warning] [application] [system-level-2] [Division by zero] file:D:\xampp\htdocs\beauty\protected\modules\boss\views\index\index.phtml->line:57
+2016/11/16 17:35:08 [warning] [application] [system-level-2] [Division by zero] file:D:\xampp\htdocs\beauty\protected\modules\boss\views\index\index.phtml->line:71
+2016/11/16 17:35:14 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\SaleNoticeInfo.php->line:98
+2016/11/16 17:35:14 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/11/16 17:35:15 [warning] [application] [system-level-2] [Division by zero] file:D:\xampp\htdocs\beauty\protected\modules\boss\views\index\index.phtml->line:57
+2016/11/16 17:35:15 [warning] [application] [system-level-2] [Division by zero] file:D:\xampp\htdocs\beauty\protected\modules\boss\views\index\index.phtml->line:71
