@@ -1,94 +1,203 @@
-<style type="text/css">
-.list_right span{height:26px; line-height:26px; padding:0 10px 0 10px; margin-right:15px; display:inline-block;cursor: pointer;}
-/*.pos_hover{border: 1px solid #87D7B6!important;background-color: #F1FFF9}
-.pos_bg{background-color: #1BAB70;border: 1px solid #008A45!important;}
-.pos_bg a{color:#fff!important;}*/
-.rh{height: 30px;line-height: 30px}
-.rh input{width: auto;margin-left: 10px}
-.cu_level{height: 30px;line-height: 30px}
-.all_search{display: none}
-.ch_cu .on{background-color:#090; color:#fff;}
-.ch_cu .off{background-color:#eee; color:#666;}
-.all_search{display: none;}
-</style>
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">POS开单</div>
-	<div class="page">
-		<div class="pos_list">
-			<ul>
-				<li class="pos_gm_bj"><a href="javascript:;">购买项目/产品/卡券</a></li>
-				<li class="pos_cz_bj"><a href="javascript:;">充值</a></li>
-				<li class="pos_hk_bj"><a href="javascript:;">还款</a></li>
-				<li class="pos_sc_bj"><a href="javascript:;">实操单</a></li>
-				<!-- <li class="pos_zc_bj"><a href="javascript:;">赠送</a></li> -->
-				<li class="pos_dh_bj"><a href="javascript:;">兑换</a></li>
-				<li class="pos_tui_bj"><a href="javascript:;">退款/退卡/退项/退产品</a></li>
-				<!-- <li class="pos_kkzz_bj"><a href="javascript:;">卡卡转账</a></li> -->
-				<div class="clear"></div>
-			</ul>
-		<div style="font-size:18px; font-family:'微软雅黑'; display:block; padding-top:10px; padding-bottom:10px;">客户服务</div>
-			<ul>
-				<li class="pos_jc_bj"><a href="javascript:;">寄存领取</a></li>
-				<li class="pos_rh_bj"><a href="javascript:;">客户入会</a></li>
-				<li class="pos_dj_bj"><a href="javascript:;">会员等级升级</a></li>
-				<li class="pos_zc_bj"><a href="<?php $company_info=\Ivy::app()->user->getState('company_info');echo $company_info['has_invo']!='Y'?$this->url('noinvo/recipients/edit'):$this->url('invo/out/edit',array('type'=>2)) ?>">新建领用单</a></li>
-            </ul>
+
+<h3 class="bold font-green-haze">POS开单</h3>
+<div class="tiles">
+
+	<div class="pos_gm_bj tile bg-green double ">
+		<div class="tile-body">
+			<i class="fa fa-shopping-cart"></i>
+		</div>
+		<div class="tile-object">
+			<div class="name">
+				 购买项目/产品/卡券
+			</div>
+		</div>
+	</div>
+	<div class="tile bg-red-sunglo pos_cz_bj">
+		<div class="tile-body">
+			<i class="fa fa-credit-card"></i>
+		</div>
+		<div class="tile-object">
+			<div class="name">
+				 充值
+			</div>
+		</div>
+	</div>
+	<div class="tile bg-yellow-saffron pos_hk_bj">
+		<div class="tile-body">
+			<i class="fa fa-gbp"></i>
+		</div>
+		<div class="tile-object">
+			<div class="name">
+				 还款
+			</div>
+		</div>
+	</div>
+	<div class="tile bg-purple-studio pos_sc_bj">
+		<div class="tile-body">
+			<i class="fa fa-flask"></i>
+		</div>
+		<div class="tile-object">
+			<div class="name">
+				 实操单
+			</div>
+		</div>
+	</div>
+	<div class="tile bg-blue-hoki pos_dh_bj">
+		<div class="tile-body">
+			<i class="fa fa-random"></i>
+		</div>
+		<div class="tile-object">
+			<div class="name">
+				 兑换
+			</div>
+		</div>
+	</div>
+	<div class="tile bg-grey-cascade double pos_tui_bj">
+		<div class="tile-body">
+			<i class="fa fa-retweet"></i>
+		</div>
+		<div class="tile-object">
+			<div class="name">
+				 退款/退卡/退项/退产品
+			</div>
 		</div>
 	</div>
 </div>
-<!--content_right_con!end-->
-<!-- 客户选择弹出框 -->
-<div id="choose_cu" style="display:none;">
-	<div class="tjfj_two">
-		<div class="list">
-			<div class="list_right ch_cu">
-				<span data="md_search" class="on">本门店搜索</span><span data="all_search" class="off">全连锁搜索</span>
+
+<div class="space20"></div>
+<h3 class="bold font-blue-hoki">客户服务</h3>
+	<div class="tiles">
+
+		<div class="tile bg-yellow-saffron pos_jc_bj">
+			<div class="tile-body">
+				<i class="fa fa-briefcase"></i>
+			</div>
+			<div class="tile-object">
+				<div class="name">
+					 寄存领取
+				</div>
 			</div>
 		</div>
-		<div class="md_search list"><label>客户姓名：</label><div class="list_right"><?php echo \Ivy::app()->widget('common/selectCustomer',array('id'=>'md_s')); ?></div></div>
-		<div class="all_search list"><label>客户姓名：</label><div class="list_right"><?php echo \Ivy::app()->widget('common/selectCustomer',array('id'=>'all_s','param'=>array('dept=all'))); ?></div></div>
+		<div class="tile bg-red-sunglo pos_dj_bj">
+			<div class="tile-body">
+				<i class="fa fa-plane"></i>
+			</div>
+			<div class="tile-object">
+				<div class="name">
+					 会员等级升级
+				</div>
+			</div>
+		</div>
+		<div class="tile bg-blue-madison pos_rh_bj">
+			<div class="tile-body">
+				<i class="fa fa-user"></i>
+			</div>
+			<div class="tile-object">
+				<div class="name">
+					 客户入会
+				</div>
+			</div>
+		</div>
+		<div class="tile bg-green-meadow pos_zc_bj" data-url="<?php $company_info=\Ivy::app()->user->getState('company_info');echo $company_info['has_invo']!='Y'?$this->url('noinvo/recipients/edit'):$this->url('invo/out/edit',array('type'=>2)) ?>">
+			<div class="tile-body">
+				<i class="fa fa-laptop"></i>
+			</div>
+			<div class="tile-object">
+				<div class="name">
+					 新建领用单
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+<!-- 客户选择弹出框 -->
+<div id="choose_cu" style="display:none;">
+	<div class="form-horizontal">
+		<div class="form-group">
+			<div class="col-md-12">
+				<div class="ch_cu">
+					<button type="button" class="btn blue " data="md_search">本门店搜索</button>
+					<button type="button" class="btn " data="all_search" >全连锁搜索</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group md_search">
+			<label class="col-md-3 control-label">客户姓名：</label>
+			<div class="col-md-9">
+				<?php echo \Ivy::app()->widget('common/selectCustomer',array('id'=>'md_s')); ?>
+			</div>
+		</div>
+		<div class="form-group all_search none">
+			<label class="col-md-3 control-label">客户姓名：</label>
+			<div class="col-md-9">
+				<?php echo \Ivy::app()->widget('common/selectCustomer',array('id'=>'all_s','param'=>array('dept=all'))); ?>
+			</div>
+		</div>
 	</div>
 </div>
 
 <!-- 客户入会选择弹出框 -->
 <div id="choose_cu_rh" style="display:none;">
-	<div class="tjfj_two">
-		<div class="list">
-			<div class="list_right">
-				<span style="background-color:#090; color:#fff;">本门店搜索</span><!-- <span style="background-color:#eee; color:#666;">全连锁搜索</span> -->
+
+	<div class="form-horizontal">
+		<div class="form-group">
+			<div class="col-md-12">
+				<button type="button" class="btn blue " data="md_search">本门店搜索</button>
 			</div>
 		</div>
-		<div class="list"><label>客户姓名：</label><div class="list_right"><?php echo \Ivy::app()->widget('common/selectCustomer'); ?></div></div>
-		<div class="list"><label>消费类型：</label><div class="list_right rh">
-			<input type="radio" name="rh_type" value="sale" checked="checked" />购买
-			<input type="radio" name="rh_type" value="recharge" />充值
-		</div></div>
-<!-- 		<div class="list"><label>入会后等级：</label><div class="list_right"><select class="level">
-		<?php foreach ($mem_list as $value): ?>
-			<option value ="<?php echo $value['id'] ?>"><?php echo $value['level_name'] ?></option>
-		<?php endforeach ?>
-		</select></div></div> -->
+
+		<div class="form-group">
+			<label class="col-md-3 control-label">客户姓名：</label>
+			<div class="col-md-9">
+				<?php echo \Ivy::app()->widget('common/selectCustomer'); ?>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-md-3 control-label">消费类型：</label>
+			<div class="col-md-9 radio-list">
+				<label class="radio-inline">
+				<input type="radio" name="rh_type" id="sale" value="sale" checked> 购买 </label>
+				<label class="radio-inline">
+				<input type="radio" name="rh_type" id="recharge" value="recharge"> 充值 </label>
+			</div>
+		</div>
 	</div>
 </div>
 
 <!-- 客户会员等级升级-->
 <div id="choose_cu_dj" style="display:none;">
-	<div class="tjfj_two">
-		<div class="list">
-			<div class="list_right">
-				<span style="background-color:#090; color:#fff;">本门店搜索</span><!-- <span style="background-color:#eee; color:#666;">全连锁搜索</span> -->
+	<div class="form-horizontal">
+		<div class="form-group">
+			<div class="col-md-12">
+				<button type="button" class="btn blue " data="md_search">本门店搜索</button>
 			</div>
 		</div>
-		<div class="list"><label>客户姓名：</label><div class="list_right"><?php echo \Ivy::app()->widget('common/selectCustomer'); ?></div></div>
+		<div class="form-group">
+			<label class="col-md-3 control-label">客户姓名：</label>
+			<div class="col-md-9">
+				<?php echo \Ivy::app()->widget('common/selectCustomer'); ?>
+			</div>
+		</div>
 
-		<div class="list"><label>当前等级：</label><div class="list_right cu_level"></div></div>
+		<div class="form-group">
+			<label class="col-md-3 control-label">当前等级：</label>
+			<label class="col-md-9 control-label cu_level" style="text-align:left"></label>
+		</div>
 		
-		<div class="list"><label>新等级：</label><div class="list_right"><select class="level">
-		<?php foreach ($mem_list as $value): ?>
-			<option value ="<?php echo $value['id'] ?>"><?php echo $value['level_name'] ?></option>
-		<?php endforeach ?>
-		</select></div></div>
+		<div class="form-group">
+			<label class="col-md-3 control-label">新等级：</label>
+			<div class="col-md-9">
+				<select class="level form-control input-small">
+				<?php foreach ($mem_list as $value): ?>
+					<option value ="<?php echo $value['id'] ?>"><?php echo $value['level_name'] ?></option>
+				<?php endforeach ?>
+				</select>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -98,70 +207,59 @@ $(function(){
 	
 	//卡券兑换
 	$(".pos_dh_bj").click(function(){
-		$(".ch_cu span").eq(1).hide();
+		$(".ch_cu button").eq(1).hide();
 		to_order($(this),"<?php echo $this->url('pos/voucher/add');?>");
 	});
 	//购买流程
 	$(".pos_gm_bj").click(function(){
-		$(".ch_cu span").eq(1).hide();
+		$(".ch_cu button").eq(1).hide();
 		to_order($(this),"<?php echo $this->url('pos/sale/add');?>");
 	});
 	//充值流程
 	$(".pos_cz_bj").click(function(){
-		$(".ch_cu span").eq(1).hide();
+		$(".ch_cu button").eq(1).hide();
 		to_order($(this),"<?php echo $this->url('pos/recharge/add');?>");
 	});
 	//还款流程
 	$(".pos_hk_bj").click(function(){
-		$(".ch_cu span").eq(1).hide();
+		$(".ch_cu button").eq(1).hide();
 		to_order($(this),"<?php echo $this->url('pos/repay/add');?>");
 	});
 	//退款流程
 	$(".pos_tui_bj").click(function(){
-		$(".ch_cu span").eq(1).hide();
+		$(".ch_cu button").eq(1).hide();
 		to_order($(this),"<?php echo $this->url('pos/refund/pro');?>");
 	});
     //寄存领取流程
     $(".pos_jc_bj").click(function(){
-    	$(".ch_cu span").eq(1).hide();
+    	$(".ch_cu button").eq(1).hide();
         to_order($(this),"<?php echo $this->url('pos/receive/add');?>");
     });
     //实操单 开放跨店
     $(".pos_sc_bj").click(function(){
-    	$(".ch_cu span").eq(1).show();
+    	$(".ch_cu button").eq(1).show();
         to_order($(this),"<?php echo $this->url('pos/practice/add');?>");
         //客户搜索范围切换
-		$(".ch_cu span").off().on("click",function(){
+		$(".ch_cu button").off().on("click",function(){
 			var id = $(this).attr("data");
-			var box = $(this).closest(".tjfj_two");
+			var box = $(this).closest(".form-horizontal");
 			box.find(".md_search").hide();
 			box.find(".all_search").hide();
 			box.find("."+id).show();
-			box.find(".ch_cu span").removeClass("on").removeClass("off");
-			$(this).addClass("on");
+			box.find(".ch_cu button").removeClass("on").removeClass("blue");
+			$(this).addClass("on").addClass("blue");
 		})
     });
 
-
-    
-
-    
-	
-
 	//选择客户后跳转到业务
 	function to_order(self,url){
-		$(".idialog_title span").trigger("click");
-		var o_class=self.prop("className");
-		var a_class=o_class+"1";
-		self.addClass(a_class);
 		var d = Idialog({
-			top:150,
 			width:500,
 			title:'客户选择',
 			content:$('#choose_cu'),
 			cancel:false,
 			close:function(e){
-				self.removeClass(a_class);
+				
 			},
 			ok:function(obj){
 				var _self=obj._self;
@@ -177,12 +275,7 @@ $(function(){
 
 	//入会购买
     $(".pos_rh_bj").click(function(){
-    	$(".ch_cu span").eq(1).hide();
-		$(".idialog_title span").trigger("click");
     	var self=$(this);
-    	var o_class=self.prop("className");
-		var a_class=o_class+"1";
-		self.addClass(a_class);
 		var d = Idialog({
 			top:150,
 			width:500,
@@ -190,7 +283,6 @@ $(function(){
 			content:$('#choose_cu_rh'),
 			cancel:false,
 			close:function(e){
-				self.removeClass(a_class);
 			},
 			ok:function(obj){
 				var _self=obj._self;
@@ -204,12 +296,7 @@ $(function(){
 
     //会员等级升级
     $(".pos_dj_bj").click(function(){
-    	$(".ch_cu span").eq(1).hide();
-		$(".idialog_title span").trigger("click");
     	var self=$(this);
-    	var o_class=self.prop("className");
-		var a_class=o_class+"1";
-		self.addClass(a_class);
 		var d = Idialog({
 			top:150,
 			width:500,
@@ -217,7 +304,6 @@ $(function(){
 			content:$('#choose_cu_dj'),
 			cancel:false,
 			close:function(e){
-				self.removeClass(a_class);
 			},
 			ok:function(obj){
 				var _self=obj._self;
@@ -242,9 +328,12 @@ $(function(){
 		});
 	});
 
-	
-
-
+	$(document).on("click", "input[name=rh_type]",function(){
+		$("input[name=rh_type]").removeAttr("checked");
+		$(".radio-list span").removeClass('checked')
+		$(this).attr("checked","checked");
+		$(this).parent().addClass('checked');
+	});
 
 });
 </script>

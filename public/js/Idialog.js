@@ -22,6 +22,56 @@
 .idialog_active a{ display:inline-block; height:28px; width:80px; border:1px solid #cccccc; border-radius:5px; margin:0 5px;font-family:"微软雅黑"; font-size:12px; color:#666666; text-align:center; line-height:28px; margin-top:16px;}
 
 
+<div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">修改密码</h4>
+            </div>
+            <div class="modal-body">
+		      
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn blue save-portlet">Save changes</button>
+                <button type="button" class="btn default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- responsive -->
+<div id="responsive" class="modal fade" tabindex="-1" data-width="760">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+		<h4 class="modal-title">Responsive</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-3">
+				
+				<p>
+					<input class="form-control" type="text">
+				</p>
+			</div>
+			<div class="col-md-9">
+				<h4>Some More Input</h4>
+				<p>
+					<input class="form-control" type="text">
+				</p>
+		
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+		<button type="button" class="btn blue">Save changes</button>
+	</div>
+</div>
+<!-- stackable -->
+
+
+
 使用示例
 var d = Idialog({
 	top:100,
@@ -40,13 +90,23 @@ var d = Idialog({
  */
 (function($,win,dom,undef){
 
-	var template  = '<div class="idialog" style="display: block;">';
-		template += '	<div class="idialog_title"><font></font><span></span></div>';
-		template += '	<div class="idialog_body">';
+	// var template  = '<div class="idialog" style="display: block;">';
+	// 	template += '	<div class="idialog_title"><font></font><span></span></div>';
+	// 	template += '	<div class="idialog_body">';
+	// 	template += '		<div class="idialog_content"></div>';
+	// 	template += '		<div class="idialog_active"><a class="idialog_cancel" href="javascript:">取消</a><a href="javascript:" class="idialog_ok">确定</a></div>';
+	// 	template += '	</div>';
+	// 	template += '</div>';
+
+
+	var template  = '<div class="idialog modal fade " tabindex="-1" aria-hidden="true">';
+		template += '	<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h4 class="modal-title">Title</h4></div>';
+		template += '	<div class="idialog_body modal-body">';
 		template += '		<div class="idialog_content"></div>';
-		template += '		<div class="idialog_active"><a class="idialog_cancel" href="javascript:">取消</a><a href="javascript:" class="idialog_ok">确定</a></div>';
+		template += '		<div class="idialog_active modal-footer"><button type="button" data-dismiss="modal" class="idialog_cancel btn default">取消</button><button type="button" class="idialog_ok btn blue">确定</button></div>';
 		template += '	</div>';
 		template += '</div>';
+
 
 
 	var Idialog=function(settings){
@@ -68,7 +128,7 @@ var d = Idialog({
 	 */
 	Idialog.defaults={
 		top:200,
-		width:474,
+		width:400,
 		title:'通知',
 		content:'系统错误',
 		ok:true,
@@ -82,11 +142,16 @@ var d = Idialog({
 			var obj=this;
 			var _self=this._self;
 
-			_self.width(this.settings.width);
-			_self.css('margin-left','-'+this.settings.width/2+'px');
-			_self.css('top',this.settings.top+'px');
 
-			_self.find('.idialog_title font').html(this.settings.title);
+			_self.find('.modal-title').html(this.settings.title);
+
+			if(this.settings.width){
+				_self.attr("data-width",this.settings.width);
+			}
+
+			if(this.settings.title===false){
+				_self.find('.modal-header').remove();
+			}
 
 			if(this.settings.content instanceof $){
 				_self.find('.idialog_content').html(this.settings.content.html());
@@ -100,25 +165,15 @@ var d = Idialog({
 			if(this.settings.cancel===false){
 				_self.find('.idialog_cancel').remove();
 			}
-			
-			_self.appendTo("body");
+
+			_self.modal();
 		},
 
 		//对话框本身事件绑定
 		bind:function(){
 			var obj=this;
 			var _self=this._self;
-			//关闭
-			_self.find('.idialog_title span').click(function(){
-				obj.close();
-				//_self.remove();
-			});
-			//取消  待扩展
-			_self.find('.idialog_cancel').click(function(){
-				obj.close();
-				//_self.remove();
-			});
-
+		
 			//拖拽绑定
 			_self.find(".idialog_title").unbind("mousedown").mousedown(function(e){
 				var marginLeft = parseInt( _self.css('marginLeft') ); //margin 左偏移，奇葩css导致

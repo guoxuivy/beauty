@@ -134,15 +134,13 @@ class IndexController extends \SController
 		}
 		return $excel_data;
 	}
-	public function qrAction($id)
-	{
+	public function qrAction($id){
 		\Ivy::importExt("phpqrcode/phpqrcode");
 		$id=(int)$id;
 		$model = \CustomerInfo::model()->findByPk($id);
 		if ($model) {
 			\QRcode::png($model->company_id.','.$id);
-		}else
-		{
+		}else{
 			throw new CException("无此客户！");
 		}
 	}
@@ -175,7 +173,7 @@ class IndexController extends \SController
         	}
 			$this->ajaxReturn( 200, "", $list);
         }
-        die;
+        $this->ajaxReturn(400);
         
 	}
 

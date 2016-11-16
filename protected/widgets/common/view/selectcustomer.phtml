@@ -14,6 +14,7 @@
     min-width: 100px;
     min-height: 0px;
     overflow-y: auto;
+    padding:0;
 }
 .search_cu_id_list li{
     padding:0;
@@ -21,6 +22,7 @@
     min-height: 0px;
     line-height: 26px;
     border-left: 1px solid green;
+    list-style:none;
 }
 .search_cu_id_list_li_hover{
     background-color: #A9E1FC;
@@ -28,9 +30,9 @@
 }
 </style>
 <?php $t_k=rand();//增加随机数 避免多次绑定 ?>
-<div style="display: inline-block;">
+<div>
     <input type="hidden" name="<?php echo $name;?>"  value="<?php echo $value;?>" id="<?php echo isset($id)?$id:"search_cu_id";?>">
-    <input class="search_cu_input_<?php echo $t_k;?>  <?php echo $class;?>" type="text"  value="<?php echo $show;?>" placeholder="搜索">
+    <input class="form-control search_cu_input_<?php echo $t_k;?>  <?php echo $class;?>" type="text"  value="<?php echo $show;?>" placeholder="搜索">
     <ul class="search_cu_id_list"></ul>
 </div>
 <script type="text/javascript">

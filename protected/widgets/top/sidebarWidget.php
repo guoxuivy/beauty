@@ -16,12 +16,7 @@ class SidebarWidget extends Widget
         $dept_info = \EmployDept::model()->findByPk($user->dept_id);
         $show_user["name"] = $user->netname;
         $show_user["title"] = $dept_info->dept_name;
-
-        
-
-        $this->assign("store_info",$store_info);
-        $this->assign("user_info",$user);
-
+        \Ivy::app()->user->setState('page_bar_top',$show_user);
         switch ($user->position_id) {
             case '1'://公司总经理
                 $nav = $this->ZJLNav();
@@ -223,6 +218,9 @@ class SidebarWidget extends Widget
         //需要被点亮的URL
         $light_url = is_null($light_url)?$this->getCUrl():$light_url;
         $nav_list = array();
+
+        $page_bar = array();//面包屑导航
+
         $i=0;
         $end = end($_nav);
         foreach ($_nav as $key => $nav) {
@@ -239,7 +237,14 @@ class SidebarWidget extends Widget
             $tmp["t_icon"]   =self::icon($key);
             if(!is_array($nav)){
                 $tmp["t_url"]   =$nav;
-                $tmp["t_active"]= $t_active . ($nav==$light_url?" active open":"");
+
+                $open = "";
+                if($nav==$light_url){
+                    $open = " active open";
+                    $page_bar[]=$tmp["t_name"];
+                }
+
+                $tmp["t_active"]= $t_active . $open;
                 $tmp["child"]   =array();
         
             }else{
@@ -252,12 +257,17 @@ class SidebarWidget extends Widget
                         $t_c["active"]="active";
                         $tmp["t_active"]= $t_active . " active open";
                         $tmp["t_selected"] =true;
+
+                        $page_bar[]=$tmp["t_name"];
+                        $page_bar[]=$k_c;
+
                     }
                     $tmp["child"][]=$t_c;
                 }
             }
             $nav_list[]= $tmp;
         }
+        \Ivy::app()->user->setState('page_bar',$page_bar);
         return $this->assign(array('nav_list'=>$nav_list))->render();
     }
 
