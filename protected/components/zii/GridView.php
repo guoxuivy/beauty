@@ -117,61 +117,42 @@ class GridView extends CComponent
 	}
 	
 	public function _init(){
-
-		$str = "<!--portlet-table-->	
-			<div id='".$this->conf['id']."' class='portlet box green-haze portlet-table'>";
-		$str .=	$this->portletTitle();
-
-		$str .=	"<div class='portlet-body'><table class='table table-striped table-bordered table-hover'>";
-		$str .= "<thead>";
-		$str .=		$this->buildHeader();
-		
-		$str .= "</thead>";
-		$str .= "<thead class='table_search none'>";
-		$str .=		$this->buildSearch();
-		$str .= "</thead>";
-
-
-		$str .= "<tbody>";
-		$str .=		$this->buildRow();
-		$str .= "</tbody>";
-		$str .= "</table>
-			".$this->pager."</div></div><!--portlet-table!end-->";
-		
+		$css_arr=array("blue-hoki","green-haze","blue-madison","red-intense","yellow","purple","blue","green");
+		$css_k = array_rand($css_arr,1);
+		if($this->conf['search']){
+			$portlet_css = "box ".$css_arr[$css_k];
+			$portlet_title = $this->portletTitle();
+			$search_thead = "<thead class='table_search none'>".$this->buildSearch()."</thead>";
+		}
+		$str = "<div id='".$this->conf['id']."' class='portlet portlet-table ".$portlet_css." '>";
+			$str .=	$portlet_title;
+			$str .= "<div class='portlet-body'>";
+			$str .=	"<table class='table table-striped table-bordered table-hover'>";
+				$str .= "<thead>";
+				$str .=	$this->buildHeader();
+				$str .= "</thead>";
+				$str .=	$search_thead;
+				$str .= "<tbody>";
+				$str .=	$this->buildRow();
+				$str .= "</tbody>";
+			$str .= "</table>";
+			$str .= $this->pager;
+			$str .= "</div>";
+		$str .= "</div>";
 		echo  $str;
 	}
 
-/**
-<div class="portlet-title">
-	<div class="caption">
-		<i class="fa fa-globe"></i>Show/Hide Columns
-	</div>
-	<div class="actions">
-		<div class="btn-group">
-			<a class="btn default" href="#" data-toggle="dropdown">
-			Columns <i class="fa fa-angle-down"></i>
-			</a>
-			<div id="sample_4_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
-				<label><input type="checkbox" checked data-column="0">Rendering engine</label>
-				<label><input type="checkbox" checked data-column="1">Browser</label>
-				<label><input type="checkbox" checked data-column="2">Platform(s)</label>
-				<label><input type="checkbox" checked data-column="3">Engine version</label>
-				<label><input type="checkbox" checked data-column="4">CSS grade</label>
-			</div>
-		</div>
-	</div>
-</div>
- */
 	public function portletTitle(){
 		$opt = "";
 		foreach ($this->columns as $key => $col) {
 				$col = $col['header'];
 				$opt.='<label><input type="checkbox" checked data-column="'.$key.'">'.$col.'</label>';
 		}
+		$table_title = $this->conf['title']?$this->conf['title']:"数据列表";
 
 		$html='<div class="portlet-title">
 			<div class="caption">
-				<i class="fa fa-globe"></i>数据列表
+				<i class="fa fa-globe"></i>'.$table_title.'
 			</div>
 			<div class="actions">
 				<a href="javascript:;" class="btn btn-default btn-sm table-search"><i class="fa fa-search"></i> 筛选 </a>

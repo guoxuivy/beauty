@@ -1,157 +1,203 @@
 <?php
 $themePath = $this->basePath ( 'public' );
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>meihui连锁管控平台-登录</title>
-<link href="<?php echo $this->basePath('public'); ?>/css/login.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/jquery.min.js"></script>
-<link href="<?php echo $this->basePath('public/js/Validform/Validform_style.css'); ?>" rel="stylesheet">
-<script type="text/javascript" src="<?php echo $this->basePath('public/js/Validform/Validform_v5.3.2_min.js'); ?>"></script>
-
-<!--
-<script id="adLayer" type="text/javascript" src="<?php echo $this->basePath('public/js/King_Chance_Layer.js');?>" data="<?php echo $themePath;?>"></script>
--->
-<style type="text/css">
-	#loading {
-		position:fixed;
-		left:0;
-		width:100%;
-		height:100%;
-		top:0;
-		background:rgb(0, 0, 0);
-		opacity:0.5;
-		filter:alpha(opacity=50);
-	}
-	#loading div{
-		position:absolute;  cursor1:wait;left:50%;top:50%;width:auto;height:16px;padding:13px 22px 28px 30px;background: url(<?php echo $this->basePath('public');?>/images/loading.gif) no-repeat scroll 5px 10px;text-indent: -99999px;color:#000;
-	}
-</style>
+<meta charset="utf-8"/>
+<title>美慧连锁管控平台-登录</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="" name="description"/>
+<meta content="" name="author"/>
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN PAGE LEVEL STYLES -->
+<link href="<?php echo $this->basePath('public/M');?>/global/plugins/select2/select2.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/admin/pages/css/login-soft.css" rel="stylesheet" type="text/css"/>
+<!-- END PAGE LEVEL SCRIPTS -->
+<!-- BEGIN THEME STYLES -->
+<link href="<?php echo $this->basePath('public/M');?>/global/css/components.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+<link id="style_color" href="<?php echo $this->basePath('public/M');?>/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico"/>
 </head>
-<body>
-	<div class="top">
-		<div class="top_center">
-			<span
-				id="go_back_home" style="float: right; background-color: #fff; border: solid 1px #ddd; display: inline-block; line-height: 25px; height: 25px; padding-left: 15px; padding-right: 15px; color: #666; font-size: 12px; margin-top: 25px; cursor: pointer;">返回首页</span>
-			<div class="logo">
-				<img src="<?php echo $themePath; ?>/images/meihui_logo.png" width="170" height="42" />
-			</div>
-			<span class="logo_span">登录</span>
-		</div>
-	</div>
-	<!-- <div class="advertising">
-		<div class="advertising_page">
-			<a href="###"><img src="<?php echo $themePath; ?>/images/top.jpg"></a><br><br>
-		</div>
-	</div> -->
-	<div class="denglu_body"> 
-		<div class="login_page">
-			<div class="login_page_main">
-				<form action="" method="post">
-				<div class="login_page_left">
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
 
-					<!-- <div class="login_page_left_tit">
-						<span class="login_mei">美容院登录</span>
-						<span class="login_gong"><a href="<?php echo \Ivy::app()->C('supplier_url'); ?>index.php?r=index/login" style="color:#999;text-decoration: none;">供应商登录</a></span>
-					</div> -->
-
-					<div class="login_list">
-						<input 
-						<?php if ($_GET['sys']): ?>
-							datatype="*"
-						<?php else: ?>
-							datatype="m"
-						<?php endif ?> 
-						name="user_name" type="text" class="input_login" placeholder="账户(手机号)" />
-					</div>
-					<div class="login_list">
-						<input datatype="*" name="password" type="password" class="input_login" placeholder="密码" />
-					</div>
-					<div class="login_list">
-						<input datatype="*" name="verifyCode" type="text" class="input_login" placeholder="请输入4位验证码" style="width: 150px; float: left; margin-right: 10px;" />
-							<span class="login_img">
-								<img src="<?php echo $this->url('verify'); ?>" width="111" height="48" />
-							</span> 
-							<span style="float: left; font-size: 12px; line-height: 26px;">看不清<br />
-							<a href="javascript:changeVerify();" class="blue">换一张</a></span>
-						<div class="clear"></div>
-					</div>
-					<div class="login_list">
-						<span class="login_jizhu">
-							<input name="remember_me" type="checkbox" value="1" />
-							记住密码
-						</span>
-						<a href="<?php echo $this->url('forgetpw1'); ?>" class="forget_password">找回密码</a>
-						<a href="<?php echo $this->url('register0'); ?>" class="forget_password">注册试用</a>
-					</div>
-					<div>
-						<a style="text-decoration:none;" href="javascript:;">
-							<input type="submit" class="login_button" value="登 录" />
-						</a>
-					</div>
-				</div>
-				</form>
-				<!-- <div class="login_page_right">
-					<a href="<?php echo $this->url('register0'); ?>" class="login_page_right_a">注册试用</a><br/>
-					<div style="font-size: 12px; padding-top: 30px; padding-left: 30px;">安卓移动端下载</div>
-					<div style="line-height: 30px; padding-left: 30px; font-size: 12px;">
-						<a href="#" class="plat_color" style="margin-right: 30px;">手机APP下载</a><a
-							href="#" class="plat_color">平板APP下载</a>
-					</div>
-				</div> -->
-				<div class="clear"></div>
+<body class="login">
+<!-- BEGIN LOGO -->
+<div class="logo">
+	<a href="javascript:">
+	<img src="<?php echo $this->basePath('public/M');?>/admin/layout/img/logo-big.png" alt=""/>
+	</a>
+</div>
+<!-- END LOGO -->
+<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+<div class="menu-toggler sidebar-toggler">
+</div>
+<!-- END SIDEBAR TOGGLER BUTTON -->
+<!-- BEGIN LOGIN -->
+<div class="content">
+	<!-- BEGIN LOGIN FORM -->
+	<form class="login-form" action="<?php echo $this->url('login');?>" method="post" >
+		<h3 class="form-title">Login to your account</h3>
+		<div class="alert alert-danger display-hide"  id="err_box">
+			<button class="close" data-close="alert"></button>
+			<span>请输入用户名和密码！ </span>
+		</div>
+		<div class="form-group">
+			<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+			<label class="control-label visible-ie8 visible-ie9">账户(手机号)</label>
+			<div class="input-icon">
+				<i class="fa fa-user"></i>
+				<input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="账户(手机号)" name="user_name"/>
 			</div>
 		</div>
-	</div>
+		<div class="form-group">
+			<label class="control-label visible-ie8 visible-ie9">密码</label>
+			<div class="input-icon">
+				<i class="fa fa-lock"></i>
+				<input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" name="password"/>
+			</div>
+		</div>
+		<div class="input-group form-group">
+			<div class="input-icon">
+				<i class="fa fa-bell-o"></i>
+				<input type="password" class="form-control" name="verifyCode" placeholder="验证码">
+			</div>
+			<span class="input-group-addon" style="padding:0px;cursor:pointer">
+				<img class="verify_img" src="<?php echo $this->url('verify'); ?>" width="100px" height="32px" />
+			</span>
+		</div>
+		<div class="form-actions" style="padding-bottom:0px;">
+			<label class="checkbox">
+			<input type="checkbox" name="remember_me" value="1"/> 记住密码 </label>
+			<button id="submit" type="submit" class="btn blue pull-right">
+			登录 <i class="m-icon-swapright m-icon-white"></i>
+			</button>
+		</div>
+
+		<div class="forget-password">
+			<h4>忘记了密码 ?</h4>
+			<p>
+				不要着急, 点击 <a href="<?php echo $this->url('forgetpw1'); ?>" id="forget-password">
+				此处 </a>
+				找回密码。
+			</p>
+		</div>
+		<div class="create-account">
+			<p>
+				还没有帐号 ?&nbsp; <a href="<?php echo $this->url('register0'); ?>" id="register-btn">
+				马上注册 </a>
+			</p>
+		</div>
+	</form>
+	<!-- END LOGIN FORM -->
 	
+</div>
+<!-- END LOGIN -->
+<!-- BEGIN COPYRIGHT -->
+<div class="copyright">
+	 2016 &copy; MH - 连锁管控系统.
+</div>
+<!-- END COPYRIGHT -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/respond.min.js"></script>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/excanvas.min.js"></script> 
+<![endif]-->
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/global/plugins/backstretch/jquery.backstretch.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="<?php echo $this->basePath('public/M');?>/global/plugins/select2/select2.min.js"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="<?php echo $this->basePath('public/M');?>/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath('public/M');?>/admin/pages/scripts/login-soft.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script>
+jQuery(document).ready(function() {     
+Metronic.init(); // init metronic core components
+Layout.init(); // init current layout
+QuickSidebar.init(); // init quick sidebar
+Demo.init(); // init demo features
+Login.init();
+       // init background slide images
+       $.backstretch([
+        "<?php echo $this->basePath('public/M');?>/admin/pages/media/bg/1.jpg",
+        "<?php echo $this->basePath('public/M');?>/admin/pages/media/bg/2.jpg",
+        "<?php echo $this->basePath('public/M');?>/admin/pages/media/bg/3.jpg",
+        "<?php echo $this->basePath('public/M');?>/admin/pages/media/bg/4.jpg"
+        ], {
+          fade: 1000,
+          duration: 8000
+    	});
 
-	<div class="footer" style="background-color:#666;">
-		<div class="footer_center">© Copyright 2011-2016 武汉美慧商业技术有限公司 鄂ICP备14003221号</div>
-	</div>
-<script type="text/javascript">
-$('#go_back_home').click(function() {
-	var url = 'http://www.etwasd.com';
-	window.location.href = url;
-});
+	$(".verify_img").click(function(event) {
+		var timestamp=new Date().getTime();
+		var url = "<?php echo $this->url('verify'); ?>";
+		url += '&timestamp=' + timestamp;
+		$(this).attr('src', url);
+	});
 
-//提交前验证
-$('form').Validform({
-	tiptype:3,
-	ignoreHidden:true,
-	beforeSubmit:function() {
-		var next = false;
+
+	$("#submit").click(function(event) {
 		var ajax_url = "<?php echo $this->url('validate'); ?>";
 		var data = $('form').serialize();
-		var _html = "<div id='loading'><div>正在加载，请等待...</div></div>";
-	    $('body').append(_html);
+		var next = false;
 		$.ajax({
 			url : ajax_url,
 			data : data,
 			type : 'POST',
 			async : false,
 			dataType : 'json',
-			complete : function() {
-				$('#loading').remove();
-			},
 			success : function(json) {
 				if(json.code == '200') {
 					next = true;
 				}else{
-					alert(json.msg);
+					$("#err_box").show();
+					$("#err_box span").html(json.msg);
 				}
 			}
 		});
 		return next;
-	}
+	});
+	
 });
-function changeVerify() {
-	var timestamp=new Date().getTime();
-	var url = "<?php echo $this->url('verify'); ?>";
-	url += '&timestamp=' + timestamp;
-	$('.login_img').children('img').attr('src', url);
-}
 </script>
+<!-- END JAVASCRIPTS -->
 </body>
+<!-- END BODY -->
 </html>

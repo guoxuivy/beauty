@@ -95,7 +95,7 @@ $membership_off_count=\CustomerInfo::model()->where($map)->count();
 		array(
 			'header' => '操作',
 			'rel'=>'id',
-			'value'=> '<a href="'.$this->url("view").'&id={$data["id"]}" class="khca"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看</a>',
+			'template'=> 'view+',
 		)
 	),
 ));?>
