@@ -13,98 +13,112 @@ $membership_off_count=\CustomerInfo::model()->where($map)->count();
 <script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
 <script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/html5uploader/jquery.html5uploader.js"></script>
 <!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		<div class="fjgl_top_r"><!-- span选中添加 button_visit 样式--> 
-			<?php if($this->controller->is_store):?>
-			<span><a href="javascript:" class="fjgl_top_r_03 c_update">批量上传</a></span>
-			<?php endif;?>
-			<span><a href="javascript:" class="fjgl_top_r_08 fpkhn">分配客户</a></span>
-			<span><a href="javascript:" class="fjgl_top_r_01 filter_search">筛选</a></span>
-			<span><a href="<?php echo $this->url('edit') ?>" class="fjgl_top_r_02">添加客户</a></span>
+
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="portlet">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-users"></i>客户管理
+				</div>
+				<div class="actions btn-set">
+					<?php if($this->controller->is_store):?>
+					<a href="javascript:" class="btn default yellow-stripe c_update"><i class="fa fa-upload"></i>批量上传</a>
+					<?php endif;?>
+					<a href="javascript:;" class="btn default yellow-stripe fpkhn"><i class="fa fa-share-alt"></i><span class="hidden-480">分配客户</span></a>
+					<a href="<?php echo $this->url('edit') ?>" class="btn default yellow-stripe fpkhn"><i class="fa fa-plus"></i><span class="hidden-480">添加客户</span></a>
+				</div>
+			</div>
 		</div>
-	<div class="khgl_01"><img src="<?php echo $this->basePath('public') ?>/images/kh_01.png"></div>
-	客户管理
 	</div>
-
-	<!--  模版引擎扩展 -->
-	<?php if ($membership_off_count>0): ?>
-	<div class="tablelist_warning">
-		<div class="tablelist_warning_son" ><span onclick="$(this).parent().parent().remove()" class="tablelist_warning_close"><img src="<?php echo $this->basePath('public') ?>/images/close_ico_1.png" ></span>有 <span style=" color:#ec314b;"><?php echo $membership_off_count; ?></span> 个客户未设定客户等级，将会影响部分统计数据准确性。
-		</div>
-	</div>
-	<?php endif ?>
-
-<?php echo $this->datagrid(array(
-	'id'=>'table-list',
-	'dataProvider'=>$pager,
-	'lastFloat'=>true,
-	'check'=>'id',
-	'columns'=>array(
-		array(
-			'header' => '会员卡号',
-			'name' => 'cardid',
-			'filter'=>'t.cardid',
-		),
-		array(
-			'header' => '姓名',
-			'name' => 'name',
-			'filter'=>'t.name',
-			'value' => '<span class="khgl_xmpic"><img src="{\CustomerInfo::getAvatar($data["id"])}" height="24" width="24" /></span><span class="khgl_03">{$data["name"]}</span>',
-		),
-		array(
-			'header' => '性别',
-			'name' => 'sex',
-			'filter'=>array('t.sex',$sex_list),
-		),
-		array(
-			'header' => '客户等级',
-			'name' => 'lname',
-			'filter'=>array('l.id',$member_list),
-		),
-		array(
-			'header' => '客户类型',
-			'name' => 'cu_type',
-			'filter'=>array('t.cu_type',\CustomerInfo::getCuType()),
-		),
-		array(
-			'header' => '客户状态',
-			'value' => '{\CustomerInfo::getStatus($data["status"])}',
-			'filter'=>array('t.status',\CustomerInfo::getStatus()),
-		),
-		array(
-			'header' => '私人顾问',
-			'name' => 'cnetname',
-			'filter'=>array('t.counselor_id',\EmployUser::getList()),
-		),
-
-		array(
-			'header' => '私人美疗师',
-			'name' => 'onetname',
-			'filter'=>array('t.operator_id',\EmployUser::getList(' AND position_id=7')),
-		),
-		array(
-			'header' => '档案归属部门',
-			'name' => 'dept_name',
-			'filter'=>array('t.store_id',\EmployDept::getList()),
-		),
-		array(
-			'header' => '最近到店日期',
-			'value' => '{date("Y",$data["last_time"])>2000?date("Y-m-d H:i",$data["last_time"]):""}',
-		),
-		array(
-			'header' => '操作',
-			'rel'=>'id',
-			'template'=> 'view+',
-		)
-	),
-));?>
-	
 </div>
-<!--content_right_con!end-->
+
+<?php if ($membership_off_count>0): ?>
+<div class="row">
+	<div class="col-md-12">
+		<div class="note note-danger">
+			<p>
+				 有 <span style=" color:#ec314b;"><?php echo $membership_off_count; ?></span> 个客户未设定客户等级，将会影响部分统计数据准确性。
+			</p>
+		</div>
+	</div>
+</div>
+<?php endif ?>
+
+<div class="row">
+	<div class="col-md-12">
+	<?php echo $this->datagrid(array(
+		'dataProvider'=>$pager,
+		'search'=>true,
+		'title'=>"客户列表",
+		'check'=>'id',
+		'columns'=>array(
+			array(
+				'header' => '会员卡号',
+				'name' => 'cardid',
+				'filter'=>'t.cardid',
+			),
+			array(
+				'header' => '姓名',
+				'name' => 'name',
+				'filter'=>'t.name',
+				'value' => '<span class="khgl_xmpic"><img src="{\CustomerInfo::getAvatar($data["id"])}" height="24" width="24" /></span><span class="khgl_03">{$data["name"]}</span>',
+			),
+			array(
+				'header' => '性别',
+				'name' => 'sex',
+				'filter'=>array('t.sex',$sex_list),
+			),
+			array(
+				'header' => '客户等级',
+				'name' => 'lname',
+				'filter'=>array('l.id',$member_list),
+			),
+			array(
+				'header' => '客户类型',
+				'name' => 'cu_type',
+				'filter'=>array('t.cu_type',\CustomerInfo::getCuType()),
+			),
+			array(
+				'header' => '客户状态',
+				'value' => '{\CustomerInfo::getStatus($data["status"])}',
+				'filter'=>array('t.status',\CustomerInfo::getStatus()),
+			),
+			array(
+				'header' => '私人顾问',
+				'name' => 'cnetname',
+				'filter'=>array('t.counselor_id',\EmployUser::getList()),
+			),
+
+			array(
+				'header' => '私人美疗师',
+				'name' => 'onetname',
+				'filter'=>array('t.operator_id',\EmployUser::getList(' AND position_id=7')),
+			),
+			array(
+				'header' => '档案归属部门',
+				'name' => 'dept_name',
+				'filter'=>array('t.store_id',\EmployDept::getList()),
+			),
+			array(
+				'header' => '最近到店日期',
+				'value' => '{date("Y",$data["last_time"])>2000?date("Y-m-d H:i",$data["last_time"]):""}',
+			),
+			array(
+				'header' => '操作',
+				'rel'=>'id',
+				'template'=> 'view+',
+			)
+		),
+	));?>
+	</div>
+</div>	
+
+
 
 <!--分配客户-->
-<div class="bjxszd_com khfp02" style=" top:100px;" title="分配客户"  id="khfpkf">
+<div class="bjxszd_com display-none" style=" top:100px;" title="分配客户"  id="khfpkf">
   <div class="classoff">
      <div class="bjxszd_com_two_in">
          <p>将<span class="khmun">0</span>位客户分配给</p>
@@ -125,7 +139,6 @@ $membership_off_count=\CustomerInfo::model()->where($map)->count();
 
 
 <script type="text/javascript">
-
 $(function(){
 	/**
 	 * 分配人选择
@@ -145,7 +158,7 @@ $(document).on('click','.fpkhn',function(){
 		content:html,
 		ok:function(obj){
 			var fpkh_user=obj._self.find('.fpkh_user').val();
-			if (fpkh_user=='') {obj._self.find('.fpkh_user').after('<span class="Validform_checktip Validform_wrong">请选择分配人!</span>');}else{
+			if (fpkh_user=='') {obj._self.find('.fpkh_user').after('<span class="Validform_checktip Validform_wrong">请选择分配人！</span>');}else{
 				var user_ids='';
 				$('input[name="table_check"]').each(function(index, el) {
 					if ($(this).is(':checked')) {
@@ -193,7 +206,7 @@ $(document).on('click','.fpkhn',function(){
 			$('input[name="table_check"]').each(function(index, el) {
 				if ($(this).is(':checked')) {i++};
 			});
-			if (i==0) {self.find('.classoff').html("请选择客户!")}else{
+			if (i==0) {self.find('.classoff').html("请选择客户！")}else{
 				self.find('.khmun').html(i);
 			}
 		},
@@ -258,8 +271,7 @@ $(document).on('click','.fpkhn',function(){
 		upload();
 		<?php endif; ?>
 	});
-	function upload()
-	{
+	function upload(){
 		var d = Idialog({
 			top:150,
 			width:500,
