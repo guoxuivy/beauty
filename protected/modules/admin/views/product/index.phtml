@@ -10,41 +10,27 @@ if(isset($_GET['t_search']['c_t.id']))
 <link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
 <script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
 <script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/html5uploader/jquery.html5uploader.js"></script>
-<style type="text/css">
-.choose{background-color:#22c381!important;color: #fff!important }
-.search_cu_id_list{
-  /*  position: absolute;*/
-    z-index: 9999;
-    background: white;
-    max-height: 200px;
-    background:  #E8E8E8;
-    width: 100%;
-    min-width: 100px;
-    min-height: 0px;
-    overflow-y: auto;
-}
-.search_cu_id_list li{
-    padding:0;
-    padding-left: 5px;
-    min-height: 0px;
-    line-height: 20px;
-    border-left: 1px solid green;
-}
-.search_cu_id_list_li_hover{
-    background-color: #A9E1FC;
-    cursor: pointer;
-}
-</style>
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		<div class="fjgl_top_r"><!-- span选中添加 button_visit 样式--> 
-			<span><a href="javascript:" class="fjgl_top_r_03 c_update">批量上传</a></span>
-			<span><a href="javascript:" class="fjgl_top_r_01 filter_search">筛选</a></span>
-			<span><a href="javascript:" class="fjgl_top_r_02 c_add">新增商品</a></span>
+
+
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="portlet">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-users"></i>商品管理
+				</div>
+				<div class="actions btn-set">
+					<a href="javascript:" class="btn default yellow-stripe c_update"><i class="fa fa-upload"></i>批量上传</a>
+					<a href="javascript:" class="btn default yellow-stripe c_add"><i class="fa fa-plus"></i><span class="hidden-480">新增商品</span></a>
+				</div>
+			</div>
 		</div>
-	商品管理>商品列表
 	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
 	<!--  模版引擎扩展 -->
 	<?php echo $this->datagrid(array(
 		'id'=>'product-list',
@@ -105,12 +91,14 @@ if(isset($_GET['t_search']['c_t.id']))
 				'headerCss'=>'min-width:281px',
 				'name' => 'status',
 				'rel'=>'id',
-				'template'=>'<a rel="{$data[id]}" href="javascript:" class="change" {$data["status"]==0?"":"style=\"background-color: #ddd;color: #666;\""}>{$data["status"]==0?"启用":"停用"}</a>
-					<a class="edit" href="javascript:">修改</a>
-					<a rel="{$data[id]}" href="javascript:;" class="delete">删除</a>'
+				'template'=>'<a href="javascript:" class="btn default btn-xs blue-hoki-stripe change">{$data["status"]==0?"启用":"停用"}</a>
+					,edit,delete'
 			)
 		),
 	));?>
+
+	</div>
+</div>
 	<?php if(!empty($_GET['yd'])):?>
 		<div class="zhezhao">
 			<div class="zhezhao_center">
@@ -120,13 +108,11 @@ if(isset($_GET['t_search']['c_t.id']))
 			</div>
 		</div>
 	<?php endif;?>
-</div>
 <!--content_right_con!end-->
 
 
 <!--tjfj-->
-
-<div class="add_prod none" title="新增商品">
+<div class="add_prod display-none" title="新增商品">
 	<div class="tjfj_two" action="#">
 	<form method="post" action="<?php echo $this->url('add') ?>">
 		<div class="list">
@@ -157,12 +143,16 @@ if(isset($_GET['t_search']['c_t.id']))
 				</select>
 			</div>
 		</div>
+
 		<div class="list"><label>商品名称：</label><div style="margin-left: 100px;"><input type="text" name="name" class="inputxt"/>（必填）</div></div>
 		<div class="list"><label>商品编码：</label><div style="margin-left: 100px;"><input type="text" name="code" /></div></div>
+
 		<div class="list"><label>实操用量：<div class="help" explain="此处填入一个最小库存单位的商品能够做多少次实操,如一瓶院装的保湿舒敏精油开瓶后可供60次实操项目的调配使用,则该商品的用量为60次. （家装产品不填）"></div></label><div style="margin-left: 100px;"><input type="text" placeholder="" name="num" class="inputxt"/>（必填）</div></div>
 		<div class="list"><label>单价：<div class="help" explain="此处请填入商品的售价"></div></label><div style="margin-left: 100px;"><input type="text" placeholder="" name="price" class="inputxt"/>（必填）</div></div>
 		<div class="list"><label>规格：<div class="help" explain="按照什么单位录的, 就填什么规格如, 单位是”瓶”,那么液体的规格为XXXml/瓶单位是”盒”,那么小支装产品的规格为XXX支/盒单位是”套盒”,那么规格是XXX组/套盒"></div></label><div style="margin-left: 100px;"><input type="text" placeholder="" name="specs" /></div></div>
 		<div class="list"><label>单位：<div class="help" explain="如果没有在下拉框中找到对应的商品单位,请到“商品单位管理”模块选择  “商品单位新建”"></div></label><div style="margin-left: 100px;"><input type="text" placeholder="" name="unit"   class="inputxt"/>（必填）</div></div>
+
+
 	</form>
 	</div>
 </div>
@@ -170,7 +160,7 @@ if(isset($_GET['t_search']['c_t.id']))
 
 
 <!--tjfj03-->
-<div class="update none" title="批量上传">
+<div class="update display-none" title="批量上传">
 	<div class="tjfj_two">
 		<p>请严格按照我们提供的项目格式编辑并上传。<a href="<?php echo SITE_URL . '/upload/product_template.xls' ?>" target="_new">下载商品信息模板</a></p>
 		<p style=" text-align:center;"><img src="<?php echo $this->basePath('public') ?>/images/pl_02.png" /></p>
@@ -313,8 +303,7 @@ $(function(){
 		upload();
 		<?php endif; ?>
 	});
-	function upload()
-	{
+	function upload(){
 		var d = Idialog({
 			top:150,
 			width:500,

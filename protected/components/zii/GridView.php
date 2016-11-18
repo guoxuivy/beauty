@@ -319,7 +319,7 @@ class GridView extends CComponent
 				$str='<a href="'.$this->url('view',array($col['rel']=>$data[$col['rel']])).'" class="btn default btn-xs green-stripe view">查看</a>';
 				break;
 			case 'edit':
-				$str='<a class="btn default btn-xs blue-stripe" href="javascript:; edit">编辑</a>';
+				$str='<a class="btn default btn-xs blue-stripe edit" href="javascript:;">编辑</a>';
 				break;
 			case 'edit+':
 				$str='<a href="'.$this->url('edit',array($col['rel']=>$data[$col['rel']])).'" class="btn default btn-xs blue-stripe edit">编辑</a>';

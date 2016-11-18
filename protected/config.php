@@ -46,9 +46,14 @@ return array (
 
 		//供应商数据库配置
 		'supplier_pdo' => array (
-			'dsn' => 'mysql:dbname=platform_supplier;host=192.168.0.202;port=13306',
-			'password' => 'mysqladmin56',
+			'dsn' => 'mysql:dbname=etwasd_supplier;host=localhost;port=3306',
+			'user' => 'etwasd',
+			'password' => '8y3j5m4l',
+
+			
+			'dsn' => 'mysql:dbname=platform_supplier;host=127.0.0.1;port=3306',
 			'user' => 'root',
+			'password' => 'root',
 		),
 
 

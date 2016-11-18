@@ -6,24 +6,41 @@ if(isset($_GET['t_search']['c_t.id']))
 	$child_cate = $this->optArr($tmp_cate,'id','name');
 ?>
 <script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/html5uploader/jquery.html5uploader.js"></script>
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		<div class="fjgl_top_r"><!-- span选中添加 button_visit 样式--> 
-			<?php if(!$this->controller->is_store):?>
-			<span><a href="javascript:" class="fjgl_top_r_03 c_update">批量上传</a></span>
-			<?php endif;?>
-			<span><a href="javascript:" class="fjgl_top_r_01 filter_search">筛选</a></span>
-			<?php if(!$this->controller->is_store):?>
-			<span><a href="<?php echo $this->url('edit') ?>" class="fjgl_top_r_02">新增项目</a></span>
-			<?php endif;?>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="portlet">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-users"></i>项目管理
+				</div>
+				<div class="actions btn-set">
+					<?php if(!$this->controller->is_store):?>
+					<a href="javascript:" class="btn default yellow-stripe c_update">批量上传</a>
+					<a href="<?php echo $this->url('edit') ?>" class="btn default yellow-stripe"><i class="fa fa-plus"></i><span class="hidden-480">新增项目</span></a>
+					<?php endif;?>
+
+				</div>
+			</div>
 		</div>
-	项目管理>项目列表
 	</div>
-	<div class="fjgl_two" style=" background:#ffecec;">
-		<div class="fjgl_two_son" style=" background:url(<?php echo $this->basePath('public') ?>/images/xm_01.png) no-repeat 10px 4px; color:#000000;"><span style=" float:right; padding-right:20px;">X</span>有 <span style=" color:#ec314b;"><?php echo $no_num; ?></span> 个项目未配置配方
+</div>
+
+<?php if ($no_num>0): ?>
+<div class="row">
+	<div class="col-md-12">
+		<div class="note note-danger">
+			<p>
+				 有 <span style=" color:#ec314b;"><?php echo $no_num; ?></span> 个项目未配置配方。
+			</p>
 		</div>
 	</div>
+</div>
+<?php endif ?>
+
+
+<div class="row">
+	<div class="col-md-12">
 	<?php
 		$edit_url = $this->url('edit');
 		$pub_url = $this->basePath("public");
@@ -81,17 +98,10 @@ if(isset($_GET['t_search']['c_t.id']))
 				'headerCss'=>'min-width:80px',
 				'name' => 'status',
 				'rel'=>'id',
-				'template'=>'<a rel="{$data["id"]}" href="javascript:" class="change" {$data["status"]==0?"":"style=\"background-color: #ddd;color: #666;\""}>{$data["status"]==0?"启用":"停用"}</a>
-					<a class="view khca" href="'.$edit_url.'&id={$data["id"]}">
-						<span class="khca_son"><img src="'.$pub_url.'/images/kh_05.png"></span>查看
-					</a>
-					<a rel="{$data["id"]}" href="javascript:;" class="delete">删除</a>'
+				'template'=>'<a rel="{$data["id"]}" href="javascript:" class="btn default btn-xs blue-hoki-stripe change">{$data["status"]==0?"启用":"停用"}</a>
+					<a class="btn default btn-xs green-stripe view" href="'.$edit_url.'&id={$data["id"]}">查看</a>
+					<a rel="{$data["id"]}" href="javascript:;" class="btn default btn-xs red-stripe delete">删除</a>'
 			),
-			/*array(
-				'header' => '操作',
-				'rel'=>'id',
-				'template'=> 'edit+,delete',
-			)*/
 		),
 	));?>
 	<!--table_containter!end-->
@@ -105,9 +115,8 @@ if(isset($_GET['t_search']['c_t.id']))
 			</div>
 		</div>
 	<?php endif;?>
-
+	</div>
 </div>
-<!--content_right_con!end-->
 
 
 <!--tjfj-->

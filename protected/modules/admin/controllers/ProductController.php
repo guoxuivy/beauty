@@ -41,7 +41,6 @@ class ProductController extends \SController
 		->where($map)
 		->group('t.id')
 		->getPagener();
-		//\Ivy::log(\ProductInfo::model()->lastSql);
 		$this->view->assign(array('pager'=>$pager))->display();
 	}
 	// 添加
