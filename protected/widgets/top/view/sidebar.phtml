@@ -35,7 +35,13 @@
                     <a href="<?php echo $nav["t_url"]; ?>">
                     <i class="<?php echo $nav["t_icon"]; ?>"></i>
                     <span class="title"><?php echo $nav["t_name"]; ?></span>
-                    <?php if($nav["t_selected"]): ?><span class="selected"></span><span class="arrow open"></span><?php endif; ?>
+                    <?php if($nav["t_selected"]): ?>
+                        <span class="selected"></span><span class="arrow open"></span>
+                    <?php else:?>
+                        <?php if($nav["child"]): ?>
+                            <span class="arrow"></span>
+                        <?php endif; ?>
+                    <?php endif; ?>
                     </a>
                     
                     <?php if($nav["child"]): ?>
