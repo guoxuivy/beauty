@@ -10,13 +10,13 @@ class SupplierInfo extends ActiveRecord
 	protected $_cache = false;	
 
 	//配置供应商远程数据库
-	public function __construct($config=null){
-		$this->_config = \Ivy::app()->C('supplier_pdo');
-		parent::__construct($config);
-	}
+	// public function __construct($config=null){
+	// 	$this->_config = \Ivy::app()->C('supplier_pdo');
+	// 	parent::__construct($config);
+	// }
 
 	public function tableName() {
-		return 'company_info';
+		return 'sup_company_info';
 	}
 	/**
 	 * 数据保存

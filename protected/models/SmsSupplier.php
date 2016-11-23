@@ -11,13 +11,13 @@ class SmsSupplier extends ActiveRecord
     protected $_cache = false;  
 
     //配置供应商远程数据库
-    public function __construct($config=null){
-        $this->_config = \Ivy::app()->C('supplier_pdo');
-        parent::__construct($config);
-    }
+    // public function __construct($config=null){
+    //     $this->_config = \Ivy::app()->C('supplier_pdo');
+    //     parent::__construct($config);
+    // }
 
     public function tableName() {
-        return 'sms_message';
+        return 'sup_sms_message';
     }
     //将采购单发给供应商
     public function send($data){
