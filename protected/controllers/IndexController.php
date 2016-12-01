@@ -264,14 +264,17 @@ class IndexController extends Controller {
 	 * 登录
 	 */
 	public function loginAction() {
+		if($this->getIsAjax()) {
+			$this->validateAction();
+		}
 		if(isset($_POST) && !empty($_POST)) {
 			\Ivy::app()->user->checkToken();
 			$verify = Ivy::app()->user->getState('verify');
-			$user_name = isset($_POST['user_name']) ? trim($_POST['user_name']) : '';
+			$user_name = isset($_POST['username']) ? trim($_POST['username']) : '';
 			$password = isset($_POST['password']) ? trim($_POST['password']) : '';
 			$verifyCode = isset($_POST['verifyCode']) ? trim($_POST['verifyCode']) : '';
 			$md5password = md5($password);
-			
+
 			$userModel = \EmployUser::model()->where("user_name='$user_name' AND password='$md5password' AND status=1")->find();
 
 			if($userModel){
@@ -288,6 +291,8 @@ class IndexController extends Controller {
 				}else{
 					$this->redirect($this->getLoninUrl());
 				}
+			}else{
+				throw new CException('未知用户');
 			}
 			
 		}else{
@@ -313,7 +318,7 @@ class IndexController extends Controller {
 			throw new CException('非法访问');
 		}
 		$verify = \Ivy::app()->user->getState('verify');
-		$user_name = isset($_POST['user_name']) ? trim($_POST['user_name']) : '';
+		$user_name = isset($_POST['username']) ? trim($_POST['username']) : '';
 		$password = isset($_POST['password']) ? trim($_POST['password']) : '';
 		$verifyCode = isset($_POST['verifyCode']) ? trim($_POST['verifyCode']) : '';
 		

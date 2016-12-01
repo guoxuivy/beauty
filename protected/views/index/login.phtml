@@ -55,7 +55,7 @@ $themePath = $this->basePath ( 'public' );
 <!-- BEGIN LOGIN -->
 <div class="content">
 	<!-- BEGIN LOGIN FORM -->
-	<form class="login-form" action="<?php echo $this->url('login');?>" method="post" >
+	<form class="login-form" action="<?php echo $this->url('login');?>" method="post">
 		<h3 class="form-title">Login to your account</h3>
 		<div class="alert alert-danger display-hide"  id="err_box">
 			<button class="close" data-close="alert"></button>
@@ -66,7 +66,7 @@ $themePath = $this->basePath ( 'public' );
 			<label class="control-label visible-ie8 visible-ie9">账户(手机号)</label>
 			<div class="input-icon">
 				<i class="fa fa-user"></i>
-				<input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="账户(手机号)" name="user_name"/>
+				<input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="账户(手机号)" name="username"/>
 			</div>
 		</div>
 		<div class="form-group">
@@ -82,13 +82,13 @@ $themePath = $this->basePath ( 'public' );
 				<input type="password" class="form-control" name="verifyCode" placeholder="验证码">
 			</div>
 			<span class="input-group-addon" style="padding:0px;cursor:pointer">
-				<img class="verify_img" src="<?php echo $this->url('verify'); ?>" width="100px" height="32px" />
+				<img class="verify_img" src="<?php echo $this->url('verify'); ?>" max-width="100px" height="32px" />
 			</span>
 		</div>
 		<div class="form-actions" style="padding-bottom:0px;">
 			<label class="checkbox">
 			<input type="checkbox" name="remember_me" value="1"/> 记住密码 </label>
-			<button id="submit" type="submit" class="btn blue pull-right">
+			<button type="submit" class="btn blue pull-right">
 			登录 <i class="m-icon-swapright m-icon-white"></i>
 			</button>
 		</div>
@@ -149,21 +149,21 @@ $themePath = $this->basePath ( 'public' );
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
 jQuery(document).ready(function() {     
-Metronic.init(); // init metronic core components
-Layout.init(); // init current layout
-QuickSidebar.init(); // init quick sidebar
-Demo.init(); // init demo features
-Login.init();
-       // init background slide images
-       $.backstretch([
-        "<?php echo $this->basePath('public/M');?>/admin/pages/media/bg/1.jpg",
-        "<?php echo $this->basePath('public/M');?>/admin/pages/media/bg/2.jpg",
-        "<?php echo $this->basePath('public/M');?>/admin/pages/media/bg/3.jpg",
-        "<?php echo $this->basePath('public/M');?>/admin/pages/media/bg/4.jpg"
-        ], {
-          fade: 1000,
-          duration: 8000
-    	});
+	Metronic.init(); // init metronic core components
+	Layout.init(); // init current layout
+	QuickSidebar.init(); // init quick sidebar
+	Demo.init(); // init demo features
+	Login.init();
+	// init background slide images
+	$.backstretch([
+		"<?php echo $this->basePath('public/M');?>/admin/pages/media/bg/1.jpg",
+		"<?php echo $this->basePath('public/M');?>/admin/pages/media/bg/2.jpg",
+		"<?php echo $this->basePath('public/M');?>/admin/pages/media/bg/3.jpg",
+		"<?php echo $this->basePath('public/M');?>/admin/pages/media/bg/4.jpg"
+		], {
+		fade: 1000,
+		duration: 8000
+	});
 
 	$(".verify_img").click(function(event) {
 		var timestamp=new Date().getTime();
@@ -171,30 +171,6 @@ Login.init();
 		url += '&timestamp=' + timestamp;
 		$(this).attr('src', url);
 	});
-
-
-	$("#submit").click(function(event) {
-		var ajax_url = "<?php echo $this->url('validate'); ?>";
-		var data = $('form').serialize();
-		var next = false;
-		$.ajax({
-			url : ajax_url,
-			data : data,
-			type : 'POST',
-			async : false,
-			dataType : 'json',
-			success : function(json) {
-				if(json.code == '200') {
-					next = true;
-				}else{
-					$("#err_box").show();
-					$("#err_box span").html(json.msg);
-				}
-			}
-		});
-		return next;
-	});
-	
 });
 </script>
 <!-- END JAVASCRIPTS -->

@@ -445,3 +445,603 @@ in E:\xampp\htdocs\beauty\protected\modules\pos\controllers\RechargeController.p
 in E:\xampp\htdocs\beauty\protected\modules\pos\controllers\RechargeController.php (48)
 2016/11/23 16:49:01 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:E:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
 in E:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml (43)
+2016/12/01 10:56:23 [trace] [application] 
+<!--Fatal error-->
+未捕获的异常Ivy\core\CException  
+异常抛出点：D:\xampp\htdocs\beauty\framework\core\User.php on line 93
+<!--Fatal error end-->
+异常消息：表单令牌验证失败！  
+file:D:\xampp\htdocs\beauty\protected\controllers\IndexController.php  
+line:268  
+function:checkToken  
+class:Ivy\core\User  
+type:->  
+args:Array
+(
+)
+  
+function:loginAction  
+class:IndexController  
+type:->  
+args:Array
+(
+)
+  
+file:D:\xampp\htdocs\beauty\framework\core\Application.php  
+line:244  
+function:invokeArgs  
+class:ReflectionMethod  
+type:->  
+args:Array
+(
+    [0] => IndexController Object
+        (
+            [layout] => 
+            [_b:Ivy\core\CComponent:private] => Array
+                (
+                    [route] => Ivy\core\Route Object
+                        (
+                            [route:protected] => Array
+                                (
+                                    [controller] => index
+                                    [action] => login
+                                )
+
+                            [param] => Array
+                                (
+                                )
+
+                        )
+
+                )
+
+            [_m:protected] => Array
+                (
+                )
+
+        )
+
+    [1] => Array
+        (
+        )
+
+)
+  
+file:D:\xampp\htdocs\beauty\framework\core\Application.php  
+line:212  
+function:_doMethod  
+class:Ivy\core\Application  
+type:->  
+args:Array
+(
+    [0] => IndexController Object
+        (
+            [layout] => 
+            [_b:Ivy\core\CComponent:private] => Array
+                (
+                    [route] => Ivy\core\Route Object
+                        (
+                            [route:protected] => Array
+                                (
+                                    [controller] => index
+                                    [action] => login
+                                )
+
+                            [param] => Array
+                                (
+                                )
+
+                        )
+
+                )
+
+            [_m:protected] => Array
+                (
+                )
+
+        )
+
+    [1] => loginAction
+    [2] => Array
+        (
+        )
+
+)
+  
+file:D:\xampp\htdocs\beauty\framework\core\Application.php  
+line:164  
+function:dispatch  
+class:Ivy\core\Application  
+type:->  
+args:Array
+(
+    [0] => Ivy\core\Route Object
+        (
+            [route:protected] => Array
+                (
+                    [controller] => index
+                    [action] => login
+                )
+
+            [param] => Array
+                (
+                )
+
+        )
+
+)
+  
+file:D:\xampp\htdocs\beauty\index.php  
+line:7  
+function:run  
+class:Ivy\core\Application  
+type:->  
+args:Array
+(
+)
+  
+
+2016/12/01 10:56:28 [trace] [application] 
+<!--Fatal error-->
+未捕获的异常Ivy\core\CException  
+异常抛出点：D:\xampp\htdocs\beauty\framework\core\User.php on line 93
+<!--Fatal error end-->
+异常消息：表单令牌验证失败！  
+file:D:\xampp\htdocs\beauty\protected\controllers\IndexController.php  
+line:268  
+function:checkToken  
+class:Ivy\core\User  
+type:->  
+args:Array
+(
+)
+  
+function:loginAction  
+class:IndexController  
+type:->  
+args:Array
+(
+)
+  
+file:D:\xampp\htdocs\beauty\framework\core\Application.php  
+line:244  
+function:invokeArgs  
+class:ReflectionMethod  
+type:->  
+args:Array
+(
+    [0] => IndexController Object
+        (
+            [layout] => 
+            [_b:Ivy\core\CComponent:private] => Array
+                (
+                    [route] => Ivy\core\Route Object
+                        (
+                            [route:protected] => Array
+                                (
+                                    [controller] => index
+                                    [action] => login
+                                )
+
+                            [param] => Array
+                                (
+                                )
+
+                        )
+
+                )
+
+            [_m:protected] => Array
+                (
+                )
+
+        )
+
+    [1] => Array
+        (
+        )
+
+)
+  
+file:D:\xampp\htdocs\beauty\framework\core\Application.php  
+line:212  
+function:_doMethod  
+class:Ivy\core\Application  
+type:->  
+args:Array
+(
+    [0] => IndexController Object
+        (
+            [layout] => 
+            [_b:Ivy\core\CComponent:private] => Array
+                (
+                    [route] => Ivy\core\Route Object
+                        (
+                            [route:protected] => Array
+                                (
+                                    [controller] => index
+                                    [action] => login
+                                )
+
+                            [param] => Array
+                                (
+                                )
+
+                        )
+
+                )
+
+            [_m:protected] => Array
+                (
+                )
+
+        )
+
+    [1] => loginAction
+    [2] => Array
+        (
+        )
+
+)
+  
+file:D:\xampp\htdocs\beauty\framework\core\Application.php  
+line:164  
+function:dispatch  
+class:Ivy\core\Application  
+type:->  
+args:Array
+(
+    [0] => Ivy\core\Route Object
+        (
+            [route:protected] => Array
+                (
+                    [controller] => index
+                    [action] => login
+                )
+
+            [param] => Array
+                (
+                )
+
+        )
+
+)
+  
+file:D:\xampp\htdocs\beauty\index.php  
+line:7  
+function:run  
+class:Ivy\core\Application  
+type:->  
+args:Array
+(
+)
+  
+
+2016/12/01 11:14:25 [trace] [application] 
+<!--Fatal error-->
+未捕获的异常Ivy\core\CException  
+异常抛出点：D:\xampp\htdocs\beauty\framework\core\User.php on line 93
+<!--Fatal error end-->
+异常消息：表单令牌验证失败！  
+file:D:\xampp\htdocs\beauty\protected\controllers\IndexController.php  
+line:271  
+function:checkToken  
+class:Ivy\core\User  
+type:->  
+args:Array
+(
+)
+  
+function:loginAction  
+class:IndexController  
+type:->  
+args:Array
+(
+)
+  
+file:D:\xampp\htdocs\beauty\framework\core\Application.php  
+line:244  
+function:invokeArgs  
+class:ReflectionMethod  
+type:->  
+args:Array
+(
+    [0] => IndexController Object
+        (
+            [layout] => 
+            [_b:Ivy\core\CComponent:private] => Array
+                (
+                    [route] => Ivy\core\Route Object
+                        (
+                            [route:protected] => Array
+                                (
+                                    [controller] => index
+                                    [action] => login
+                                )
+
+                            [param] => Array
+                                (
+                                )
+
+                        )
+
+                )
+
+            [_m:protected] => Array
+                (
+                )
+
+        )
+
+    [1] => Array
+        (
+        )
+
+)
+  
+file:D:\xampp\htdocs\beauty\framework\core\Application.php  
+line:212  
+function:_doMethod  
+class:Ivy\core\Application  
+type:->  
+args:Array
+(
+    [0] => IndexController Object
+        (
+            [layout] => 
+            [_b:Ivy\core\CComponent:private] => Array
+                (
+                    [route] => Ivy\core\Route Object
+                        (
+                            [route:protected] => Array
+                                (
+                                    [controller] => index
+                                    [action] => login
+                                )
+
+                            [param] => Array
+                                (
+                                )
+
+                        )
+
+                )
+
+            [_m:protected] => Array
+                (
+                )
+
+        )
+
+    [1] => loginAction
+    [2] => Array
+        (
+        )
+
+)
+  
+file:D:\xampp\htdocs\beauty\framework\core\Application.php  
+line:164  
+function:dispatch  
+class:Ivy\core\Application  
+type:->  
+args:Array
+(
+    [0] => Ivy\core\Route Object
+        (
+            [route:protected] => Array
+                (
+                    [controller] => index
+                    [action] => login
+                )
+
+            [param] => Array
+                (
+                )
+
+        )
+
+)
+  
+file:D:\xampp\htdocs\beauty\index.php  
+line:7  
+function:run  
+class:Ivy\core\Application  
+type:->  
+args:Array
+(
+)
+  
+
+2016/12/01 11:39:19 [trace] [application] 
+<!--Fatal error-->
+未捕获的异常Ivy\core\CException  
+异常抛出点：D:\xampp\htdocs\beauty\framework\core\User.php on line 93
+<!--Fatal error end-->
+异常消息：表单令牌验证失败！  
+file:D:\xampp\htdocs\beauty\protected\controllers\IndexController.php  
+line:271  
+function:checkToken  
+class:Ivy\core\User  
+type:->  
+args:Array
+(
+)
+  
+function:loginAction  
+class:IndexController  
+type:->  
+args:Array
+(
+)
+  
+file:D:\xampp\htdocs\beauty\framework\core\Application.php  
+line:244  
+function:invokeArgs  
+class:ReflectionMethod  
+type:->  
+args:Array
+(
+    [0] => IndexController Object
+        (
+            [layout] => 
+            [_b:Ivy\core\CComponent:private] => Array
+                (
+                    [route] => Ivy\core\Route Object
+                        (
+                            [route:protected] => Array
+                                (
+                                    [controller] => index
+                                    [action] => login
+                                )
+
+                            [param] => Array
+                                (
+                                )
+
+                        )
+
+                )
+
+            [_m:protected] => Array
+                (
+                )
+
+        )
+
+    [1] => Array
+        (
+        )
+
+)
+  
+file:D:\xampp\htdocs\beauty\framework\core\Application.php  
+line:212  
+function:_doMethod  
+class:Ivy\core\Application  
+type:->  
+args:Array
+(
+    [0] => IndexController Object
+        (
+            [layout] => 
+            [_b:Ivy\core\CComponent:private] => Array
+                (
+                    [route] => Ivy\core\Route Object
+                        (
+                            [route:protected] => Array
+                                (
+                                    [controller] => index
+                                    [action] => login
+                                )
+
+                            [param] => Array
+                                (
+                                )
+
+                        )
+
+                )
+
+            [_m:protected] => Array
+                (
+                )
+
+        )
+
+    [1] => loginAction
+    [2] => Array
+        (
+        )
+
+)
+  
+file:D:\xampp\htdocs\beauty\framework\core\Application.php  
+line:164  
+function:dispatch  
+class:Ivy\core\Application  
+type:->  
+args:Array
+(
+    [0] => Ivy\core\Route Object
+        (
+            [route:protected] => Array
+                (
+                    [controller] => index
+                    [action] => login
+                )
+
+            [param] => Array
+                (
+                )
+
+        )
+
+)
+  
+file:D:\xampp\htdocs\beauty\index.php  
+line:7  
+function:run  
+class:Ivy\core\Application  
+type:->  
+args:Array
+(
+)
+  
+
+2016/12/01 11:42:32 [warning] [application] [system-level-2] [Division by zero] file:D:\xampp\htdocs\beauty\protected\modules\boss\views\index\index.phtml->line:57
+2016/12/01 11:42:32 [warning] [application] [system-level-2] [Division by zero] file:D:\xampp\htdocs\beauty\protected\modules\boss\views\index\index.phtml->line:71
+2016/12/01 11:45:38 [warning] [application] [system-level-2] [Division by zero] file:D:\xampp\htdocs\beauty\protected\modules\boss\views\index\index.phtml->line:57
+2016/12/01 11:45:38 [warning] [application] [system-level-2] [Division by zero] file:D:\xampp\htdocs\beauty\protected\modules\boss\views\index\index.phtml->line:71
+2016/12/01 11:45:56 [warning] [application] [system-level-2] [Division by zero] file:D:\xampp\htdocs\beauty\protected\modules\boss\views\index\index.phtml->line:57
+2016/12/01 11:45:56 [warning] [application] [system-level-2] [Division by zero] file:D:\xampp\htdocs\beauty\protected\modules\boss\views\index\index.phtml->line:71
+2016/12/01 11:47:13 [warning] [application] [system-level-2] [Division by zero] file:D:\xampp\htdocs\beauty\protected\modules\boss\views\index\index.phtml->line:57
+2016/12/01 11:47:13 [warning] [application] [system-level-2] [Division by zero] file:D:\xampp\htdocs\beauty\protected\modules\boss\views\index\index.phtml->line:71
+2016/12/01 11:50:26 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:50:26 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:50:26 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:50:26 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:50:26 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:50:26 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:50:26 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:50:26 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/12/01 11:50:27 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:50:27 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:50:27 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:50:27 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:50:27 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:50:27 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:50:27 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:50:27 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/12/01 11:52:58 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:52:58 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:52:58 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:52:58 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:52:58 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:52:58 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:52:58 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:52:58 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/12/01 11:53:30 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:53:30 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:53:30 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:53:30 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:53:30 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:53:30 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:53:30 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:53:30 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/12/01 11:57:47 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:57:47 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:57:47 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:57:47 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:57:47 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:57:47 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:57:47 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:57:47 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
+2016/12/01 11:57:48 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:57:48 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:57:48 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:57:48 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:57:48 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:57:48 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:57:48 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\models\OrderSale.php->line:288
+2016/12/01 11:57:48 [warning] [application] [system-level-2] [Invalid argument supplied for foreach()] file:D:\xampp\htdocs\beauty\protected\views\_include\header_m.phtml->line:43
