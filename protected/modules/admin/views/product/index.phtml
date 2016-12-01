@@ -51,7 +51,6 @@ if(isset($_GET['t_search']['c_t.id']))
 			array(
 				'header' => '商品属性',
 				'name'  => 'type',
-				'headerCss'  => 'width:50px',
 				'value'=>'{\ProCate::getProductType($data["type"])}',
 			),
 			array(
@@ -73,7 +72,6 @@ if(isset($_GET['t_search']['c_t.id']))
 			),
 			array(
 				'header' => '单位',
-				'headerCss'=>'min-width:60px',
 				'name' => 'unit',
 			),
 			array(
@@ -82,13 +80,11 @@ if(isset($_GET['t_search']['c_t.id']))
 			),
 			array(
 				'header' => '状态',
-				'headerCss'=>'min-width:60px',
 				'name' => 'status',
 				'value'=>'{$data["status"]==1?"启用":"<fone style=\"color:red\">停用</font>"}'
 			),
 			array(
 				'header' => '操作',
-				'headerCss'=>'min-width:281px',
 				'name' => 'status',
 				'rel'=>'id',
 				'template'=>'<a href="javascript:" class="btn default btn-xs blue-hoki-stripe change">{$data["status"]==0?"启用":"停用"}</a>

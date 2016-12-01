@@ -46,24 +46,17 @@ foreach ($store_list as $value) {
 		),
 		array(
 			'header' => '状态',
-			'headerCss'=>'min-width:60px',
 			'name' => 'status',
 			'value'=>'{$data["status"]==1?"启用":"<fone style=\"color:red\">停用</font>"}</a>'
 		),
 		array(
 			'header' => '操作',
-			'headerCss'=>'min-width:281px',
 			'name' => 'status',
 			'rel'=>'id',
-			'template'=>'<a rel="{$data[id]}" href="javascript:" class="change" {$data["status"]==0?"":"style=\"background-color: #ddd;color: #666;\""}>{$data["status"]==0?"启用":"停用"}</a>
-				<a class="edit" href="javascript:">修改</a>
-				<a href="javascript:;" class="delete">删除</a>'
+			'template'=>'<a rel="{$data["id"]}" href="javascript:" class="btn default btn-xs blue-hoki-stripe change">{$data["status"]==0?"启用":"停用"}</a>
+				<a class="btn default btn-xs green-stripe edit" href="javascript:">修改</a>
+				<a href="javascript:;" class="btn default btn-xs red-stripe delete">删除</a>'
 		),
-		/*array(
-			'header' => '操作',
-			'rel'=>'id',
-			'template'=> '<a href="javascript:" class="edit">修改</a>,delete',
-		)*/
 	),
 ));?>
 

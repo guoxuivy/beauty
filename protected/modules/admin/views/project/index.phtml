@@ -66,14 +66,12 @@ if(isset($_GET['t_search']['c_t.id']))
 			array(
 				'header' => '项目名称',
 				'name'  => 'name',
-				'headerCss'  => 'width:500px',
 				'filter'=>"t.name",
 			),
 			array(
 				'header' => '项目配方',
 				'name'  => 'formula',
 				'value' => '{$data["formula"]==0?"无":"配方已设"}',
-				//'filter'=>"t.cc",
 			),
 			array(
 				'header' => '项目编码',
@@ -89,13 +87,11 @@ if(isset($_GET['t_search']['c_t.id']))
 			),
 			array(
 				'header' => '状态',
-				'headerCss'=>'min-width:60px',
 				'name' => 'status',
 				'value'=>'{$data["status"]==1?"启用":"<fone style=\"color:red\">停用</font>"}'
 			),
 			array(
 				'header' => '操作',
-				'headerCss'=>'min-width:80px',
 				'name' => 'status',
 				'rel'=>'id',
 				'template'=>'<a rel="{$data["id"]}" href="javascript:" class="btn default btn-xs blue-hoki-stripe change">{$data["status"]==0?"启用":"停用"}</a>
