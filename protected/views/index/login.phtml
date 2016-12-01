@@ -17,7 +17,6 @@ $themePath = $this->basePath ( 'public' );
 <meta content="" name="description"/>
 <meta content="" name="author"/>
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
 <link href="<?php echo $this->basePath('public/M');?>/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo $this->basePath('public/M');?>/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo $this->basePath('public/M');?>/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -30,9 +29,7 @@ $themePath = $this->basePath ( 'public' );
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME STYLES -->
 <link href="<?php echo $this->basePath('public/M');?>/global/css/components.css" rel="stylesheet" type="text/css"/>
-<link href="<?php echo $this->basePath('public/M');?>/global/css/plugins.css" rel="stylesheet" type="text/css"/>
-<link href="<?php echo $this->basePath('public/M');?>/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
-<link id="style_color" href="<?php echo $this->basePath('public/M');?>/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo $this->basePath('public/M');?>/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color" />
 <link href="<?php echo $this->basePath('public/M');?>/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico"/>
@@ -142,17 +139,11 @@ $themePath = $this->basePath ( 'public' );
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="<?php echo $this->basePath('public/M');?>/global/scripts/metronic.js" type="text/javascript"></script>
-<script src="<?php echo $this->basePath('public/M');?>/admin/layout/scripts/layout.js" type="text/javascript"></script>
-<script src="<?php echo $this->basePath('public/M');?>/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
-<script src="<?php echo $this->basePath('public/M');?>/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="<?php echo $this->basePath('public/M');?>/admin/pages/scripts/login-soft.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
 jQuery(document).ready(function() {     
 	Metronic.init(); // init metronic core components
-	Layout.init(); // init current layout
-	QuickSidebar.init(); // init quick sidebar
-	Demo.init(); // init demo features
 	Login.init();
 	// init background slide images
 	$.backstretch([
