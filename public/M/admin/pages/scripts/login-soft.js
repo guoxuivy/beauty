@@ -7,7 +7,8 @@ var Login = function () {
             focusInvalid: false, // do not focus the last invalid input
             rules: {
                 username: {
-                    required: true
+                    required: true,
+                    rangelength: [5, 16]
                 },
                 password: {
                     required: true
@@ -19,7 +20,8 @@ var Login = function () {
 
             messages: {
                 username: {
-                    required: "用户名必须！"
+                    required: "用户名必须！",
+                    rangelength:"用户名长度在5-16位之间！"
                 },
                 password: {
                     required: "密码必须！"
