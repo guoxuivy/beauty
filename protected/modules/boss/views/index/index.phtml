@@ -1,115 +1,169 @@
+<style type="text/css">
+    .dashboard-stat .details .number{padding-top: 10px;}
+</style>
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat blue-madison">
+            <div class="visual">
+                <i class="fa fa-comments"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                     <?php echo $target['xj_m'] ?>
+                </div>
+                <div class="desc">
+                     月销售业绩
+                </div>
+                <div class="desc">目标：<?php echo $target['sale_target'] ?></div>
+            </div>
+            <a class="more" href="#">
+            View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat green-haze">
+            <div class="visual">
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                     <?php echo $target['sc_m'] ?>
+                </div>
+                <div class="desc">
+                     月实操业绩
+                </div>
+                <div class="desc">目标：<?php echo $target['prac_target'] ?></div>
+            </div>
+            <a class="more" href="#">
+            View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat purple-plum">
+            <div class="visual">
+                <i class="fa fa-globe"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                     <?php echo $target['kk_m'] ?>
+                </div>
+                <div class="desc">
+                     月客流
+                </div>
+                <div class="desc">成交人头：<?php echo $target['cj_m'] ?></div>
+            </div>
+            <a class="more" href="#">
+            View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat red-intense">
+            <div class="visual">
+                <i class="fa fa-bar-chart-o"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                     <?php echo $target['xj_d'] ?>
+                </div>
+                <div class="desc">
+                     日销售业绩
+                </div>
+                <div class="desc">完成率：<?php echo round($target['xj_m']/$target['sale_target'],2)*100 ?>%</div>
+
+            </div>
+            <a class="more" href="#">
+            View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat green-haze">
+            <div class="visual">
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                     <?php echo $target['sc_d'] ?>
+                </div>
+                <div class="desc">
+                     日实操业绩
+                </div>
+                <div class="desc">完成率：<?php echo round($target['sc_m']/$target['prac_target'],2)*100 ?>%</div>
+            </div>
+            <a class="more" href="#">
+            View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat purple-plum">
+            <div class="visual">
+                <i class="fa fa-globe"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                     <?php echo $target['kk_d'] ?>
+                </div>
+                <div class="desc">
+                     日客流
+                </div>
+                <div class="desc">成交人头：<?php echo $target['cj_d'] ?></div>
+            </div>
+            <a class="more" href="#">
+            View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- END DASHBOARD STATS -->
+<div class="clearfix"></div>
+<div class="col-md-12 col-sm-12">
+    <div class="portlet solid bordered grey-cararra">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-bar-chart-o"></i>本月数据曲线图
+            </div>
+            <div class="actions">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn grey-steel btn-sm active chart_b" data="container">
+                    <input type="radio" name="options" class="toggle" >业绩</label>
+                    <label class="btn grey-steel btn-sm chart_b" data="container1">
+                    <input type="radio" name="options" class="toggle" >客流</label>
+                </div>
+            </div>
+        </div>
+        <div class="portlet-body">
+
+            <div id="container" class="chart"></div>
+            <div id="container1" class="chart"></div>
+
+            <!-- <div id="site_statistics_loading" style="display: none;">
+                <img src="../../assets/admin/layout/img/loading.gif" alt="loading">
+            </div>
+            <div id="site_statistics_content" class="display-none" style="display: block;">
+                <div id="site_statistics" class="chart" style="padding: 0px; position: relative;">
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
 <div class="wrapper wrapper-content">
-	<!-- 月数据 -->
-    <div class="row">
-        <div class="col-lg-4">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <span class="label label-success pull-right">月</span>
-                    <h5>销售业绩</h5>
-                </div>
-                <div class="ibox-content">
-                    <h1 class="no-margins"><?php echo $target['xj_m'] ?></h1>
-                    <div class="stat-percent font-bold text-danger">目标：<?php echo $target['sale_target'] ?> <i class="fa fa-bolt"></i>
-                    </div>
-                    <small>总业绩</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <span class="label label-success pull-right">月</span>
-                    <h5>实操业绩</h5>
-                </div>
-                <div class="ibox-content">
-                    <h1 class="no-margins"><?php echo $target['sc_m'] ?></h1>
-                    <div class="stat-percent font-bold text-danger">目标：<?php echo $target['prac_target'] ?> <i class="fa fa-bolt"></i>
-                    </div>
-                    <small>实操金额</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <span class="label label-success pull-right">月</span>
-                    <h5>客流量</h5>
-                </div>
-                <div class="ibox-content">
-                    <h1 class="no-margins"><?php echo $target['kk_m'] ?></h1>
-                    <div class="stat-percent font-bold text-warning">成交人头：<?php echo $target['cj_m'] ?> <i class="fa fa-bolt"></i>
-                    </div>
-                    <small>月客流</small>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 日数据 -->
-    <div class="row">
-        <div class="col-lg-4">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <span class="label label-info pull-right">今日</span>
-                    <h5>销售业绩</h5>
-                </div>
-                <div class="ibox-content">
-                    <h1 class="no-margins"><?php echo $target['xj_d'] ?></h1>
-                    <div class="stat-percent font-bold text-info">完成率：<?php echo round($target['xj_m']/$target['sale_target'],2)*100 ?>% <i class="fa fa-level-up"></i>
-                    </div>
-                    <small>现金业绩</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <span class="label label-info pull-right">今日</span>
-                    <h5>实操业绩</h5>
-                </div>
-                <div class="ibox-content">
-                    <h1 class="no-margins"><?php echo $target['sc_d'] ?></h1>
-                    <div class="stat-percent font-bold text-navy">完成率：<?php echo round($target['sc_m']/$target['prac_target'],2)*100 ?>% <i class="fa fa-level-up"></i>
-                    </div>
-                    <small>实操金额</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <span class="label label-info pull-right">今日</span>
-                    <h5>客流量</h5>
-                </div>
-                <div class="ibox-content">
-                    <h1 class="no-margins"><?php echo $target['kk_d'] ?></h1>
-                    <div class="stat-percent font-bold text-navy">成交人头：<?php echo $target['cj_d'] ?> <i class="fa fa-level-up"></i>
-                    </div>
-                    <small>客流</small>
-                </div>
-            </div>
-        </div>
-    </div>
+	
 
 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                	<a href="javascript:" >
-                    <span class="label label-danger pull-right chart_b" data="container">业绩</span>
-                    <span class="label label-warning pull-right chart_b" data="container1">客流</span>
-                    </a>
-                    <h5>本月数据曲线图</h5>
-                </div>
-                <div class="ibox-content">
-                    
-					<div id="container" style="height: 300px;"></div>
-			        <div id="container1" style="height: 300px;"></div>
-					
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
 
     <div class="row">

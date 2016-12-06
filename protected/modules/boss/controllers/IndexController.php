@@ -12,7 +12,7 @@ class IndexController extends \SController
 	 * 总经理首页
 	 */
 	public function indexAction(){
-        $this->layout='/layouts/main_new';
+        //$this->layout='/layouts/main_new';
         //今日销售业绩
         $d_stime=strtotime(date("Ymd"));
         $d_etime=$d_stime+24*3600;
@@ -20,7 +20,7 @@ class IndexController extends \SController
     	$sc_d = \report\ReportModel::model()->getXJSHYJ(0,$d_stime,$d_etime);
     	$kk_d = \report\ReportModel::model()->getDDKL(0,$d_stime,$d_etime,true);//到店客流
     	$cj_d = \report\ReportModel::model()->getCJRT(0,$d_stime,$d_etime);//成交人头
-//var_dump($sc_d);die;
+
     	//月数据
     	$m_stime=strtotime(date("Ym")."01");
     	$days = date('t', $stime);
