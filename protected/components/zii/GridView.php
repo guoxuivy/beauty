@@ -145,8 +145,11 @@ class GridView extends CComponent
 	public function portletTitle(){
 		$opt = "";
 		foreach ($this->columns as $key => $col) {
-				$col = $col['header'];
-				$opt.='<label><input type="checkbox" checked data-column="'.$key.'">'.$col.'</label>';
+			if(isset($this->conf['check'])){
+				$key++;
+			}
+			$col = $col['header'];
+			$opt.='<label><input type="checkbox" checked data-column="'.$key.'">'.$col.'</label>';
 		}
 		$table_title = $this->conf['title']?$this->conf['title']:"数据列表";
 
