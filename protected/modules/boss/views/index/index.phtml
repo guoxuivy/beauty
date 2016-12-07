@@ -6,7 +6,7 @@
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
         <div class="dashboard-stat blue-madison">
             <div class="visual">
-                <i class="fa fa-comments"></i>
+                <i class="fa fa-shopping-cart"></i>
             </div>
             <div class="details">
                 <div class="number">
@@ -25,7 +25,7 @@
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
         <div class="dashboard-stat green-haze">
             <div class="visual">
-                <i class="fa fa-shopping-cart"></i>
+                <i class="fa fa-gavel"></i>
             </div>
             <div class="details">
                 <div class="number">
@@ -44,7 +44,7 @@
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
         <div class="dashboard-stat purple-plum">
             <div class="visual">
-                <i class="fa fa-globe"></i>
+                <i class="fa fa-female"></i>
             </div>
             <div class="details">
                 <div class="number">
@@ -83,9 +83,9 @@
         </div>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-        <div class="dashboard-stat green-haze">
+        <div class="dashboard-stat red-pink">
             <div class="visual">
-                <i class="fa fa-shopping-cart"></i>
+                <i class="fa fa-flask"></i>
             </div>
             <div class="details">
                 <div class="number">
@@ -102,7 +102,7 @@
         </div>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-        <div class="dashboard-stat purple-plum">
+        <div class="dashboard-stat yellow-casablanca">
             <div class="visual">
                 <i class="fa fa-globe"></i>
             </div>
@@ -124,287 +124,296 @@
 <!-- END DASHBOARD STATS -->
 <div class="clearfix"></div>
 
+
 <div class="row">
     <div class="col-md-12 col-sm-12">
-        <div class="portlet solid bordered grey-cararra">
+        <div class="portlet box blue tabbable">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-bar-chart-o"></i>本月数据曲线图
-                </div>
-                <div class="actions">
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn grey-steel btn-sm active chart_b" data="container">
-                        <input type="radio" name="options" class="toggle" >业绩</label>
-                        <label class="btn grey-steel btn-sm chart_b" data="container1">
-                        <input type="radio" name="options" class="toggle" >客流</label>
-                    </div>
+                    <i class="fa fa-gift"></i>月销售曲线图
                 </div>
             </div>
             <div class="portlet-body">
-                <div id="container" class="chart"></div>
-                <div id="container1" class="chart"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-<div class="wrapper wrapper-content">
-	
-
-
-    
-
-
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-
-                <div class="ibox-title">
-                    <span class="label label-warning pull-right"><?php echo $out["A"]+$out["B"]+$out["C"]+$out["D"]+$out["E"] ?></span>
-                    <h5>30天内将流失客户数</h5>
-                </div>
-                <div class="ibox-content">
-	                <div class="row">
-	                	<div class="col-lg-4">
-	                        <div class="widget style1 red-bg">
-	                        	<a style="color:#fff" href="<?php echo $this->url("customer/index/outlist") ?>&cu_type=A">
-	                            <div class="row vertical-align">
-	                                <div class="col-xs-3">
-	                                    <i class="fa fa-user fa-3x"></i>
-	                                </div>
-	                                <div class="col-xs-9 text-right">
-	                                    <h2 class="font-bold">A类客户：<?php echo $out["A"] ?></h2>
-	                                </div>
-	                            </div>
-	                            </a>
-	                        </div>
-	                    </div>
-	                    <div class="col-lg-4">
-	                        <div class="widget style1 yellow-bg">
-	                        	<a style="color:#fff" href="<?php echo $this->url("customer/index/outlist") ?>&cu_type=B">
-	                            <div class="row vertical-align">
-	                                <div class="col-xs-3">
-	                                    <i class="fa fa-user fa-3x"></i>
-	                                </div>
-	                                <div class="col-xs-9 text-right">
-	                                    <h2 class="font-bold">B类客户：<?php echo $out["B"] ?></h2>
-	                                </div>
-	                            </div>
-	                            </a>
-	                        </div>
-	                    </div>
-	                    <div class="col-lg-4">
-	                        <div class="widget style1 blue-bg">
-	                        	<a style="color:#fff" href="<?php echo $this->url("customer/index/outlist") ?>&cu_type=C">
-	                            <div class="row vertical-align">
-	                                <div class="col-xs-3">
-	                                    <i class="fa fa-user fa-3x"></i>
-	                                </div>
-	                                <div class="col-xs-9 text-right">
-	                                    <h2 class="font-bold">C类客户：<?php echo $out["C"] ?></h2>
-	                                </div>
-	                            </div>
-	                            </a>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="row">
-	                	<div class="col-lg-4">
-	                        <div class="widget style1 navy-bg">
-	                        	<a style="color:#fff" href="<?php echo $this->url("customer/index/outlist") ?>&cu_type=D">
-	                            <div class="row vertical-align">
-	                                <div class="col-xs-3">
-	                                    <i class="fa fa-user fa-3x"></i>
-	                                </div>
-	                                <div class="col-xs-9 text-right">
-	                                    <h2 class="font-bold">D类客户：<?php echo $out["D"] ?></h2>
-	                                </div>
-	                            </div>
-	                            </a>
-	                        </div>
-	                    </div>
-	                    <div class="col-lg-4">
-	                        <div class="widget style1 lazur-bg">
-	                        	<a style="color:#fff" href="<?php echo $this->url("customer/index/outlist") ?>&cu_type=E">
-		                            <div class="row vertical-align">
-		                                <div class="col-xs-3">
-		                                    <i class="fa fa-user fa-3x"></i>
-		                                </div>
-		                                <div class="col-xs-9 text-right">
-		                                    <h2 class="font-bold">E类客户：<?php echo $out["E"] ?></h2>
-		                                </div>
-		                            </div>
-	                            </a>
-	                        </div>
-	                    </div>
-	                </div>
-					
+                <div class="tabbable portlet-tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="">
+                            <a href="#portlet_tab2" data-toggle="tab" class="kl_tab2">客流 </a>
+                        </li>
+                        <li class="active">
+                            <a href="#portlet_tab1" data-toggle="tab" class="kl_tab1">业绩 </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="portlet_tab1"></div>
+                        <div class="tab-pane" id="portlet_tab2"></div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- BEGIN BASIC CHART PORTLET-->
+        <div class="portlet box purple">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>30天内将流失客户数<span class="label pull-right"><?php echo $out["A"]+$out["B"]+$out["C"]+$out["D"]+$out["E"] ?></span>
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                    <a href="javascript:;" class="reload"></a>
+                    <a href="javascript:;" class="remove"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div id="chart_1_2" class="chart">
+                </div>
+            </div>
+        </div>
+        <!-- END BASIC CHART PORTLET-->
     </div>
-
 </div>
-
 
 <script src="<?php echo $this->basePath('public');?>/js/Highcharts/highcharts.js"></script>
-<!-- <script src="<?php echo $this->basePath('public');?>/js/Highcharts/modules/exporting.js"></script> -->
-<script src="<?php echo $this->basePath('public');?>/js/Highcharts/modules/draggable-legend.js"></script>
 
 <!--content_right_con!end-->
 <script type="text/javascript">
 $(function () {
-	$('#container').highcharts({
-		title: {
-			text: '',
-			x: -20 //center
-		},
-		colors: ['#91e8e1','#f15c80','#e4d354', '#8085e9','#7cb5ec',   '#90ed7d', '#434348',  '#8085e8', '#8d4653', '#f7a35c'],
-		subtitle: {
-			text: '',
-			x: -20
-		},
-		xAxis: {
-			type: 'datetime',
-			dateTimeLabelFormats: { // don't display the dummy year
-				day: '%e日'   
-			}
-		},
-		exporting: {
-			enabled: false
-		},
-		yAxis: {
-			title: {
-				text: ''
-			},
-			plotLines: [{
-				value: 0,
-				width: 1,
-				color: '#808080'
-			}]
-		},
-		tooltip: {
-			enabled: true,
-			crosshairs: true,
-			formatter: function() {
-				return Highcharts.dateFormat('%e', this.x)+'日<br><b>'+ this.series.name +'</b>: '+ this.y +'元';
-			}
-		},
-		legend: {
-			layout: 'vertical',
-			backgroundColor: 'white',
-			align: 'right',
-			verticalAlign: 'top',
-			y: 20,
-			x: -20,
-			borderWidth: 1,
-			borderRadius: 0,
-			title: {
-				text: ':: 拖动'
-			},
-			floating: true,
-			draggable: true,
-			zIndex: 20
-		},
-		series: [{
-			name: '现金业绩',
-			data: [
-			<?php 
-			$str=array();
-			foreach($data['sale_list'] as $index=>$v){
-				$str[] = "[Date.UTC(".date('Y').",".(date('n')-1).",$index),$v]";//UTC 时间月份减1 0~11
-			}
-			echo implode(",",$str);
-			?>]
-		}, {
-			name: '现金实耗',
-			data: [
-			<?php 
-			$str=array();
-			foreach($data['prac_list'] as $index=>$v){
-				$str[] = "[Date.UTC(".date('Y').",".(date('n')-1).",$index),$v]";
-			}
-			echo implode(",",$str);
-			?>]
-		}]
-	});
+    portlet_tab1();
+    portlet_tab2();
+    portlet_tab3();
+
+    function portlet_tab1(){
+        $('#portlet_tab1').highcharts({
+            chart: {
+                backgroundColor: 'rgba(0,0,0,0)'
+            },
+            title: {
+                text: '',
+                x: -20 //center
+            },
+            colors: ['#91e8e1','#f15c80','#e4d354', '#8085e9','#7cb5ec',   '#90ed7d', '#434348',  '#8085e8', '#8d4653', '#f7a35c'],
+            subtitle: {
+                text: '',
+                x: -20
+            },
+            xAxis: {
+                type: 'datetime',
+                gridLineColor: '#f7f7f7',
+                gridLineWidth: 1,
+                dateTimeLabelFormats: { // don't display the dummy year
+                    day: '%e日'   
+                }
+            },
+            exporting: {
+                enabled: false
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                },
+                gridLineColor: '#f7f7f7',
+                gridLineWidth: 1,
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                enabled: true,
+                crosshairs: true,
+                formatter: function() {
+                    return Highcharts.dateFormat('%e', this.x)+'日<br><b>'+ this.series.name +'</b>: '+ this.y +'元';
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                y: 20,
+                x: -20,
+                borderWidth: 1,
+                borderRadius: 0,
+                floating: true,
+                draggable: true,
+                zIndex: 20
+            },
+            series: [{
+                name: '现金业绩',
+                data: [
+                <?php 
+                $str=array();
+                foreach($data['sale_list'] as $index=>$v){
+                    $str[] = "[Date.UTC(".date('Y').",".(date('n')-1).",$index),$v]";//UTC 时间月份减1 0~11
+                }
+                echo implode(",",$str);
+                ?>]
+            }, {
+                name: '现金实耗',
+                data: [
+                <?php 
+                $str=array();
+                foreach($data['prac_list'] as $index=>$v){
+                    $str[] = "[Date.UTC(".date('Y').",".(date('n')-1).",$index),$v]";
+                }
+                echo implode(",",$str);
+                ?>]
+            }]
+        });
+    }
+
 	
-	$('#container1').highcharts({
-		title: {
-			text: '',
-			x: -20 //center
-		},
-		subtitle: {
-			text: '',
-			x: -20
-		},
-		xAxis: {
-			type: 'datetime',
-			dateTimeLabelFormats: { // don't display the dummy year
-				day: '%e日'   
-			}
-		},
-		exporting: {
-			enabled: false
-		},
-		yAxis: {
-			title: {
-				text: ''
-			},
-			plotLines: [{
-				value: 0,
-				width: 1,
-				color: '#808080'
-			}]
-		},
-		tooltip: {
-			enabled: true,
-			crosshairs: true,
-			formatter: function() {
-				return Highcharts.dateFormat('%e', this.x)+'日<br><b>'+ this.series.name +'</b>: '+ this.y +'人';
-			}
-		},
-		legend: {
-			layout: 'vertical',
-			backgroundColor: 'white',
-			align: 'right',
-			verticalAlign: 'top',
-			y: 20,
-			x: -20,
-			borderWidth: 1,
-			borderRadius: 0,
-			title: {
-				text: ':: 拖动'
-			},
-			floating: true,
-			draggable: true,
-			zIndex: 20
-		},
-		series: [{
-			name: '到店客流',
-			data: [
-			<?php 
-			$str=array();
-			foreach($data['kk_list'] as $index=>$v){
-				$str[] = "[Date.UTC(".date('Y').",".(date('n')-1).",$index),$v]";
-			}
-			echo implode(",",$str);
-			?>]
-		}]
-	});
-	$("#container1").hide(); 
-	
-	
-   
-	$(".chart_b").click(function(){
-		var forid=$(this).attr('data');
-		$("#container").hide();
-		$("#container1").hide();
-		$("#"+forid).show();
-	});
+	   
+    function portlet_tab2(){
+        $('#portlet_tab2').highcharts({
+            chart: {
+                backgroundColor: 'rgba(0,0,0,0)'
+            },
+            title: {
+                text: '',
+                x: -20 //center
+            },
+            subtitle: {
+                text: '',
+                x: -20
+            },
+            xAxis: {
+                type: 'datetime',
+                gridLineColor: '#f7f7f7',
+                gridLineWidth: 1,
+                dateTimeLabelFormats: { // don't display the dummy year
+                    day: '%e日'   
+                }
+            },
+            exporting: {
+                enabled: false
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                },
+                gridLineColor: '#f7f7f7',
+                gridLineWidth: 1,
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                enabled: true,
+                crosshairs: true,
+                formatter: function() {
+                    return Highcharts.dateFormat('%e', this.x)+'日<br><b>'+ this.series.name +'</b>: '+ this.y +'人';
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                y: 20,
+                x: -20,
+                borderWidth: 1,
+                borderRadius: 0,
+                floating: true,
+                draggable: true,
+                zIndex: 20
+            },
+            series: [{
+                name: '到店客流',
+                data: [
+                <?php 
+                $str=array();
+                foreach($data['kk_list'] as $index=>$v){
+                    $str[] = "[Date.UTC(".date('Y').",".(date('n')-1).",$index),$v]";
+                }
+                echo implode(",",$str);
+                ?>]
+            }]
+        });
+    }
+
+    function portlet_tab3(){
+        $('#chart_1_2').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: ['<a>A类客户</a>', 'B类客户', 'C类客户', 'D类客户', 'E类客户'],
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: null,
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                valueSuffix: ' 人'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                y: 20,
+                x: -20,
+                borderWidth: 1,
+                borderRadius: 0,
+                floating: true,
+                draggable: true,
+                zIndex: 20
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                },
+                series: {
+                    cursor: 'pointer',
+                    events: {
+                        click: function(e) {
+                            //location.href = e.point.url; //上面是当前页跳转，如果是要跳出新页面，那就用
+                            window.open(e.point.url);
+                            //这里的url要后面的data里给出
+                        }
+                    },
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: '即将流失人数',
+                data: [
+                {y:<?php echo $out["A"] ?>,url:'<?php echo $this->url("customer/index/outlist") ?>&cu_type=A'}, 
+                {y:<?php echo $out["B"] ?>,url:'<?php echo $this->url("customer/index/outlist") ?>&cu_type=B'}, 
+                {y:<?php echo $out["C"] ?>,url:'<?php echo $this->url("customer/index/outlist") ?>&cu_type=C'}, 
+                {y:<?php echo $out["D"] ?>,url:'<?php echo $this->url("customer/index/outlist") ?>&cu_type=D'}, 
+                {y:<?php echo $out["E"] ?>,url:'<?php echo $this->url("customer/index/outlist") ?>&cu_type=E'}
+                ]
+            }]
+        });
+    }
+
+
+    $('.kl_tab2').click(function(){
+        setTimeout("$('#portlet_tab2').highcharts().reflow()", 10 );
+    });
+    $('.kl_tab1').click(function(){
+        setTimeout("$('#portlet_tab1').highcharts().reflow()", 10 );
+    });
 	
 });
 
