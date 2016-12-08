@@ -1,0 +1,61 @@
+﻿@charset "utf-8";
+
+/*邀约本*/
+.yy_top{padding:15px 10px;border:1px solid #dddddd; background:#fafafa;font-size:12px; color:#666666; overflow:hidden;}
+.yy_top span{ margin-right:10px; display:inline-block; height:22px; line-height:22px;}
+.yy_top a{  font-size:12px; color:#666666; text-decoration:underline;}
+.yy_top_l{ float:left;}
+.yy_top_l_01{ background:url(../images/yy_02.png) no-repeat left center; padding-left:22px; color:#0077ff;}
+.yy_top_l_02{ background:url(../images/yy_03.png) no-repeat left center; padding-left:22px; color:#1eb488;}
+.yy_top_l_03{ background:url(../images/yy_04.png) no-repeat left center; padding-left:22px; color:#d89e43;}
+.yy_top_r{ float:right;}
+.yy_top_r_01{ background:url(../images/yy_06.png) no-repeat left center; padding-left:22px; }
+.yy_top_r_02{ background:url(../images/yy_07.png) no-repeat left center; padding-left:22px; }
+.yy_top_r_03{ background:url(../images/yy_08.png) no-repeat left center; padding-left:22px; }
+.yy_top_r_1{color:#0077ff;}
+.yy_top_r_2{color:#ff435e;}
+.yy_top_r_3{color:#1eb488;}
+
+.pb_qr{ float:right;padding-top:20px;font-size:12px;}
+.pb_qr_01{ height:24px; width:143px; border-radius:3px;border:1px solid #dddddd; margin-right:8px;}
+.pb_qr_02{ padding-left:15px; padding-right:15px; height:26px; line-height:26px;border-radius:3px; background:#1eb488; color:#FFF;font-size:12px; display:inline-block;}
+.pb_qr_03{ background:url(../images/yy_01.png) no-repeat 0px center; padding-left:20px;}
+
+.yy_two{ overflow:hidden; margin-top:20px;border:1px solid #dddddd; position:relative;zoom:1; font-size:12px; color:#333333;}
+.yy_two_son{ margin-left:80px; border-left:1px solid #dddddd; overflow:hidden; }
+.yy_two_son_con{ min-height:900px; height:auto !important; position:relative;zoom:1;}
+
+
+.yy_two_son_title{ height:30px;border-bottom:1px solid #dddddd; line-height:30px; background:#fdfdfd;}
+.yy_two_son_title ul li{ float:left;width:100px; height:30px; line-height:30px; text-align:center; font-size:12px; color:#333333;border-right:1px solid #dddddd;}
+.yy_two_son_title ul li:last-child{border-right:none;}
+
+.yy_two_son_list{ height:40px;border-bottom:1px solid #dddddd; line-height:40px;}
+/*.yy_two_son_list:last-child{border-bottom:none;}*/
+
+.yy_two_son_list ul li{ float:left;width:100px; height:40px; line-height:40px; text-align:center; font-size:12px; color:#333333;border-right:1px solid #dddddd;}
+.yy_two_son_list ul li:hover{ background-color:#ffffdd;}
+.yy_two_son_list ul li:last-child{border-bottom:none;border-right:none;}
+.yy_two_son_list_100{ background:#f7f7f7;}
+
+.yy_two_son_con_l{ width:80px; position:absolute; left:0px; top:0px;}
+.yy_two_son_con_l_title{height:30px;border-bottom:1px solid #dddddd; line-height:30px; width:80px; text-align:center; background:#fdfdfd;}
+.yy_two_son_con_l_two{ overflow:hidden;}
+.yy_two_son_con_l_two ul li{ width:80px; height:40px;border-bottom:1px solid #dddddd; line-height:40px; text-align:center;}
+
+
+
+.yy_two_son01{ position:absolute; right:0px; top:0px; background:#FFF;border-left:1px solid #dddddd; z-index:99; background:#fdfdfd; }
+.zwtitlefa{ overflow:hidden;}
+
+.yyb_top{ width:480px;border:1px solid #dddddd; padding:10px;background:#fafafa; font-size:12px; color:#666666;}
+.tjfj_two .yylabel{ display:inline-block; width:90px;}
+.tjfj_two .yyb_top01{ height:28px; width:264px;border:1px solid #dddddd; border-radius:3px; font-size:12px; color:#999; text-align:left;box-shadow:0px 1px 3px #eee inset;   }
+.tjfj_two .yyb_top02{height:22px; width:67px;border:1px solid #dddddd; border-radius:3px; font-size:12px; color:#fd84a4; text-align:center; margin-left:40px;}
+.tjfj_two .yyb_top03{height:28px; width:115px;border:1px solid #dddddd; border-radius:3px; font-size:12px; color:#999; text-align:left;margin-right:5px; padding-left:25px; background:url(../images/yy_015.png) no-repeat 7px center;}
+
+.yyb_two{width:480px; margin-top:20px;border:1px solid #dddddd; padding:10px; font-size:12px; color:#666666;border-radius:3px; position:relative; zoom:1;}
+.yyb_two .pyyff{ margin-bottom:15px; padding-left:0px; padding-right:0px;}
+.yyb_two span{ padding-left:13px; padding-right:13px; height:24px; line-height:24px;border:1px solid #dddddd;border-radius:3px; font-size:12px; color:#999999; background:#f4f4f4; margin-left:50px; display:inline-block; cursor:pointer;}
+.yyb_two_posi{ position:absolute; width:59px; height:22px; line-height:22px; text-align:center; top:-11px; left:12px; font-size:12px; color:#ffffff; background:url(../images/yy_016.png) no-repeat;}
+
