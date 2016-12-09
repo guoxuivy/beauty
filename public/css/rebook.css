@@ -51,15 +51,15 @@ li{list-style-type:none;}
 .yy_two_son01{ position:absolute; right:0px; top:0px; background:#FFF;border-left:1px solid #dddddd; z-index:99; background:#fdfdfd; }
 .zwtitlefa{ overflow:hidden;}
 
-.yyb_top{ width:480px;border:1px solid #dddddd; padding:10px;background:#fafafa; font-size:12px; color:#666666;}
+.yyb_top{ border:1px solid #dddddd; padding:10px;background:#fafafa; font-size:12px; color:#666666;}
 .tjfj_two .yylabel{ display:inline-block; width:90px;}
-.tjfj_two .yyb_top01{ height:28px; width:264px;border:1px solid #dddddd; border-radius:3px; font-size:12px; color:#999; text-align:left;box-shadow:0px 1px 3px #eee inset;   }
+.tjfj_two .yyb_top01{ height:28px; border:1px solid #dddddd; border-radius:3px; font-size:12px; color:#999; text-align:left;box-shadow:0px 1px 3px #eee inset;   }
 .tjfj_two .yyb_top02{height:22px; width:67px;border:1px solid #dddddd; border-radius:3px; font-size:12px; color:#fd84a4; text-align:center; margin-left:40px;}
 .tjfj_two .yyb_top03{height:28px; width:115px;border:1px solid #dddddd; border-radius:3px; font-size:12px; color:#999; text-align:left;margin-right:5px; padding-left:25px; background:url(../images/yy_015.png) no-repeat 7px center;}
 
-.yyb_two{width:480px; margin-top:20px;border:1px solid #dddddd; padding:10px; font-size:12px; color:#666666;border-radius:3px; position:relative; zoom:1;}
+.yyb_two{margin-top:20px;border:1px solid #dddddd; padding:10px; font-size:12px; color:#666666;border-radius:3px; position:relative; zoom:1;}
 .yyb_two .pyyff{ margin-bottom:15px; padding-left:0px; padding-right:0px;}
-.yyb_two span{ padding-left:13px; padding-right:13px; height:24px; line-height:24px;border:1px solid #dddddd;border-radius:3px; font-size:12px; color:#999999; background:#f4f4f4; margin-left:50px; display:inline-block; cursor:pointer;}
+.yyb_two span{ padding-left:13px; padding-right:13px; height:24px; line-height:24px;border:1px solid #dddddd;border-radius:3px; font-size:12px; color:#999999; background:#f4f4f4; display:inline-block; cursor:pointer;}
 .yyb_two_posi{ position:absolute; width:59px; height:22px; line-height:22px; text-align:center; top:-11px; left:12px; font-size:12px; color:#ffffff; background:url(../images/yy_016.png) no-repeat;}
 
 .yy_two_son_list li{cursor: pointer;}
