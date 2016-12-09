@@ -1,32 +1,39 @@
+<div class="portlet portlet-table  ">
+<div class="portlet-body">
+<div  class="dataTables_wrapper no-footer">
+<div class="table-scrollable">
+<table class="table table-striped table-bordered ">
+<thead>
+<tr role="row">
+<th >序号</th>
+<th >客户</th>
+<th >项目</th>
+<th >实操美疗师</th>
+<th >是否耗卡</th>
+<th >到店时间</th>
+</tr>
+</thead>
+<tbody>
 
-
-<div class="table_title">
-    <ul>
-        <li style="min-width: 20px;"></li>
-        <li>客户</li>
-        <li>项目</li>
-        <li>实操美疗师</li>
-        <li>是否耗卡</li>
-        <li>到店时间</li>
-    </ul>
-</div>
 <?php if(!empty($list)):?>
     <?php foreach($list as $key=>$_list):?>
-        <div class="table_list">
-            <ul>
-                <li class="li002"><?php echo $key+1;?></li>
-                <li class="li002"><?php echo $_list['cu_name'];?></li>
-                <li class="li001"><?php echo \ReBook::model()->getPraProNames($_list['id']);?></li>
-                <li class="li004"><?php echo implode(';',\ReBook::model()->getPraOperName($_list['id']));?></li>
-                <li class="li005"><?php echo $_list['status']==1?'耗卡':'未耗卡';?></li>
-                <li class="li005"><?php echo $_list['last_time'];?></li>
-            </ul>
-        </div>
+        
+            <tr>
+                <td ><?php echo $key+1;?></td>
+                <td ><?php echo $_list['cu_name'];?></td>
+                <td class="li001"><?php echo \ReBook::model()->getPraProNames($_list['id']);?></td>
+                <td class="li004"><?php echo implode(';',\ReBook::model()->getPraOperName($_list['id']));?></td>
+                <td class="li005"><?php echo $_list['status']==1?'耗卡':'未耗卡';?></td>
+                <td class="li005"><?php echo $_list['last_time'];?></td>
+            </tr>
+       
     <?php endforeach;?>
 <?php else:?>
-    <div class="table_list">
-        <ul style="margin-left: 350px;">
-            暂无数据！
-        </ul>
-    </div>
+        <tr class="odd">
+            <td colspan=7 >No data available in table</td>
+        </tr>
 <?php endif;?>
+
+</tbody>
+</table>
+</div></div></div></div>
