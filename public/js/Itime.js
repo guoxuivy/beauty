@@ -32,7 +32,7 @@ var d = Itime({
 
 	var template  = '<div class="itime"><a rel="d" href="javascript:">日报</a>';
 		template += '<a rel="m" href="javascript:">月报</a>';
-		template += '<a rel="y" href="javascript:">年报</a><br/>';
+		template += '<a rel="y" href="javascript:">年报</a>';
 		template += '<select class="b_y"></select>';
 		template += '<select class="b_m"></select>';
 		template += '<select class="b_d"></select>';

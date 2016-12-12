@@ -52,3 +52,7 @@
 .spandefa {margin-right: 5px;padding: 3px}
 .c_add{vertical-align:top;}
 /*选择项目/商品/卡券-弹出 widget  end*/
+
+.idialog_tips{overflow:hidden; position:fixed; left:50%; top:200px;z-index:999;background-color: #fff;border: 1px solid #00DDDD;padding: 20px;}
+.itime a{margin-right: 10px;}
+.itime .changa{background-color: #f3565d;background-image: none;padding: 2px 5px;color: #fff;}

@@ -4,66 +4,47 @@
     if ($this->controller->is_store)
         $_GET['dept_id']=\Ivy::app()->user->dept_id;
 ?>
-<!--content_right_con-->
-<div class="content_right_con">
-    <div class="content_right_con_top">
-        <div class="fjgl_top_r">
-            <span><a href="#" download="美容师服务分析表.xls"class="to_excel fjgl_top_r_05">导出</a></span>
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="note note-info">
+            <div class="top_com">
+                <span class="spanl">门店范围：</span>
+                <div class="choose_md">
+                <?php if(!$this->controller->is_store):?>
+                <a href="javascript:" rel="0"><span >全连锁</span></a>
+                <?php endif;?>
+                <?php foreach ($md_list as $key => $value): ?>
+                <a href="javascript:" rel="<?php echo $key ?>"><span><?php echo $value ?></span></a>
+                <?php endforeach ?>
+                </div>
+            </div>
+            
+            <div class="top_com stime">
+                <span class="spanl">日期：</span>
+                <span  id="choose_time">
+                    <select id="year">
+                        <?php $_year = date('Y');?>
+                        <?php for($i=0;$i<=4;$i++):?>
+                            <option <?php echo $year==$_year-$i?'selected="selected"':''?> value="<?php echo $_year-$i;?>"><?php echo $_year-$i;?>年</option>
+                        <?php endfor;?>
+                    </select>
+                    <select id="month">
+                        <?php for($i=1;$i<=12;$i++):?>
+                            <option <?php echo $month==$i?'selected="selected"':''?> value="<?php echo $i;?>"><?php echo $i<10?'0'.$i:$i;?>月</option>
+                        <?php endfor;?>
+                    </select>
+                </span>
+            </div>
+
+            <a href="javascript:" class="btn btn-success changa01">搜索</a>
+            <a href="javascript:;" download="美容师服务分析表.xls" class="btn purple-plum to_excel">导出</a>
         </div>
-        <div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>数据报表><span>美容师服务分析表</span>
     </div>
 
-    <!--sjbb_ddkl_one-->
-    <div class="sjbb_ddkl_one">
-        <ul>
-            <li>
-                <div class="sjbb_ddkl_one_l">门店范围：</div>
-                <div class="sjbb_ddkl_one_r">
-                    <div class="sjbb_ddkl_one_r_son">
-                        <?php foreach ($md_list as $key => $value): ?>
-                            <a href="javascript:" rel="<?php echo $key ?>" class="changa02 <?php echo $_GET['dept_id']==$key?'changa01':''?>"><?php echo $value ?></a>
-                        <?php endforeach ?>
-                    </div>
-                    <input id="dept_id" value="<?php echo $_GET['dept_id']?>" type="hidden">
-                </div>
-            </li>
-            <li>
-                <div class="sjbb_ddkl_one_l">日期：</div>
-                <div class="sjbb_ddkl_one_r">
-                    <div class="sjbb_ddkl_one_r_son">
-                        <select id="year" class="sjbb_ddkl_one_r_son_01">
-                            <?php $_year = date('Y');?>
-                            <?php for($i=0;$i<=4;$i++):?>
-                                <option <?php echo $year==$_year-$i?'selected="selected"':''?> value="<?php echo $_year-$i;?>"><?php echo $_year-$i;?>年</option>
-                            <?php endfor;?>
-                        </select>
-                        <select id="month" class="sjbb_ddkl_one_r_son_01">
-                            <?php for($i=1;$i<=12;$i++):?>
-                                <option <?php echo $month==$i?'selected="selected"':''?> value="<?php echo $i;?>"><?php echo $i<10?'0'.$i:$i;?>月</option>
-                            <?php endfor;?>
-                        </select>
-                    </div>
-                </div>
-            </li>
-
-            <li class="lastli">
-                <div class="sjbb_ddkl_one_l">
-                </div>
-                <div class="sjbb_ddkl_one_r">
-                    <div class="sjbb_ddkl_one_r_son">
-                        <a href="javascript:" class="changa01" id="search">搜索</a>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div> <!--sjbb_index_onesjbb_ddkl_oneend-->
-
-    <!--table_container-->
-    <div id="order-list" class="table_table table_center">
-        <div class="table_hiddle">
-        <table width="100%" cellspacing="0" cellpadding="0" border="0" last-float="false">
+    <div class="col-md-12" id="order-list">
+        <table class="table table-bordered table-striped table-hover table-bb">
             <thead>
-                <tr class="table_title">
+                <tr>
                     <th>日期</th>
                     <th>服务人次</th>
                     <th>人均服务人次</th>
@@ -76,7 +57,7 @@
             <?php if ($data): ?>
             <?php $ddkl = 0; $pjkl = 0; $mrskl = array();?>
             <?php foreach ($data as $_data): ?>
-                <tr class="table_list">
+                <tr>
                     <td><?php echo $_data['DATE'];?></td>
                     <td><?php echo $_data['DDKL'];?></td>
                     <td><?php echo $_data['PJKL'];?></td>
@@ -91,51 +72,56 @@
                     ?>
                 </tr> 
             <?php endforeach ?>
-                <tr class="table_list table_weight clear">
+                <tr class="table_weight">
                     <td>合计</td>
                     <td><?php echo $ddkl;?></td>
                     <td><?php echo $pjkl;?></td>
                     <?php foreach($mrs_list as $key=>$mrs):?>
                         <td><?php echo $mrskl[$key];?></td>
                     <?php endforeach;?>
-
                 </tr> 
             <?php endif ?>
             </tbody>
         </table>
-        </div><!--table_hiddle!end-->
     </div>
-    <!--table_container-->
-
-
-
-
-
 
 </div>
-<!--content_right_con!end-->
+
+
 
 
 <script type="text/javascript">
 $(function(){
-	//门店范围选择
-	$(".changa02").click(function(){
-		var rel = $(this).attr("rel");
-        $(this).siblings().removeClass('changa01');
-        if($(this).hasClass('changa01')){
-            $(this).removeClass('changa01');
-            $("#dept_id").val('');
-        }else{
-            $(this).addClass('changa01');
-            $("#dept_id").val(rel);
-        }
-	});
+    //门店范围选择
+    $(".choose_md a").click(function(){
+        $(".choose_md span").removeClass("span_01");
+        $(this).find("span").addClass("span_01");
+    });
 
-    $("#search").click(function(){
-        var dept_id = $("#dept_id").val();
+
+//填充默认门店
+<?php if (isset($_GET['dept_id'])): ?>
+    <?php foreach (explode(',', $_GET['dept_id']) as $v): ?>
+        $(".choose_md").find("a[rel='<?php echo $v ?>']").trigger("click");
+    <?php endforeach ?>
+<?php endif ?>
+
+    function getMd(){
+        if($(".choose_md a[rel='0']").find("span").hasClass("span_01"))
+            return "0";
+        var l = $(".choose_md a").map(function(){
+            if($(this).find("span").hasClass("span_01"))
+                return $(this).attr("rel");
+        }).get().join(",");
+        return l;
+    }
+
+
+    $(".changa01").click(function(){
+        var dept_id=getMd();
         if(dept_id==''){
-            alert('请选择门店！');
-            return false;
+            Idialog.tips('门店未选择！',2);
+            return;
         }
         var year = $("#year").val();
         var month = $("#month").val();

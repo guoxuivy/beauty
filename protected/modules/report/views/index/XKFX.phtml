@@ -4,70 +4,47 @@
     if ($this->controller->is_store)
         $dept_ids=\Ivy::app()->user->dept_id;
 ?>
-<!--content_right_con-->
-<div class="content_right_con">
-    <div class="content_right_con_top">
-        <div class="fjgl_top_r">
-            <span><a href="#" download="新客分析表.xls"class="to_excel fjgl_top_r_05">导出</a></span>
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="note note-info">
+            <div class="top_com">
+                <span class="spanl">门店范围：</span>
+                <div class="choose_md">
+                <?php if(!$this->controller->is_store):?>
+                <a href="javascript:" rel="0"><span <?php echo in_array('0',explode(',',$dept_ids))?'class="span_01"':''?>>全连锁</span></a>
+                <?php endif;?>
+                <?php foreach ($md_list as $key => $value): ?>
+                    <a href="javascript:" rel="<?php echo $key ?>"><span <?php echo in_array($key,explode(',',$dept_ids))?'class="span_01"':''?>><?php echo $value ?></span></a>
+                <?php endforeach ?>
+                </div>
+            </div>
+            
+            <div class="top_com stime">
+                <span class="spanl">日期：</span>
+                <span  id="choose_time">
+                    <select id="year">
+                        <?php $_year = date('Y');?>
+                        <?php for($i=0;$i<=4;$i++):?>
+                            <option <?php echo $year==$_year-$i?'selected="selected"':''?> value="<?php echo $_year-$i;?>"><?php echo $_year-$i;?>年</option>
+                        <?php endfor;?>
+                    </select>
+                    <select id="month">
+                        <?php for($i=1;$i<=12;$i++):?>
+                            <option <?php echo $month==$i?'selected="selected"':''?> value="<?php echo $i;?>"><?php echo $i<10?'0'.$i:$i;?>月</option>
+                        <?php endfor;?>
+                    </select>
+                </span>
+            </div>
+
+            <a href="javascript:" class="btn btn-success changa01">搜索</a>
+            <a href="javascript:;" download="新客分析表.xls" class="btn purple-plum to_excel">导出</a>
         </div>
-        <div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>数据报表><span>新客分析表</span>
     </div>
 
-    <!--sjbb_ddkl_one-->
-    <div class="sjbb_ddkl_one">
-        <ul>
-            <li>
-                <div class="sjbb_ddkl_one_l">门店范围：</div>
-                <div class="sjbb_ddkl_one_r">
-                    <div class="sjbb_ddkl_one_r_son choose_md">
-                        <?php if(!$this->controller->is_store):?>
-                        <a href="javascript:" rel="0"><span <?php echo in_array('0',explode(',',$dept_ids))?'class="span_01"':''?>></span>全连锁</a>
-                        <?php endif;?>
-                        <?php foreach ($md_list as $key => $value): ?>
-                            <a href="javascript:" rel="<?php echo $key ?>"><span <?php echo in_array($key,explode(',',$dept_ids))?'class="span_01"':''?>></span><?php echo $value ?></a>
-                        <?php endforeach ?>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <div class="sjbb_ddkl_one_l">日期：</div>
-                <div class="sjbb_ddkl_one_r">
-                    <div class="sjbb_ddkl_one_r_son">
-                        <select id="year" class="sjbb_ddkl_one_r_son_01">
-                            <?php $_year = date('Y');?>
-                            <?php for($i=0;$i<=4;$i++):?>
-                                <option <?php echo $year==$_year-$i?'selected="selected"':''?> value="<?php echo $_year-$i;?>"><?php echo $_year-$i;?>年</option>
-                            <?php endfor;?>
-                        </select>
-                        <select id="month" class="sjbb_ddkl_one_r_son_01">
-                            <?php for($i=1;$i<=12;$i++):?>
-                                <option <?php echo $month==$i?'selected="selected"':''?> value="<?php echo $i;?>"><?php echo $i<10?'0'.$i:$i;?>月</option>
-                            <?php endfor;?>
-                        </select>
-                    </div>
-                </div>
-            </li>
-            <li class="lastli">
-                <div class="sjbb_ddkl_one_l">
-                </div>
-                <div class="sjbb_ddkl_one_r">
-                    <div class="sjbb_ddkl_one_r_son">
-                        <a href="javascript:" class="changa01" id="search">搜索</a>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div> <!--sjbb_index_onesjbb_ddkl_oneend-->
-
-
-
-    <!--table_container-->
-    <div id="order-list" class="table_table table_center">
-        <div class="table_hiddle">
-        <table width="100%" cellspacing="0" cellpadding="0" border="0" last-float="false">
+    <div class="col-md-12" id="order-list">
+        <table class="table table-bordered table-striped table-hover table-bb">
             <thead>
-                <tr class="table_title">
+                <tr>
                     <th>门店</th>
                     <th>新客人头</th>
                     <th>新客实收现金</th>
@@ -82,7 +59,7 @@
             <?php if ($data): ?>
             <?php $xk_rs=0;$xk_scxj=0;$z_cjcs=0;$z_cjje=0;?>
             <?php foreach($data as $_data):?>
-                <tr class="table_list">
+                <tr class="">
                     <td><a href="<?php echo $this->url('XKFX_X',array('dept_id'=>$_data['dept_id'],'year'=>$_GET['year'],'month'=>$_GET['month']))?>" class="alinks"><?php echo $_data['dept_name'];?></a></td>
                     <td><?php echo $_data['xk_rs'];?></td>
                     <td><?php echo $_data['xk_scxj'];?></td>
@@ -104,7 +81,7 @@
                     $z_cjje += $_data['z_cjje'];
                 ?>
             <?php endforeach;?>
-                <tr class="table_list table_weight clear">
+                <tr class=" table_weight ">
                     <td>本月合计</td>
                     <td><?php echo $xk_rs;?></td>
                     <td><?php echo $xk_scxj==0?0:sprintf('%.2f',$xk_scxj);?></td>
@@ -117,14 +94,11 @@
             <?php endif ?>
             </tbody>
         </table>
-        </div><!--table_hiddle!end-->
+        </table>
     </div>
-    <!--table_container-->
-
-
 
 </div>
-<!--content_right_con!end-->
+
 
 <script type="text/javascript">
 $(function(){
@@ -142,7 +116,7 @@ $(function(){
         }
     });
 
-    $("#search").click(function(){
+    $(".changa01").click(function(){
         var dept_ids = new Array;
         $(".choose_md a span").each(function(){
             if($(this).hasClass('span_01')){
@@ -150,7 +124,7 @@ $(function(){
             }
         });
         if(dept_ids.join(',').length<=0){
-            alert('请选择门店！');
+            Idialog.tips('门店未选择！',2);
             return false;
         }
         var year = $("#year").val();
