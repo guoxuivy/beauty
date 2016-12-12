@@ -192,11 +192,11 @@ var d = Idialog({
 			var obj=this;
 			return obj.settings.init(obj._self.find('.idialog_content'));
 		},
-		//关闭弹窗回调
+		//关闭弹窗回调 非取消
 		close:function(){
 			var obj=this;
 			obj.settings.close(obj._self.find('.idialog_content'))
-			obj._self.remove();
+			obj._self.modal('hide');
 		},
 	};
 

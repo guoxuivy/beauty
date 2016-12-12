@@ -183,20 +183,16 @@ jQuery(document).ready(function() {
 
 <script type="text/javascript">
 
-
 $("#weixinRebook").click(function(){
 	var d = Idialog({
 			top:150,
 			width:950,
 			title:"微信预约",
 			content:$('#weixinlist'),
-			cancel:false,
+			ok:false,
 			init:function(obj){
 				obj.find("table").css("min-width",'auto');
 			},
-			ok:function(obj){
-				$('#weixinlist').hide();
-			}
 		});
 })
 $(document).on("click",".wx_pz",function(){
@@ -237,13 +233,7 @@ $(document).on("click",".wx_pz",function(){
 				width:950,
 				title:title,
 				content:$('#cancelList'),
-				cancel:false,
-				close:function(e){
-					$('#cancelList').hide();
-				},
-				ok:function(obj){
-					$('#cancelList').hide();
-				}
+				ok:false,
 			});
 			
 		});
@@ -266,13 +256,7 @@ $(document).on("click",".wx_pz",function(){
 				width:900,
 				title:title,
 				content:$('#cancelList'),
-				cancel:false,
-				close:function(e){
-					$('#cancelList').hide();
-				},
-				ok:function(obj){
-					$('#cancelList').hide();
-				}
+				ok:false
 			});
 			
 		});
@@ -297,12 +281,6 @@ $(document).on("click",".wx_pz",function(){
 				width:550,
 				title:'新建',
 				content:$('#addRebook'),
-				cancel:function(e){
-					$(".idialog").remove();
-				},
-				close:function(e){
-					$(".idialog").remove();
-				},
 				ok:function(obj){
 					var data = postData();
 					if(data==false){

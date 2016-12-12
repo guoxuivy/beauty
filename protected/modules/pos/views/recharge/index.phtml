@@ -5,17 +5,11 @@
 ?>
 <!--content_right_con-->
 <div class="content_right_con">
-	<div class="content_right_con_top">
-		<div class="fjgl_top_r">
-			<!-- <span><a href="#" download="充值记录.xls"class="to_excel fjgl_top_r_05">导出</a></span> -->
-		</div>
-		<div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/jyjl_01.png" /></div>交易记录
-	</div>
 
-    <div class="jyjl_top">
+    <div class="jyjl_top note note-info">
         <div class="jyjl_top_com">
             <span class="spanl">交易类别：</span>
-            <a href="<?php echo $this->url("pos/sale/index") ?>">购买记录 </a>
+            <a href="<?php echo $this->url("pos/sale/index") ?>">购买记录</a>
             <a href="javascript:" class="aaddys">充值记录</a>
             <a href="<?php echo $this->url("pos/repay/index") ?>">还款记录</a>
             <a href="<?php echo $this->url("pos/practice/index") ?>">实操记录</a>
@@ -41,10 +35,6 @@
 			<?php endforeach ?>
 		</div>
 		<?php endif;?>
-        <!-- <div class="jyjl_top_com">
-            <span class="spanl">客户姓名：</span>
-            <input type="text" class="input" /><a href="javascript:" class="jyjl_top_com_button"></a>
-        </div> -->
     </div>
 	
 <!--  模版引擎扩展 -->
@@ -61,7 +51,6 @@
 		array(
 			'header' => '订单建立日期',
 			'name' => 'create_time',
-			'headerCss' => 'min-width:130px;',
 		),
 		array(
 			'header' => '客户',

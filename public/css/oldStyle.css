@@ -1,0 +1,9 @@
+/*老模版样式移植*/
+@charset "utf-8";
+
+/*交易记录选中标记*/
+.aaddys{background-color: #f3565d;background-image: none;padding: 2px 5px;color: #fff;}
+.aaddys:hover{text-decoration:none;color: #fff;}
+
+.jyjl_top_com{margin-bottom: 10px;}
+.md_type{margin-bottom: 0px;}

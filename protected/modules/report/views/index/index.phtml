@@ -1,41 +1,272 @@
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		数据报表
-	</div>
-	<div class="shuju_list">
-		<div class="shuju_list_left"><span><img src="<?php echo $this->basePath("public") ?>/images/shuju_ico1.png" width="25" height="25" /></span>业绩报表</div>
-		<div class="shuju_list_right">
-			<a class="hot_a" href="<?php echo $this->url('MDYJ') ?>">门店业绩报表</a>
-			<a href="<?php echo $this->url('PLYJ') ?>">品类业绩报表</a>
-			<a href="<?php echo $this->url('PXYJBB') ?>">品项业绩报表</a>
-			<a class="hot_a" href="<?php echo $this->url('RYYJ') ?>">人员业绩报表</a>
+<style type="text/css">
+	.tile a:hover{text-decoration:none;}
+</style>
+<h3>业绩报表</h3>
+<div class="row">
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="dashboard-stat blue">
+			<div class="visual">
+				<i class="fa fa-bar-chart-o"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					 门店业绩报表
+				</div>
+				<div class="desc">
+					 New Feedbacks
+				</div>
+			</div>
+			<a class="more" href="<?php echo $this->url('MDYJ') ?>">
+			View more <i class="m-icon-swapright m-icon-white"></i>
+			</a>
 		</div>
-		<div class="clear"></div>
 	</div>
-	<div class="shuju_list">
-		<div class="shuju_list_left"><span><img src="<?php echo $this->basePath("public") ?>/images/shuju_ico2.png" width="25" height="25" /></span>客流报表</div>
-		<div class="shuju_list_right">
-			<a class="hot_a" href="<?php echo $this->url('DDKL') ?>">到店客流报表</a>
-			<a href="<?php echo $this->url('FWFX') ?>">美容师服务表</a>
-			<a href="<?php echo $this->url('YKLFX') ?>">月客流分析表</a>
-			<a href="<?php echo $this->url('XKFX') ?>">新客分析表</a>
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="dashboard-stat red-flamingo">
+			<div class="visual">
+				<i class="fa fa-shopping-cart"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					 品类业绩报表
+				</div>
+				<div class="desc">
+					 New Orders
+				</div>
+			</div>
+			<a class="more" href="<?php echo $this->url('PLYJ') ?>">
+			View more <i class="m-icon-swapright m-icon-white"></i>
+			</a>
 		</div>
-		<div class="clear"></div>
 	</div>
-	<div class="shuju_list">
-		<div class="shuju_list_left"><span><img src="<?php echo $this->basePath("public") ?>/images/shuju_ico3.png" width="25" height="25" /></span>经营报表</div>
-		<div class="shuju_list_right">
-			<a class="hot_a" href="<?php echo $this->url('JYBB') ?>">经营报告</a>
-			<a href="<?php echo $this->url('XJLS') ?>">现金流水表</a>
-			<a href="<?php echo $this->url('FZFX') ?>">负债分析表</a>
-			<a href="<?php echo $this->url('TKFX') ?>">退款分析表</a>
-			<a href="<?php echo $this->url('KHGMFX') ?>">客户购买分析表</a>
-			<a href="<?php echo $this->url('KHNXFFX') ?>">客户年消费分析表</a>
-			<a href="<?php echo $this->url('KHSHFX') ?>">客户实耗分析表</a>
-			<a href="<?php echo $this->url('XMFGFX') ?>">项目覆盖分析表</a>
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="dashboard-stat purple-plum">
+			<div class="visual">
+				<i class="fa fa-globe"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					 品项业绩报表
+				</div>
+				<div class="desc">
+					 Brand Popularity
+				</div>
+			</div>
+			<a class="more" href="<?php echo $this->url('PXYJBB') ?>">
+			View more <i class="m-icon-swapright m-icon-white"></i>
+			</a>
 		</div>
-		<div class="clear"></div>
+	</div>
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="dashboard-stat grey-cascade ">
+			<div class="visual">
+				<i class="fa fa-bar-chart-o"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					 人员业绩报表
+				</div>
+				<div class="desc">
+					 Total Profit
+				</div>
+			</div>
+			<a class="more" href="<?php echo $this->url('RYYJ') ?>">
+			View more <i class="m-icon-swapright m-icon-white"></i>
+			</a>
+		</div>
 	</div>
 </div>
-<!--content_right_con!end-->
+<div class="clearfix"></div>
+
+<h3>客流报表</h3>
+<div class="row">
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="dashboard-stat purple-seance">
+			<div class="visual">
+				<i class="fa fa-bar-chart-o"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					 到店客流报表
+				</div>
+				<div class="desc">
+					 New Feedbacks
+				</div>
+			</div>
+			<a class="more" href="<?php echo $this->url('DDKL') ?>">
+			View more <i class="m-icon-swapright m-icon-white"></i>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="dashboard-stat yellow-casablanca">
+			<div class="visual">
+				<i class="fa fa-shopping-cart"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					 美容师服务表
+				</div>
+				<div class="desc">
+					 New Orders
+				</div>
+			</div>
+			<a class="more" href="<?php echo $this->url('FWFX') ?>">
+			View more <i class="m-icon-swapright m-icon-white"></i>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="dashboard-stat green-haze">
+			<div class="visual">
+				<i class="fa fa-globe"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					 月客流分析表
+				</div>
+				<div class="desc">
+					 Brand Popularity
+				</div>
+			</div>
+			<a class="more" href="<?php echo $this->url('YKLFX') ?>">
+			View more <i class="m-icon-swapright m-icon-white"></i>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="dashboard-stat blue-ebonyclay">
+			<div class="visual">
+				<i class="fa fa-bar-chart-o"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					 新客分析表
+				</div>
+				<div class="desc">
+					 Total Profit
+				</div>
+			</div>
+			<a class="more" href="<?php echo $this->url('XKFX') ?>">
+			View more <i class="m-icon-swapright m-icon-white"></i>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="clearfix"></div>
+
+<h3>经营报表</h3>
+<div class="tiles">
+	<div class="tile bg-grey-cascade">
+	<a href="<?php echo $this->url('JYBB') ?>">
+		<div class="tile-body">
+			<i class="fa fa-bar-chart-o"></i>
+		</div>
+		<div class="tile-object">
+			<div class="name">
+				 经营报告
+			</div>
+			<div class="number">
+			</div>
+		</div>
+	</a>
+	</div>
+	<div class="tile bg-green-seagreen">
+	<a href="<?php echo $this->url('XJLS') ?>">
+		<div class="tile-body">
+			<i class="fa fa-bar-chart-o"></i>
+		</div>
+		<div class="tile-object">
+			<div class="name">
+				 现金流水
+			</div>
+			<div class="number">
+			</div>
+		</div>
+	</a>
+	</div>
+	<div class="tile bg-red-sunglo">
+	<a href="<?php echo $this->url('FZFX') ?>">
+		<div class="tile-body">
+			<i class="fa fa-bar-chart-o"></i>
+		</div>
+		<div class="tile-object">
+			<div class="name">
+				 负债分析
+			</div>
+			<div class="number">
+			</div>
+		</div>
+	</a>
+	</div>
+	<div class="tile bg-blue">
+	<a href="<?php echo $this->url('TKFX') ?>">
+		<div class="tile-body">
+			<i class="fa fa-bar-chart-o"></i>
+		</div>
+		<div class="tile-object">
+			<div class="name">
+				 退款分析
+			</div>
+			<div class="number">
+			</div>
+		</div>
+	</a>
+	</div>
+	<div class="tile bg-yellow-gold">
+	<a href="<?php echo $this->url('KHGMFX') ?>">
+		<div class="tile-body">
+			<i class="fa fa-bar-chart-o"></i>
+		</div>
+		<div class="tile-object">
+			<div class="name">
+				 客户购买分析
+			</div>
+			<div class="number">
+			</div>
+		</div>
+	</a>
+	</div>
+	<div class="tile bg-grey-silver">
+	<a href="<?php echo $this->url('KHNXFFX') ?>">
+		<div class="tile-body">
+			<i class="fa fa-bar-chart-o"></i>
+		</div>
+		<div class="tile-object">
+			<div class="name">
+				 客户年消费分析
+			</div>
+			<div class="number">
+			</div>
+		</div>
+	</a>
+	</div>
+	<div class="tile bg-purple-medium">
+	<a href="<?php echo $this->url('KHSHFX') ?>">
+		<div class="tile-body">
+			<i class="fa fa-bar-chart-o"></i>
+		</div>
+		<div class="tile-object">
+			<div class="name">
+				 客户实耗分析
+			</div>
+			<div class="number">
+			</div>
+		</div>
+	</a>
+	</div>
+	<div class="tile bg-yellow-casablanca">
+	<a href="<?php echo $this->url('XMFGFX') ?>">
+		<div class="tile-body">
+			<i class="fa fa-bar-chart-o"></i>
+		</div>
+		<div class="tile-object">
+			<div class="name">
+				 项目覆盖分析
+			</div>
+			<div class="number">
+			</div>
+		</div>
+	</a>
+	</div>
+</div>
