@@ -2,8 +2,53 @@
 @charset "utf-8";
 
 /*交易记录选中标记*/
-.aaddys{background-color: #f3565d;background-image: none;padding: 2px 5px;color: #fff;}
-.aaddys:hover{text-decoration:none;color: #fff;}
 
-.jyjl_top_com{margin-bottom: 10px;}
+.aaddys ,.span_01{background-color: #f3565d;background-image: none;padding: 2px 5px;color: #fff;}
+.aaddys,.span_01{text-decoration:none;color: #fff;}
+.top_com{margin-bottom: 10px; font-size: 14px;}
+.top_com .spanl{font-weight:bold }
+.top_com a{text-decoration:none;}
+.top_com .aaddys:hover{color: #fff;}
+.top_com div{display: inline;}
 .md_type{margin-bottom: 0px;}
+
+
+/*数据报表样式*/
+.table-bb th,.table-bb td{
+    text-align: center;
+}
+.table-bb .up_title th{border-bottom:1px solid #ddd!important;}
+.td_va{vertical-align: middle!important;}
+.itime_end{display: inline;}
+.stime select{padding: 2px 8px;margin-right: 5px}
+.stime span{margin-right: 5px}
+.itime{display: inline;}
+.table_weight{font-weight:bold}
+
+
+
+/*选择项目/商品/卡券-弹出 widget*/
+
+.widget_select{ overflow:hidden; padding-left:0px;min-height: 35px}
+.widget_select_l{ float:left; width:80px; font-size:12px; color:#666666; line-height:24px;font-weight: bold;}
+.widget_select_r{ float:left; width:680px; font-size:12px; color:#666666;}
+.widget_select_r ul li{ float:left; padding:0 7px; margin-right:8px; display:inline; margin-bottom:10px; line-height:24px; height:24px; border-radius:3px; background:#f3f3f3;cursor: pointer;}
+.cate_choose{background:#1bab70 !important; color:#FFF;}
+
+.bottom_dashed{border-bottom:1px dashed #dddddd;}
+.widget_select_mb{margin-top: 10px;}
+.widget_select_mb li{ background: none repeat scroll 0 0 #fff !important;border: 1px solid #dddddd;position: relative;}
+.widget_select_mb li span{width:16px; height:16px; background:url(../images/fzxm_03.png)no-repeat; margin-right:6px;border-radius:3px; float:left; margin-top:4px;}
+.widget_select_mb .widget_select_on{ border:1px solid #1bab70;}
+.widget_select_mb .widget_select_on span{background:url(../images/fzxm_04.png) no-repeat;}
+
+.widget_select_result{margin-top: 10px;}
+.widget_select_result li{background: none repeat scroll 0 0 #fff !important;border: 1px solid #ccc;border-radius: 0 !important;padding: 0 0 0 7px !important;}
+.widget_select_result span{ background:url(../images/fzxm_08.png) no-repeat scroll 0 0 rgba(0, 0, 0, 0);display: inline;float: right;height: 24px;margin-left: 7px;width: 22px;}
+.widget_select_result li:hover{background: none repeat scroll 0 0 #fff !important;border: 1px solid #de0a0a;border-radius: 0 !important;padding: 0 0 0 7px !important;}
+.widget_select_result li:hover span{background:url(../images/fzxm_09.png) no-repeat scroll 0 0 rgba(0, 0, 0, 0);}
+
+.widget_select_clean{border: medium none;color: #0077ff;font-size: 12px;text-decoration: underline;}
+.spandefa {margin-right: 5px;padding: 3px}
+.c_add{vertical-align:top;}
+/*选择项目/商品/卡券-弹出 widget  end*/
