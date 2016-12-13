@@ -312,12 +312,14 @@
 <script src="<?php echo $this->basePath('public');?>/js/Idialog.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
-jQuery(document).ready(function() {    
-   Metronic.init(); // init metronic core componets
-   Layout.init(); // init layout
-   Demo.init(); // init demo features 
+jQuery(document).ready(function() { 
+    Metronic.setAssetsPath('<?php echo $this->basePath('public/M/');?>');
+    Metronic.setGlobalImgPath('global/img/');
+    Metronic.init(); // init metronic core componets
+    Layout.init(); // init layout
+    Demo.init(); // init demo features 
 
-   TableWidget.init(); //表格插件
+    TableWidget.init(); //表格插件
 });
 </script>
 <!-- END JAVASCRIPTS -->
