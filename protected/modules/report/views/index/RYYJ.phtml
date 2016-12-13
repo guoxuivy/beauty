@@ -228,7 +228,7 @@ $(function(){
 	//填充默认门店
 	<?php if (isset($_GET['md_id'])): ?>
 		<?php foreach (explode(',', $_GET['md_id']) as $v): ?>
-			$(".choose_md").find("a[rel='<?php echo $v ?>']").trigger("click");
+			$(".choose_md").find("a[rel='<?php echo $v ?>']").find("span").addClass('span_01');// trigger("click");
 		<?php endforeach ?>
 	<?php endif ?>
 <?php endif ?>
@@ -277,9 +277,6 @@ $(function(){
 	});
 
 
-
-	
-
 	$(".to_excel").click(function(event){
 		var t = Itable2excel({
 			worksheet:'数据分析',
@@ -292,16 +289,6 @@ $(function(){
 		event.currentTarget.href = data64;
 	});
 
-
-
 });
-
-
-
-
-
-
-
-
 
 </script>
