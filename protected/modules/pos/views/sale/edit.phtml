@@ -334,7 +334,7 @@ $(function(){
 				self.html('展开').addClass("pos_cz_tow_top_rcl");
 			}
 		});
-		table_flash();
+		
 	});
 
 	//项目的添加
@@ -376,7 +376,7 @@ $(function(){
 					self.find('.table_con_son').append(str);
 					pro_k++;
 				});
-				table_flash();
+				
 				change_total();
 			}
 		});
@@ -426,7 +426,7 @@ $(function(){
 					self.find('.table_con_son').append(str);
 					pro_k++;
 				});
-				table_flash();
+				
 				change_total();
 			}
 		});
@@ -476,7 +476,7 @@ $(function(){
 					self.find('.table_con_son').append(str);
 					pro_k++;
 				});
-				table_flash();
+				
 				change_total();
 			}
 		});
@@ -517,7 +517,6 @@ $(function(){
 							content.find('.table_con_son').append(s_list);
 					}
 				});
-				table_flash(content);
 			},
 			ok:function(obj){
 				var content=obj._self;
@@ -651,7 +650,6 @@ $(function(){
 		$('.order_rate').html((money/old_money*100).toFixed(2));
 
 
-		body_resize();//左边高度调整
 	}
 
 	//数据提交

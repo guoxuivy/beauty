@@ -1339,3 +1339,371 @@ args:Array
 )
   
 
+2016/12/13 21:38:25 [trace] [application] 
+<!--Fatal error-->
+未捕获的异常ReflectionException  
+异常抛出点：E:\xampp\htdocs\beauty\framework\core\Application.php on line 231
+<!--Fatal error end-->
+异常消息：Method pos\SaleController::viewAction() does not exist  
+file:E:\xampp\htdocs\beauty\framework\core\Application.php  
+line:231  
+function:__construct  
+class:ReflectionMethod  
+type:->  
+args:Array
+(
+    [0] => pos\SaleController Object
+        (
+            [layout] => /layouts/main_m
+            [title:protected] => 美业云平台
+            [company:protected] => CompanyInfo Object
+                (
+                    [_cache:protected] => 
+                    [_fields:Ivy\core\ActiveRecord:private] => Array
+                        (
+                            [id] => int(11)
+                            [comp_name] => varchar(200)
+                            [summary] => text
+                            [create_time] => int(11)
+                            [last_time] => timestamp
+                            [status] => tinyint(2)
+                            [check_time] => int(11)
+                            [server_time] => int(11)
+                            [config] => text
+                            [auto_cu_status] => enum('0','1')
+                            [pca_province] => varchar(50)
+                            [pca_city] => varchar(50)
+                            [address] => varchar(400)
+                            [phone] => varchar(20)
+                            [password] => varchar(100)
+                            [boss_name] => varchar(100)
+                            [store_num] => int(5)
+                            [max_store_num] => int(5)
+                            [wx_server_sn] => varchar(200)
+                            [wx_server_pass] => varchar(200)
+                            [step] => tinyint(4)
+                            [has_invo] => enum('Y','N','C')
+                            [avatar] => mediumtext
+                            [position] => varchar(100)
+                            [email] => varchar(100)
+                            [check_code] => varchar(100)
+                            [qq] => varchar(100)
+                            [contact_name] => varchar(100)
+                            [wx] => varchar(100)
+                        )
+
+                    [_new:Ivy\core\ActiveRecord:private] => 
+                    [_attributes:Ivy\core\ActiveRecord:private] => Array
+                        (
+                            [id] => 2
+                            [comp_name] => 艺福之家
+                            [summary] => 
+                            [create_time] => 1456369359
+                            [last_time] => 0000-00-00 00:00:00
+                            [status] => 9
+                            [check_time] => 
+                            [server_time] => 
+                            [config] => a:4:{s:5:"payee";a:4:{s:5:"money";a:3:{s:4:"open";s:4:"true";s:3:"pre";i:0;s:4:"name";s:18:"现金（现钞）";}s:4:"post";a:3:{s:4:"open";s:4:"true";s:3:"pre";i:1;s:4:"name";s:6:"POS机";}s:4:"bank";a:3:{s:4:"open";s:4:"true";s:3:"pre";i:2;s:4:"name";s:12:"银行转账";}s:5:"other";a:3:{s:4:"open";s:5:"false";s:3:"pre";i:3;s:4:"name";s:18:"其它收款类型";}}s:12:"score_config";a:5:{s:7:"openAll";s:4:"true";s:10:"openBySale";s:4:"true";s:10:"openByGive";s:4:"true";s:8:"scoreFor";s:3:"all";s:7:"scoreBl";s:1:"1";}s:11:"sale_access";a:4:{s:7:"manager";s:4:"true";s:9:"counselor";s:4:"true";s:8:"operator";s:4:"true";s:9:"reception";s:4:"true";}s:13:"member_config";s:2:"60";}
+                            [auto_cu_status] => 1
+                            [pca_province] => 
+                            [pca_city] => 
+                            [address] => 
+                            [phone] => 0
+                            [password] => 
+                            [boss_name] => 
+                            [store_num] => 1
+                            [max_store_num] => 5
+                            [wx_server_sn] => 
+                            [wx_server_pass] => 
+                            [step] => 1
+                            [has_invo] => Y
+                            [avatar] => 
+                            [position] => 
+                            [email] => 
+                            [check_code] => 2747
+                            [qq] => 
+                            [contact_name] => 
+                            [wx] => 
+                        )
+
+                    [_pk:Ivy\core\ActiveRecord:private] => Array
+                        (
+                            [0] => id
+                        )
+
+                    [_alias:protected] => t
+                    [_error:protected] => Array
+                        (
+                        )
+
+                    [_config:protected] => Array
+                        (
+                            [dsn] => mysql:dbname=platform;host=127.0.0.1;port=3306
+                            [user] => root
+                            [password] => root
+                            [profile] => 1
+                            [ARcache] => 
+                            [ARcacheTime] => 3600
+                        )
+
+                    [options:protected] => Array
+                        (
+                        )
+
+                    [lastSql:protected] => SELECT * FROM `company_info` `t` WHERE ( t.id = '2' ) 
+                    [methods:protected] => Array
+                        (
+                            [0] => table
+                            [1] => distinct
+                            [2] => field
+                            [3] => join
+                            [4] => where
+                            [5] => group
+                            [6] => having
+                            [7] => union
+                            [8] => order
+                            [9] => limit
+                            [10] => page
+                        )
+
+                    [_b:Ivy\core\CComponent:private] => Array
+                        (
+                        )
+
+                    [_m:protected] => Array
+                        (
+                        )
+
+                )
+
+            [is_store:protected] => 
+            [_b:Ivy\core\CComponent:private] => Array
+                (
+                    [route] => Ivy\core\Route Object
+                        (
+                            [route:protected] => Array
+                                (
+                                    [module] => pos
+                                    [controller] => sale
+                                    [action] => view
+                                )
+
+                            [param] => Array
+                                (
+                                    [id] => 45
+                                )
+
+                        )
+
+                )
+
+            [_m:protected] => Array
+                (
+                )
+
+        )
+
+    [1] => viewAction
+)
+  
+file:E:\xampp\htdocs\beauty\framework\core\Application.php  
+line:212  
+function:_doMethod  
+class:Ivy\core\Application  
+type:->  
+args:Array
+(
+    [0] => pos\SaleController Object
+        (
+            [layout] => /layouts/main_m
+            [title:protected] => 美业云平台
+            [company:protected] => CompanyInfo Object
+                (
+                    [_cache:protected] => 
+                    [_fields:Ivy\core\ActiveRecord:private] => Array
+                        (
+                            [id] => int(11)
+                            [comp_name] => varchar(200)
+                            [summary] => text
+                            [create_time] => int(11)
+                            [last_time] => timestamp
+                            [status] => tinyint(2)
+                            [check_time] => int(11)
+                            [server_time] => int(11)
+                            [config] => text
+                            [auto_cu_status] => enum('0','1')
+                            [pca_province] => varchar(50)
+                            [pca_city] => varchar(50)
+                            [address] => varchar(400)
+                            [phone] => varchar(20)
+                            [password] => varchar(100)
+                            [boss_name] => varchar(100)
+                            [store_num] => int(5)
+                            [max_store_num] => int(5)
+                            [wx_server_sn] => varchar(200)
+                            [wx_server_pass] => varchar(200)
+                            [step] => tinyint(4)
+                            [has_invo] => enum('Y','N','C')
+                            [avatar] => mediumtext
+                            [position] => varchar(100)
+                            [email] => varchar(100)
+                            [check_code] => varchar(100)
+                            [qq] => varchar(100)
+                            [contact_name] => varchar(100)
+                            [wx] => varchar(100)
+                        )
+
+                    [_new:Ivy\core\ActiveRecord:private] => 
+                    [_attributes:Ivy\core\ActiveRecord:private] => Array
+                        (
+                            [id] => 2
+                            [comp_name] => 艺福之家
+                            [summary] => 
+                            [create_time] => 1456369359
+                            [last_time] => 0000-00-00 00:00:00
+                            [status] => 9
+                            [check_time] => 
+                            [server_time] => 
+                            [config] => a:4:{s:5:"payee";a:4:{s:5:"money";a:3:{s:4:"open";s:4:"true";s:3:"pre";i:0;s:4:"name";s:18:"现金（现钞）";}s:4:"post";a:3:{s:4:"open";s:4:"true";s:3:"pre";i:1;s:4:"name";s:6:"POS机";}s:4:"bank";a:3:{s:4:"open";s:4:"true";s:3:"pre";i:2;s:4:"name";s:12:"银行转账";}s:5:"other";a:3:{s:4:"open";s:5:"false";s:3:"pre";i:3;s:4:"name";s:18:"其它收款类型";}}s:12:"score_config";a:5:{s:7:"openAll";s:4:"true";s:10:"openBySale";s:4:"true";s:10:"openByGive";s:4:"true";s:8:"scoreFor";s:3:"all";s:7:"scoreBl";s:1:"1";}s:11:"sale_access";a:4:{s:7:"manager";s:4:"true";s:9:"counselor";s:4:"true";s:8:"operator";s:4:"true";s:9:"reception";s:4:"true";}s:13:"member_config";s:2:"60";}
+                            [auto_cu_status] => 1
+                            [pca_province] => 
+                            [pca_city] => 
+                            [address] => 
+                            [phone] => 0
+                            [password] => 
+                            [boss_name] => 
+                            [store_num] => 1
+                            [max_store_num] => 5
+                            [wx_server_sn] => 
+                            [wx_server_pass] => 
+                            [step] => 1
+                            [has_invo] => Y
+                            [avatar] => 
+                            [position] => 
+                            [email] => 
+                            [check_code] => 2747
+                            [qq] => 
+                            [contact_name] => 
+                            [wx] => 
+                        )
+
+                    [_pk:Ivy\core\ActiveRecord:private] => Array
+                        (
+                            [0] => id
+                        )
+
+                    [_alias:protected] => t
+                    [_error:protected] => Array
+                        (
+                        )
+
+                    [_config:protected] => Array
+                        (
+                            [dsn] => mysql:dbname=platform;host=127.0.0.1;port=3306
+                            [user] => root
+                            [password] => root
+                            [profile] => 1
+                            [ARcache] => 
+                            [ARcacheTime] => 3600
+                        )
+
+                    [options:protected] => Array
+                        (
+                        )
+
+                    [lastSql:protected] => SELECT * FROM `company_info` `t` WHERE ( t.id = '2' ) 
+                    [methods:protected] => Array
+                        (
+                            [0] => table
+                            [1] => distinct
+                            [2] => field
+                            [3] => join
+                            [4] => where
+                            [5] => group
+                            [6] => having
+                            [7] => union
+                            [8] => order
+                            [9] => limit
+                            [10] => page
+                        )
+
+                    [_b:Ivy\core\CComponent:private] => Array
+                        (
+                        )
+
+                    [_m:protected] => Array
+                        (
+                        )
+
+                )
+
+            [is_store:protected] => 
+            [_b:Ivy\core\CComponent:private] => Array
+                (
+                    [route] => Ivy\core\Route Object
+                        (
+                            [route:protected] => Array
+                                (
+                                    [module] => pos
+                                    [controller] => sale
+                                    [action] => view
+                                )
+
+                            [param] => Array
+                                (
+                                    [id] => 45
+                                )
+
+                        )
+
+                )
+
+            [_m:protected] => Array
+                (
+                )
+
+        )
+
+    [1] => viewAction
+    [2] => Array
+        (
+            [id] => 45
+        )
+
+)
+  
+file:E:\xampp\htdocs\beauty\framework\core\Application.php  
+line:164  
+function:dispatch  
+class:Ivy\core\Application  
+type:->  
+args:Array
+(
+    [0] => Ivy\core\Route Object
+        (
+            [route:protected] => Array
+                (
+                    [module] => pos
+                    [controller] => sale
+                    [action] => view
+                )
+
+            [param] => Array
+                (
+                    [id] => 45
+                )
+
+        )
+
+)
+  
+file:E:\xampp\htdocs\beauty\index.php  
+line:8  
+function:run  
+class:Ivy\core\Application  
+type:->  
+args:Array
+(
+)
+  
+

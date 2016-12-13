@@ -223,7 +223,7 @@
 	<div class="pos_cz_tow pos_cz_for_bz">
 		<div class="pos_cz_for_bz01">备注</div>
 		<div class="pos_cz_for_bz02">
-			<div class="pos_cz_for_bz02_son"><textarea class="order_note" rows="4"><?php echo $model?$model->o_s->note:"" ?></textarea></div>
+			<div class="pos_cz_for_bz02_son"><?php echo $model?$model->o_s->note:"" ?></div>
 		</div>
 	</div><!--备注!end-->
 
@@ -333,7 +333,7 @@ $(function(){
 				self.html('展开').addClass("pos_cz_tow_top_rcl");
 			}
 		});
-		table_flash();
+		
 	});
 
 	
@@ -362,7 +362,6 @@ $(function(){
 						s_list+='</ul></div>';
 						content.find('.table_con_son').append(s_list);
 				});
-				table_flash(content);
 			},
 		});
 	});
@@ -390,7 +389,6 @@ $(function(){
 						s_list+='</ul></div>';
 						content.find('.table_con_son').append(s_list);
 				});
-				table_flash(content);
 			},
 		});
 	});
@@ -465,7 +463,6 @@ $(function(){
 		$('.order_rate').html((money/old_money*100).toFixed(2));
 
 
-		body_resize();//左边高度调整
 	}
 
 
