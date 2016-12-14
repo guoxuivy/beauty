@@ -111,18 +111,22 @@ Profile Page
   text-decoration: underline;
 }
 
-.profile ul.profile-nav a span {
+.profile ul.profile-nav a p {
+    height: 18px;
+    width: 18px;
+    color:#fff;
+}
+
+
+.profile ul.profile-nav a .profile-tip {
   top: 0;
   right: 0;
-  color: #fff;
   font-size: 16px;
   padding: 7px 13px;
   position: absolute;
-  background: #169ef4;
 }
 
-.profile ul.profile-nav a:hover span {
-  background: #0b94ea;
+.profile ul.profile-nav a:hover .profile-tip {
 }
 
 /*profile information*/

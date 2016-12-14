@@ -1,21 +1,17 @@
+<?php $cu_avatar=$model->getAvatar($model->id);?>
+<link href="<?php echo $this->basePath('public/M');?>/admin/pages/css/profile.css" rel="stylesheet" type="text/css"/>
 <style type="text/css">
-/*备注 防止css删除 找回*/
-/*.help{ display:inline-block; width:17px; height:17px; background:url(../images/kh_xx_018.png) no-repeat; margin-left:6px; position:relative; top:4px;}
-.help_ms{min-height:48px; height:auto !important; width:260px; padding:2px 2px 3px 10px; position:absolute; background:#f0fff9; border:1px solid #9bd7be; left:24px; top:-4px;z-index:999; display:none;}
-.help_icon{ background:url(../images/kh_xx_020_025.png) no-repeat;display:inline-block; width:8px; height:13px; position:absolute; left:-8px; top:6px;}
-.help_ti{ font-size:12px; color:#1bab70;}*/
-
 .avatar{cursor: pointer;}
 .avatar_box{
-	width: 100%;
+    width: 100%;
     height: 330px;
 }
 .action
 {
     width: 300px;
     height: 30px;
-	display:block;
-	padding-top:10px;
+    display:block;
+    padding-top:10px;
     clear: both;
 }
 .cropped{float: right; border:solid 1px #07f;}
@@ -25,7 +21,7 @@
 }
 .imageBox
 {
-	float: left;
+    float: left;
     position: relative;
     height: 300px;
     width: 300px;
@@ -62,10 +58,140 @@
     line-height: 400px;
     background: rgba(0,0,0,0.7);
 }
-.tjfj_two input{ width:auto; height:auto; background:auto;}
 </style>
+<div class="modal fade" id="edit-avatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title">编辑头像</h4>
+    </div>
+    <div class="modal-body">
+        <!-- 头像裁剪 -->
+        <div class="avatar_box" style="display:block;">
+        <div class="imageBox" style="height:300px;width:300px;">
+        <div class="thumbBox"></div>
+        <div class="spinner" style="display: none">Loading...</div>
+        </div>
+        <div class="cropped"></div>
+        <div class="action">
+        <input type="file" id="file" style="float:left; width: 150px">
+        <!--<input type="button" id="btnSave" value="保持" style="float: right">-->
+        <input type="button" id="btnCrop" value="裁剪 " style="float: right; height:20px; line-height:20px; margin-left:5px; text-align:center;">
+        <input type="button" id="btnZoomIn" value="+  " style="float: right; height:20px; line-height:20px; margin-left:5px; text-align:center;">
+        <input type="button" id="btnZoomOut" value="-  " style="float: right; height:20px; line-height:20px; margin-left:5px; text-align:center;">
+        </div>
+        </div>
+        <!-- 头像裁剪end -->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn blue" id="btnSave">确定</button>
+        <button type="button" class="btn default" data-dismiss="modal">取消</button>
+    </div>
+</div>
 
-<?php $cu_avatar=$model->getAvatar($model->id);?>
+
+<div class="row profile">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-3">
+                <ul class="list-unstyled profile-nav ">
+                    <li>
+                        <img src="<?php echo $cu_avatar;?>" class="img-responsive img-avatar" alt=""/>
+                        <a  class="profile-edit avatar" data-toggle="modal" href="#edit-avatar">edit</a>
+                    </li>
+                    <li>   
+                        <a href="javascript:;">
+                            <?php echo $model->name; ?>
+                            <span class="label label-danger"><?php echo mb_substr($model->cu_type,0,1,'utf-8');?></span>
+                            <span class="label label-success"><?php echo $model->getSmallStatus($model->status); ?></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            卡号：<?php echo $model->cardid;?>
+                            <span class="profile-tip bg-red"><?php echo $model->lname; ?></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                        会员来源<span class="profile-tip bg-green"><?php echo $model->getComeType($model->come_type); ?></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                        档案归属<span class="profile-tip"><?php echo $model->dept_name; ?></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                        最近到店<span class="profile-tip"><?php echo $model->last_time?date('Y-m-d H:i',$model->last_time):""; ?></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                        <span class="label label-info">顾</span><?php echo $model->cnetname ?>
+                        &nbsp;&nbsp;&nbsp;
+                        <span class="label label-danger">美</span><?php echo $model->onetname ?>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url('edit',array('id'=>$id)) ?>">个人档案
+                        <span class="label label-info profile-tip">GO</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="action_qr" target="qr" href="<?php echo $this->url('qr',array('id'=>$model->id))?>">二维码
+                        <span class="label label-info profile-tip">GO</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-9">
+                    <div class="khgl_shouye_r_top">
+                        <ul>
+                            <li>
+                                <span class="khgl_shouye_r_top_01"><?php echo $model->name; ?></span>
+                                <span class="khgl_shouye_r_top_02"><?php echo mb_substr($model->cu_type,0,1,'utf-8');?></span>
+                                <span class="khgl_shouye_r_top_03"><?php echo $model->getSmallStatus($model->status); ?></span>
+                            </li>
+                            <li>会员来源：<span class="khgl_shouye_r_top_04"><?php echo $model->getComeType($model->come_type); ?></span></li>
+                            <li>会员状态：<span class="khgl_shouye_r_top_05"><?php echo $model->getStatus($model->status); ?></span></li>
+                            <li><span class="khgl_shouye_r_top_07"><?php echo $model->lname; ?></span>（卡号：<?php echo $model->cardid;?>）</li>
+                            <li>档案归属：<span class="khgl_shouye_r_top_08"><?php echo $model->dept_name; ?></span></li>
+                            <li>最近到店：<span class="khgl_shouye_r_top_04"><?php echo $model->last_time?date('Y-m-d H:i',$model->last_time):""; ?></span></li>
+                        </ul>
+                    </div>
+                    <div class="khgl_shouye_r_two">
+                        <a class="khgl_shouye_r_two_04" href="<?php echo $this->url('edit',array('id'=>$id)) ?>">个人档案</a>
+                        <a class="khgl_shouye_r_two_03 action_qr"  target="qr" href="<?php echo $this->url('qr',array('id'=>$model->id))?>" title="二维码">二维码</a>
+                        <span class="khgl_shouye_r_two_01">顾</span>
+                        <span class="khgl_shouye_r_two_02"><?php echo $model->cnetname ?></span>
+                        <span class="khgl_shouye_r_two_01">美</span>
+                        <span class="khgl_shouye_r_two_02"><?php echo $model->onetname ?></span> 
+                    </div>
+            </div>
+
+        </div>
+
+    <div class="khgl_shouye" style="clear:both;">
+        <div class="khgl_shouye_r">
+            
+        </div>
+    </div>
+        
+    </div>
+    <div class="col-md-3">
+        
+    </div>
+    <div class="col-md-9">
+        
+    </div>
+
+</div>
+
+
+
+
+
 
 <!--content_right_con-->
 
@@ -81,59 +207,10 @@
 	</div>
 
 	
-	<div class="tjfj" style=" top:100px; width:550px;">
-		<div class="tjfj_top" style="cursor:default">修改头像</div>
-		<div class="tjfj_two">
-		<!-- 头像裁剪 -->
-		<div class="avatar_box" style="display:block;">
-		<div class="imageBox" style="height:300px;width:300px;">
-		<div class="thumbBox"></div>
-		<div class="spinner" style="display: none">Loading...</div>
-		</div>
-		<div class="cropped"></div>
-		<div class="action">
-		<input type="file" id="file" style="float:left; width: 150px">
-		<!--<input type="button" id="btnSave" value="保持" style="float: right">-->
-		<input type="button" id="btnCrop" value="裁剪 " style="float: right; height:20px; line-height:20px; margin-left:5px; text-align:center;">
-		<input type="button" id="btnZoomIn" value="+  " style="float: right; height:20px; line-height:20px; margin-left:5px; text-align:center;">
-		<input type="button" id="btnZoomOut" value="-  " style="float: right; height:20px; line-height:20px; margin-left:5px; text-align:center;">
-		</div>
-		</div>
-		<!-- 头像裁剪end -->
-		</div>
-		<div class="tjfj_two_an"><a href="javascript:$('.tjfj').hide();" class="fjgb">取消</a><a id="btnSave" href="javascript:;">确定</a></div>
-	</div>
+
 	
 	<!--khgl_shouye-->
-	<div class="khgl_shouye" style="clear:both;">
-		<div title="编辑头像" class="khgl_shouye_l avatar"><img src="<?php echo $cu_avatar;?>" height="102" width="102" /></div>
-		<div class="khgl_shouye_r">
-			<div class="khgl_shouye_r_son">
-				<div class="khgl_shouye_r_top">
-					<ul>
-						<li>
-							<span class="khgl_shouye_r_top_01"><?php echo $model->name; ?></span>
-							<span class="khgl_shouye_r_top_02"><?php echo mb_substr($model->cu_type,0,1,'utf-8');?></span>
-							<span class="khgl_shouye_r_top_03"><?php echo $model->getSmallStatus($model->status); ?></span>
-						</li>
-						<li>会员来源：<span class="khgl_shouye_r_top_04"><?php echo $model->getComeType($model->come_type); ?></span></li>
-						<li>会员状态：<span class="khgl_shouye_r_top_05"><?php echo $model->getStatus($model->status); ?></span></li>
-						<li><span class="khgl_shouye_r_top_07"><?php echo $model->lname; ?></span>（卡号：<?php echo $model->cardid;?>）</li>
-						<li>档案归属：<span class="khgl_shouye_r_top_08"><?php echo $model->dept_name; ?></span></li>
-						<li>最近到店：<span class="khgl_shouye_r_top_04"><?php echo $model->last_time?date('Y-m-d H:i',$model->last_time):""; ?></span></li>
-					</ul>
-				</div>
-				<div class="khgl_shouye_r_two">
-					<a class="khgl_shouye_r_two_04" href="<?php echo $this->url('edit',array('id'=>$id)) ?>">个人档案</a>
-					<a class="khgl_shouye_r_two_03 action_qr"  target="qr" href="<?php echo $this->url('qr',array('id'=>$model->id))?>" title="二维码">二维码</a>
-					<span class="khgl_shouye_r_two_01">顾</span>
-					<span class="khgl_shouye_r_two_02"><?php echo $model->cnetname ?></span>
-					<span class="khgl_shouye_r_two_01">美</span>
-					<span class="khgl_shouye_r_two_02"><?php echo $model->onetname ?></span> 
-				</div>
-			</div>
-		</div>
-	</div>
+	
 	<!--khgl_shouye!end--> 
 	<!--khgl_shouye01-->
 	<div class="khgl_shouye khgl_sy_two">
@@ -666,8 +743,8 @@
 				$.post(url, { id: <?php echo $model->id; ?>, avatar: b64 },function(data){
 					Idialog.tips(data.msg);
 					if(data.code=200){
-						$('.avatar img').attr("src",b64);
-						$('.tjfj').hide();
+						$('.img-avatar').attr("src",b64);
+                        $("#edit-avatar").modal("hide");
 					}
 				},'json');
 					
@@ -683,7 +760,6 @@
         };
         $('.avatar').click(function(){
         	check_position();
-			$('.tjfj').toggle();
         })
     };
 
