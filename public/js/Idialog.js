@@ -224,3 +224,26 @@ var d = Idialog({
 
 
 })(jQuery,window,document);
+
+
+/**
+ * 统一的问号弹出提示
+ */
+$.fn.help = function(){
+    this.each(function(){
+        var exp = $(this).attr('explain');
+        $(this).html('<div class="help_ms"><div class="help_icon"></div><span class="help_ti">'+exp+'</span></div>');
+    });
+    this.hover(
+        function(){
+            $(".help_ms").hide();
+            $(this).find(".help_ms").show();
+        },function(){
+            $(this).find(".help_ms").hide();
+    });
+    return this;
+
+};
+$(function(){
+    $('.help').help();
+});

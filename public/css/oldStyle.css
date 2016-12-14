@@ -311,6 +311,10 @@ a:hover.pos_cz_zh_an{background-color:#0abb73; }
 .pos_zs_01{ top:18px; right:1px;}
 
 
+.help{ display:inline-block; width:17px; height:17px; background:url(../images/kh_xx_018.png) no-repeat; margin-left:6px; position:relative; top:4px;}
+.help_ms{min-height:48px; height:auto !important; min-width:150px; padding:2px 2px 3px 10px; position:absolute; background:#f0fff9; border:1px solid #9bd7be; left:24px; top:-4px;z-index:999; display:none;}
+.help_icon{ background:url(../images/kh_xx_020_025.png) no-repeat;display:inline-block; width:8px; height:13px; position:absolute; left:-8px; top:6px;}
+.help_ti{ font-size:12px; color:#1bab70; line-height: 24px;}
 
 
 /*客户管理-详细页*/
@@ -340,10 +344,6 @@ a:hover.pos_cz_zh_an{background-color:#0abb73; }
 .khgl_sy_two_son_top{ font-size:18px; color:#666666; text-align:center; overflow:hidden; line-height:34px;}
 .khgl_sy_two_son_top_ico img{vertical-align: top; }
 .khgl_sy_two_son ul li{ padding-top:16px; padding-bottom:16px; font-size:14px; color:#333333; border-bottom:1px dashed #eeeeee;}
-.help{ display:inline-block; width:17px; height:17px; background:url(../images/kh_xx_018.png) no-repeat; margin-left:6px; position:relative; top:4px;}
-.help_ms{min-height:48px; height:auto !important; width:260px; padding:2px 2px 3px 10px; position:absolute; background:#f0fff9; border:1px solid #9bd7be; left:24px; top:-4px;z-index:999; display:none;}
-.help_icon{ background:url(../images/kh_xx_020_025.png) no-repeat;display:inline-block; width:8px; height:13px; position:absolute; left:-8px; top:6px;}
-.help_ti{ font-size:12px; color:#1bab70; line-height: 24px;}
 .khgl_sy_two_son .khgl_sy_two_03{ float:right; font-size:12px; color:#666666;}
 .khgl_sy_two_04{font-family:"Arial Regular"; font-size:20px; color:#1bab70;}
 .khgl_sy_two_05{ font-size:12px; color:#1c96e3;}
