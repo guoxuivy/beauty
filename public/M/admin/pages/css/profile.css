@@ -333,3 +333,53 @@ Profile Page
   font-size: 12px;
   margin-top: 2px !important;
 }
+
+/*头像裁剪*/
+.avatar_box{
+    width: 100%;
+}
+.action{
+    width: 300px;
+    height: 30px;
+    display:block;
+    padding-top:10px;
+    clear: both;
+}
+.cropped{float: left; border:solid 1px #07f;}
+.cropped>img{
+    margin: 5px;
+}
+.imageBox{
+    float: left;
+    position: relative;
+    height: 300px;
+    width: 300px;
+    border:1px solid #fff;
+    background: #fff;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    cursor:move;
+}
+.imageBox .thumbBox{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    margin-top: -75px;
+    margin-left: -75px;
+    box-sizing: border-box;
+    border: 1px solid rgb(102, 102, 102);
+    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.1);
+    background: none repeat scroll 0% 0% transparent;
+}
+.imageBox .spinner{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    line-height: 400px;
+    background: rgba(0,0,0,0.7);
+}
