@@ -232,6 +232,7 @@ var d = Idialog({
 $.fn.help = function(){
     this.each(function(){
         var exp = $(this).attr('explain');
+        
         $(this).html('<div class="help_ms"><div class="help_icon"></div><span class="help_ti">'+exp+'</span></div>');
     });
     this.hover(

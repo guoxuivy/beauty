@@ -33,7 +33,7 @@
 
 <div class="row profile">
     <div class="col-md-12">
-        <?php if($model->cart_init==2):?>
+        <?php if($model->cart_init==0):?>
             <div class="note note-danger">
             <span>新用户需要建立期初数据</span>
             <a href="<?php echo $this->url('pos/init/add',array('id'=>$model->id));?>" class=" tooltips btn-fit-height btn yellow">新建期初</a>
@@ -98,21 +98,21 @@
             <div class="col-md-9">
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
-                            <div class="portlet box red-sunglo">
+                            <div class="portlet solid grey-cascade">
                                 <div class="portlet-title">
                                     <div class="caption">
                                         <i class="fa fa-cogs"></i>储值账户
                                     </div>
                                     <div class="actions">
-                                        <a href="<?php echo $this->url('zhdt',array('id'=>$model->id)) ?>" class="btn btn-default btn-sm">更多</a>
+                                        <a href="<?php echo $this->url('zhdt',array('id'=>$model->id)) ?>" class="btn grey btn-sm">更多</a>
                                     </div>
                                 </div>
                                 <div class="portlet-body">
                                     <div class="row static-info">
-                                        <div class="col-md-5 name">
+                                        <div class="col-xs-5 name">
                                              欠款：
                                         </div>
-                                        <div class="col-md-7 value">
+                                        <div class="col-xs-7 value text-right">
                                              <?php echo $model->arrears; ?><span class="label label-info label-sm"></span> 元
                                         </div>
                                     </div>
@@ -120,8 +120,8 @@
                                     <?php $CustomerCapital=\CustomerCapital::model()->getListByUser($model->id);
                                     foreach ((array)$CustomerCapital as $key => $value): ?>
                                     <div class="row static-info">
-                                        <div class="col-md-5 name"><?php echo $value['name'] ?><div class="help" explain="<?php echo $value['note']?$value['note']:'无'; ?>"></div></div>
-                                        <div class="col-md-7 value"><?php echo $value['balance']?$value['balance']:'0.00' ?></span> 元</div>
+                                        <div class="col-xs-5 name"><?php echo $value['name'] ?><div class="help" explain="<?php echo $value['note']?$value['note']:'无'; ?>"></div></div>
+                                        <div class="col-xs-7 value text-right"><?php echo $value['balance']?$value['balance']:'0.00' ?>元</div>
                                     </div>
                                     <?php endforeach; ?>
                                 </div>
@@ -129,32 +129,32 @@
                         </div>
 
                         <div class="col-md-6 col-sm-12">
-                            <div class="portlet yellow-crusta box">
+                            <div class="portlet yellow-crusta solid">
                                 <div class="portlet-title">
                                     <div class="caption">
                                         <i class="fa fa-cogs"></i>积分账户
                                     </div>
                                     <div class="actions">
-                                        <a href="<?php echo $this->url('score',array('id'=>$id)) ?>" class="btn btn-default btn-sm">更多</a>
+                                        <a href="<?php echo $this->url('score',array('id'=>$id)) ?>" class="btn yellow btn-sm">更多</a>
                                     </div>
                                 </div>
                                 <div class="portlet-body">
                                     <div class="row static-info">
-                                        <div class="col-md-5 name">可用积分：</div>
-                                        <div class="col-md-7 value"><?php echo $model->score; ?></div>
+                                        <div class="col-xs-5 name">可用积分：</div>
+                                        <div class="col-xs-7 value text-right"><?php echo $model->score; ?></div>
                                     </div>
                                     <div class="row static-info">
-                                        <div class="col-md-5 name">已使用积分：</div>
-                                        <div class="col-md-7 value"><?php echo (int)\CustomerScoreLog::getSumByUser($model->id)->sum_score; ?></div>
+                                        <div class="col-xs-5 name">已使用积分：</div>
+                                        <div class="col-xs-7 value text-right"><?php echo (int)\CustomerScoreLog::getSumByUser($model->id)->sum_score; ?></div>
                                     </div>
 
                                     <?php $CustomerScoreLog=\CustomerScoreLog::getListByUser($model->id);
                                     foreach ((array)$CustomerScoreLog as $key => $value):?>
                                     <div class="row static-info">
-                                        <div class="col-md-5 name">
+                                        <div class="col-xs-5 name">
                                             <?php echo date('m/d',strtotime($value['create_time'])),$value['pos_dir']=='in'?'赠送积分':'使用积分' ?>
                                         </div>
-                                        <div class="col-md-7 value">
+                                        <div class="col-xs-7 value text-right">
                                         <?php echo $value['pos_dir']=='in'?'+':'-',$value['score']; ?>
                                         </div>
                                     </div>
@@ -164,26 +164,54 @@
                         </div>
 
                         
-                    </div>
+                    <!-- </div>
 
-                    <div class="row">
+                    <div class="row"> -->
+                        <div class="col-md-6 col-sm-12">
+                        <?php $CustomerVoucher=\CustomerVoucher::getNum($model->id); ?>
+                            <div class="portlet solid green-haze">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="fa fa-cogs"></i>卡券账户
+                                    </div>
+                                    <div class="actions">
+                                        <a href="<?php echo $this->url('kjgl',array('id'=>$model->id)) ?>" class="btn green btn-sm">更多</a>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="row static-info">
+                                        <div class="col-xs-5 name">可用卡券：</div>
+                                        <div class="col-xs-7 value text-right"><?php echo $CustomerVoucher->kykj; ?></div>
+                                    </div>
+                                    <div class="row static-info">
+                                        <div class="col-xs-5 name">已用卡券：</div>
+                                        <div class="col-xs-7 value text-right"><?php echo $CustomerVoucher->yykj; ?></div>
+                                    </div>
+                                    <div class="row static-info">
+                                        <div class="col-xs-5 name">失效卡券：</div>
+                                        <div class="col-xs-7 value text-right text-right"><?php echo $CustomerVoucher->sxkj ?></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-6 col-sm-12">
                         <?php $count=(int)\CustomerReProject::model()->getSumByUser($model->id)->sum_re_num;?>
-                            <div class="portlet blue-hoki box">
+                            <div class="portlet blue-hoki solid">
                                 <div class="portlet-title">
                                     <div class="caption">
                                         <i class="fa fa-cogs"></i>疗程账户
                                     </div>
                                     <div class="actions">
-                                        <a href="<?php echo $this->url('sysclc',array('id'=>$model->id)) ?>" class="btn btn-default btn-sm">更多</a>
+                                        <a href="<?php echo $this->url('sysclc',array('id'=>$model->id)) ?>" class="btn blue btn-sm">更多</a>
                                     </div>
                                 </div>
                                 <div class="portlet-body">
                                     <div class="row static-info">
-                                        <div class="col-md-5 name">
+                                        <div class="col-xs-5 name">
                                              剩余实操疗次：
                                         </div>
-                                        <div class="col-md-7 value">
+                                        <div class="col-xs-7 value text-right">
                                              <?php echo $count; ?> 疗次 <a href="<?php echo $this->url('sysclc',array('id'=>$model->id)) ?>" class="label label-info label-sm">详情</a>
                                         </div>
                                     </div>
@@ -191,8 +219,8 @@
                                     <?php $CustomerReProject=\CustomerReProject::model()->getListByUser($model->id);
                                     foreach ((array)$CustomerReProject as $key => $value):?>
                                     <div class="row static-info">
-                                        <div class="col-md-5 name"><?php echo $value['name'] ;?></div>
-                                        <div class="col-md-7 value"><?php echo (int)$value['sum_re_num'] ?> 疗次</div>
+                                        <div class="col-xs-5 name"><?php echo $value['name'] ;?></div>
+                                        <div class="col-xs-7 value text-right"><?php echo (int)$value['sum_re_num'] ?> 疗次</div>
                                     </div>
 
                                     <?php endforeach; ?>
@@ -201,37 +229,9 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6 col-sm-12">
-                        <?php $CustomerVoucher=\CustomerVoucher::getNum($model->id); ?>
-                            <div class="portlet box green-haze tasks-widget">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <i class="fa fa-cogs"></i>卡券账户
-                                    </div>
-                                    <div class="actions">
-                                        <a href="<?php echo $this->url('kjgl',array('id'=>$model->id)) ?>" class="btn btn-default btn-sm">更多</a>
-                                    </div>
-                                </div>
-                                <div class="portlet-body">
-                                    <div class="row static-info">
-                                        <div class="col-md-5 name">可用卡券：</div>
-                                        <div class="col-md-7 value"><?php echo $CustomerVoucher->kykj; ?></div>
-                                    </div>
-                                    <div class="row static-info">
-                                        <div class="col-md-5 name">已用卡券：</div>
-                                        <div class="col-md-7 value"><?php echo $CustomerVoucher->yykj; ?></div>
-                                    </div>
-                                    <div class="row static-info">
-                                        <div class="col-md-5 name">失效卡券：</div>
-                                        <div class="col-md-7 value"><?php echo $CustomerVoucher->sxkj ?></div>
-                                    </div>
+                        
 
-                                </div>
-                            </div>
-                        </div>
                     </div>
-
-
             </div>
         </div>
     
