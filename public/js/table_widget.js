@@ -10,7 +10,7 @@ var TableWidget = function () {
                 "targets": [0]
             }],
             "order": [
-                [1, 'asc']
+                // [1, 'asc']
             ],
             "paging": false,
             "searching": false,

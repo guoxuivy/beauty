@@ -246,8 +246,80 @@
    
 </div>
 
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN TAB PORTLET-->
+        <div class="portlet purple box">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>最近20条实操记录
+                </div>
+                <div class="tools"><a href="javascript:;" class="collapse"></a></div>
+            </div>
+            <div class="portlet-body">
+                <?php
+                //实耗记录
+                $data=\PracticeOrderDetail::model()
+                ->field(array("t.id,t.por_id","left(t.last_time,16) ttime","po.sn","pi.name piname","crp.re_num","t.before_num","t.use_num",
+                    "t.after_num","t.operators","osd.buy_type as buy_type"))
+                ->join('practice_order po on t.por_id=po.id')
+                ->join('project_info pi on t.project_id=pi.id')
+                ->join('order_sale_detail osd on t.detail_id=osd.id')
+                ->join('customer_re_project crp  on t.detail_id=crp.detail_id AND po.cu_id=crp.cu_id AND t.project_id=crp.project_id')
+                ->order('t.last_time DESC')
+                ->limit('0,20')
+                ->findAll("po.cu_id={$model->id}");
+                echo $this->datagrid(array(
+                    'dataProvider'=>array('list'=>$data),
+                    'columns'=>array(
+                        array(
+                            'header' => '单据编号',
+                            'name'  => 'sn',
+                        ),
+                        array(
+                            'header' => '日期',
+                            'name'   => 'ttime',
+                        ),
+                        array(
+                            'header' => '实操项目',
+                            'name'   => 'piname',
+                            'value'   => '{$data["piname"]}{$data["buy_type"]==1?"（买）":""}{$data["buy_type"]==2?"（赠）":""}{$data["buy_type"]==3?"（兑）":""}',
+                        ),
+                        array(
+                            'header' => '疗程总次数',
+                            'name'   => 're_num',
+                        ),
+                        array(
+                            'header' => '实操前剩余',
+                            'name'   => 'before_num',
+                        ),
+                        array(
+                            'header' => '本次实操次数',
+                            'name'   => 'use_num',
+                        ),
+                        array(
+                            'header' => '实操后剩余',
+                            'name' =>  'after_num',
+                        ),
+                        array(
+                            'header' => '美容师',
+                            'value'   => '{\EmployUser::getUserNames($data["operators"])}',
+                        ),  
+                        array(
+                            'header' => '操作',
+                            'headerCss'=>'width:80px',
+                            'rel'=>'id',
+                            'value'=> '<a href="{$this->url("pos/practice/view",array("id"=>$data["por_id"]))}" target="new" class="btn default btn-xs green-stripe view">查看</a>',
+                        ),
+                    ),
+                ));?>
+            </div>
+        </div>
+        <!-- END TAB PORTLET-->
+    </div>
+</div>
 
-<div class="row cu-info-list">
+<div class="row">
     <div class="col-md-12">
         <!-- BEGIN TAB PORTLET-->
         <div class="portlet box blue tabbable">
@@ -255,7 +327,6 @@
                 <div class="caption">
                     <i class="fa fa-gift"></i>最近20条记录
                 </div>
-                <div class="tools"><a href="javascript:;" class="collapse"></a></div>
             </div>
             <div class="portlet-body">
                 <div class=" portlet-tabs">
@@ -326,12 +397,12 @@
                                 'dataProvider'=>array('list'=>$data),
                                 'columns'=>array(
                                     array(
-                                        'header' => '日期',
-                                        'name' => 'ctime',
-                                    ),
-                                    array(
                                         'header' => '单据号',
                                         'name' => 'sn',
+                                    ),
+                                    array(
+                                        'header' => '日期',
+                                        'name' => 'ctime',
                                     ),
                                     array(
                                         'header' => '账户名称',
@@ -435,7 +506,7 @@
     </div>
     </div>
 
-    <div class="row cu-info-list">
+    <div class="row">
     <div class="col-md-12">
     <!-- BEGIN TAB PORTLET-->
     <div class="portlet box yellow tabbable">
@@ -443,7 +514,6 @@
             <div class="caption">
                 <i class="fa fa-gift"></i>最近20条记录
             </div>
-            <div class="tools"><a href="javascript:;" class="collapse"></a></div>
         </div>
         <div class="portlet-body">
             <div class=" portlet-tabs">
@@ -454,73 +524,13 @@
                     <li>
                         <a href="#portlet_tab6" data-toggle="tab">领取记录</a>
                     </li>
-                    <li>
-                        <a href="#portlet_tab5" data-toggle="tab">寄存记录</a>
-                    </li>
                     <li class="active">
-                        <a href="#portlet_tab4" data-toggle="tab">实操记录</a>
+                        <a href="#portlet_tab5" data-toggle="tab">寄存记录</a>
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="portlet_tab4">
-                        <?php
-                        //实耗记录
-                        $data=\PracticeOrderDetail::model()
-                        ->field(array("t.id,t.por_id","left(t.last_time,16) ttime","po.sn","pi.name piname","crp.re_num","t.before_num","t.use_num",
-                            "t.after_num","t.operators","osd.buy_type as buy_type"))
-                        ->join('practice_order po on t.por_id=po.id')
-                        ->join('project_info pi on t.project_id=pi.id')
-                        ->join('order_sale_detail osd on t.detail_id=osd.id')
-                        ->join('customer_re_project crp  on t.detail_id=crp.detail_id AND po.cu_id=crp.cu_id AND t.project_id=crp.project_id')
-                        ->order('t.last_time DESC')
-                        ->limit('0,20')
-                        ->findAll("po.cu_id={$model->id}");
-                        echo $this->datagrid(array(
-                            'dataProvider'=>array('list'=>$data),
-                            'columns'=>array(
-                                array(
-                                    'header' => '日期',
-                                    'name'   => 'ttime',
-                                ),
-                                array(
-                                    'header' => '单据编号',
-                                    'name'  => 'sn',
-                                ),
-                                array(
-                                    'header' => '实操项目',
-                                    'name'   => 'piname',
-                                    'value'   => '{$data["piname"]}{$data["buy_type"]==1?"（买）":""}{$data["buy_type"]==2?"（赠）":""}{$data["buy_type"]==3?"（兑）":""}',
-                                ),
-                                array(
-                                    'header' => '疗程总次数',
-                                    'name'   => 're_num',
-                                ),
-                                array(
-                                    'header' => '实操前剩余',
-                                    'name'   => 'before_num',
-                                ),
-                                array(
-                                    'header' => '本次实操次数',
-                                    'name'   => 'use_num',
-                                ),
-                                array(
-                                    'header' => '实操后剩余',
-                                    'name' =>  'after_num',
-                                ),
-                                array(
-                                    'header' => '美容师',
-                                    'value'   => '{\EmployUser::getUserNames($data["operators"])}',
-                                ),  
-                                array(
-                                    'header' => '操作',
-                                    'headerCss'=>'width:80px',
-                                    'rel'=>'id',
-                                    'value'=> '<a href="{$this->url("pos/practice/view",array("id"=>$data["por_id"]))}" target="new" class="btn default btn-xs green-stripe view">查看</a>',
-                                ),
-                            ),
-                        ));?>
-                    </div>
-                    <div class="tab-pane" id="portlet_tab5">
+                    
+                    <div class="tab-pane active" id="portlet_tab5">
                         <?php
                         //寄存记录
                         $data=\CustomerProdStorageDetail::model()
@@ -533,15 +543,14 @@
                         ->findAll("cos.cu_id={$model->id}");
                         echo $this->datagrid(array(
                             'dataProvider'=>array('list'=>$data),
-                            'lastFloat'=>false,
                             'columns'=>array(
-                                array(
-                                    'header' => '日期',
-                                    'name'   => 'ttime',
-                                ),
                                 array(
                                     'header' => '单据号',
                                     'name'  => 'sn',
+                                ),
+                                array(
+                                    'header' => '日期',
+                                    'name'   => 'ttime',
                                 ),
                                 array(
                                     'header' => '产品名称',
@@ -578,12 +587,12 @@
                             'dataProvider'=>array('list'=>$data),
                             'columns'=>array(
                                 array(
-                                    'header' => '日期',
-                                    'name'   => 'ttime',
-                                ),
-                                array(
                                     'header' => '单据号',
                                     'name'  => 'sn',
+                                ),
+                                array(
+                                    'header' => '日期',
+                                    'name'   => 'ttime',
                                 ),
                                 array(
                                     'header' => '产品名称',
@@ -627,12 +636,12 @@
                             'dataProvider'=>array('list'=>$data),
                             'columns'=>array(
                                 array(
-                                    'header' => '日期',
-                                    'value'   => '{date("Y-m-d H:i",$data["pay_time"])}',
-                                ),
-                                array(
                                     'header' => '单号',
                                     'name'   => 'sn',
+                                ),
+                                array(
+                                    'header' => '日期',
+                                    'value'   => '{date("Y-m-d H:i",$data["pay_time"])}',
                                 ),
                                 array(
                                     'header' => '退掉金额',
