@@ -99,12 +99,16 @@ var d = Idialog({
 	// 	template += '</div>';
 
 
-	var template  = '<div class="idialog modal fade " tabindex="-1" aria-hidden="true">';
-		template += '	<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h4 class="modal-title">Title</h4></div>';
-		template += '	<div class="idialog_body modal-body">';
+									
+
+	var template  = '<div class="idialog modal fade " tabindex="-1" role="dialog" aria-hidden="true">';
+		template += '<div class="modal-dialog"><div class="modal-content">';
+		template += '	<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button><h4 class="modal-title">Title</h4></div>';
+		template += '	<div class="modal-body idialog_body">';
 		template += '		<div class="idialog_content"></div>';
-		template += '		<div class="idialog_active modal-footer"><button type="button" data-dismiss="modal" class="idialog_cancel btn default">取消</button><button type="button" class="idialog_ok btn blue">确定</button></div>';
 		template += '	</div>';
+		template += '	<div class="modal-footer idialog_active"><button type="button" data-dismiss="modal" class="idialog_cancel btn default">取消</button><button type="button" class="idialog_ok btn blue">确定</button></div>';
+		template += '</div></div>';
 		template += '</div>';
 
 
@@ -127,8 +131,6 @@ var d = Idialog({
 	 * @type {Object}
 	 */
 	Idialog.defaults={
-		top:200,
-		width:400,
 		title:'通知',
 		content:'系统错误',
 		ok:true,
@@ -142,12 +144,7 @@ var d = Idialog({
 			var obj=this;
 			var _self=this._self;
 
-
 			_self.find('.modal-title').html(this.settings.title);
-
-			if(this.settings.width){
-				_self.attr("data-width",this.settings.width);
-			}
 
 			if(this.settings.title===false){
 				_self.find('.modal-header').remove();
@@ -232,7 +229,7 @@ var d = Idialog({
 $.fn.help = function(){
     this.each(function(){
         var exp = $(this).attr('explain');
-        
+
         $(this).html('<div class="help_ms"><div class="help_icon"></div><span class="help_ti">'+exp+'</span></div>');
     });
     this.hover(

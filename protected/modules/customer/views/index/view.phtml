@@ -1,7 +1,10 @@
 <?php $cu_avatar=$model->getAvatar($model->id);?>
 <link href="<?php echo $this->basePath('public/M');?>/admin/pages/css/profile.css" rel="stylesheet" type="text/css"/>
 
-<div class="modal fade" id="edit-avatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+<div class="modal fade bs-modal-lg" id="edit-avatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
         <h4 class="modal-title">编辑头像</h4>
@@ -16,7 +19,6 @@
         <div class="cropped"></div>
         <div class="action">
         <input type="file" id="file" style="float:left; width: 150px">
-        <!--<input type="button" id="btnSave" value="保持" style="float: right">-->
         <input type="button" id="btnCrop" value="裁剪 " style="float: right; height:20px; line-height:20px; margin-left:5px; text-align:center;">
         <input type="button" id="btnZoomIn" value="+  " style="float: right; height:20px; line-height:20px; margin-left:5px; text-align:center;">
         <input type="button" id="btnZoomOut" value="-  " style="float: right; height:20px; line-height:20px; margin-left:5px; text-align:center;">
@@ -28,6 +30,8 @@
         <button type="button" class="btn blue" id="btnSave">确定</button>
         <button type="button" class="btn default" data-dismiss="modal">取消</button>
     </div>
+</div>
+</div>   
 </div>
 
 
@@ -45,7 +49,7 @@
             <div class="col-md-3">
                 <ul class="list-unstyled profile-nav ">
                     <li>
-                        <img src="<?php echo $cu_avatar;?>" class="img-responsive img-avatar" alt=""/>
+                        <img src="<?php echo $cu_avatar;?>" style="width:100%" class="img-responsive img-avatar" alt=""/>
                         <a  class="profile-edit avatar" data-toggle="modal" href="#edit-avatar">修改</a>
                     </li>
                     <li>   
@@ -739,10 +743,8 @@
 		/* Act on the event */
 		var url=$(this).attr('href');
 		var d = Idialog({
-				top:150,
-				width:468,
 				title:'二维码',
-				content:'<img src="'+url+'">',
+				content:'<img style="width:90%" src="'+url+'">',
 				cancel:false,
 				init:function()
 					{

@@ -2724,7 +2724,7 @@ Customized Bootstrap Modal
   font-weight: 300;
 }
 .modal .modal-header .close {
-  margin-top: 0px !important;
+  margin-top: 5px !important;
 }
 .modal > .loading {
   position: absolute;
