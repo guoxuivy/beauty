@@ -98,32 +98,33 @@
             <div class="col-md-9">
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
-                            <div class="portlet solid grey-cascade">
+                            <div class="portlet solid red-sunglo">
                                 <div class="portlet-title">
                                     <div class="caption">
                                         <i class="fa fa-cogs"></i>储值账户
                                     </div>
+                                    <div class="tools"><a href="javascript:;" class="collapse"></a></div>
                                     <div class="actions">
-                                        <a href="<?php echo $this->url('zhdt',array('id'=>$model->id)) ?>" class="btn grey btn-sm">更多</a>
+                                        <a href="<?php echo $this->url('zhdt',array('id'=>$model->id)) ?>" class="btn purple btn-sm">更多</a>
                                     </div>
                                 </div>
                                 <div class="portlet-body">
                                     <div class="row static-info">
-                                        <div class="col-xs-5 name">
-                                             欠款：
-                                        </div>
+                                        <div class="col-xs-5 name">欠款：</div>
                                         <div class="col-xs-7 value text-right">
                                              <?php echo $model->arrears; ?><span class="label label-info label-sm"></span> 元
                                         </div>
                                     </div>
 
-                                    <?php $CustomerCapital=\CustomerCapital::model()->getListByUser($model->id);
-                                    foreach ((array)$CustomerCapital as $key => $value): ?>
-                                    <div class="row static-info">
-                                        <div class="col-xs-5 name"><?php echo $value['name'] ?><div class="help" explain="<?php echo $value['note']?$value['note']:'无'; ?>"></div></div>
-                                        <div class="col-xs-7 value text-right"><?php echo $value['balance']?$value['balance']:'0.00' ?>元</div>
+                                    <div class="scroller" style="height:130px" data-rail-visible="1" data-rail-color="blue" data-handle-color="red">
+                                        <?php $CustomerCapital=\CustomerCapital::model()->getListByUser($model->id);
+                                        foreach ((array)$CustomerCapital as $key => $value): ?>
+                                        <div class="row static-info">
+                                            <div class="col-xs-5 name"><?php echo $value['name'] ?><div class="help" explain="<?php echo $value['note']?$value['note']:'无'; ?>"></div></div>
+                                            <div class="col-xs-7 value text-right"><?php echo $value['balance']?$value['balance']:'0.00' ?>元</div>
+                                        </div>
+                                        <?php endforeach; ?>
                                     </div>
-                                    <?php endforeach; ?>
                                 </div>
                             </div>
                         </div>
@@ -134,6 +135,7 @@
                                     <div class="caption">
                                         <i class="fa fa-cogs"></i>积分账户
                                     </div>
+                                    <div class="tools"><a href="javascript:;" class="collapse"></a></div>
                                     <div class="actions">
                                         <a href="<?php echo $this->url('score',array('id'=>$id)) ?>" class="btn yellow btn-sm">更多</a>
                                     </div>
@@ -147,54 +149,27 @@
                                         <div class="col-xs-5 name">已使用积分：</div>
                                         <div class="col-xs-7 value text-right"><?php echo (int)\CustomerScoreLog::getSumByUser($model->id)->sum_score; ?></div>
                                     </div>
+                                    <div class="scroller" style="height:100px" data-rail-visible="1" data-rail-color="blue" data-handle-color="red">
 
-                                    <?php $CustomerScoreLog=\CustomerScoreLog::getListByUser($model->id);
-                                    foreach ((array)$CustomerScoreLog as $key => $value):?>
-                                    <div class="row static-info">
-                                        <div class="col-xs-5 name">
-                                            <?php echo date('m/d',strtotime($value['create_time'])),$value['pos_dir']=='in'?'赠送积分':'使用积分' ?>
+                                        <?php $CustomerScoreLog=\CustomerScoreLog::getListByUser($model->id);
+                                        foreach ((array)$CustomerScoreLog as $key => $value):?>
+                                        <div class="row static-info">
+                                            <div class="col-xs-5 name">
+                                                <?php echo date('m/d',strtotime($value['create_time'])),$value['pos_dir']=='in'?'赠送积分':'使用积分' ?>
+                                            </div>
+                                            <div class="col-xs-7 value text-right">
+                                            <?php echo $value['pos_dir']=='in'?'+':'-',$value['score']; ?>
+                                            </div>
                                         </div>
-                                        <div class="col-xs-7 value text-right">
-                                        <?php echo $value['pos_dir']=='in'?'+':'-',$value['score']; ?>
-                                        </div>
+                                        <?php endforeach; ?>
                                     </div>
-                                    <?php endforeach; ?>
                                 </div>
                             </div>
                         </div>
-
                         
-                    <!-- </div>
+                    </div>
 
-                    <div class="row"> -->
-                        <div class="col-md-6 col-sm-12">
-                        <?php $CustomerVoucher=\CustomerVoucher::getNum($model->id); ?>
-                            <div class="portlet solid green-haze">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <i class="fa fa-cogs"></i>卡券账户
-                                    </div>
-                                    <div class="actions">
-                                        <a href="<?php echo $this->url('kjgl',array('id'=>$model->id)) ?>" class="btn green btn-sm">更多</a>
-                                    </div>
-                                </div>
-                                <div class="portlet-body">
-                                    <div class="row static-info">
-                                        <div class="col-xs-5 name">可用卡券：</div>
-                                        <div class="col-xs-7 value text-right"><?php echo $CustomerVoucher->kykj; ?></div>
-                                    </div>
-                                    <div class="row static-info">
-                                        <div class="col-xs-5 name">已用卡券：</div>
-                                        <div class="col-xs-7 value text-right"><?php echo $CustomerVoucher->yykj; ?></div>
-                                    </div>
-                                    <div class="row static-info">
-                                        <div class="col-xs-5 name">失效卡券：</div>
-                                        <div class="col-xs-7 value text-right text-right"><?php echo $CustomerVoucher->sxkj ?></div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
+                    <div class="row">
                         <div class="col-md-6 col-sm-12">
                         <?php $count=(int)\CustomerReProject::model()->getSumByUser($model->id)->sum_re_num;?>
                             <div class="portlet blue-hoki solid">
@@ -202,6 +177,7 @@
                                     <div class="caption">
                                         <i class="fa fa-cogs"></i>疗程账户
                                     </div>
+                                    <div class="tools"><a href="javascript:;" class="collapse"></a></div>
                                     <div class="actions">
                                         <a href="<?php echo $this->url('sysclc',array('id'=>$model->id)) ?>" class="btn blue btn-sm">更多</a>
                                     </div>
@@ -215,15 +191,47 @@
                                              <?php echo $count; ?> 疗次 <a href="<?php echo $this->url('sysclc',array('id'=>$model->id)) ?>" class="label label-info label-sm">详情</a>
                                         </div>
                                     </div>
-
+                                    <div class="scroller" style="height:130px" data-rail-visible="1" data-rail-color="blue" data-handle-color="red">
                                     <?php $CustomerReProject=\CustomerReProject::model()->getListByUser($model->id);
                                     foreach ((array)$CustomerReProject as $key => $value):?>
                                     <div class="row static-info">
                                         <div class="col-xs-5 name"><?php echo $value['name'] ;?></div>
                                         <div class="col-xs-7 value text-right"><?php echo (int)$value['sum_re_num'] ?> 疗次</div>
                                     </div>
-
                                     <?php endforeach; ?>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                        <?php $CustomerVoucher=\CustomerVoucher::getNum($model->id); ?>
+                            <div class="portlet solid green-haze">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="fa fa-cogs"></i>卡券账户
+                                    </div>
+                                    <div class="tools"><a href="javascript:;" class="collapse"></a></div>
+                                    <div class="actions">
+                                        <a href="<?php echo $this->url('kjgl',array('id'=>$model->id)) ?>" class="btn green btn-sm">更多</a>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+
+                                    <div class="scroller" style="height:160px" data-rail-visible="1" data-rail-color="blue" data-handle-color="red">
+                                    <div class="row static-info">
+                                        <div class="col-xs-5 name">可用卡券：</div>
+                                        <div class="col-xs-7 value text-right"><?php echo $CustomerVoucher->kykj; ?></div>
+                                    </div>
+                                    <div class="row static-info">
+                                        <div class="col-xs-5 name">已用卡券：</div>
+                                        <div class="col-xs-7 value text-right"><?php echo $CustomerVoucher->yykj; ?></div>
+                                    </div>
+                                    <div class="row static-info">
+                                        <div class="col-xs-5 name">失效卡券：</div>
+                                        <div class="col-xs-7 value text-right text-right"><?php echo $CustomerVoucher->sxkj ?></div>
+                                    </div>
+                                    </div>
 
                                 </div>
                             </div>
@@ -234,217 +242,200 @@
                     </div>
             </div>
         </div>
-    
-        
     </div>
    
-
 </div>
 
 
-
-
-
-
-<!--content_right_con-->
-
-<div class="content_right_con">
-
-
-	
-
-	
-	
-
-
-    <div class="row">
+<div class="row cu-info-list">
     <div class="col-md-12">
-    <!-- BEGIN TAB PORTLET-->
-    <div class="portlet box blue tabbable">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>最近20条记录
+        <!-- BEGIN TAB PORTLET-->
+        <div class="portlet box blue tabbable">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>最近20条记录
+                </div>
+                <div class="tools"><a href="javascript:;" class="collapse"></a></div>
             </div>
-        </div>
-        <div class="portlet-body">
-            <div class=" portlet-tabs">
-                <ul class="nav nav-tabs">
-                    <li>
-                        <a href="#portlet_tab3" data-toggle="tab">剩余疗次</a>
-                    </li>
-                    <li>
-                        <a href="#portlet_tab2" data-toggle="tab">账户动态</a>
-                    </li>
-                    <li class="active">
-                        <a href="#portlet_tab1" data-toggle="tab">消费记录</a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="portlet_tab1">
-                        <?php
-                        //消费记录
-                        $data=\OrderSale::model()->order('`pay_time` DESC')->limit('0,20')->findAll("cu_id={$model->id} and status>0 and pay_status=1");
-                        echo $this->datagrid(array(
-                            'dataProvider'=>array('list'=>$data),
-                            'columns'=>array(
-                                array(
-                                    'header' => '订单类型',
-                                    'value' => '{\OrderSale::getType($data["type"])}',
+            <div class="portlet-body">
+                <div class=" portlet-tabs">
+                    <ul class="nav nav-tabs">
+                        <li>
+                            <a href="#portlet_tab3" data-toggle="tab">剩余疗次</a>
+                        </li>
+                        <li>
+                            <a href="#portlet_tab2" data-toggle="tab">账户动态</a>
+                        </li>
+                        <li class="active">
+                            <a href="#portlet_tab1" data-toggle="tab">消费记录</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="portlet_tab1">
+                            <?php
+                            //消费记录
+                            $data=\OrderSale::model()->order('`pay_time` DESC')->limit('0,20')->findAll("cu_id={$model->id} and status>0 and pay_status=1");
+                            echo $this->datagrid(array(
+                                'dataProvider'=>array('list'=>$data),
+                                'columns'=>array(
+                                    array(
+                                        'header' => '订单类型',
+                                        'value' => '{\OrderSale::getType($data["type"])}',
+                                    ),
+                                    array(
+                                        'header' => '项目/产品',
+                                        'value' => '{\OrderSale::getProNames($data["id"])}',
+                                    ),
+                                    array(
+                                        'header' => '应付金额',
+                                        'name' => 'pay_price',
+                                    ),
+                                    array(
+                                        'header' => '实收现金',
+                                        'name' => 'cash',
+                                        'value'=>'{$data["cash"]+$data["cash_pos"]+$data["cash_tra"]+$data["cash_other"]}',
+                                    ),
+                                    array(
+                                        'header' => '卡扣金额',
+                                        'name' => 'cash_card',
+                                    ),
+                                    array(
+                                        'header' => '订单欠款',
+                                        'name'=>'current_arrears',
+                                    ),
+                                    array(
+                                        'header' => '订单状态',
+                                        'value' => '{\OrderSale::getStatus($data["status"])}',
+                                    ),
+                                    array(
+                                        'header' => '操作',
+                                        'headerCss'=>'width:80px',
+                                        'rel'=>'id',
+                                        'value'=> '<a href="{\OrderSale::model()->getOrderUrl($data["type"],$data["id"]);}" target="new" class="btn default btn-xs green-stripe view">查看</a>',
+                                    ),
+                                    
                                 ),
-                                array(
-                                    'header' => '项目/产品',
-                                    'value' => '{\OrderSale::getProNames($data["id"])}',
+                            ));?>
+                        </div>
+                        <div class="tab-pane" id="portlet_tab2">
+                            <?php
+                            //账户动态
+                            $data=\CustomerCapitalLog::model()->getCapitalLog($model->id);
+                            echo $this->datagrid(array(
+                                'title'=>"账户动态",
+                                'dataProvider'=>array('list'=>$data),
+                                'columns'=>array(
+                                    array(
+                                        'header' => '日期',
+                                        'name' => 'ctime',
+                                    ),
+                                    array(
+                                        'header' => '单据号',
+                                        'name' => 'sn',
+                                    ),
+                                    array(
+                                        'header' => '账户名称',
+                                        'name' => 'cvname',
+                                    ),
+                                    array(
+                                        'header' => '业务类型',
+                                        'value'=>'{$data["pos_dir"]=="in"?"存入":"取出"}',
+                                    ),
+                                    array(
+                                        'header' => '变更前',
+                                        'name'=>'before_money',
+                                    ),
+                                    array(
+                                        'header' => '存入（充值）',
+                                        'value' => '{$data["pos_dir"]=="in"?$data["money"]:""}',
+                                    ),
+                                    array(
+                                        'header' => '取出（卡扣）',
+                                        'value'=>'{$data["pos_dir"]=="in"?"":$data["money"]}',
+                                    ),
+                                    array(
+                                        'header' => '变更后',
+                                        'name'=>'after_money',
+                                    ),
+                                    array(
+                                        'header' => '操作',
+                                        'headerCss'=>'width:80px',
+                                        'rel'=>'id',
+                                        'value'=> '<a href="{\OrderSale::model()->getOrderUrl($data["type"],$data["id"]);}" target="new" class="btn default btn-xs green-stripe view">查看</a>',
+                                    )
+                                    
                                 ),
-                                array(
-                                    'header' => '应付金额',
-                                    'name' => 'pay_price',
+                            ));?>
+                         
+                        </div>
+                        <div class="tab-pane" id="portlet_tab3">
+                            <?php
+                            //剩余实操疗次
+                            $data=\CustomerReProject::model()
+                            ->field(array("t.id","pi.name piname","IFNULL(os.pay_time,ov.pay_time) pay_time","IFNULL(os.sn,ov.sn) sn","osd.num osd_num","(osd.cash+osd.card_cash) gmje","t.user_num","(t.re_num) sy_num","t.detail_id"))
+                            ->join('project_info pi on t.project_id=pi.id')
+                            ->join('order_sale_detail osd on t.detail_id=osd.id')
+                            ->join('order_sale os on osd.order_id=os.id and osd.buy_type in (1,2)')
+                            ->join('order_voucher ov on osd.order_id=ov.id and osd.buy_type=3')
+                            ->order('sy_num DESC')
+                            ->limit('0,20')
+                            ->findAll("t.cu_id={$model->id}");
+                            echo $this->datagrid(array(
+                                'dataProvider'=>array('list'=>$data),
+                                'lastFloat'=>false,
+                                'columns'=>array(
+                                    array(
+                                        'header' => '项目名称',
+                                        'name'   => 'piname',
+                                    ),
+                                    array(
+                                        'header' => '购买日期',
+                                        'value'  => '{date("Y-m-d H:i",$data["pay_time"])}',
+                                    ),
+                                    array(
+                                        'header' => '购买订单号',
+                                        'name'   => 'sn',
+                                    ),
+                                    array(
+                                        'header' => '购买总次数',
+                                        'name'   => 'osd_num',
+                                    ),
+                                    array(
+                                        'header' => '购买金额',
+                                        'name'   => 'gmje',
+                                    ),
+                                    array(
+                                        'header' => '已实操次数',
+                                        'name'   => 'user_num',
+                                    ),
+                                    array(
+                                        'header' => '已消耗金额',
+                                        'value' =>  '{$data["osd_num"]?sprintf("%.2f",$data["gmje"]/$data["osd_num"]*$data["user_num"]):""}',
+                                    ),
+                                    array(
+                                        'header' => '剩余次数',
+                                        'name'   => 'sy_num',
+                                    ),  
+                                    array(
+                                        'header' => '剩余金额',
+                                        'value' => '{$data["osd_num"]?sprintf("%.2f",$data["gmje"]/$data["osd_num"]*$data["sy_num"]):""}',
+                                    ),  
+                                    array(
+                                        'header' => '最近实操时间',
+                                        'value'   => '{\PracticeOrderDetail::getLastTime($data["detail_id"])}',
+                                    )   
                                 ),
-                                array(
-                                    'header' => '实收现金',
-                                    'name' => 'cash',
-                                    'value'=>'{$data["cash"]+$data["cash_pos"]+$data["cash_tra"]+$data["cash_other"]}',
-                                ),
-                                array(
-                                    'header' => '卡扣金额',
-                                    'name' => 'cash_card',
-                                ),
-                                array(
-                                    'header' => '订单欠款',
-                                    'name'=>'current_arrears',
-                                ),
-                                array(
-                                    'header' => '订单状态',
-                                    'value' => '{\OrderSale::getStatus($data["status"])}',
-                                ),
-                                array(
-                                    'header' => '操作',
-                                    'headerCss'=>'width:80px',
-                                    'rel'=>'id',
-                                    'value'=> '<a href="{\OrderSale::model()->getOrderUrl($data["type"],$data["id"]);}" target="new" class="btn default btn-xs green-stripe view">查看</a>',
-                                ),
-                                
-                            ),
-                        ));?>
-                    </div>
-                    <div class="tab-pane" id="portlet_tab2">
-                        <?php
-                        //账户动态
-                        $data=\CustomerCapitalLog::model()->getCapitalLog($model->id);
-                        echo $this->datagrid(array(
-                            'title'=>"账户动态",
-                            'dataProvider'=>array('list'=>$data),
-                            'columns'=>array(
-                                array(
-                                    'header' => '日期',
-                                    'name' => 'ctime',
-                                ),
-                                array(
-                                    'header' => '单据号',
-                                    'name' => 'sn',
-                                ),
-                                array(
-                                    'header' => '账户名称',
-                                    'name' => 'cvname',
-                                ),
-                                array(
-                                    'header' => '业务类型',
-                                    'value'=>'{$data["pos_dir"]=="in"?"存入":"取出"}',
-                                ),
-                                array(
-                                    'header' => '变更前',
-                                    'name'=>'before_money',
-                                ),
-                                array(
-                                    'header' => '存入（充值）',
-                                    'value' => '{$data["pos_dir"]=="in"?$data["money"]:""}',
-                                ),
-                                array(
-                                    'header' => '取出（卡扣）',
-                                    'value'=>'{$data["pos_dir"]=="in"?"":$data["money"]}',
-                                ),
-                                array(
-                                    'header' => '变更后',
-                                    'name'=>'after_money',
-                                ),
-                                array(
-                                    'header' => '操作',
-                                    'headerCss'=>'width:80px',
-                                    'rel'=>'id',
-                                    'value'=> '<a href="{\OrderSale::model()->getOrderUrl($data["type"],$data["id"]);}" target="new" class="btn default btn-xs green-stripe view">查看</a>',
-                                )
-                                
-                            ),
-                        ));?>
-                     
-                    </div>
-                    <div class="tab-pane" id="portlet_tab3">
-                        <?php
-                        //剩余实操疗次
-                        $data=\CustomerReProject::model()
-                        ->field(array("t.id","pi.name piname","IFNULL(os.pay_time,ov.pay_time) pay_time","IFNULL(os.sn,ov.sn) sn","osd.num osd_num","(osd.cash+osd.card_cash) gmje","t.user_num","(t.re_num) sy_num","t.detail_id"))
-                        ->join('project_info pi on t.project_id=pi.id')
-                        ->join('order_sale_detail osd on t.detail_id=osd.id')
-                        ->join('order_sale os on osd.order_id=os.id and osd.buy_type in (1,2)')
-                        ->join('order_voucher ov on osd.order_id=ov.id and osd.buy_type=3')
-                        ->order('sy_num DESC')
-                        ->limit('0,20')
-                        ->findAll("t.cu_id={$model->id}");
-                        echo $this->datagrid(array(
-                            'dataProvider'=>array('list'=>$data),
-                            'lastFloat'=>false,
-                            'columns'=>array(
-                                array(
-                                    'header' => '项目名称',
-                                    'name'   => 'piname',
-                                ),
-                                array(
-                                    'header' => '购买日期',
-                                    'value'  => '{date("Y-m-d H:i",$data["pay_time"])}',
-                                ),
-                                array(
-                                    'header' => '购买订单号',
-                                    'name'   => 'sn',
-                                ),
-                                array(
-                                    'header' => '购买总次数',
-                                    'name'   => 'osd_num',
-                                ),
-                                array(
-                                    'header' => '购买金额',
-                                    'name'   => 'gmje',
-                                ),
-                                array(
-                                    'header' => '已实操次数',
-                                    'name'   => 'user_num',
-                                ),
-                                array(
-                                    'header' => '已消耗金额',
-                                    'value' =>  '{$data["osd_num"]?sprintf("%.2f",$data["gmje"]/$data["osd_num"]*$data["user_num"]):""}',
-                                ),
-                                array(
-                                    'header' => '剩余次数',
-                                    'name'   => 'sy_num',
-                                ),  
-                                array(
-                                    'header' => '剩余金额',
-                                    'value' => '{$data["osd_num"]?sprintf("%.2f",$data["gmje"]/$data["osd_num"]*$data["sy_num"]):""}',
-                                ),  
-                                array(
-                                    'header' => '最近实操时间',
-                                    'value'   => '{\PracticeOrderDetail::getLastTime($data["detail_id"])}',
-                                )   
-                            ),
-                        ));?>  
+                            ));?>  
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- END TAB PORTLET-->
+        <!-- END TAB PORTLET-->
     </div>
     </div>
 
-    <div class="row">
+    <div class="row cu-info-list">
     <div class="col-md-12">
     <!-- BEGIN TAB PORTLET-->
     <div class="portlet box yellow tabbable">
@@ -452,6 +443,7 @@
             <div class="caption">
                 <i class="fa fa-gift"></i>最近20条记录
             </div>
+            <div class="tools"><a href="javascript:;" class="collapse"></a></div>
         </div>
         <div class="portlet-body">
             <div class=" portlet-tabs">
@@ -666,11 +658,10 @@
     </div>
     <!-- END TAB PORTLET-->
     </div>
-    </div>
-
-
-
 </div>
+
+
+
 
 <!--content_right_con!end-->
 <script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/cropbox-min.js"></script>
