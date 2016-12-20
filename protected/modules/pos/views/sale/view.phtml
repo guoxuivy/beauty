@@ -2,7 +2,10 @@
 <link href="<?php echo $this->basePath('public');?>/css/pos.css" rel="stylesheet" type="text/css"/>
 <style type="text/css">
 .zszh,.xjzh{color:#0077ff;cursor: pointer;}
+.pos_table_scroll{width: 100%;overflow-x: auto;overflow-y: hidden;}
+.pos_table_scroll .pos_table{border: none;}
 .pos_table {margin-bottom:0px;}
+.pos_table th{white-space: nowrap;}
 </style>
 <?php $hd_list = \SaleNoticeInfo::model()->getListOpt();?>
 <!--content_right_con-->
@@ -177,11 +180,11 @@
 				<!--table_con-->
 				<div class="table_con" >
 					<!--table_con_son-->
-					<div class="table_con_son">
+					<div class="table_con_son pos_table_scroll">
 						<table class="table table-bordered table-hover pos_table">
 							<thead>
 								<tr>
-									<th>项目</th>
+									<th style="min-width:150px;">项目</th>
 									<th>疗次</th>
 									<th>原价</th>
 									<th>面折率</th>
@@ -243,12 +246,12 @@
 				<!--table_con-->
 				<div class="table_con" >
 					<!--table_con_son-->
-					<div class="table_con_son">
+					<div class="table_con_son pos_table_scroll">
 
 						<table class="table table-bordered table-hover pos_table">
 							<thead>
 								<tr>
-									<th>产品</th>
+									<th style="min-width:100px;">产品</th>
 									<th>数量</th>
 									<th>原价</th>
 									<th>面折率</th>
@@ -268,7 +271,7 @@
 
 									<tr data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
 										<td class="li001"><?php echo $info->name ?></td>
-										<td class="li002"><?php echo $pro['num'] ?> （<?php echo $info->unit ?>）</td>
+										<td class="li002"><?php echo $pro['num'] ?>(<?php echo $info->unit ?>)</td>
 										<td class="li003"><?php echo $pro['price'] ?></td>
 										<td class="li004"><?php echo $pro['rebate'] ?>%</td>
 										<td class="li005 zszh"><?php  echo $pro['card_gift']; ?></td>
@@ -309,12 +312,12 @@
 				<!--table_con-->
 				<div class="table_con">
 					<!--table_con_son-->
-					<div class="table_con_son">
+					<div class="table_con_son pos_table_scroll">
 
 						<table class="table table-bordered table-hover pos_table">
 							<thead>
 								<tr>
-									<th>卡券</th>
+									<th style="min-width:100px;">卡券</th>
 									<th>数量</th>
 									<th>原价</th>
 									<th>面折率</th>
@@ -390,19 +393,16 @@
 
 
 <!-- 选择账户分配弹出 -->
-<div style="top:100px; display:none" class="tjfj ">
-	<div class="tjfj_top"><span class="fjgb">x</span>赠送账户抵扣</div>
-	<div class="tjfj_two pos_gm_th zszhdk">
+<div style="display:none">
+	<div class="zszhdk">
 		<div class="pos_gm_th_01">购买《肽美白》1疗次，原价：1000 元</div>
-
 		<!--table_container-->  
-		<div style="margin-bottom:20px;" class="table_container">
+		<div class="table_container">
 			<!--table_con-->
-			<div style="margin-right:0px;" class="table_con pos_cz_qr_top_04">
+			<div class="table_con pos_cz_qr_top_04">
 
 				<!--table_con_son-->
-				<div class="table_con_son" style="min-width: 564px;">
-
+				<div class="table_con_son" >
 					<table class="table table-bordered table-hover pos_table">
 						<thead>
 							<tr>
@@ -414,13 +414,6 @@
 						<tbody>
 						</tbody>
 					</table>
-
-
-
-
-					<!-- <div class="pos_cz_tow_top pos_cz_qr_02">赠送现金</div>-->
-					
-
 				</div><!--table_con_son!end-->
 
 			</div><!--table_con!end-->

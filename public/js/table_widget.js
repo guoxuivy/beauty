@@ -4,14 +4,18 @@ var TableWidget = function () {
         var portlet = portlet_table;
         var table = portlet.find('table');
 
+        //是否开启排序功能
+        var sort = [];
+        if(table.attr("data-sortable")=='false'){
+            sort = false;
+        }
+
         var oTable = table.dataTable({
             "columnDefs": [{
                 "orderable": false,
                 "targets": [0]
             }],
-            "order": [
-                // [1, 'asc']
-            ],
+            "order": sort,
             "paging": false,
             "searching": false,
             "info": false,
