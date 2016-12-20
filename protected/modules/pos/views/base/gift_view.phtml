@@ -15,15 +15,15 @@ if($order_id){
 <div class="pos_cz_tow pos_gift">
 	<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>赠送
 		<div class="pos_cz_th">
-            <span lang="box_gift_xm" class="box_gift_choose"><span></span>项目</span>
-            <span lang="box_gift_cp" class="box_gift_choose"><span></span>产品</span>
-            <span lang="box_gift_kq" class="box_gift_choose"><span></span>卡券</span>
-            <span lang="box_gift_xj" class="box_gift_choose"><span></span>现金</span>
+            <span lang="box_gift_xm" class="box_gift_choose"><span></span></span>项目
+            <span lang="box_gift_cp" class="box_gift_choose"><span></span></span>产品
+            <span lang="box_gift_kq" class="box_gift_choose"><span></span></span>卡券
+            <span lang="box_gift_xj" class="box_gift_choose"><span></span></span>现金
 			<?php 
 				$config=\CompanyInfo::getConfig('score_config'); 
 				if($config['openAll']=='true' && $config['openByGive']=='true'):
 			?>
-            <span lang="box_gift_jf" class="box_gift_choose"><span></span>积分</span>
+            <span lang="box_gift_jf" class="box_gift_choose"><span></span></span>积分
 			<?php endif; ?>
 		</div>
 	
@@ -32,34 +32,35 @@ if($order_id){
 		<div class="pos_cz_tow_two pos_cz_qr_top">
 		
 			<!--table_container-->  
-			<div style="display: none;" class="table_container box_gift_xm" style=" margin-top:0px;">
+			<div style="display: none;" class="table_container box_gift_xm" >
 				<!--table_con-->
-				<div class="table_con pos_cz_qr_top_04" style="margin-right:0px;">
-					
+				<div class="table_con pos_cz_qr_top_04" >
 					<!--table_con_son-->
 					<div class="table_con_son">
-						<div class="pos_cz_tow_top pos_cz_qr_02">赠送项目</div>
-						<div class="table_title">
-							<ul>
-							<li style="min-width:300px">赠送项目</li>
-							<li style="min-width:200px">数量（疗次）</li>
-							
-							</ul>
-						</div>
+						<table class="table ">
+							<thead>
+								<tr>
+									<th style="width:60%">赠送项目</th>
+									<th>数量（疗次）</th>
+								</tr>
+							</thead>
+							<tbody>
 
-						<?php if ($pros): ?>
-							<?php foreach ($pros as $pro): ?>
-							<?php if($pro['pro_type']!=1) continue; ?>
-							<?php $pro_info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
-								<div data-dj="<?php echo $pro_info->price ?>" data-id="<?php echo $pro_info->id ?>" class="table_list"><ul>
-									<li class="li001"><?php echo $pro_info->name; ?>（<?php echo $pro_info->num*$pro_info->price; ?>元/<?php echo $pro_info->num; ?>疗次）</li>
-									<li class="li002"><input readonly="true" type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05"></li>
+								<?php if ($pros): ?>
+									<?php foreach ($pros as $pro): ?>
+									<?php if($pro['pro_type']!=1) continue; ?>
+									<?php $pro_info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+										<tr data-dj="<?php echo $pro_info->price ?>" data-id="<?php echo $pro_info->id ?>" class="table_list">
+											<td class="li001"><?php echo $pro_info->name; ?>（<?php echo $pro_info->num*$pro_info->price; ?>元/<?php echo $pro_info->num; ?>疗次）</td>
+											<td class="li002"><input readonly="true" type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05"></td>
+										</tr>
+										
+									<?php endforeach ?>
 									
-								</ul></div>
-								
-							<?php endforeach ?>
-							
-						<?php endif ?>
+								<?php endif ?>
+									
+							</tbody>
+						</table>
 
 						
 					</div><!--table_con_son!end-->
@@ -71,34 +72,36 @@ if($order_id){
 			<!--table_container-->  
 			<div style="display: none;margin-top:15px;" class="table_container box_gift_cp" >
 				<!--table_con-->
-				<div class="table_con pos_cz_qr_top_04" style="margin-right:0px;">
+				<div class="table_con pos_cz_qr_top_04" >
 					
 					<!--table_con_son-->
 					<div class="table_con_son">
-						<div class="pos_cz_tow_top pos_cz_qr_02">赠送产品</div>
-						<div class="table_title">
-							<ul>
-							<li style="min-width:300px">赠送产品</li>
-							<li style="min-width:200px">数量</li>
-							
-							</ul>
-						</div>
 
 
+						<table class="table ">
+							<thead>
+								<tr>
+									<th style="width:60%">赠送产品</th>
+									<th>数量</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php if ($pros): ?>
+									<?php foreach ($pros as $pro): ?>
+									<?php if($pro['pro_type']!=2) continue; ?>
+									<?php $pro_info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
 
-						<?php if ($pros): ?>
-							<?php foreach ($pros as $pro): ?>
-							<?php if($pro['pro_type']!=2) continue; ?>
-							<?php $pro_info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
-
-								<div data-dj="<?php echo $pro_info->price ?>" data-id="<?php echo $pro_info->id ?>" class="table_list"><ul>
-									<li class="li001"><?php echo $pro_info->name; ?></li>
-									<li class="li002"><input readonly="true" type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05">（<?php echo $pro_info->unit ?>）</li>
-								</ul></div>
-								
-							<?php endforeach ?>
-							
-						<?php endif ?>
+										<tr data-dj="<?php echo $pro_info->price ?>" data-id="<?php echo $pro_info->id ?>" class="table_list">
+											<td class="li001"><?php echo $pro_info->name; ?></td>
+											<td class="li002"><input readonly="true" type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05">（<?php echo $pro_info->unit ?>）</td>
+										</tr>
+										
+									<?php endforeach ?>
+									
+								<?php endif ?>
+									
+							</tbody>
+						</table>
 
 						
 					</div><!--table_con_son!end-->
@@ -112,31 +115,36 @@ if($order_id){
 			<!--table_container-->  
 			<div style="display: none;margin-top:15px;" class="table_container box_gift_kq">
 				<!--table_con-->
-				<div class="table_con pos_cz_qr_top_04" style="margin-right:0px;">
+				<div class="table_con pos_cz_qr_top_04" >
 					
 					<!--table_con_son-->
 					<div class="table_con_son">
-						<div class="pos_cz_tow_top pos_cz_qr_02">赠送卡券</div>
-						<div class="table_title">
-							<ul>
-							<li style="min-width:300px">卡券名称</li>
-							<li style="min-width:200px">数量</li>
-							</ul>
-						</div>
+						<table class="table ">
+							<thead>
+								<tr>
+									<th style="width:60%">卡券名称</th>
+									<th>数量</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php if ($pros): ?>
+									<?php foreach ($pros as $pro): ?>
+									<?php if($pro['pro_type']!=3) continue; ?>
+									<?php $pro_info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
 
-						<?php if ($pros): ?>
-							<?php foreach ($pros as $pro): ?>
-							<?php if($pro['pro_type']!=3) continue; ?>
-							<?php $pro_info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+										<tr data-sold="<?php echo $pro_info->sold_num ?>" data-num="<?php echo $pro_info->num ?>" data-dj="<?php echo $pro_info->price ?>" data-id="<?php echo $pro_info->id ?>" class="table_list">
+											<td class="li001"><?php echo $pro_info->name; ?>（<?php echo $pro_info->price ?>元）</td>
+											<td class="li002"><input readonly="true" type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05"></td>
+										</tr>
+										
+									<?php endforeach ?>
+									
+								<?php endif ?>
+									
+							</tbody>
+						</table>
 
-								<div data-sold="<?php echo $pro_info->sold_num ?>" data-num="<?php echo $pro_info->num ?>" data-dj="<?php echo $pro_info->price ?>" data-id="<?php echo $pro_info->id ?>" class="table_list"><ul>
-									<li class="li001"><?php echo $pro_info->name; ?>（<?php echo $pro_info->price ?>元）</li>
-									<li class="li002"><input readonly="true" type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05"></li>
-								</ul></div>
-								
-							<?php endforeach ?>
-							
-						<?php endif ?>
+						
 
 
 						
@@ -151,29 +159,31 @@ if($order_id){
 			<!--table_container-->  
 			<div style="display: none;margin-top:15px;" class="table_container box_gift_xj">
 				<!--table_con-->
-				<div class="table_con pos_cz_qr_top_04" style="margin-right:0px;">
+				<div class="table_con pos_cz_qr_top_04" >
 					
 					<!--table_con_son-->
 					<div class="table_con_son">
-						<div class="pos_cz_tow_top pos_cz_qr_02">赠送现金</div>
-						<div class="table_title">
-							<ul>
-							<?php foreach ($capital_list as $value): ?>
-								<li><?php echo $value['name'] ?>（元）</li>
-							<?php endforeach ?>	
-							</ul>
-						</div>
-
-						<div class="table_list">
-							<ul>
-							<?php foreach ($capital_list as $key=>$value): ?>
-								<li class="li00<?php echo ++$key ?>">
-								<input readonly="true" data-id="<?php echo $value['id'] ?>" type="text" value="<?php echo $gift_arr[$value['id']] ?>" class="pos_cz_tow_two05" />
-								</li>
-							<?php endforeach ?>	
-							
-							</ul>
-						</div>
+						<table class="table ">
+							<thead>
+								<tr>
+									<?php foreach ($capital_list as $value): ?>
+										<th><?php echo $value['name'] ?>（元）</th>
+									<?php endforeach ?>	
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+								<?php foreach ($capital_list as $key=>$value): ?>
+									
+									<td class="li00<?php echo ++$key ?>">
+									<input readonly="true" data-id="<?php echo $value['id'] ?>" type="text" value="<?php echo $gift_arr[$value['id']] ?>" class="pos_cz_tow_two05" />
+									</td>
+								<?php endforeach ?>	
+								</tr>
+									
+							</tbody>
+						</table>
+						
 					
 					</div><!--table_con_son!end-->
 				

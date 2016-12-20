@@ -2,7 +2,7 @@
 <link href="<?php echo $this->basePath('public');?>/css/pos.css" rel="stylesheet" type="text/css"/>
 <style type="text/css">
 .zszh,.xjzh{color:#0077ff;cursor: pointer;}
-.pos_other{  float: left;font-size: 16px;color: #1eb488; margin-right: -86px;margin-right:30px}
+.pos_table {margin-bottom:0px;}
 </style>
 <?php $hd_list = \SaleNoticeInfo::model()->getListOpt();?>
 <!--content_right_con-->
@@ -35,38 +35,119 @@
 	                             <?php echo $model->o_s->sn ?>
 	                        </div>
 	                    </div>
-	                    <div class="row static-info">
-	                        <div class="col-xs-5 name">订单总金额：</div>
-	                        <div class="col-xs-7 value text-right">
-	                             <font class="order_money">0</font> 元
-	                        </div>
-	                    </div>
-	                    <div class="row static-info">
-	                        <div class="col-xs-5 name">优惠金额：</div>
-	                        <div class="col-xs-7 value text-right">
-	                             <font class="order_yh_money">0</font> 元
-	                        </div>
-	                    </div>
 
-	                    <div class="row static-info">
-	                        <div class="col-xs-5 name">订单状态：</div>
-	                        <div class="col-xs-7 value text-right">
-	                        	<span class="label label-info label-sm"><?php echo \OrderSale::getPayStatus($model->o_s->pay_status);?></span>
-	                        	<?php if($model->o_s->rh_id):?>
-	                    		<span class="label label-success label-sm">新客入会</span>
-	                			<?php endif;?>
-	                        </div>
-	                    </div>
-	                    <div class="row static-info">
-	                        <div class="col-xs-5 name">购买商品：</div>
-	                        <div class="col-xs-7 value text-right">
-	                        	<font class="order_pro_num">0</font> 件
-	                        </div>
-	                    </div>
+	                    <div class="scroller" style="height:140px" data-rail-visible="1" data-rail-color="blue" data-handle-color="red">
+	                    	<?php if($model->o_s->pay_status==1): ?>
+
+		                    	<?php foreach ($model->getXJList() as $key => $value): ?>
+		                    		<?php if($value>0): ?>
+		                    		<div class="row static-info">
+				                        <div class="col-xs-5 name"><?php echo $key ?>卡扣：</div>
+				                        <div class="col-xs-7 value text-right">
+				                        	<?php echo $value ?> 元
+				                        </div>
+				                    </div>
+				                	<?php endif; ?>
+								<?php endforeach ?>
+
+								<div class="row static-info">
+			                        <div class="col-xs-5 name">欠款：</div>
+			                        <div class="col-xs-7 value text-right red">
+			                        	<font color="red"><?php echo $model->o_s->current_arrears ?></font>  元
+			                        </div>
+			                    </div>
+			                    <div class="row static-info">
+			                        <div class="col-xs-5 name">实收现金：</div>
+			                        <div class="col-xs-7 value text-right">
+			                        	<font color="yellow"><?php echo $model->o_s->cash+$model->o_s->cash_pos+$model->o_s->cash_tra+$model->o_s->cash_other ?></font> 元
+			                        	
+			                        </div>
+			                    </div>
+			                    <?php if($model->o_s->cash>0): ?>
+			                    <div class="row static-info">
+			                        <div class="col-xs-5 name">现金支付：</div>
+			                        <div class="col-xs-7 value text-right">
+			                        	<?php echo $model->o_s->cash ?> 元
+			                        </div>
+			                    </div>
+				                <?php endif; ?>
+			                    <?php if($model->o_s->cash_pos>0): ?>
+			                    <div class="row static-info">
+			                        <div class="col-xs-5 name">POS刷卡：</div>
+			                        <div class="col-xs-7 value text-right">
+			                        	<?php echo $model->o_s->cash_pos ?> 元
+			                        </div>
+			                    </div>
+				                <?php endif; ?>
+			                    <?php if($model->o_s->cash_tra>0): ?>
+			                    <div class="row static-info">
+			                        <div class="col-xs-5 name">银行转账：</div>
+			                        <div class="col-xs-7 value text-right">
+			                        	<?php echo $model->o_s->cash_tra ?> 元
+			                        </div>
+			                    </div>
+				                <?php endif; ?>
+			                    <?php if($model->o_s->cash_other>0): ?>
+			                    <div class="row static-info">
+			                        <div class="col-xs-5 name">其他方式支付：</div>
+			                        <div class="col-xs-7 value text-right"><?php echo $model->o_s->cash_other ?> 元</div>
+			                    </div>
+				                <?php endif; ?>
+		                	<?php endif; ?>
+
+		                    <div class="row static-info">
+		                        <div class="col-xs-5 name">总价（原价）：</div>
+		                        <div class="col-xs-7 value text-right">
+		                             <font class="order_old_money">0</font> 元
+		                        </div>
+		                    </div>
+
+		                    <div class="row static-info">
+		                        <div class="col-xs-5 name">抵扣总价：</div>
+		                        <div class="col-xs-7 value text-right">
+		                             <font class="order_dk_money">0</font> 元
+		                        </div>
+		                    </div>
+		                    <div class="row static-info">
+		                        <div class="col-xs-5 name">折扣率：</div>
+		                        <div class="col-xs-7 value text-right">
+		                             <font class="order_rate">100</font> %
+		                        </div>
+		                    </div>
+
+		                    <div class="row static-info">
+		                        <div class="col-xs-5 name">应付总金额：</div>
+		                        <div class="col-xs-7 value text-right">
+		                             <font class="order_money">100</font> 元
+		                        </div>
+		                    </div>
+
+		                    <div class="row static-info">
+		                        <div class="col-xs-5 name">已优惠：</div>
+		                        <div class="col-xs-7 value text-right">
+		                             - <font class="order_yh_money">0</font> 元
+		                        </div>
+		                    </div>
 
 
+		                    <div class="row static-info">
+		                        <div class="col-xs-5 name">订单状态：</div>
+		                        <div class="col-xs-7 value text-right">
+		                        	<span class="label label-info label-sm"><?php echo \OrderSale::getPayStatus($model->o_s->pay_status);?></span>
+		                        	<?php if($model->o_s->rh_id):?>
+		                    		<span class="label label-success label-sm">新客入会</span>
+		                			<?php endif;?>
+		                        </div>
+		                    </div>
+		                    <div class="row static-info">
+		                        <div class="col-xs-5 name">购买商品：</div>
+		                        <div class="col-xs-7 value text-right">
+		                        	<font class="order_pro_num">0</font> 件
+		                        </div>
+		                    </div>
 
-	                    
+		                	</div>
+
 						
 	                </div>
 	            </div>
@@ -91,45 +172,52 @@
 		<div class="pos_cz_tow box_xm">
 			<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>购买项目</div>
 			<div class="pos_cz_tow_two">
-				<!--table_container-->  
-				<div class="table_container" style="border:none;">
+				<!--table_container-->
+				<div class="table_container">
 				<!--table_con-->
-				<div class="table_con" style="border:none; margin-right:0px;">
+				<div class="table_con" >
 					<!--table_con_son-->
 					<div class="table_con_son">
-						<div class="table_title">
-						<ul>
-							<li style="min-width:250px">项目</li>
-							<li>数量（疗次）</li>
-							<li>原价（元）</li>
-							<li>面折率</li>
-							<li>赠送账户抵扣（元）</li>
-							<li>现金账户抵扣（元）</li>
-							<li>欠款（元）</li>
-							<li>应付金额（元）</li>
-							<li style="min-width:80px">活动</li>
-						</ul>
-						</div>
-						<?php if ($model): ?>
-							<?php $project_arrears=0; foreach ($model->pros as $pro): ?>
-								<?php if($pro['pro_type']!=1) continue; ?>
-								<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+						<table class="table table-bordered table-hover pos_table">
+							<thead>
+								<tr>
+									<th>项目</th>
+									<th>数量（疗次）</th>
+									<th>原价（元）</th>
+									<th>面折率</th>
+									<th>赠送账户抵扣（元）</th>
+									<th>现金账户抵扣（元）</th>
+									<th>欠款（元）</th>
+									<th>应付金额（元）</th>
+									<th>活动</th>
+								</tr>
+							</thead>
+							<tbody>
 
-								<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
-									<ul>
-										<li class="li001"><?php echo $info->name ?>（<?php echo $info->num*$info->price ?>元/<?php echo $info->num ?>疗次）</li>
-										<li class="li002"><?php echo $pro['num'] ?></li>
-										<li class="li003"><?php echo $pro['price'] ?></li>
-										<li class="li004"><?php echo $pro['rebate'] ?>%</li>
-										<li class="li005 zszh"><?php  echo $pro['card_gift']; ?></li>
-										<li class="li009 xjzh"><?php  echo $pro['card_cash']; ?></li>
-										<li class="li009"><?php $project_arrears+=$pro['arrears']; echo $pro['arrears'] ?></li>
-										<li class="li006"><?php echo $pro['pay_price']; ?></li>
-										<li class="li007"><?php echo $hd_list[$pro['promotion_id']] ?></li>
-									</ul>
-								</div>
-							<?php endforeach ?>
-						<?php endif ?>	
+								<?php if ($model): ?>
+									<?php $project_arrears=0; foreach ($model->pros as $pro): ?>
+										<?php if($pro['pro_type']!=1) continue; ?>
+										<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+
+										<tr data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
+												<td class="li001"><?php echo $info->name ?>（<?php echo $info->num*$info->price ?>元/<?php echo $info->num ?>疗次）</td>
+												<td class="li002"><?php echo $pro['num'] ?></td>
+												<td class="li003"><?php echo $pro['price'] ?></td>
+												<td class="li004"><?php echo $pro['rebate'] ?>%</td>
+												<td class="li005 zszh"><?php  echo $pro['card_gift']; ?></td>
+												<td class="li009 xjzh"><?php  echo $pro['card_cash']; ?></td>
+												<td class="li009"><?php $project_arrears+=$pro['arrears']; echo $pro['arrears'] ?></td>
+												<td class="li006"><?php echo $pro['pay_price']; ?></td>
+												<td class="li007"><?php echo $hd_list[$pro['promotion_id']] ?></td>
+										</tr>
+									<?php endforeach ?>
+								<?php endif ?>
+									
+							</tbody>
+						</table>
+
+
+						
 					</div><!--table_con_son!end-->
 				</div><!--table_con!end-->
 				</div>
@@ -151,45 +239,51 @@
 			<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>购买产品</div>
 			<div class="pos_cz_tow_two">
 				<!--table_container-->  
-				<div class="table_container" style="border:none;">
+				<div class="table_container" >
 				<!--table_con-->
-				<div class="table_con" style="border:none; margin-right:0px;">
+				<div class="table_con" >
 					<!--table_con_son-->
 					<div class="table_con_son">
-						<div class="table_title">
-						<ul>
-							<li style="min-width:250px">产品</li>
-							<li>数量</li>
-							<li>原价（元）</li>
-							<li>面折率</li>
-							<li>赠送账户抵扣（元）</li>
-							<li>现金账户抵扣（元）</li>
-							<li>欠款（元）</li>
-							<li>应付金额（元）</li>
-							<li style="min-width:80px">活动</li>
-						</ul>
-						</div>
 
-						<?php if ($model): ?>
-							<?php $product_arrears=0; foreach ($model->pros as $pro): ?>
-							<?php if($pro['pro_type']!=2) continue; ?>
-							<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+						<table class="table table-bordered table-hover pos_table">
+							<thead>
+								<tr>
+									<th>产品</th>
+									<th>数量</th>
+									<th>原价（元）</th>
+									<th>面折率</th>
+									<th>赠送账户抵扣（元）</th>
+									<th>现金账户抵扣（元）</th>
+									<th>欠款（元）</th>
+									<th>应付金额（元）</th>
+									<th>活动</th>
+								</tr>
+							</thead>
+							<tbody>
 
-							<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
-								<ul>
-								<li class="li001"><?php echo $info->name ?></li>
-								<li class="li002"><?php echo $pro['num'] ?> （<?php echo $info->unit ?>）</li>
-								<li class="li003"><?php echo $pro['price'] ?></li>
-								<li class="li004"><?php echo $pro['rebate'] ?>%</li>
-								<li class="li005 zszh"><?php  echo $pro['card_gift']; ?></li>
-								<li class="li009 xjzh"><?php  echo $pro['card_cash']; ?></li>
-								<li class="li009"><?php $product_arrears+=$pro['arrears']; echo $pro['arrears'] ?></li>
-								<li class="li006"><?php echo $pro['pay_price']; ?></li>
-								<li class="li007"><?php echo $hd_list[$pro['promotion_id']] ?></li>
-								</ul>
-							</div>
-							<?php endforeach ?>
-						<?php endif ?>
+								<?php if ($model): ?>
+									<?php $product_arrears=0; foreach ($model->pros as $pro): ?>
+									<?php if($pro['pro_type']!=2) continue; ?>
+									<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+
+									<tr data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
+										<td class="li001"><?php echo $info->name ?></td>
+										<td class="li002"><?php echo $pro['num'] ?> （<?php echo $info->unit ?>）</td>
+										<td class="li003"><?php echo $pro['price'] ?></td>
+										<td class="li004"><?php echo $pro['rebate'] ?>%</td>
+										<td class="li005 zszh"><?php  echo $pro['card_gift']; ?></td>
+										<td class="li009 xjzh"><?php  echo $pro['card_cash']; ?></td>
+										<td class="li009"><?php $product_arrears+=$pro['arrears']; echo $pro['arrears'] ?></td>
+										<td class="li006"><?php echo $pro['pay_price']; ?></td>
+										<td class="li007"><?php echo $hd_list[$pro['promotion_id']] ?></td>
+									</tr>
+									<?php endforeach ?>
+								<?php endif ?>
+									
+							</tbody>
+						</table>
+
+						
 					</div><!--table_con_son!end-->
 				</div><!--table_con!end-->
 				</div>
@@ -211,45 +305,51 @@
 			<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>购买卡券</div>
 			<div class="pos_cz_tow_two">
 				<!--table_container-->  
-				<div class="table_container" style="border:none;">
+				<div class="table_container">
 				<!--table_con-->
-				<div class="table_con" style="border:none; margin-right:0px;">
+				<div class="table_con">
 					<!--table_con_son-->
 					<div class="table_con_son">
-						<div class="table_title">
-							<ul>
-								<li style="min-width:250px">卡券</li>
-								<li>数量</li>
-								<li>原价（元）</li>
-								<li>面折率</li>
-								<li>赠送账户抵扣（元）</li>
-								<li>现金账户抵扣（元）</li>
-								<li>欠款（元）</li>
-								<li>应付金额（元）</li>
-								<li style="min-width:80px">活动</li>
-							</ul>
-						</div>
 
-						<?php if ($model): ?>
-							<?php $voucher_arrears=0; foreach ($model->pros as $pro): ?>
-							<?php if($pro['pro_type']!=3) continue; ?>
-							<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+						<table class="table table-bordered table-hover pos_table">
+							<thead>
+								<tr>
+									<th>卡券</th>
+									<th>数量</th>
+									<th>原价（元）</th>
+									<th>面折率</th>
+									<th>赠送账户抵扣（元）</th>
+									<th>现金账户抵扣（元）</th>
+									<th>欠款（元）</th>
+									<th>应付金额（元）</th>
+									<th>活动</th>
+								</tr>
+							</thead>
+							<tbody>
 
-							<div data-sold="<?php echo $info->sold_num ?>" data-num="<?php echo $info->num ?>" data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>"  data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
-								<ul>
-									<li class="li001"><?php echo $info->name ?></li>
-									<li class="li002"><?php echo $pro['num'] ?></li>
-									<li class="li003"><?php echo $pro['price'] ?></li>
-									<li class="li004"><?php echo $pro['rebate'] ?>%</li>
-									<li class="li005 zszh"><?php  echo $pro['card_gift']; ?></li>
-									<li class="li009 xjzh"><?php  echo $pro['card_cash']; ?></li>
-									<li class="li009"><?php $voucher_arrears+=$pro['arrears']; echo $pro['arrears'] ?></li>
-									<li class="li006"><?php echo $pro['pay_price'] ?></li>
-									<li class="li007"><?php echo $hd_list[$pro['promotion_id']] ?></li>
-								</ul>
-							</div>
-							<?php endforeach ?>
-						<?php endif ?>
+								<?php if ($model): ?>
+									<?php $voucher_arrears=0; foreach ($model->pros as $pro): ?>
+									<?php if($pro['pro_type']!=3) continue; ?>
+									<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+
+									<tr data-sold="<?php echo $info->sold_num ?>" data-num="<?php echo $info->num ?>" data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>"  data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
+											<td class="li001"><?php echo $info->name ?></td>
+											<td class="li002"><?php echo $pro['num'] ?></td>
+											<td class="li003"><?php echo $pro['price'] ?></td>
+											<td class="li004"><?php echo $pro['rebate'] ?>%</td>
+											<td class="li005 zszh"><?php  echo $pro['card_gift']; ?></td>
+											<td class="li009 xjzh"><?php  echo $pro['card_cash']; ?></td>
+											<td class="li009"><?php $voucher_arrears+=$pro['arrears']; echo $pro['arrears'] ?></td>
+											<td class="li006"><?php echo $pro['pay_price'] ?></td>
+											<td class="li007"><?php echo $hd_list[$pro['promotion_id']] ?></td>
+									</tr>
+									<?php endforeach ?>
+								<?php endif ?>
+									
+							</tbody>
+						</table>
+
+						
 					</div><!--table_con_son!end-->
 				</div><!--table_con!end-->
 				</div>
@@ -281,42 +381,7 @@
 		</div><!--备注!end-->
 
 		<!---->
-		<div class="pos_cz_tow pos_cz_zh">
 		
-			<div class="pos_gm_two">
-				<div class="pos_gm_two_l">购买商品 <font class="order_pro_num">0</font> 件</div>
-				<div class="pos_gm_two_r">
-					<div><span class="span01">总价（原价）：</span><span class="span02">￥<font class="order_old_money">0</font></span></div>
-					<div><span class="span01">抵扣总价：</span><span class="span02">￥<font class="order_dk_money">0</font></span></div>
-					<div><span class="span01">折扣率：</span><span class="span02"><font class="order_rate">100</font>%</span></div>
-				</div>
-			</div>
-			<div class="pos_cz_zh_01">
-				<div style="height:30px; line-height:30px; margin-top:30px; display:block;">
-					应付总金额：<span class="pos_cz_zh_02">￥<font class="order_money">0</font></span>
-				</div>
-				<div class="pos_gm_two_01">已优惠：<span> - ¥<font class="order_yh_money">0</font></span></div>
-			</div>
-
-			<div class="jyjl_fk">
-				<div class="jyjl_fk_l">付款方式</div>
-				<div class="jyjl_fk_r">
-					<?php foreach ($model->getXJList() as $key => $value): ?>
-						<p><?php echo $key ?>卡扣：<span class="jyjl_fk_r_02"> ¥<?php echo $value ?></span></p>
-					<?php endforeach ?>
-					
-					<p><span class="jyjl_fk_r_02">欠款：</span><span class="jyjl_fk_r_06"> ¥<?php echo $model->o_s->current_arrears ?></span></p>
-					<p><span class="jyjl_fk_r_03">实收现金：</span><span class="jyjl_fk_r_04">￥<?php echo $model->o_s->cash+$model->o_s->cash_pos+$model->o_s->cash_tra+$model->o_s->cash_other ?></span></p>
-				</div>
-				<div class="clear"></div>
-			</div>
-			<div class="pos_momey_come">
-				<span>现金支付：￥<?php echo $model->o_s->cash ?></span>
-				<span>POS刷卡：￥<?php echo $model->o_s->cash_pos ?></span>
-				<span>银行转账：￥<?php echo $model->o_s->cash_tra ?></span>
-				<span>其他方式支付：￥<?php echo $model->o_s->cash_other ?></span>
-			</div>
-		</div><!--!end-->
 
 	</div>
 </div>
