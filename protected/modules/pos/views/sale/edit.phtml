@@ -1,6 +1,10 @@
 <link href="<?php echo $this->basePath('public');?>/css/pos.css" rel="stylesheet" type="text/css"/>
 <style type="text/css">
-.xzzh{color:#0077ff;cursor: pointer;}
+.zszh,.xjzh{color:#0077ff;cursor: pointer;}
+.pos_table_scroll{width: 100%;overflow-x: auto;overflow-y: hidden;}
+.pos_table_scroll .pos_table{border: none;}
+.pos_table {margin-bottom:0px;}
+.pos_table th{white-space: nowrap;}
 </style>
 <?php $hd_list = \SaleNoticeInfo::model()->getListOpt();?>
 
@@ -9,15 +13,15 @@
 		<div class="portlet">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-eye-slash"></i>购买项目/产品/卡券
+                    <i class="fa fa-pencil"></i>购买项目/产品/卡券
                 </div>
                 <div class="tools">
                 	<?php if (!$model): ?>
-		                	<button class="btn btn-sm green table-group-action-submit c_submit"><i class="fa fa-check"></i>提交订单</button>
+		                <button class="btn btn-sm green table-group-action-submit c_submit"><i class="fa fa-check"></i>提交订单</button>
 					<?php else: ?>
-						<?php if (!$model->o_s->pay_status): ?>
-		                	<button class="btn btn-sm green table-group-action-submit c_submit"><i class="fa fa-check"></i>订单付款</button>
-						<?php endif ?>
+	                	<button class="btn btn-sm green table-group-action-submit c_submit"><i class="fa fa-check"></i>更新订单</button>
+	                	<a href="<?php echo $this->url("pay",array('id'=>$model->o_s->id)) ?>" class="btn btn-sm blue table-group-action-submit c_submit"><i class="fa fa-check"></i>付款</a>
+	                	<a href="<?php echo $this->url("del",array('id'=>$model->o_s->id)) ?>" class="btn btn-sm red table-group-action-submit c_submit"><i class="fa fa-check"></i>废除</a>
 					<?php endif ?>
                 </div>
             </div>
@@ -30,7 +34,7 @@
 	                    <div class="caption">
 	                        <i class="fa fa-cogs"></i>订单概况
 	                    </div>
-	                    <div class="actions"><button class="btn red">交易成功</button> </div>
+	                    <div class="actions"><button class="btn red order_money">0</button> </div>
 	                </div>
 	                <div class="portlet-body">
 	                    <div class="row static-info">
@@ -41,64 +45,6 @@
 	                    </div>
 
 	                    <div class="scroller" style="height:140px" data-rail-visible="1" data-rail-color="blue" data-handle-color="red">
-	                    	<?php if($model->o_s->pay_status==1): ?>
-
-		                    	<?php foreach ($model->getXJList() as $key => $value): ?>
-		                    		<?php if($value>0): ?>
-		                    		<div class="row static-info">
-				                        <div class="col-xs-5 name"><?php echo $key ?>卡扣：</div>
-				                        <div class="col-xs-7 value text-right">
-				                        	<?php echo $value ?> 元
-				                        </div>
-				                    </div>
-				                	<?php endif; ?>
-								<?php endforeach ?>
-
-								<div class="row static-info">
-			                        <div class="col-xs-5 name">欠款：</div>
-			                        <div class="col-xs-7 value text-right red">
-			                        	<font color="red"><?php echo $model->o_s->current_arrears ?></font>  元
-			                        </div>
-			                    </div>
-			                    <div class="row static-info">
-			                        <div class="col-xs-5 name">实收现金：</div>
-			                        <div class="col-xs-7 value text-right">
-			                        	<font color="yellow"><?php echo $model->o_s->cash+$model->o_s->cash_pos+$model->o_s->cash_tra+$model->o_s->cash_other ?></font> 元
-			                        	
-			                        </div>
-			                    </div>
-			                    <?php if($model->o_s->cash>0): ?>
-			                    <div class="row static-info">
-			                        <div class="col-xs-5 name">现金支付：</div>
-			                        <div class="col-xs-7 value text-right">
-			                        	<?php echo $model->o_s->cash ?> 元
-			                        </div>
-			                    </div>
-				                <?php endif; ?>
-			                    <?php if($model->o_s->cash_pos>0): ?>
-			                    <div class="row static-info">
-			                        <div class="col-xs-5 name">POS刷卡：</div>
-			                        <div class="col-xs-7 value text-right">
-			                        	<?php echo $model->o_s->cash_pos ?> 元
-			                        </div>
-			                    </div>
-				                <?php endif; ?>
-			                    <?php if($model->o_s->cash_tra>0): ?>
-			                    <div class="row static-info">
-			                        <div class="col-xs-5 name">银行转账：</div>
-			                        <div class="col-xs-7 value text-right">
-			                        	<?php echo $model->o_s->cash_tra ?> 元
-			                        </div>
-			                    </div>
-				                <?php endif; ?>
-			                    <?php if($model->o_s->cash_other>0): ?>
-			                    <div class="row static-info">
-			                        <div class="col-xs-5 name">其他方式支付：</div>
-			                        <div class="col-xs-7 value text-right"><?php echo $model->o_s->cash_other ?> 元</div>
-			                    </div>
-				                <?php endif; ?>
-		                	<?php endif; ?>
-
 		                    <div class="row static-info">
 		                        <div class="col-xs-5 name">总价（原价）：</div>
 		                        <div class="col-xs-7 value text-right">
@@ -137,7 +83,15 @@
 		                    <div class="row static-info">
 		                        <div class="col-xs-5 name">订单状态：</div>
 		                        <div class="col-xs-7 value text-right">
-		                        	<span class="label label-info label-sm"><?php echo \OrderSale::getPayStatus($model->o_s->pay_status);?></span>
+		                        	<span class="label label-info label-sm">
+		                        	<?php 
+		                        		if($model){
+		                        			echo \OrderSale::getPayStatus($model->o_s->pay_status);
+		                        		}else{
+		                        			echo "新建";
+		                        		}
+		                        	?>
+		                        	</span>
 		                        	<?php if($model->o_s->rh_id):?>
 		                    		<span class="label label-success label-sm">新客入会</span>
 		                			<?php endif;?>
@@ -150,8 +104,7 @@
 		                        </div>
 		                    </div>
 
-		                	</div>
-
+		                </div>
 						
 	                </div>
 	            </div>
@@ -166,308 +119,232 @@
 	        </div>
         </div>
 
+        <!--销售人员及业绩比例-->
+		<?php echo $effect ?>
+		<!--销售人员及业绩比例!end-->
+
+		<!--购买项目-->
+		<div class="pos_cz_tow box_xm">
+			<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>购买项目</div>
+			<div class="pos_cz_tow_two">
+				<!--table_container-->
+				<div class="table_container">
+				<!--table_con-->
+				<div class="table_con" >
+					<!--table_con_son-->
+					<div class="table_con_son pos_table_scroll">
+						<table class="table table-bordered table-hover pos_table">
+							<thead>
+								<tr>
+									<th style="min-width:150px;">项目</th>
+									<th>疗次</th>
+									<th>原价</th>
+									<th>面折率</th>
+									<th>赠送账户抵扣</th>
+									<th>应付金额</th>
+									<th>活动</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php if ($model): ?>
+									<?php foreach ($model->pros as $pro): ?>
+										<?php if($pro['pro_type']!=1) continue; ?>
+										<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+
+										<tr data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
+												<td class="li001"><?php echo $info->name ?>（<?php echo $info->num*$info->price ?>元/<?php echo $info->num ?>疗次）</td>
+												<td class="li002"><input type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05"></td>
+												<td class="li003"><?php echo $pro['price'] ?></td>
+												<td class="li004"><input type="text" value="<?php echo $pro['rebate'] ?>" class="pos_cz_tow_two05">&nbsp;%</td>
+												<td class="li005 xzzh"><?php echo $pro['card_gift']==0?"点击选择账户类型":$pro['card_gift']; ?></td>
+												<td class="li006"><input type="text" value="<?php echo $pro['pay_price'] ?>" class="pos_cz_tow_two05"></td>
+												<td class="li007"><?php echo $this->dropDownList('',$hd_list,$pro['promotion_id'],array("class"=>"hd")) ?></td>
+												<td class="li008"><a class="btn btn-danger btn-xs c_del" href="javascript:">删除</a></td>
+										</tr>
+									<?php endforeach ?>
+								<?php endif ?>
+							</tbody>
+							<tfoot><tr><td colspan=9><span class="btn btn-info btn-xs c_add">继续添加</span></td></tr></tfoot>
+						</table>
+					</div><!--table_con_son!end-->
+				</div><!--table_con!end-->
+				</div>
+				<!--table_containter!end-->
+				<div class="pos_cz_tow_two_two pos_gm_02_border_top">
+					<span class="pos_cz_tow_two04 ">应付金额：<em class="all_xm_money">0</em>&nbsp;元</span>
+					<span class="pos_gm_01">购买项目<span class="pos_gm_03 all_xm_num">0</span>个</span>
+					<span class="pos_gm_01">总价小计（原价）：<span class="pos_gm_04">￥<font class="all_xm_money_old">0</font></span></span>
+					<span class="pos_gm_01">抵扣小计：<span class="pos_gm_04">-￥<font class="all_xm_money_dk">0</font></span></span>
+					<span class="pos_gm_01">面折率：<span class="pos_gm_04"><font class="all_xm_money_zk">0</font>%</span></span>
+				</div>
+			</div>
+		</div><!--购买项目!end-->
+
+		<!--购买产品-->
+		<div class="pos_cz_tow box_cp">
+			<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>购买产品</div>
+			<div class="pos_cz_tow_two">
+				<!--table_container-->  
+				<div class="table_container">
+				<!--table_con-->
+				<div class="table_con">
+					<!--table_con_son-->
+					<div class="table_con_son pos_table_scroll">
+						<table class="table table-bordered table-hover pos_table">
+							<thead>
+								<tr>
+									<th style="min-width:100px;">产品</th>
+									<th>数量</th>
+									<th>原价</th>
+									<th>面折率</th>
+									<th>赠送账户抵扣</th>
+									<th>应付金额</th>
+									<th>活动</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php if ($model): ?>
+									<?php foreach ($model->pros as $pro): ?>
+									<?php if($pro['pro_type']!=2) continue; ?>
+									<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+
+									<tr data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
+										<td class="li001"><?php echo $info->name ?></td>
+										<td class="li002"><input type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05">（<?php echo $info->unit ?>）</td>
+										<td class="li003"><?php echo $pro['price'] ?></td>
+										<td class="li004"><input type="text" value="<?php echo $pro['rebate'] ?>" class="pos_cz_tow_two05">&nbsp;%</td>
+										<td class="li005 xzzh"><?php  echo $pro['card_gift']==0?"点击选择账户类型":$pro['card_gift']; ?></td>
+										<td class="li006"><input type="text" value="<?php echo $pro['pay_price']; ?>" class="pos_cz_tow_two05"></td>
+										<td class="li007"><?php echo $this->dropDownList('',$hd_list,$pro['promotion_id'],array("class"=>"hd")) ?></td>
+										<td class="li008"><a class="btn btn-danger btn-xs c_del" href="javascript:">删除</a></td>
+									</tr>
+									<?php endforeach ?>
+								<?php endif ?>
+							</tbody>
+							<tfoot><tr><td colspan=8><span class="btn btn-info btn-xs c_add">继续添加</span></td></tr></tfoot>
+						</table>
+					</div><!--table_con_son!end-->
+					
+				</div><!--table_con!end-->
+				</div>
+				<!--table_containter!end-->
+				<div class="pos_cz_tow_two_two pos_gm_02_border_top">
+					<span class="pos_cz_tow_two04">应付金额：<em class="all_cp_money">0</em>&nbsp;元</span>
+					<span class="pos_gm_01">购买产品<span class="pos_gm_03 all_cp_num">0</span>个</span>
+					<span class="pos_gm_01">总价小计（原价）：<span class="pos_gm_04">￥<font class="all_cp_money_old">0</font></span></span>
+					<span class="pos_gm_01">抵扣小计：<span class="pos_gm_04">-￥<font class="all_cp_money_dk">0</font></span></span>
+					<span class="pos_gm_01">面折率：<span class="pos_gm_04"><font class="all_cp_money_zk">0</font>%</span></span>
+				</div>
+			</div>
+		</div><!--购买产品!end-->
+
+		<!--购买卡券-->
+		<div class="pos_cz_tow box_kq">
+			<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>购买卡券</div>
+			<div class="pos_cz_tow_two">
+				<!--table_container-->  
+				<div class="table_container" >
+				<!--table_con-->
+				<div class="table_con" >
+					<!--table_con_son-->
+					<div class="table_con_son pos_table_scroll">
+						<table class="table table-bordered table-hover pos_table">
+							<thead>
+								<tr>
+									<th style="min-width:100px;">卡券</th>
+									<th>数量</th>
+									<th>原价</th>
+									<th>面折率</th>
+									<th>赠送账户抵扣</th>
+									<th>应付金额</th>
+									<th>活动</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php if ($model): ?>
+									<?php foreach ($model->pros as $pro): ?>
+									<?php if($pro['pro_type']!=3) continue; ?>
+									<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+
+									<tr data-sold="<?php echo $info->sold_num ?>" data-num="<?php echo $info->num ?>" data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>"  data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
+										<td class="li001"><?php echo $info->name ?></td>
+										<td class="li002"><input type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05"></td>
+										<td class="li003"><?php echo $pro['price'] ?></td>
+										<td class="li004"><input type="text" value="<?php echo $pro['rebate'] ?>" class="pos_cz_tow_two05">&nbsp;%</td>
+										<td class="li005 xzzh"><?php  echo $pro['card_gift']==0?"点击选择账户类型":$pro['card_gift']; ?></td>
+										<td class="li006"><input type="text" value="<?php echo $pro['pay_price'] ?>" class="pos_cz_tow_two05"></td>
+										<td class="li007"><?php echo $this->dropDownList('',$hd_list,$pro['promotion_id'],array("class"=>"hd")) ?></td>
+										<td class="li008"><a class="btn btn-danger btn-xs c_del" href="javascript:">删除</a></td>
+									</tr>
+									<?php endforeach ?>
+								<?php endif ?>
+							</tbody>
+							<tfoot><tr><td colspan=8><span class="btn btn-info btn-xs c_add">继续添加</span></td></tr></tfoot>
+						</table>
+					</div><!--table_con_son!end-->
+				</div><!--table_con!end-->
+				</div>
+				<!--table_containter!end-->
+				<div class="pos_cz_tow_two_two pos_gm_02_border_top">
+					<span class="pos_cz_tow_two04">应付金额：<em class="all_kq_money">0</em>&nbsp;元</span>
+					<span class="pos_gm_01">购买卡券<span class="pos_gm_03 all_kq_num">0</span>个</span>
+					<span class="pos_gm_01">总价小计（原价）：<span class="pos_gm_04">￥<font class="all_kq_money_old">0</font></span></span>
+					<span class="pos_gm_01">抵扣小计：<span class="pos_gm_04">-￥<font class="all_kq_money_dk">0</font></span></span>
+					<span class="pos_gm_01">面折率：<span class="pos_gm_04"><font class="all_kq_money_zk">0</font>%</span></span>
+				</div>
+			</div>
+		</div><!--购买卡券!end-->
+
+		<!--赠送-->
+		<?php echo $gift ?>
+		<!--赠送!end-->
+
+		<!--备注-->
+		<div class="pos_cz_tow pos_cz_for_bz">
+			<div class="pos_cz_for_bz01">备注</div>
+			<div class="pos_cz_for_bz02">
+				<div class="pos_cz_for_bz02_son"><textarea class="order_note" rows="4"><?php echo $model?$model->o_s->note:"" ?></textarea></div>
+			</div>
+		</div><!--备注!end-->
+
     </div>
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		<div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>POS开单>购买项目/产品/卡券
-	</div>
-	<!-- 上操作按钮  付款后有效-->
-	<?php if ($model): ?>
-		<div class="jyjl_top jyjl_czda_top">
-			<div class="jyjl_czda_top_l">
-				<div class="jyjl_czda_top_top">订单提交成功</div>
-				<div class="jyjl_czda_top_two">订单编号：<span><?php echo $model->o_s->sn ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 订单状态：<span class="spanll"><?php echo \OrderSale::getPayStatus($model->o_s->pay_status);?></span>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="spanll"><?php echo $model->o_s->rh_id==0?'':'新客入会订单';?></span>
-				</span></div>
-			</div> 
-			<div class="jyjl_czda_top_r">
-				<?php if ($model->o_s->pay_status): ?>
-					<!-- <a class="aysh01" href="<?php // echo $this->url('pos/refund/order',array('id'=>$model->o_s->id)) ?>">退单</a> -->
-					<a class="aysh01" href="javascript:">打印订单</a>
-				<?php else: ?>
-					<a class="aysh01" href="<?php echo $this->url("pay",array('id'=>$model->o_s->id)) ?>">付款</a>
-					<a class="aysh01" href="<?php echo $this->url("del",array('id'=>$model->o_s->id)) ?>">废除</a>
-				<?php endif ?>
-				<!-- <a class="aysh" href="javascript:">审核订单</a>
-				<a class="aysh02" href="javascript:">审核已订单</a> -->
-			</div>
-		</div>
-	<?php endif; ?>
-
-	<!--khgl_shouye-->
-	<?php echo $cu_info ?>
-	<!--khgl_shouye!end-->
-
-	<!--销售人员及业绩比例-->
-	<?php echo $effect ?>
-	<!--销售人员及业绩比例!end-->
-
-	<!--购买项目-->
-	<div class="pos_cz_tow box_xm">
-		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>购买项目</div>
-		<div class="pos_cz_tow_two">
-			<!--table_container-->  
-			<div class="table_container" style="border:none;">
-			<!--table_con-->
-			<div class="table_con" style="border:none; margin-right:0px;">
-				<!--table_con_son-->
-				<div class="table_con_son">
-					<div class="table_title">
-					<ul>
-						<li style="min-width:250px">项目</li>
-						<li>数量（疗次）</li>
-						<li>原价（元）</li>
-						<li>面折率</li>
-						<li>赠送账户抵扣（元）</li>
-						<li>应付金额（元）</li>
-						<li>活动</li>
-						<li style="min-width:80px">操作</li>
-					</ul>
-					</div>
-					<?php if ($model): ?>
-						<?php foreach ($model->pros as $pro): ?>
-							<?php if($pro['pro_type']!=1) continue; ?>
-							<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
-
-							<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
-								<ul>
-									<li class="li001"><?php echo $info->name ?>（<?php echo $info->num*$info->price ?>元/<?php echo $info->num ?>疗次）</li>
-									<li class="li002"><input type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05"></li>
-									<li class="li003"><?php echo $pro['price'] ?></li>
-									<li class="li004"><input type="text" value="<?php echo $pro['rebate'] ?>" class="pos_cz_tow_two05">&nbsp;%</li>
-									<li class="li005 xzzh"><?php  echo $pro['card_gift']==0?"点击选择账户类型":$pro['card_gift']; ?></li>
-									<li class="li006"><input type="text" value="<?php echo $pro['pay_price'] ?>" class="pos_cz_tow_two05"></li>
-									<li class="li007"><?php echo $this->dropDownList('',$hd_list,$pro['promotion_id'],array("class"=>"hd")) ?></li>
-									<li class="li008"><a class="delete c_del" href="javascript:">删除</a></li>
-								</ul>
-							</div>
-						<?php endforeach ?>
-					<?php endif ?>	
-				</div><!--table_con_son!end-->
-			</div><!--table_con!end-->
-			</div>
-			<!--table_containter!end-->
-			<div class="pos_cz_tow_two_two"><span class="spantj c_add">继续添加</span></div>
-			<div class="pos_cz_tow_two_two pos_gm_02_border_top">
-				<span class="pos_cz_tow_two04 ">应付金额：<em class="all_xm_money">0</em>&nbsp;元</span>
-				<span class="pos_gm_01">购买项目<span class="pos_gm_03 all_xm_num">0</span>个</span>
-				<span class="pos_gm_01">总价小计（原价）：<span class="pos_gm_04">￥<font class="all_xm_money_old">0</font></span></span>
-				<span class="pos_gm_01">抵扣小计：<span class="pos_gm_04">-￥<font class="all_xm_money_dk">0</font></span></span>
-				<span class="pos_gm_01">面折率：<span class="pos_gm_04"><font class="all_xm_money_zk">0</font>%</span></span>
-			</div>
-		</div>
-	</div><!--购买项目!end-->
-
-
-	<!--购买产品-->
-	<div class="pos_cz_tow box_cp">
-		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>购买产品</div>
-		<div class="pos_cz_tow_two">
-			<!--table_container-->  
-			<div class="table_container" style="border:none;">
-			<!--table_con-->
-			<div class="table_con" style="border:none; margin-right:0px;">
-				<!--table_con_son-->
-				<div class="table_con_son">
-					<div class="table_title">
-					<ul>
-						<li style="min-width:250px">产品</li>
-						<li>数量</li>
-						<li>原价（元）</li>
-						<li>面折率</li>
-						<li>赠送账户抵扣（元）</li>
-						<li>应付金额（元）</li>
-						<li>活动</li>
-						<li style="min-width:80px">操作</li>
-					</ul>
-					</div>
-
-					<?php if ($model): ?>
-						<?php foreach ($model->pros as $pro): ?>
-						<?php if($pro['pro_type']!=2) continue; ?>
-						<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
-
-						<div data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
-							<ul>
-							<li class="li001"><?php echo $info->name ?></li>
-							<li class="li002"><input type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05">（<?php echo $info->unit ?>）</li>
-							<li class="li003"><?php echo $pro['price'] ?></li>
-							<li class="li004"><input type="text" value="<?php echo $pro['rebate'] ?>" class="pos_cz_tow_two05">&nbsp;%</li>
-							<li class="li005 xzzh"><?php  echo $pro['card_gift']==0?"点击选择账户类型":$pro['card_gift']; ?></li>
-							<li class="li006"><input type="text" value="<?php echo $pro['pay_price']; ?>" class="pos_cz_tow_two05"></li>
-							<li class="li007"><?php echo $this->dropDownList('',$hd_list,$pro['promotion_id'],array("class"=>"hd")) ?></li>
-							<li class="li008"><a class="delete c_del" href="javascript:">删除</a></li>
-							</ul>
-						</div>
-						<?php endforeach ?>
-					<?php endif ?>
-				</div><!--table_con_son!end-->
-			</div><!--table_con!end-->
-			</div>
-			<!--table_containter!end-->
-			<div class="pos_cz_tow_two_two"><span class="spantj c_add">继续添加</span></div>
-			<div class="pos_cz_tow_two_two pos_gm_02_border_top">
-				<span class="pos_cz_tow_two04">应付金额：<em class="all_cp_money">0</em>&nbsp;元</span>
-				<span class="pos_gm_01">购买产品<span class="pos_gm_03 all_cp_num">0</span>个</span>
-				<span class="pos_gm_01">总价小计（原价）：<span class="pos_gm_04">￥<font class="all_cp_money_old">0</font></span></span>
-				<span class="pos_gm_01">抵扣小计：<span class="pos_gm_04">-￥<font class="all_cp_money_dk">0</font></span></span>
-				<span class="pos_gm_01">面折率：<span class="pos_gm_04"><font class="all_cp_money_zk">0</font>%</span></span>
-			</div>
-		</div>
-	</div><!--购买产品!end-->
-
-
-	<!--购买卡券-->
-	<div class="pos_cz_tow box_kq">
-		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>购买卡券</div>
-		<div class="pos_cz_tow_two">
-			<!--table_container-->  
-			<div class="table_container" style="border:none;">
-			<!--table_con-->
-			<div class="table_con" style="border:none; margin-right:0px;">
-				<!--table_con_son-->
-				<div class="table_con_son">
-					<div class="table_title">
-						<ul>
-							<li style="min-width:250px">卡券</li>
-							<li>数量</li>
-							<li>原价（元）</li>
-							<li>面折率</li>
-							<li>赠送账户抵扣（元）</li>
-							<li>应付金额（元）</li>
-							<li>活动</li>
-							<li>操作</li>
-						</ul>
-					</div>
-
-					<?php if ($model): ?>
-						<?php foreach ($model->pros as $pro): ?>
-						<?php if($pro['pro_type']!=3) continue; ?>
-						<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
-
-						<div data-sold="<?php echo $info->sold_num ?>" data-num="<?php echo $info->num ?>" data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>"  data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
-							<ul>
-								<li class="li001"><?php echo $info->name ?></li>
-								<li class="li002"><input type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05"></li>
-								<li class="li003"><?php echo $pro['price'] ?></li>
-								<li class="li004"><input type="text" value="<?php echo $pro['rebate'] ?>" class="pos_cz_tow_two05">&nbsp;%</li>
-								<li class="li005 xzzh"><?php  echo $pro['card_gift']==0?"点击选择账户类型":$pro['card_gift']; ?></li>
-								<li class="li006"><input type="text" value="<?php echo $pro['pay_price'] ?>" class="pos_cz_tow_two05"></li>
-								<li class="li007"><?php echo $this->dropDownList('',$hd_list,$pro['promotion_id'],array("class"=>"hd")) ?></li>
-								<li class="li008"><a class="delete c_del" href="javascript:">删除</a></li>
-							</ul>
-						</div>
-						<?php endforeach ?>
-					<?php endif ?>
-				</div><!--table_con_son!end-->
-			</div><!--table_con!end-->
-			</div>
-			<!--table_containter!end-->
-			<div class="pos_cz_tow_two_two"><span class="spantj c_add">继续添加</span></div>
-			<div class="pos_cz_tow_two_two pos_gm_02_border_top">
-				<span class="pos_cz_tow_two04">应付金额：<em class="all_kq_money">0</em>&nbsp;元</span>
-				<span class="pos_gm_01">购买卡券<span class="pos_gm_03 all_kq_num">0</span>个</span>
-				<span class="pos_gm_01">总价小计（原价）：<span class="pos_gm_04">￥<font class="all_kq_money_old">0</font></span></span>
-				<span class="pos_gm_01">抵扣小计：<span class="pos_gm_04">-￥<font class="all_kq_money_dk">0</font></span></span>
-				<span class="pos_gm_01">面折率：<span class="pos_gm_04"><font class="all_kq_money_zk">0</font>%</span></span>
-			</div>
-		</div>
-	</div><!--购买卡券!end-->
-
-
-	<!--赠送-->
-	<?php echo $gift ?>
-	<!--赠送!end-->
-
-
-
-	<!--备注-->
-	<div class="pos_cz_tow pos_cz_for_bz">
-		<div class="pos_cz_for_bz01">备注</div>
-		<div class="pos_cz_for_bz02">
-			<div class="pos_cz_for_bz02_son"><textarea class="order_note" rows="4"><?php echo $model?$model->o_s->note:"" ?></textarea></div>
-		</div>
-	</div><!--备注!end-->
-
-	<!---->
-	<div class="pos_cz_tow pos_cz_zh">
-		<?php if (!$model): ?>
-			<a href="javascript:" class="pos_cz_zh_an c_submit">提交订单</a>
-		<?php else: ?>
-			<?php if (!$model->o_s->pay_status): ?>
-				<a href="javascript:" class="pos_cz_zh_an c_submit">订单付款</a>
-			<?php endif ?>
-		<?php endif ?>
-		
-		<div class="pos_gm_two">
-			<div class="pos_gm_two_l">购买商品 <font class="order_pro_num">0</font> 件</div>
-			<div class="pos_gm_two_r">
-				<div><span class="span01">总价（原价）：</span><span class="span02">￥<font class="order_old_money">0</font></span></div>
-				<div><span class="span01">抵扣总价：</span><span class="span02">￥<font class="order_dk_money">0</font></span></div>
-				<div><span class="span01">折扣率：</span><span class="span02"><font class="order_rate">100</font>%</span></div>
-			</div>
-		</div>
-		<div class="pos_cz_zh_01">
-			<div style="height:30px; line-height:30px; margin-top:30px; display:block;">
-				应付总金额：<span class="pos_cz_zh_02">￥<font class="order_money">0</font></span>
-			</div>
-			<div class="pos_gm_two_01">已优惠：<span> - ¥<font class="order_yh_money">0</font></span></div>
-		</div>
-	</div><!--!end-->
-</div>
-<!--content_right_con!end-->
-
-
-
 <!-- 选择账户分配弹出 -->
-<div style="top:100px; display:none" class="tjfj ">
-	<div class="tjfj_top"><span class="fjgb">x</span>赠送账户抵扣</div>
-	<div class="tjfj_two pos_gm_th zszhdk">
-		<div class="pos_gm_th_01" style="margin-left:0px">购买《肽美白》1疗次，原价：1000 元</div>
-
+<div style="display:none">
+	<div class="zszhdk">
+		<div class="pos_gm_th_01">购买《肽美白》1疗次，原价：1000 元</div>
 		<!--table_container-->  
-		<div style="margin-bottom:20px;" class="table_container">
+		<div class="table_container">
 			<!--table_con-->
-			<div style="margin-right:0px;" class="table_con pos_cz_qr_top_04">
+			<div class="table_con pos_cz_qr_top_04">
 
 				<!--table_con_son-->
-				<div class="table_con_son" style="min-width: 564px;">
-					<!-- <div class="pos_cz_tow_top pos_cz_qr_02">赠送现金</div>-->
-					<div class="table_title">
-						<ul>
-						<li style="min-width:200px">账户类型</li>
-						<li>余额（元）</li>
-						<li style="min-width: 80px; border-right: medium none;">抵扣金额（元）</li>
-						</ul>
-					</div>
-
+				<div class="table_con_son" >
+					<table class="table table-bordered table-hover pos_table">
+						<thead>
+							<tr>
+								<th>账户类型</th>
+								<th>余额（元）</th>
+								<th>抵扣金额（元）</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
 				</div><!--table_con_son!end-->
 
 			</div><!--table_con!end-->
 		</div>
 		<!--table_containter!end-->
 	</div>
-
 </div>
 <!-- 选择账户分配弹出 end-->
+
 
 {__TOKEN__}
 
@@ -544,18 +421,18 @@ $(function(){
 					//如果存在 则略过
 					if(has_list.filter("[data-id='"+p_id+"']").length>0) return ;
 
-					var str  ='<div class="table_list" data-id="'+p_id+'" data-dj="'+p_price+'" ><ul>';
-						str +='<li class="li001">'+p_name+'（'+p_old_price+'元/'+p_num+'疗次）</li>';
-						str +='<li class="li002"><input type="text" class="pos_cz_tow_two05" value="'+p_num+'" /></li>';
-						str +='<li class="li003">'+p_old_price+'</li>';
-						str +='<li class="li004"><input type="text" class="pos_cz_tow_two05" value="100" />&nbsp;%</li>';
-						str +='<li class="li005 xzzh">点击选择账户类型</li>';
-						str +='<li class="li006"><input type="text" class="pos_cz_tow_two05" value="'+p_old_price+'" /></li>';
-						str +='<li class="li007"><?php echo $this->dropDownList("",$hd_list,"",array("class"=>"hd")) ?></li>';
-						str +='<li class="li008"><a href="javascript:" class="delete c_del">删除</a></li>';
-						str +='</ul></div>';
+					var str  ='<tr class="table_list" data-id="'+p_id+'" data-dj="'+p_price+'" >';
+						str +='<td class="li001">'+p_name+'（'+p_old_price+'元/'+p_num+'疗次）</td>';
+						str +='<td class="li002"><input type="text" class="pos_cz_tow_two05" value="'+p_num+'" /></td>';
+						str +='<td class="li003">'+p_old_price+'</td>';
+						str +='<td class="li004"><input type="text" class="pos_cz_tow_two05" value="100" />&nbsp;%</td>';
+						str +='<td class="li005 xzzh">点击选择账户类型</td>';
+						str +='<td class="li006"><input type="text" class="pos_cz_tow_two05" value="'+p_old_price+'" /></td>';
+						str +='<td class="li007"><?php echo $this->dropDownList("",$hd_list,"",array("class"=>"hd")) ?></td>';
+						str +='<td class="li008"><a class="btn btn-danger btn-xs c_del" href="javascript:">删除</a></td>';
+						str +='</tr>';
 					
-					self.find('.table_con_son').append(str);
+					self.find('.table_con_son tbody').append(str);
 					pro_k++;
 				});
 				
@@ -594,18 +471,18 @@ $(function(){
 					//如果存在 则略过
 					if(has_list.filter("[data-id='"+p_id+"']").length>0) return ;
 
-					var str  ='<div class="table_list" data-id="'+p_id+'" data-dj="'+p_price+'" ><ul>';
-						str +='<li class="li001">'+p_name+'</li>';
-						str +='<li class="li002"><input type="text" class="pos_cz_tow_two05" value="'+p_num+'" />（'+p_unit+'）</li>';
-						str +='<li class="li003">'+p_price+'</li>';
-						str +='<li class="li004"><input type="text" class="pos_cz_tow_two05" value="100" />&nbsp;%</li>';
-						str +='<li class="li005 xzzh">点击选择账户类型</li>';
-						str +='<li class="li006"><input type="text" class="pos_cz_tow_two05" value="'+p_price+'" /></li>';
-						str +='<li class="li007"><?php echo $this->dropDownList("",$hd_list,"",array("class"=>"hd")) ?></li>';
-						str +='<li class="li008"><a href="javascript:" class="delete c_del">删除</a></li>';
-						str +='</ul></div>';
+					var str  ='<tr class="table_list" data-id="'+p_id+'" data-dj="'+p_price+'" >';
+						str +='<td class="li001">'+p_name+'</td>';
+						str +='<td class="li002"><input type="text" class="pos_cz_tow_two05" value="'+p_num+'" />（'+p_unit+'）</td>';
+						str +='<td class="li003">'+p_price+'</td>';
+						str +='<td class="li004"><input type="text" class="pos_cz_tow_two05" value="100" />&nbsp;%</td>';
+						str +='<td class="li005 xzzh">点击选择账户类型</td>';
+						str +='<td class="li006"><input type="text" class="pos_cz_tow_two05" value="'+p_price+'" /></td>';
+						str +='<td class="li007"><?php echo $this->dropDownList("",$hd_list,"",array("class"=>"hd")) ?></td>';
+						str +='<td class="li008"><a class="btn btn-danger btn-xs c_del" href="javascript:">删除</a></td>';
+						str +='</tr>';
 					
-					self.find('.table_con_son').append(str);
+					self.find('.table_con_son tbody').append(str);
 					pro_k++;
 				});
 				
@@ -644,18 +521,18 @@ $(function(){
 					//如果存在 则略过
 					if(has_list.filter("[data-id='"+p_id+"']").length>0) return ;
 
-					var str  ='<div class="table_list" data-id="'+p_id+'" data-dj="'+p_price+'"  data-num="'+p_num+'" data-sold="'+p_sold+'" ><ul>';
-						str +='<li class="li001">'+p_name+'</li>';
-						str +='<li class="li002"><input type="text" class="pos_cz_tow_two05" value="1" /></li>';
-						str +='<li class="li003">'+p_price+'</li>';
-						str +='<li class="li004"><input type="text" class="pos_cz_tow_two05" value="100" />&nbsp;%</li>';
-						str +='<li class="li005 xzzh">点击选择账户类型</li>';
-						str +='<li class="li006"><input type="text" class="pos_cz_tow_two05" value="'+p_price+'" /></li>';
-						str +='<li class="li007"><?php echo $this->dropDownList("",$hd_list,"",array("class"=>"hd")) ?></li>';
-						str +='<li class="li008"><a href="javascript:" class="delete c_del">删除</a></li>';
-						str +='</ul></div>';
+					var str  ='<tr class="table_list" data-id="'+p_id+'" data-dj="'+p_price+'"  data-num="'+p_num+'" data-sold="'+p_sold+'" >';
+						str +='<td class="li001">'+p_name+'</td>';
+						str +='<td class="li002"><input type="text" class="pos_cz_tow_two05" value="1" /></td>';
+						str +='<td class="li003">'+p_price+'</td>';
+						str +='<td class="li004"><input type="text" class="pos_cz_tow_two05" value="100" />&nbsp;%</td>';
+						str +='<td class="li005 xzzh">点击选择账户类型</td>';
+						str +='<td class="li006"><input type="text" class="pos_cz_tow_two05" value="'+p_price+'" /></td>';
+						str +='<td class="li007"><?php echo $this->dropDownList("",$hd_list,"",array("class"=>"hd")) ?></td>';
+						str +='<td class="li008"><a class="btn btn-danger btn-xs c_del" href="javascript:">删除</a></td>';
+						str +='</tr>';
 					
-					self.find('.table_con_son').append(str);
+					self.find('.table_con_son tbody').append(str);
 					pro_k++;
 				});
 				
@@ -696,7 +573,7 @@ $(function(){
 							s_list+='<td class="li002">'+capital.balance+'</td>';
 							s_list+='<td class="li003"><input type="text" data-max-value="'+capital.balance+'" data-capital-id="'+capital.id+'" class="pos_cz_tow_two05 pos_gm_th_02" value="'+money+'"></td>';
 							s_list+='</tr>';
-							content.find('.table_con_son').append(s_list);
+							content.find('tbody').append(s_list);
 					}
 				});
 			},
@@ -841,7 +718,7 @@ $(function(){
 			return false;
 		}
 
-		$('.c_submit').html("正在提交订单...").addClass("pos_cz_zh_an_hover").removeClass("pos_cz_zh_an");
+		$('.c_submit').addClass("disabled");
 
 		<?php if ($model): ?>
 		var url="<?php echo $this->url('editSave',array('id'=>$model->o_s->id)) ?>";			
@@ -857,7 +734,7 @@ $(function(){
 			if(data.code==400){
 				//刷新token
 				$("input[name='__hash__']").replaceWith(data.data);
-				$('.c_submit').html("提交订单").addClass("pos_cz_zh_an").removeClass("pos_cz_zh_an_hover");
+				$('.c_submit').removeClass("disabled");
 			}
 		}, "json");
 	});
