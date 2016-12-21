@@ -1,12 +1,6 @@
 <script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/jquery.PrintArea.js"></script>
 <link href="<?php echo $this->basePath('public');?>/css/pos.css" rel="stylesheet" type="text/css"/>
-<style type="text/css">
-.zszh,.xjzh{color:#0077ff;cursor: pointer;}
-.pos_table_scroll{width: 100%;overflow-x: auto;overflow-y: hidden;}
-.pos_table_scroll .pos_table{border: none;}
-.pos_table {margin-bottom:0px;}
-.pos_table th{white-space: nowrap;}
-</style>
+
 <?php $hd_list = \SaleNoticeInfo::model()->getListOpt();?>
 <!--content_right_con-->
 <div class="row">
@@ -99,7 +93,7 @@
 		                	<?php endif; ?>
 
 		                    <div class="row static-info">
-		                        <div class="col-xs-5 name">总价（原价）：</div>
+		                        <div class="col-xs-5 name">总价(原价)：</div>
 		                        <div class="col-xs-7 value text-right">
 		                             <font class="order_old_money">0</font> 元
 		                        </div>
@@ -136,7 +130,7 @@
 		                    <div class="row static-info">
 		                        <div class="col-xs-5 name">订单状态：</div>
 		                        <div class="col-xs-7 value text-right">
-		                        	<span class="label label-info label-sm"><?php echo \OrderSale::getPayStatus($model->o_s->pay_status);?></span>
+		                        	<span class="label label-warning label-sm"><?php echo \OrderSale::getPayStatus($model->o_s->pay_status);?></span>
 		                        	<?php if($model->o_s->rh_id):?>
 		                    		<span class="label label-success label-sm">新客入会</span>
 		                			<?php endif;?>
@@ -203,7 +197,7 @@
 										<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
 
 										<tr data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
-												<td class="li001"><?php echo $info->name ?>（<?php echo $info->num*$info->price ?>元/<?php echo $info->num ?>疗次）</td>
+												<td class="li001"><?php echo $info->name ?>(<?php echo $info->num*$info->price ?>元/<?php echo $info->num ?>疗次)</td>
 												<td class="li002"><?php echo $pro['num'] ?></td>
 												<td class="li003"><?php echo $pro['price'] ?></td>
 												<td class="li004"><?php echo $pro['rebate'] ?>%</td>
@@ -228,7 +222,7 @@
 				<div class="pos_cz_tow_two_two pos_gm_02_border_top">
 					<span class="pos_cz_tow_two04 ">应付金额：<em class="all_xm_money">0</em>&nbsp;元</span>
 					<span class="pos_gm_01">购买项目<span class="pos_gm_03 all_xm_num">0</span>个</span>
-					<span class="pos_gm_01">总价小计（原价）：<span class="pos_gm_04">￥<font class="all_xm_money_old">0</font></span></span>
+					<span class="pos_gm_01">总价小计(原价)：<span class="pos_gm_04">￥<font class="all_xm_money_old">0</font></span></span>
 					<span class="pos_gm_01">抵扣小计：<span class="pos_gm_04">-￥<font class="all_xm_money_dk">0</font></span></span>
 					<span class="pos_gm_01">面折率：<span class="pos_gm_04"><font class="all_xm_money_zk">0</font>%</span></span>
 					<span class="pos_gm_01">项目欠款：<span class="pos_gm_04">￥<font><?php echo $project_arrears;?></font></span></span>
@@ -294,7 +288,7 @@
 				<div class="pos_cz_tow_two_two pos_gm_02_border_top">
 					<span class="pos_cz_tow_two04">应付金额：<em class="all_cp_money">0</em>&nbsp;元</span>
 					<span class="pos_gm_01">购买产品<span class="pos_gm_03 all_cp_num">0</span>个</span>
-					<span class="pos_gm_01">总价小计（原价）：<span class="pos_gm_04">￥<font class="all_cp_money_old">0</font></span></span>
+					<span class="pos_gm_01">总价小计(原价)：<span class="pos_gm_04">￥<font class="all_cp_money_old">0</font></span></span>
 					<span class="pos_gm_01">抵扣小计：<span class="pos_gm_04">-￥<font class="all_cp_money_dk">0</font></span></span>
 					<span class="pos_gm_01">面折率：<span class="pos_gm_04"><font class="all_cp_money_zk">0</font>%</span></span>
 					<span class="pos_gm_01">产品欠款：<span class="pos_gm_04">￥<font><?php echo $product_arrears;?></font></span></span>
@@ -360,7 +354,7 @@
 				<div class="pos_cz_tow_two_two pos_gm_02_border_top">
 					<span class="pos_cz_tow_two04">应付金额：<em class="all_kq_money">0</em>&nbsp;元</span>
 					<span class="pos_gm_01">购买卡券<span class="pos_gm_03 all_kq_num">0</span>个</span>
-					<span class="pos_gm_01">总价小计（原价）：<span class="pos_gm_04">￥<font class="all_kq_money_old">0</font></span></span>
+					<span class="pos_gm_01">总价小计(原价)：<span class="pos_gm_04">￥<font class="all_kq_money_old">0</font></span></span>
 					<span class="pos_gm_01">抵扣小计：<span class="pos_gm_04">-￥<font class="all_kq_money_dk">0</font></span></span>
 					<span class="pos_gm_01">面折率：<span class="pos_gm_04"><font class="all_kq_money_zk">0</font>%</span></span>
 					<span class="pos_gm_01">卡券欠款：<span class="pos_gm_04">￥<font><?php echo $voucher_arrears;?></font></span></span>
@@ -407,8 +401,8 @@
 						<thead>
 							<tr>
 								<th>账户类型</th>
-								<th>余额（元）</th>
-								<th>抵扣金额（元）</th>
+								<th>余额(元)</th>
+								<th>抵扣金额(元)</th>
 							</tr>
 						</thead>
 						<tbody>

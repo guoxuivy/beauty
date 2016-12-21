@@ -1,11 +1,5 @@
 <link href="<?php echo $this->basePath('public');?>/css/pos.css" rel="stylesheet" type="text/css"/>
-<style type="text/css">
-.zszh,.xjzh{color:#0077ff;cursor: pointer;}
-.pos_table_scroll{width: 100%;overflow-x: auto;overflow-y: hidden;}
-.pos_table_scroll .pos_table{border: none;}
-.pos_table {margin-bottom:0px;}
-.pos_table th{white-space: nowrap;}
-</style>
+
 <?php $hd_list = \SaleNoticeInfo::model()->getListOpt();?>
 
 <div class="row">
@@ -20,8 +14,8 @@
 		                <button class="btn btn-sm green table-group-action-submit c_submit"><i class="fa fa-check"></i>提交订单</button>
 					<?php else: ?>
 	                	<button class="btn btn-sm green table-group-action-submit c_submit"><i class="fa fa-check"></i>更新订单</button>
-	                	<a href="<?php echo $this->url("pay",array('id'=>$model->o_s->id)) ?>" class="btn btn-sm blue table-group-action-submit c_submit"><i class="fa fa-check"></i>付款</a>
-	                	<a href="<?php echo $this->url("del",array('id'=>$model->o_s->id)) ?>" class="btn btn-sm red table-group-action-submit c_submit"><i class="fa fa-check"></i>废除</a>
+	                	<button onclick="to_url('<?php echo $this->url("pay",array('id'=>$model->o_s->id)) ?>')" class="btn btn-sm blue table-group-action-submit"><i class="fa fa-mail-forward "></i>付款</button>
+	                	<button onclick="to_url('<?php echo $this->url("del",array('id'=>$model->o_s->id)) ?>')" class="btn btn-sm red table-group-action-submit"><i class="fa fa-eraser"></i>废除</button>
 					<?php endif ?>
                 </div>
             </div>
@@ -34,7 +28,7 @@
 	                    <div class="caption">
 	                        <i class="fa fa-cogs"></i>订单概况
 	                    </div>
-	                    <div class="actions"><button class="btn red order_money">0</button> </div>
+	                    <div class="actions"><button class="btn red"><font class="order_money">0</font>￥</button></div>
 	                </div>
 	                <div class="portlet-body">
 	                    <div class="row static-info">
@@ -46,7 +40,7 @@
 
 	                    <div class="scroller" style="height:140px" data-rail-visible="1" data-rail-color="blue" data-handle-color="red">
 		                    <div class="row static-info">
-		                        <div class="col-xs-5 name">总价（原价）：</div>
+		                        <div class="col-xs-5 name">总价(原价)：</div>
 		                        <div class="col-xs-7 value text-right">
 		                             <font class="order_old_money">0</font> 元
 		                        </div>
@@ -83,7 +77,7 @@
 		                    <div class="row static-info">
 		                        <div class="col-xs-5 name">订单状态：</div>
 		                        <div class="col-xs-7 value text-right">
-		                        	<span class="label label-info label-sm">
+		                        	<span class="label label-warning label-sm">
 		                        	<?php 
 		                        		if($model){
 		                        			echo \OrderSale::getPayStatus($model->o_s->pay_status);
@@ -153,7 +147,7 @@
 										<?php $info=\pos\SaleModel::model()->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
 
 										<tr data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
-												<td class="li001"><?php echo $info->name ?>（<?php echo $info->num*$info->price ?>元/<?php echo $info->num ?>疗次）</td>
+												<td class="li001"><?php echo $info->name ?>(<?php echo $info->num*$info->price ?>元/<?php echo $info->num ?>疗次)</td>
 												<td class="li002"><input type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05"></td>
 												<td class="li003"><?php echo $pro['price'] ?></td>
 												<td class="li004"><input type="text" value="<?php echo $pro['rebate'] ?>" class="pos_cz_tow_two05">&nbsp;%</td>
@@ -174,7 +168,7 @@
 				<div class="pos_cz_tow_two_two pos_gm_02_border_top">
 					<span class="pos_cz_tow_two04 ">应付金额：<em class="all_xm_money">0</em>&nbsp;元</span>
 					<span class="pos_gm_01">购买项目<span class="pos_gm_03 all_xm_num">0</span>个</span>
-					<span class="pos_gm_01">总价小计（原价）：<span class="pos_gm_04">￥<font class="all_xm_money_old">0</font></span></span>
+					<span class="pos_gm_01">总价小计(原价)：<span class="pos_gm_04">￥<font class="all_xm_money_old">0</font></span></span>
 					<span class="pos_gm_01">抵扣小计：<span class="pos_gm_04">-￥<font class="all_xm_money_dk">0</font></span></span>
 					<span class="pos_gm_01">面折率：<span class="pos_gm_04"><font class="all_xm_money_zk">0</font>%</span></span>
 				</div>
@@ -212,7 +206,7 @@
 
 									<tr data-dj="<?php echo $info->price ?>" data-id="<?php echo $info->id ?>" data-zs="<?php echo $pro['money_str'] ?>" class="table_list">
 										<td class="li001"><?php echo $info->name ?></td>
-										<td class="li002"><input type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05">（<?php echo $info->unit ?>）</td>
+										<td class="li002"><input type="text" value="<?php echo $pro['num'] ?>" class="pos_cz_tow_two05">(<?php echo $info->unit ?>)</td>
 										<td class="li003"><?php echo $pro['price'] ?></td>
 										<td class="li004"><input type="text" value="<?php echo $pro['rebate'] ?>" class="pos_cz_tow_two05">&nbsp;%</td>
 										<td class="li005 xzzh"><?php  echo $pro['card_gift']==0?"点击选择账户类型":$pro['card_gift']; ?></td>
@@ -233,7 +227,7 @@
 				<div class="pos_cz_tow_two_two pos_gm_02_border_top">
 					<span class="pos_cz_tow_two04">应付金额：<em class="all_cp_money">0</em>&nbsp;元</span>
 					<span class="pos_gm_01">购买产品<span class="pos_gm_03 all_cp_num">0</span>个</span>
-					<span class="pos_gm_01">总价小计（原价）：<span class="pos_gm_04">￥<font class="all_cp_money_old">0</font></span></span>
+					<span class="pos_gm_01">总价小计(原价)：<span class="pos_gm_04">￥<font class="all_cp_money_old">0</font></span></span>
 					<span class="pos_gm_01">抵扣小计：<span class="pos_gm_04">-￥<font class="all_cp_money_dk">0</font></span></span>
 					<span class="pos_gm_01">面折率：<span class="pos_gm_04"><font class="all_cp_money_zk">0</font>%</span></span>
 				</div>
@@ -291,7 +285,7 @@
 				<div class="pos_cz_tow_two_two pos_gm_02_border_top">
 					<span class="pos_cz_tow_two04">应付金额：<em class="all_kq_money">0</em>&nbsp;元</span>
 					<span class="pos_gm_01">购买卡券<span class="pos_gm_03 all_kq_num">0</span>个</span>
-					<span class="pos_gm_01">总价小计（原价）：<span class="pos_gm_04">￥<font class="all_kq_money_old">0</font></span></span>
+					<span class="pos_gm_01">总价小计(原价)：<span class="pos_gm_04">￥<font class="all_kq_money_old">0</font></span></span>
 					<span class="pos_gm_01">抵扣小计：<span class="pos_gm_04">-￥<font class="all_kq_money_dk">0</font></span></span>
 					<span class="pos_gm_01">面折率：<span class="pos_gm_04"><font class="all_kq_money_zk">0</font>%</span></span>
 				</div>
@@ -329,8 +323,8 @@
 						<thead>
 							<tr>
 								<th>账户类型</th>
-								<th>余额（元）</th>
-								<th>抵扣金额（元）</th>
+								<th>余额(元)</th>
+								<th>抵扣金额(元)</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -422,7 +416,7 @@ $(function(){
 					if(has_list.filter("[data-id='"+p_id+"']").length>0) return ;
 
 					var str  ='<tr class="table_list" data-id="'+p_id+'" data-dj="'+p_price+'" >';
-						str +='<td class="li001">'+p_name+'（'+p_old_price+'元/'+p_num+'疗次）</td>';
+						str +='<td class="li001">'+p_name+'('+p_old_price+'元/'+p_num+'疗次)</td>';
 						str +='<td class="li002"><input type="text" class="pos_cz_tow_two05" value="'+p_num+'" /></td>';
 						str +='<td class="li003">'+p_old_price+'</td>';
 						str +='<td class="li004"><input type="text" class="pos_cz_tow_two05" value="100" />&nbsp;%</td>';
@@ -473,7 +467,7 @@ $(function(){
 
 					var str  ='<tr class="table_list" data-id="'+p_id+'" data-dj="'+p_price+'" >';
 						str +='<td class="li001">'+p_name+'</td>';
-						str +='<td class="li002"><input type="text" class="pos_cz_tow_two05" value="'+p_num+'" />（'+p_unit+'）</td>';
+						str +='<td class="li002"><input type="text" class="pos_cz_tow_two05" value="'+p_num+'" />('+p_unit+')</td>';
 						str +='<td class="li003">'+p_price+'</td>';
 						str +='<td class="li004"><input type="text" class="pos_cz_tow_two05" value="100" />&nbsp;%</td>';
 						str +='<td class="li005 xzzh">点击选择账户类型</td>';
