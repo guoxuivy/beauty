@@ -1,7 +1,189 @@
+<link href="<?php echo $this->basePath('public');?>/css/pos.css" rel="stylesheet" type="text/css"/>
 <style type="text/css">
 .xzzh{color:#0077ff;cursor: pointer;}
 </style>
 <?php $hd_list = \SaleNoticeInfo::model()->getListOpt();?>
+
+<div class="row">
+	<div class="print_show col-md-12">
+		<div class="portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-eye-slash"></i>购买项目/产品/卡券
+                </div>
+                <div class="tools">
+                	<?php if (!$model): ?>
+		                	<button class="btn btn-sm green table-group-action-submit c_submit"><i class="fa fa-check"></i>提交订单</button>
+					<?php else: ?>
+						<?php if (!$model->o_s->pay_status): ?>
+		                	<button class="btn btn-sm green table-group-action-submit c_submit"><i class="fa fa-check"></i>订单付款</button>
+						<?php endif ?>
+					<?php endif ?>
+                </div>
+            </div>
+        </div>
+
+		<div class="row">
+			<div class="col-md-6 col-sm-12">
+	            <div class="portlet solid green-haze">
+	                <div class="portlet-title">
+	                    <div class="caption">
+	                        <i class="fa fa-cogs"></i>订单概况
+	                    </div>
+	                    <div class="actions"><button class="btn red">交易成功</button> </div>
+	                </div>
+	                <div class="portlet-body">
+	                    <div class="row static-info">
+	                        <div class="col-xs-5 name">订单号：</div>
+	                        <div class="col-xs-7 value text-right">
+	                             <?php echo $model->o_s->sn ?>
+	                        </div>
+	                    </div>
+
+	                    <div class="scroller" style="height:140px" data-rail-visible="1" data-rail-color="blue" data-handle-color="red">
+	                    	<?php if($model->o_s->pay_status==1): ?>
+
+		                    	<?php foreach ($model->getXJList() as $key => $value): ?>
+		                    		<?php if($value>0): ?>
+		                    		<div class="row static-info">
+				                        <div class="col-xs-5 name"><?php echo $key ?>卡扣：</div>
+				                        <div class="col-xs-7 value text-right">
+				                        	<?php echo $value ?> 元
+				                        </div>
+				                    </div>
+				                	<?php endif; ?>
+								<?php endforeach ?>
+
+								<div class="row static-info">
+			                        <div class="col-xs-5 name">欠款：</div>
+			                        <div class="col-xs-7 value text-right red">
+			                        	<font color="red"><?php echo $model->o_s->current_arrears ?></font>  元
+			                        </div>
+			                    </div>
+			                    <div class="row static-info">
+			                        <div class="col-xs-5 name">实收现金：</div>
+			                        <div class="col-xs-7 value text-right">
+			                        	<font color="yellow"><?php echo $model->o_s->cash+$model->o_s->cash_pos+$model->o_s->cash_tra+$model->o_s->cash_other ?></font> 元
+			                        	
+			                        </div>
+			                    </div>
+			                    <?php if($model->o_s->cash>0): ?>
+			                    <div class="row static-info">
+			                        <div class="col-xs-5 name">现金支付：</div>
+			                        <div class="col-xs-7 value text-right">
+			                        	<?php echo $model->o_s->cash ?> 元
+			                        </div>
+			                    </div>
+				                <?php endif; ?>
+			                    <?php if($model->o_s->cash_pos>0): ?>
+			                    <div class="row static-info">
+			                        <div class="col-xs-5 name">POS刷卡：</div>
+			                        <div class="col-xs-7 value text-right">
+			                        	<?php echo $model->o_s->cash_pos ?> 元
+			                        </div>
+			                    </div>
+				                <?php endif; ?>
+			                    <?php if($model->o_s->cash_tra>0): ?>
+			                    <div class="row static-info">
+			                        <div class="col-xs-5 name">银行转账：</div>
+			                        <div class="col-xs-7 value text-right">
+			                        	<?php echo $model->o_s->cash_tra ?> 元
+			                        </div>
+			                    </div>
+				                <?php endif; ?>
+			                    <?php if($model->o_s->cash_other>0): ?>
+			                    <div class="row static-info">
+			                        <div class="col-xs-5 name">其他方式支付：</div>
+			                        <div class="col-xs-7 value text-right"><?php echo $model->o_s->cash_other ?> 元</div>
+			                    </div>
+				                <?php endif; ?>
+		                	<?php endif; ?>
+
+		                    <div class="row static-info">
+		                        <div class="col-xs-5 name">总价（原价）：</div>
+		                        <div class="col-xs-7 value text-right">
+		                             <font class="order_old_money">0</font> 元
+		                        </div>
+		                    </div>
+
+		                    <div class="row static-info">
+		                        <div class="col-xs-5 name">抵扣总价：</div>
+		                        <div class="col-xs-7 value text-right">
+		                             <font class="order_dk_money">0</font> 元
+		                        </div>
+		                    </div>
+		                    <div class="row static-info">
+		                        <div class="col-xs-5 name">折扣率：</div>
+		                        <div class="col-xs-7 value text-right">
+		                             <font class="order_rate">100</font> %
+		                        </div>
+		                    </div>
+
+		                    <div class="row static-info">
+		                        <div class="col-xs-5 name">应付总金额：</div>
+		                        <div class="col-xs-7 value text-right">
+		                             <font class="order_money">100</font> 元
+		                        </div>
+		                    </div>
+
+		                    <div class="row static-info">
+		                        <div class="col-xs-5 name">已优惠：</div>
+		                        <div class="col-xs-7 value text-right">
+		                             - <font class="order_yh_money">0</font> 元
+		                        </div>
+		                    </div>
+
+
+		                    <div class="row static-info">
+		                        <div class="col-xs-5 name">订单状态：</div>
+		                        <div class="col-xs-7 value text-right">
+		                        	<span class="label label-info label-sm"><?php echo \OrderSale::getPayStatus($model->o_s->pay_status);?></span>
+		                        	<?php if($model->o_s->rh_id):?>
+		                    		<span class="label label-success label-sm">新客入会</span>
+		                			<?php endif;?>
+		                        </div>
+		                    </div>
+		                    <div class="row static-info">
+		                        <div class="col-xs-5 name">购买商品：</div>
+		                        <div class="col-xs-7 value text-right">
+		                        	<font class="order_pro_num">0</font> 件
+		                        </div>
+		                    </div>
+
+		                	</div>
+
+						
+	                </div>
+	            </div>
+	        </div>
+
+	        <div class="col-md-6 col-sm-12">
+	            <div class="portlet solid red-intense">
+	                <div class="portlet-body" style="padding-top: 10px;">
+	                    <?php echo $cu_info ?>
+	                </div>
+	            </div>
+	        </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!--content_right_con-->
 <div class="content_right_con">
 	<div class="content_right_con_top">
@@ -509,11 +691,11 @@ $(function(){
 				$.each( capital_zs, function(i, capital){
 					var money = str_money(capital_money,capital.id);
 					if((is_xm && capital.is_project==1) || (is_cp && capital.is_product==1) || (is_kq && capital.is_voucher==1)){
-						var s_list ='<div class="table_list"><ul>';
-							s_list+='<li class="li001">'+capital.name+'</li>';
-							s_list+='<li class="li002">'+capital.balance+'</li>';
-							s_list+='<li class="li003"><input type="text" data-max-value="'+capital.balance+'" data-capital-id="'+capital.id+'" class="pos_cz_tow_two05 pos_gm_th_02" value="'+money+'"></li>';
-							s_list+='</ul></div>';
+						var s_list ='<tr class="table_list">';
+							s_list+='<td class="li001">'+capital.name+'</td>';
+							s_list+='<td class="li002">'+capital.balance+'</td>';
+							s_list+='<td class="li003"><input type="text" data-max-value="'+capital.balance+'" data-capital-id="'+capital.id+'" class="pos_cz_tow_two05 pos_gm_th_02" value="'+money+'"></td>';
+							s_list+='</tr>';
 							content.find('.table_con_son').append(s_list);
 					}
 				});
