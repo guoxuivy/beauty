@@ -73,8 +73,7 @@ $mes_not_read = \SmsMessage::getNotNum();
                 <li class="dropdown dropdown-user">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                     <img alt="" class="img-circle hide1" src="<?php echo $this->basePath('public/M');?>/admin/layout/img/avatar3_small.jpg"/>
-                    <span class="username username-hide-on-mobile">
-                    <?php echo $show_user["name"]; ?> </span>
+                    <span class="username username-hide-on-mobile"><?php echo \Ivy::app()->user->netname ?></span>
                     <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu">
@@ -82,7 +81,6 @@ $mes_not_read = \SmsMessage::getNotNum();
                             <a href="javascript:;">
                             <i class="icon-user"></i><?php echo \Ivy::app()->user->user_name ?><p style="color:#999"><?php echo \Ivy::app()->user->netname ?></p></a>
                         </li>
-                  
                      
                         <?php if (\Ivy::app()->user->position_id==1): ?>
 						<?php $show_position = \Ivy::app()->user->getState('show_position');?>

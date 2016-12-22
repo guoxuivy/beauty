@@ -153,9 +153,13 @@
             <!-- END STYLE CUSTOMIZER -->
             <!-- BEGIN PAGE HEADER 面包屑导航-->
             <h3 class="page-title">
+
+            <?php echo $this->controller->company->comp_name ?> 
+            <?php if($this->controller->is_store):?>
+                <?php echo "【".$this->controller->store_name."】" ?> 
+            <?php endif;?>
             
-            <?php $page_bar_top= \Ivy::app()->user->getState('page_bar_top'); ?> 
-            <?php echo $page_bar_top["title"];?> <small>meihui & guanli</small>
+            <small>meihui & guanli</small>
             </h3>
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -175,11 +179,7 @@
                 <div class="page-toolbar">
                     <div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" >
-                        <?php echo $this->controller->company->comp_name ?> 
-                        <?php if($this->controller->is_store):?>
-                            <?php echo "【".$this->controller->store_name."】" ?> 
-                        <?php endif;?>
-                        <?php $weekarray=array("日","一","二","三","四","五","六"); echo date('Y-m-d'),"&nbsp;星期".$weekarray[date("w")] ?>
+                        <?php $weekarray=array("日","一","二","三","四","五","六"); echo date('Y/m/d'),"星期".$weekarray[date("w")] ?>
                         </button>
                     </div>
                 </div>
