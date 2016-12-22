@@ -13,7 +13,7 @@ var TableWidget = function () {
         var oTable = table.dataTable({
             "columnDefs": [{
                 "orderable": false,
-                "targets": [0]
+                "targets": []  //设置不排序的列
             }],
             "order": sort,
             "paging": false,
