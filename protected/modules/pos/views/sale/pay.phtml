@@ -1,3 +1,4 @@
+<link href="<?php echo $this->basePath('public');?>/css/pos.css" rel="stylesheet" type="text/css"/>
 <?php 
 	//付款配置
 	$config=\CompanyInfo::getConfig('payee');
@@ -6,160 +7,201 @@
 .rh_gm{height: 40px;line-height: 40px;font-size: 16px;}
 .r_o{background-color:#F3F3F3}
 </style>
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		<div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>POS开单><span>订单付款</span>
-	</div>
-	
-	<!--pos_cz_fk_top-->
-	<div class="pos_cz_fk_top">
-		<div class="pos_cz_fk_top_02">应付金额：<span class="pos_cz_fk_top_03"><?php echo $model->o_s->pay_price; ?></span>元 <a href="<?php echo $this->url("edit",array("id"=>$model->o_s->id)) ?>" class="pos_cz_fk_top_04">订单详情</a></div>请客户及时付款，以便订单尽快处理！<span class="pos_cz_fk_top_01"> 订单号：<?php echo $model->o_s->sn; ?></span>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="spanll"><?php echo $model->o_s->rh_id==0?'':'新客入会订单';?></span>
-	</div><!--pos_cz_fk_top!end-->
-	
-	<!--pos_cz_fk_two-->
-	<div class="pos_cz_fk_two" style="display:block">
-		<div class="pos_cz_fk_two_ico">&nbsp;</div>
-		<ul>
-			<li>客户姓名：<?php echo $model->cuName ?></li>
-			<li>订单类型：<?php echo $model->orderType ?></li>
-			<li>商品名称：
-			<?php foreach ($model->pros as $key => $pro): ?>
-				<?php $p_info=$model->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
-				<?php echo $p_info->name."；"; ?>
-			<?php endforeach ?>
-			</li>
-			<li>交易金额：<?php echo $model->o_s->pay_price ?>元</li>
-			<li>购买时间：<?php echo $model->o_s->create_time ?></li>
-			<li>操作人：<?php echo $model->employName ?></li>
-		</ul>
-		
-	</div><!--pos_cz_fk_two!end-->
-	
-	
-	<!--khgl_shouye-->
-	<?php echo $cu_info ?>
-	<!--khgl_shouye!end-->
 
-	<!--入会购买-->
-	<?php if ($model->o_s->rh_id=='-1'): 
 
-		$info = \CustomerInfo::model()
-		->field('t.*,m.level_name as membership_name')
-		->join("config_membership as m on m.id=t.membership_id")
-		->findByPk($model->o_s->cu_id);
-		$mem_list = \ConfigMembership::model()->findAll("status=1 AND comp_id=".$info->company_id);
-	?>
-		
-		<div class="pos_cz_for_bz rh_gm">
-			当前客户等级：<span class="khgl_shouye_r_top_07"><?php echo $info->membership_name ?></span>
-			<span style="margin-left:40px;">入会后等级：</span><select class="pos_cz_fk_th_two_06 rh" style="margin-left:0px;font-size:14px;width:150px;">
-				<?php foreach ($mem_list as $value): ?>
-					<option value ="<?php echo $value['id'] ?>"><?php echo $value['level_name'] ?></option>
-				<?php endforeach ?>
-			</select>
+
+
+<div class="row">
+	<div class="print_show col-md-12">
+		<div class="portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-pencil"></i>订单付款
+                </div>
+                <div class="tools">
+		                <button onclick="to_url('<?php echo $this->url("edit",array("id"=>$model->o_s->id)) ?>')" class="btn btn-sm blue table-group-action-submit"><i class="fa fa-mail-forward "></i>订单详情</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+			<div class="col-md-6 col-sm-12">
+	            <div class="portlet solid green-haze">
+	                <div class="portlet-title">
+	                    <div class="caption">
+	                        <i class="fa fa-money"></i>应付金额
+	                    </div>
+	                    <div class="actions"><button class="btn red"><?php echo $model->o_s->pay_price; ?> 元</button></div>
+	                </div>
+	                <div class="portlet-body">
+	                    <div class="row static-info">
+	                        <div class="col-xs-5 name">订单号：</div>
+	                        <div class="col-xs-7 value text-right">
+	                             <?php echo $model->o_s->sn ?>
+	                        </div>
+	                    </div>
+
+						<!--入会购买-->
+						<?php if ($model->o_s->rh_id=='-1'): 
+							$info = \CustomerInfo::model()
+							->field('t.*,m.level_name as membership_name')
+							->join("config_membership as m on m.id=t.membership_id")
+							->findByPk($model->o_s->cu_id);
+							$mem_list = \ConfigMembership::model()->findAll("status=1 AND comp_id=".$info->company_id);
+						?>
+
+							<div class="row static-info">
+					            <div class="col-xs-6 name">
+					            当前客户等级：<span class="label label-success"><?php echo $info->membership_name ?></span>
+					            </div>
+					            <div class="col-xs-6 value text-right">
+					            	入会后等级：
+						            <select class="rh" style="display:inline-block;color:#333;font-size:12px;font-weight: 100;padding: 5px">
+						            	<?php foreach ($mem_list as $value): ?>
+											<option value ="<?php echo $value['id'] ?>"><?php echo $value['level_name'] ?></option>
+										<?php endforeach ?>
+						            </select>
+	                        	</div>
+					        </div>
+						<?php endif ?><!--入会购买!end-->
+
+                  
+	                    <div class="row static-info">
+	                        <div class="col-xs-5 name">订单类型：</div>
+	                        <div class="col-xs-7 value text-right">
+	                        	<?php echo $model->orderType ?>
+	                        </div>
+	                    </div>
+	                    <div class="row static-info">
+	                        <div class="col-xs-5 name">商品名称：</div>
+	                        <div class="col-xs-7 value text-right">
+	                        	<?php foreach ($model->pros as $key => $pro): ?>
+									<?php $p_info=$model->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+									<?php echo "【".$p_info->name."】"; ?>
+								<?php endforeach ?>
+	                        </div>
+	                    </div>
+
+	                    <div class="row static-info">
+	                        <div class="col-xs-5 name">购买时间：</div>
+	                        <div class="col-xs-7 value text-right">
+	                        	<?php echo $model->o_s->create_time ?>
+	                        </div>
+	                    </div>
+	                    <div class="row static-info">
+	                        <div class="col-xs-5 name">操作人：</div>
+	                        <div class="col-xs-7 value text-right">
+	                        	<?php echo $model->employName ?>
+	                        </div>
+	                    </div>
+
+						
+	                </div>
+	            </div>
+	        </div>
+
+	        <div class="col-md-6 col-sm-12">
+	            <div class="portlet solid red-intense">
+	                <div class="portlet-body" style="padding-top: 10px;">
+	                    <?php echo $cu_info ?>
+	                </div>
+	            </div>
+	        </div>
+        </div>
+
+
+
+
+
+
+		<div class="row">
+			<div class="col-md-12">
+		        <div class="portlet portlet-table box blue-steel">
+		            <div class="portlet-title">
+		                <div class="caption">
+		                    <i class="fa fa-cogs"></i>商品付款信息
+		                </div>
+		                <!-- <div class="actions"><button class="btn red"><?php echo $model->o_s->pay_price; ?> 元</button></div> -->
+		            </div>
+		            <div class="portlet-body">
+			            <table class="table table-bordered table-hover pos_table" id="pay">
+							<thead>
+								<tr>
+									<th style="min-width:150px;">付款商品</th>
+									<th>疗应付金额(元)</th>
+									<th class='xj_h'>实付现金(元)</th>
+									<th class='qk_h'>欠款(元)</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach ($model->pros as $key => $pro): ?>
+								<tr class="table_list" pro-detail="<?php echo $pro['id'];?>">
+									<?php $p_info=$model->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
+									<td><?php echo $p_info->name;?></td>
+									<td class="yfje"><?php echo $pro['pay_price'];?></td>
+									<td class='xj_b' pro-type="<?php echo $pro['pro_type'] ?>"><input type="text" class="pos_cz_tow_two05" /></td>
+									<td class='qk_b' pro-type="<?php echo $pro['pro_type'] ?>"><input type="text" readonly  class="pos_cz_tow_two05 r_o" value="<?php echo $pro['pay_price'];?>" /></td>
+								</tr>
+								<?php endforeach ?>
+							</tbody>
+						</table>
+		            	
+		            </div>
+		        </div>
+		    </div>
+		</div>	
+
+
+		<!--pos_cz_fk_th-->
+		<div class="pos_cz_fk_th">
+			<div class="pos_cz_fk_th_top pos_fk_title">
+				<div class="pos_cz_fk_th_01">应付现金:<span class="pos_cz_fk_top_03 all_xj">0.00</span>元</div>
+				<div class="pos_cz_fk_th_01">欠款:<span class="pos_cz_fk_top_03_1 all_qk">0.00</span>元</div>
+				本次应付现金总计为<span class="pos_cz_fk_top_03 all_yf">0.00</span>元，请在相应的支付方式中输入金额：
+			</div>
+			<div class="pos_cz_fk_th_two ">
+				<ul style="padding:0px;">
+				<?php if ($config['money']['open']=='true'): ?>
+					<li >
+						<span class="pos_cz_fk_th_two_02">现金</span>
+						<input type="text" name="cash" value="0" class="pos_cz_fk_th_two_03 pos_cz_fk_th_two_chan" />
+					</li>
+				<?php endif ?>
+				<?php if ($config['post']['open']=='true'): ?>
+					<li >
+						<span class="pos_cz_fk_th_two_02">刷卡</span>
+						<input type="text" name="cash_pos" value="0" class="pos_cz_fk_th_two_03" />
+						<?php echo $this->dropDownList('pos_type',$config['post']['has'],'',array('class'=>'pos_cz_fk_th_two_06')) ?>
+					</li>
+				<?php endif ?>
+				<?php if ($config['bank']['open']=='true'): ?>
+					<li >
+						<span class="pos_cz_fk_th_two_02">转账</span>
+						<input type="text" name="cash_tra" value="0" class="pos_cz_fk_th_two_03" />
+						<?php echo $this->dropDownList('tra_type',$config['bank']['has'],'',array('class'=>'pos_cz_fk_th_two_06')) ?>
+					</li>
+				<?php endif ?>
+				<?php if ($config['other']['open']=='true'): ?>
+					<li >
+						<span class="pos_cz_fk_th_two_02">其他</span>
+						<input type="text" name="cash_other" value="0" class="pos_cz_fk_th_two_03" />
+						<?php echo $this->dropDownList('other_type',$config['other']['has'],'',array('class'=>'pos_cz_fk_th_two_06')) ?>
+					</li>
+				<?php endif ?>
+				</ul>
+			</div>
+			<div class="pos_cz_fk_th_top pos_fk_title">
+				<span class="js_all_qk" style="color: red;display: none;">注意：请确保订单商品和折扣正确，各账户抵扣和现金付款信息无误。一旦进行付款，meihui系统将确保您的业绩及时记录到系统中，且无法对订单进行修改哦。</span>
+			</div>
+			<div class="pos_cz_fk_th_th">
+				<a href="###" class="pos_cz_fk_th_th_a_ok c_submit">立即支付</a>
+			</div>
 		</div>
-	<?php endif ?><!--入会购买!end-->
-	
-	
-	<!--pos_cz_fk_th-->
-	<div class="pos_cz_fk_th">
-		<div class="pos_cz_fk_th_top pos_fk_title">客户付款信息</div>
-		<!--table_container-->  
-		<div class="table_container" id="pay">
-			<!--table_con-->
-			<div class="table_con" >
-				<!--table_con_son-->
-				<div class="table_con_son">
-					<div class="table_title pos_news_zeng">
-					<ul style="font-weight:bold; font-family:'宋体'; color:#666;">
-						<li style="min-width:30%">付款商品</li>
-						<li >应付金额（元）</li>
-						<li class='xj_h' style="min-width:100px">实付现金（元）</li>
-						<li class='qk_h' style="min-width:100px">欠款（元）</li>
-					</ul>
-					</div>
-					<?php foreach ($model->pros as $key => $pro): ?>
-					<div class="table_list" pro-detail="<?php echo $pro['id'];?>">
-					<ul>
-						<?php $p_info=$model->getProInfo($pro['pro_id'],$pro['pro_type']); ?>
-						<li><?php echo $p_info->name;?></li>
-						<li class="yfje"><?php echo $pro['pay_price'];?></li>
-						<li class='xj_b' pro-type="<?php echo $pro['pro_type'] ?>"><input type="text" class="pos_cz_tow_two05" /></li>
-						<li class='qk_b' pro-type="<?php echo $pro['pro_type'] ?>"><input type="text" readonly  class="pos_cz_tow_two05 r_o" value="<?php echo $pro['pay_price'];?>" /></li>
-						</ul>
-					</div>
-					<?php endforeach ?>
-				</div><!--table_con_son!end-->
-				
-			</div><!--table_con!end-->
-		</div>
-		<!--table_containter!end-->
+		<!--pos_cz_fk_th-->                
+
+
 	</div>
-	<!--pos_cz_fk_th-->
-	
-	
-	<!--pos_cz_fk_th-->
-	<div class="pos_cz_fk_th">
-		<!-- <div class="pos_cz_fk_th_top pos_fk_title">
-			<div class="pos_cz_fk_th_01">应付现金:<span class="pos_cz_fk_top_03 all_xj">0.00</span>元</div>支付方式            
-		</div> -->
-		<div class="pos_cz_fk_th_top pos_fk_title">
-			<div class="pos_cz_fk_th_01">应付现金:<span class="pos_cz_fk_top_03 all_xj">0.00</span>元</div>
-			<div class="pos_cz_fk_th_01">欠款:<span class="pos_cz_fk_top_03_1 all_qk">0.00</span>元</div>
-			本次应付现金总计为<span class="pos_cz_fk_top_03 all_yf">0.00</span>元，请在相应的支付方式中输入金额：
-		</div>
-		<div class="pos_cz_fk_th_two ">
-			<ul>
-			<?php if ($config['money']['open']=='true'): ?>
-				<li  >  <!-- class="pos_cz_fk_th_two_chan" -->
-					<!-- <span class="pos_cz_fk_th_two_04">支付:<span class="pos_cz_fk_th_two_05">0.00</span>元</span>
-					<span class="pos_cz_fk_th_two_01 pos_cz_fk_th_two_0101"></span> -->
-					<span class="pos_cz_fk_th_two_02">现金</span>
-					<input type="text" name="cash" value="0" class="pos_cz_fk_th_two_03 pos_cz_fk_th_two_chan" />
-				</li>
-			<?php endif ?>
-			<?php if ($config['post']['open']=='true'): ?>
-				<li >
-					<!-- <span class="pos_cz_fk_th_two_04">支付:<span class="pos_cz_fk_th_two_05">0.00</span>元</span>
-					<span class="pos_cz_fk_th_two_01"></span> -->
-					<span class="pos_cz_fk_th_two_02">刷卡</span>
-					<input type="text" name="cash_pos" value="0" class="pos_cz_fk_th_two_03" />
-					<?php echo $this->dropDownList('pos_type',$config['post']['has'],'',array('class'=>'pos_cz_fk_th_two_06')) ?>
-				</li>
-			<?php endif ?>
-			<?php if ($config['bank']['open']=='true'): ?>
-				<li >
-					<!-- <span class="pos_cz_fk_th_two_04">支付:<span class="pos_cz_fk_th_two_05">0.00</span>元</span>
-					<span class="pos_cz_fk_th_two_01"></span> -->
-					<span class="pos_cz_fk_th_two_02">转账</span>
-					<input type="text" name="cash_tra" value="0" class="pos_cz_fk_th_two_03" />
-					<?php echo $this->dropDownList('tra_type',$config['bank']['has'],'',array('class'=>'pos_cz_fk_th_two_06')) ?>
-				</li>
-			<?php endif ?>
-			<?php if ($config['other']['open']=='true'): ?>
-				<li >
-					<!-- <span class="pos_cz_fk_th_two_04">支付:<span class="pos_cz_fk_th_two_05">0.00</span>元</span>
-					<span class="pos_cz_fk_th_two_01"></span> -->
-					<span class="pos_cz_fk_th_two_02">其他</span>
-					<input type="text" name="cash_other" value="0" class="pos_cz_fk_th_two_03" />
-					<?php echo $this->dropDownList('other_type',$config['other']['has'],'',array('class'=>'pos_cz_fk_th_two_06')) ?>
-				</li>
-			<?php endif ?>
-			</ul>
-		</div>
-		<div class="pos_cz_fk_th_top pos_fk_title">
-			<span class="js_all_qk" style="color: red;display: none;">注意：请确保订单商品和折扣正确，各账户抵扣和现金付款信息无误。一旦进行付款，meihui系统将确保您的业绩及时记录到系统中，且无法对订单进行修改哦。</span>
-		</div>
-		<div class="pos_cz_fk_th_th">
-		<!-- <a href="###" class="pos_cz_fk_th_th_a_no">立即支付</a> -->
-		<a href="###" class="pos_cz_fk_th_th_a_ok c_submit">立即支付</a>
-		</div>
-	</div>
-	<!--pos_cz_fk_th-->
 </div>
-<!--content_right_con!end-->
 
 {__TOKEN__}
 
@@ -169,8 +211,8 @@ $(function(){
 	page_init();
 	function page_init(){
 		$.each( capital_xj, function(i, capital){
-			var header='<li class="xjkk_h">'+capital.name+'（元）</li>';
-			var body='<li><input data-max-value="'+capital.balance+'"  rel="'+capital.id+'" type="text" is_project="'+capital.is_project+'" is_product="'+capital.is_product+'" is_voucher="'+capital.is_voucher+'" class="pos_cz_tow_two05 xj" /></li>';
+			var header='<th class="xjkk_h">'+capital.name+'（元）</th>';
+			var body='<td><input data-max-value="'+capital.balance+'"  rel="'+capital.id+'" type="text" is_project="'+capital.is_project+'" is_product="'+capital.is_product+'" is_voucher="'+capital.is_voucher+'" class="pos_cz_tow_two05 xj" /></td>';
 			$(".qk_h").before(header);
 			$(".qk_b").before(body);
 		});
@@ -321,7 +363,6 @@ $(function(){
 						}, "json");
 					},
 					cancel:function(){
-						
 						return false;
 					}
 
@@ -378,7 +419,5 @@ $(function(){
 
 	});
 
-
 });
-
 </script>

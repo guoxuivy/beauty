@@ -171,91 +171,24 @@
                     </li>
                     <?php endforeach; ?>
                 </ul>
+                
                 <div class="page-toolbar">
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" >
+                        <?php echo $this->controller->company->comp_name ?> 
+                        <?php if($this->controller->is_store):?>
+                            <?php echo "【".$this->controller->store_name."】" ?> 
+                        <?php endif;?>
+                        <?php $weekarray=array("日","一","二","三","四","五","六"); echo date('Y-m-d'),"&nbsp;星期".$weekarray[date("w")] ?>
+                        </button>
+                    </div>
                 </div>
             </div>
             <!-- END PAGE HEADER-->
 
             <?php echo $content; ?>
 
-            <!-- BEGIN DASHBOARD STATS -->
-            <!-- <div class="row">
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="dashboard-stat blue-madison">
-                        <div class="visual">
-                            <i class="fa fa-comments"></i>
-                        </div>
-                        <div class="details">
-                            <div class="number">
-                                 1349
-                            </div>
-                            <div class="desc">
-                                 New Feedbacks
-                            </div>
-                        </div>
-                        <a class="more" href="#">
-                        View more <i class="m-icon-swapright m-icon-white"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="dashboard-stat red-intense">
-                        <div class="visual">
-                            <i class="fa fa-bar-chart-o"></i>
-                        </div>
-                        <div class="details">
-                            <div class="number">
-                                 12,5M$
-                            </div>
-                            <div class="desc">
-                                 Total Profit
-                            </div>
-                        </div>
-                        <a class="more" href="#">
-                        View more <i class="m-icon-swapright m-icon-white"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="dashboard-stat green-haze">
-                        <div class="visual">
-                            <i class="fa fa-shopping-cart"></i>
-                        </div>
-                        <div class="details">
-                            <div class="number">
-                                 549
-                            </div>
-                            <div class="desc">
-                                 New Orders
-                            </div>
-                        </div>
-                        <a class="more" href="#">
-                        View more <i class="m-icon-swapright m-icon-white"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="dashboard-stat purple-plum">
-                        <div class="visual">
-                            <i class="fa fa-globe"></i>
-                        </div>
-                        <div class="details">
-                            <div class="number">
-                                 +89%
-                            </div>
-                            <div class="desc">
-                                 Brand Popularity
-                            </div>
-                        </div>
-                        <a class="more" href="#">
-                        View more <i class="m-icon-swapright m-icon-white"></i>
-                        </a>
-                    </div>
-                </div>
-            </div> -->
-            <!-- END DASHBOARD STATS -->
-            <div class="clearfix">
-            </div>
+            <div class="clearfix"></div>
 
         </div>
     </div>
@@ -266,7 +199,7 @@
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
     <div class="page-footer-inner">
-         2014 &copy; Metronic by keenthemes.
+         2016 &copy; Metronic by ivy.
     </div>
     <div class="page-footer-tools">
         <span class="go-top">

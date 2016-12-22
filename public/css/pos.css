@@ -2,7 +2,8 @@
 @charset "utf-8";
 li{list-style: none;}
 /*交易记录选中标记*/
-
+a{text-decoration:none;}
+a:hover{text-decoration:none;}
 
 /*POS*/
 /*POS-制单-框架-----类型块-----------------------------*/
@@ -164,7 +165,7 @@ a:hover.pos_cz_zh_an{background-color:#0abb73; }
 .pos_cz_fk_th_two_03{ height:30px; width:134px; border:1px solid #dddddd;border-radius: 2px; padding-left:7px;}
 .pos_cz_fk_th_two_04{ float:right; padding-right:14px;}
 .pos_cz_fk_th_two_05{ font-size:14px; color:#1eb488; padding-left:3px; padding-right:3px;}
-.pos_cz_fk_th_two_06{height:30px; width:264px;border:1px solid #a5dcc5; margin-left:106px;}
+.pos_cz_fk_th_two_06{height:30px; border:1px solid #a5dcc5;}
 .pos_cz_fk_th_two_07{ font-size:12px; color:#51b3ff; margin-left:10px; text-decoration:underline;}
 .pos_cz_fk_th_th{ margin-top:16px; text-align:center;}
 .pos_cz_fk_th_th_a_no{ width:222px; height:52px; line-height:52px; display:block; margin:0 auto; background-color:#ddd; color:#fff; font-size:18px;border-radius: 4px;}

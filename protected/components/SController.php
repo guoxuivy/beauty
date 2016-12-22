@@ -15,6 +15,7 @@ class SController extends Controller
 	protected $company=null; //登录用户公司信息
 
 	protected $is_store=false; //是否为门店职位
+	protected $store_name=""; //门店名称
 	
 	public function init() {
 		//判断是否登录
@@ -35,9 +36,11 @@ class SController extends Controller
 				$this->initBossRole();
 
 			//是否为门店人员
-			$d_t = \EmployDept::model()->findByPk(\Ivy::app()->user->dept_id)->type;
-			if($d_t=='2')
+			$d_t = \EmployDept::model()->findByPk(\Ivy::app()->user->dept_id);
+			if($d_t->type=='2'){
 				$this->is_store=true; 
+				$this->store_name=$d_t->dept_name; 
+			}
 		}
 		$route=$this->getRouter();
 		$module=$route['module'];
