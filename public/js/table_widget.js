@@ -4,23 +4,28 @@ var TableWidget = function () {
         var portlet = portlet_table;
         var table = portlet.find('table');
 
-        //是否开启排序功能
-        var sort = [];
-        if(table.attr("data-sortable")=='false'){
-            sort = false;
-        }
 
+        //设置不参与排序的列
+        var no_order = []
+        if(table.find("th:first").hasClass('table_check')){
+            no_order = [0]
+        }
+       
         var oTable = table.dataTable({
             "columnDefs": [{
                 "orderable": false,
-                "targets": []  //设置不排序的列
+                "targets": no_order  //设置不排序的列
             }],
-            "order": sort,
+            "order": [], //默认排序
             "paging": false,
             "searching": false,
             "info": false,
             // set the initial value
         });
+        //是否开启排序功能
+        if(table.attr("data-sortable")=='false'){
+            table.find("th").removeClass('sorting');
+        }
 
         var tableColumnToggler = portlet.find('.column_toggler');
 

@@ -1,9 +1,120 @@
-<style type="text/css">
-.xzzh {
-	color:#0077ff;
-	cursor: pointer;
-}
-</style>
+<link href="<?php echo $this->basePath('public');?>/css/pos.css" rel="stylesheet" type="text/css"/>
+<div class="row">
+	<div class="print_show col-md-12">
+		<div class="portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-pencil"></i>POS开单/实操单
+                </div>
+                <div class="tools">
+                	<?php if (!$model): ?>
+		                <button class="btn btn-sm green table-group-action-submit c_submit"><i class="fa fa-check"></i>提交订单</button>
+					<?php else: ?>
+	                	<button class="btn btn-sm green table-group-action-submit c_submit"><i class="fa fa-check"></i>更新订单</button>
+	                	<button onclick="to_url('<?php echo $this->url("pay",array('id'=>$model->o_s->id)) ?>')" class="btn btn-sm blue table-group-action-submit"><i class="fa fa-mail-forward "></i>付款</button>
+	                	<button onclick="to_url('<?php echo $this->url("del",array('id'=>$model->o_s->id)) ?>')" class="btn btn-sm red table-group-action-submit"><i class="fa fa-eraser"></i>废除</button>
+					<?php endif ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+		<div class="col-md-12">
+	        <div class="portlet portlet-table box blue-steel">
+	            <div class="portlet-title">
+	                <div class="caption">
+	                    <i class="fa fa-cogs"></i>剩余项目疗次
+	                </div>
+	                <!-- <div class="actions"><button class="btn red"><?php echo $model->o_s->pay_price; ?> 元</button></div> -->
+	            </div>
+	            <div class="portlet-body">
+		            <table class="table table-bordered table-hover pos_table" id="pay" data-sortable="false">
+						<thead>
+							<tr>
+								<th style="width: 30px;">选择</th>
+								<th>购买时间</th>
+								<th>账户剩余项目</th>
+								<th>项目来源</th>
+								<th>购买次数</th>
+								<th>可实操疗次</th>
+								<th>实操次数(疗次)</th>
+								<th>实操美容师</th>
+								<th>实操配方</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php if($CustomerReProject): ?>
+							<?php 
+								$sum_xm=$sum_lc=0;
+								foreach ($CustomerReProject as $key => $value): 
+									$checked='';
+									$formula_str='选择配方';
+									$operators_str='选择美容师';
+									$operators=$formula_id=$use_nums='';
+									$max_num=$value['re_num'];
+									$OrderSaleDetail=\OrderSaleDetail::model()->findByPk($value['detail_id']);
+									if($OrderSaleDetail->buy_type==1  && $OrderSaleDetail->num && $OrderSaleDetail->pay_price>0){
+										$price=$OrderSaleDetail->num?$OrderSaleDetail->pay_price/$OrderSaleDetail->num:0;
+										$max_num=$price?intval($OrderSaleDetail->var_price/$price):0;
+									}
+									if ($model) {
+										foreach ((array)$model->pros as $pro) {
+											if($pro['detail_id']==$value['detail_id'])
+											{
+												$checked='checked="checked"';
+												$use_nums=$pro['use_num'];
+												$sum_xm++;
+												$sum_lc+=$use_nums;
+												$formula_id=$pro['formula_id'];
+												$operators=$pro['operators'];
+												$formula_str=\ProjectFormula::getName($formula_id);
+												$operators_str=\EmployUser::getUserNames($operators);
+												break;
+											}
+										}
+									}
+							?>
+									<tr role="row">
+										<td>
+											<input class="detail_ids checkboxes" type="checkbox" value="<?php echo $value['detail_id'] ?>"  <?php echo $checked; ?>/>
+										</td>
+										<td><?php echo date('Y-m-d',strtotime($value['create_time'])) ?></td>
+										<td><?php echo $value['name']; ?></td>
+										<td><?php echo \OrderSaleDetail::getBuyType($value['buy_type']); ?></td>
+										<td><?php echo $value['num'] ?></td>
+										<td><?php echo $max_num;?></td>
+										<td>
+											<input type="text" value="<?php echo $use_nums ?>" class="pos_cz_tow_two05 use_nums" data-max="<?php echo $max_num ?>" />
+										</td>
+										<td >
+											<input name="operators" class="operators" type="hidden" value="<?php echo $operators?>" />
+											<div class="pos_peifang action_mrs"><?php echo $operators_str ?></div>
+										</td>
+										<td>
+											<input name="formula_ids" class="formula_ids" type="hidden" value="<?php echo $formula_id?>" />
+											<div class="pos_peifang action_pf"><?php echo $formula_str ?></div>
+										</td>
+									</tr>
+							<?php endforeach; ?>
+							<?php endif; ?>
+						</tbody>
+					</table>
+	            	
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+
+
+
+</div>
+
+
+
+
+
 <!--content_right_con-->
 <div class="content_right_con">
 	<div class="content_right_con_top">
