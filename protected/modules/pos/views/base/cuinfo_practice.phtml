@@ -1,0 +1,71 @@
+<?php $cu_avatar=$info->getAvatar($info->id);?>
+
+<!-- 需要外层包裹 portlet 此为 portlet-body-->
+<div class="row cu_info" data-id="<?php echo $info->id ?>">
+    <div class="col-xs-3">
+    	<div class="row static-info">
+    		<div class="col-xs-12 ">
+            <img width="102" height="102" src="<?php echo $cu_avatar;?>">
+            </div>
+        </div>
+        <div class="row static-info">
+            <div class="col-xs-12 name"><?php echo $info->name ?> <span class="label label-success"><?php echo mb_substr($info->cu_type,0,1,'utf-8');?></span></div>
+            <div class="col-xs-12 name">
+                <?php echo $info->store_name ?>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="col-xs-9">
+
+	        <div class="row static-info">
+	            <div class="col-xs-6 name">账户欠款：</div>
+	            <div class="col-xs-6 value text-right">
+	                <font class="cu_arrears"><?php echo $info->arrears ?></font>
+	            </div>
+	        </div>
+            <div class="row static-info">
+                <div class="col-xs-6 name">账户总金额：</div>
+                <div class="col-xs-6 value text-right">
+                    <font class="cu_arrears"><?php echo array_sum(array_column($capital_list, 'balance')) ?></font> 元
+                </div>
+            </div>
+            <div class="row static-info">
+                <div class="col-xs-6 name">最近到店时间：</div>
+                <div class="col-xs-6 value text-right">
+                    <font class="cu_arrears"><?php echo date("Y-m-d", $info->last_time) ?></font>
+                </div>
+            </div>
+            
+	    
+			<?php 
+				$config=\CompanyInfo::getConfig('score_config'); 
+				if($config['openAll']=='true'):
+			?>
+			<div class="row static-info">
+	            <div class="col-xs-7 name">会员可用积分：</div>
+	            <div class="col-xs-5 value text-right">
+	                <span class="cu_score"><?php echo $info->score ?></span>
+	            </div>
+	        </div>
+			<?php endif; ?>
+    </div>
+</div>
+
+<script type="text/javascript">
+//赠送账户信息
+var capital_zs=[];
+//现金账户信息
+var capital_xj=[];
+<?php 
+foreach ($capital_list as $key => $capital){ 
+	if($capital['type']==2){
+		echo 'capital_zs.push({id:"'.$capital['id'].'",name:"'.$capital['name'].'",balance:"'.$capital['balance'].'",is_project:"'.$capital['is_project'].'",is_product:"'.$capital['is_product'].'",is_voucher:"'.$capital['is_voucher'].'",type:"'.$capital['type'].'"});';
+	}else{
+		echo 'capital_xj.push({id:"'.$capital['id'].'",name:"'.$capital['name'].'",balance:"'.$capital['balance'].'",is_project:"'.$capital['is_project'].'",is_product:"'.$capital['is_product'].'",is_voucher:"'.$capital['is_voucher'].'",type:"'.$capital['type'].'"});';
+	}
+}
+?>
+//console.log(capital_xj);
+</script>

@@ -10,7 +10,6 @@ var TableWidget = function () {
         if(table.find("th:first").hasClass('table_check')){
             no_order = [0]
         }
-       
         var oTable = table.dataTable({
             "columnDefs": [{
                 "orderable": false,
@@ -22,10 +21,6 @@ var TableWidget = function () {
             "info": false,
             // set the initial value
         });
-        //是否开启排序功能
-        if(table.attr("data-sortable")=='false'){
-            table.find("th").removeClass('sorting');
-        }
 
         var tableColumnToggler = portlet.find('.column_toggler');
 
@@ -256,9 +251,6 @@ function getUrlParam(name) {
 function to_url(url){
     window.location.href=url;
 }
-
-
-
 
 
 /**

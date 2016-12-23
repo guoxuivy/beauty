@@ -11,259 +11,179 @@
 		                <button class="btn btn-sm green table-group-action-submit c_submit"><i class="fa fa-check"></i>提交订单</button>
 					<?php else: ?>
 	                	<button class="btn btn-sm green table-group-action-submit c_submit"><i class="fa fa-check"></i>更新订单</button>
-	                	<button onclick="to_url('<?php echo $this->url("pay",array('id'=>$model->o_s->id)) ?>')" class="btn btn-sm blue table-group-action-submit"><i class="fa fa-mail-forward "></i>付款</button>
-	                	<button onclick="to_url('<?php echo $this->url("del",array('id'=>$model->o_s->id)) ?>')" class="btn btn-sm red table-group-action-submit"><i class="fa fa-eraser"></i>废除</button>
+	                	<button onclick="to_url('<?php echo $this->url("pay",array('id'=>$model->o_s->id)) ?>')" class="btn btn-sm blue table-group-action-submit"><i class="fa fa-mail-forward "></i>确认实操</button>
 					<?php endif ?>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-		<div class="col-md-12">
-	        <div class="portlet portlet-table box blue-steel">
-	            <div class="portlet-title">
-	                <div class="caption">
-	                    <i class="fa fa-cogs"></i>剩余项目疗次
+        <div class="row">
+			<div class="col-md-6 col-sm-12">
+	            <div class="portlet solid green-haze">
+	                <div class="portlet-title">
+	                    <div class="caption">
+	                        <i class="fa fa-cogs"></i>订单概况
+	                    </div>
+	                    <div class="actions">
+		                    <?php if (!$model): ?>
+		                    <button class="btn red">订单新建</button>
+							<?php else: ?>
+		                    <button class="btn red">订单编辑</button>
+							<?php endif ?>
+	                    </div>
 	                </div>
-	                <!-- <div class="actions"><button class="btn red"><?php echo $model->o_s->pay_price; ?> 元</button></div> -->
-	            </div>
-	            <div class="portlet-body">
-		            <table class="table table-bordered table-hover pos_table" id="pay" data-sortable="false">
-						<thead>
-							<tr>
-								<th style="width: 30px;">选择</th>
-								<th>购买时间</th>
-								<th>账户剩余项目</th>
-								<th>项目来源</th>
-								<th>购买次数</th>
-								<th>可实操疗次</th>
-								<th>实操次数(疗次)</th>
-								<th>实操美容师</th>
-								<th>实操配方</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php if($CustomerReProject): ?>
-							<?php 
-								$sum_xm=$sum_lc=0;
-								foreach ($CustomerReProject as $key => $value): 
-									$checked='';
-									$formula_str='选择配方';
-									$operators_str='选择美容师';
-									$operators=$formula_id=$use_nums='';
-									$max_num=$value['re_num'];
-									$OrderSaleDetail=\OrderSaleDetail::model()->findByPk($value['detail_id']);
-									if($OrderSaleDetail->buy_type==1  && $OrderSaleDetail->num && $OrderSaleDetail->pay_price>0){
-										$price=$OrderSaleDetail->num?$OrderSaleDetail->pay_price/$OrderSaleDetail->num:0;
-										$max_num=$price?intval($OrderSaleDetail->var_price/$price):0;
-									}
-									if ($model) {
-										foreach ((array)$model->pros as $pro) {
-											if($pro['detail_id']==$value['detail_id'])
-											{
-												$checked='checked="checked"';
-												$use_nums=$pro['use_num'];
-												$sum_xm++;
-												$sum_lc+=$use_nums;
-												$formula_id=$pro['formula_id'];
-												$operators=$pro['operators'];
-												$formula_str=\ProjectFormula::getName($formula_id);
-												$operators_str=\EmployUser::getUserNames($operators);
-												break;
-											}
-										}
-									}
-							?>
-									<tr role="row">
-										<td>
-											<input class="detail_ids checkboxes" type="checkbox" value="<?php echo $value['detail_id'] ?>"  <?php echo $checked; ?>/>
-										</td>
-										<td><?php echo date('Y-m-d',strtotime($value['create_time'])) ?></td>
-										<td><?php echo $value['name']; ?></td>
-										<td><?php echo \OrderSaleDetail::getBuyType($value['buy_type']); ?></td>
-										<td><?php echo $value['num'] ?></td>
-										<td><?php echo $max_num;?></td>
-										<td>
-											<input type="text" value="<?php echo $use_nums ?>" class="pos_cz_tow_two05 use_nums" data-max="<?php echo $max_num ?>" />
-										</td>
-										<td >
-											<input name="operators" class="operators" type="hidden" value="<?php echo $operators?>" />
-											<div class="pos_peifang action_mrs"><?php echo $operators_str ?></div>
-										</td>
-										<td>
-											<input name="formula_ids" class="formula_ids" type="hidden" value="<?php echo $formula_id?>" />
-											<div class="pos_peifang action_pf"><?php echo $formula_str ?></div>
-										</td>
-									</tr>
-							<?php endforeach; ?>
-							<?php endif; ?>
-						</tbody>
-					</table>
-	            	
+	                <div class="portlet-body">
+	                    <div class="row static-info">
+	                        <div class="col-xs-5 name">实操单号：</div>
+	                        <div class="col-xs-7 value text-right">
+	                             <?php echo $model->o_s->sn ?>
+	                        </div>
+	                    </div>
+
+
+	                    <div class="row static-info">
+	                        <div class="col-xs-5 name">订单状态：</div>
+	                        <div class="col-xs-7 value text-right">
+		                        <?php if (!$model): ?>
+	                        	<span class="label label-info label-sm">草稿</span>
+								<?php else: ?>
+	                        	<span class="label label-warning label-sm"><?php echo \PracticeOrder::getStatus($model->o_s->status);?></span>
+								<?php endif ?>
+	                        </div>
+	                    </div>
+	                    <div class="row static-info">
+	                        <div class="col-xs-5 name">本次实操项目：</div>
+	                        <div class="col-xs-7 value text-right">
+	                        	<font class="xj_xm"><?php echo count($model->pros) ?></font> 个
+	                        </div>
+	                    </div>
+	                    <div class="row static-info">
+	                        <div class="col-xs-5 name">本次实操疗次：</div>
+	                        <div class="col-xs-7 value text-right">
+                                <font class="xj_lc"><?php echo array_sum(array_column($model->pros, 'use_num')) ?></font> 次
+	                        </div>
+	                    </div>
+
+
+						
+	                </div>
 	            </div>
 	        </div>
-	    </div>
-	</div>
+
+	        <div class="col-md-6 col-sm-12">
+	            <div class="portlet solid red-intense">
+	                <div class="portlet-body" style="padding-top: 10px;">
+	                    <?php echo $cu_info ?>
+	                </div>
+	            </div>
+	        </div>
 
 
+        </div>
 
-
-</div>
-
-
-
-
-
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		<div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>
-		POS开单><span>实操单</span> </div>
-	<!-- 上操作按钮  付款后有效-->
-	<?php if ($model): ?>
-	<div class="jyjl_top jyjl_czda_top">
-		<div class="jyjl_czda_top_l">
-			<div class="jyjl_czda_top_top">订单提交成功</div>
-			<div class="jyjl_czda_top_two">订单编号：<span><?php echo $model->o_s->sn ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 订单状态：<span class="spanll"><?php echo \PracticeOrder::getStatus($model->o_s->status);?></span></span></div>
-		</div>
-		<div class="jyjl_czda_top_r">
-			<?php if ($model->o_s->status): ?>
-			<!-- <a class="aysh01" href="<?php echo $this->url('pos/refund/order',array('id'=>$model->o_s->id)) ?>">退单</a> <a class="aysh01" href="javascript:">打印订单</a> -->
-			<?php else: ?>
-			<a class="aysh01" href="<?php echo $this->url("pay",array('id'=>$model->o_s->id)) ?>">确认实操</a>
-			<?php endif ?>
-			
-			<!-- <a class="aysh" href="javascript:">审核订单</a>
-				<a class="aysh02" href="javascript:">审核已订单</a> --> 
-		</div>
-	</div>
-	<?php endif; ?>
-	
-	<!--khgl_shouye--> 
-	<?php echo $cu_info ?> 
-	<!--khgl_shouye!end--> 
-	
-	<!--寄存商品-->
-	<div class="pos_cz_tow">
-		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>剩余项目疗次</div>
-		<div class="pos_cz_tow_two"> 
-			<!--table_container-->
-			<div class="table_container" style="border:none;"> 
-				<!--table_con-->
-				<div class="table_con"> 
-					<!--table_con_son-->
-					<div class="table_con_son">
-						<div class="table_title">
-							<ul>
-								<li>
-									<!-- <input type="checkbox" /> -->
-									选择实操项目
-								</li>
-								<li>购买时间</li>
-								<li>账户剩余项目</li>
-								<li>项目来源</li>
-								<li>购买次数</li>
-								<!--<li>剩余疗次</li>
-								<li>成交价格（元）</li>
-								<li>疗次单价（元/疗次）</li>
-								<li>上次实操该项目日期</li>-->
-								<li>可实操疗次</li>
-								<li>本次实操次数（疗次）</li>
-								<li style="width: 112px;">本次实操美容师</li>
-								<li>本次实操配方</li>
-							</ul>
-						</div>
-						<?php if($CustomerReProject): ?>
-						<?php 
-							$sum_xm=$sum_lc=0;
-							foreach ($CustomerReProject as $key => $value): 
-								$checked='';
-								$formula_str='选择配方';
-								$operators_str='选择美容师';
-								$operators=$formula_id=$use_nums='';
-								$max_num=$value['re_num'];
-								$OrderSaleDetail=\OrderSaleDetail::model()->findByPk($value['detail_id']);
-								if($OrderSaleDetail->buy_type==1  && $OrderSaleDetail->num && $OrderSaleDetail->pay_price>0){
-									$price=$OrderSaleDetail->num?$OrderSaleDetail->pay_price/$OrderSaleDetail->num:0;
-									$max_num=$price?intval($OrderSaleDetail->var_price/$price):0;
-								}
-								if ($model) {
-									foreach ((array)$model->pros as $pro) {
-										if($pro['detail_id']==$value['detail_id'])
-										{
-											$checked='checked="checked"';
-											$use_nums=$pro['use_num'];
-											$sum_xm++;
-											$sum_lc+=$use_nums;
-											$formula_id=$pro['formula_id'];
-											$operators=$pro['operators'];
-											$formula_str=\ProjectFormula::getName($formula_id);
-											$operators_str=\EmployUser::getUserNames($operators);
-											break;
+        <div class="row"> 
+        <div class="col-md-12">
+	        <div class="portlet box blue-steel">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-cogs"></i>剩余项目疗次
+                    </div>
+                </div>
+                <div class="portlet-body">
+                	<div class="table-responsive"> 
+						<table class="table table-bordered table-hover " >
+							<thead>
+								<tr>
+									<th style="width: 50px;">选择</th>
+									<th>购买时间</th>
+									<th>账户剩余项目</th>
+									<th>项目来源</th>
+									<th>购买次数</th>
+									<th>可实操疗次</th>
+									<th>实操次数(疗次)</th>
+									<th>实操美容师</th>
+									<th>实操配方</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php if($CustomerReProject): ?>
+								<?php 
+									$sum_xm=$sum_lc=0;
+									foreach ($CustomerReProject as $key => $value): 
+										$checked='';
+										$formula_str='选择配方';
+										$operators_str='选择美容师';
+										$operators=$formula_id=$use_nums='';
+										$max_num=$value['re_num'];
+										$OrderSaleDetail=\OrderSaleDetail::model()->findByPk($value['detail_id']);
+										if($OrderSaleDetail->buy_type==1  && $OrderSaleDetail->num && $OrderSaleDetail->pay_price>0){
+											$price=$OrderSaleDetail->num?$OrderSaleDetail->pay_price/$OrderSaleDetail->num:0;
+											$max_num=$price?intval($OrderSaleDetail->var_price/$price):0;
 										}
-									}
-								}
-						?>
-							<div class="table_list">
-								<ul>
-									<li class="li001">
-										<input class="detail_ids" type="checkbox" value="<?php echo $value['detail_id'] ?>"  <?php echo $checked; ?>/>
-									</li>
-									<li class="li002"><?php echo date('Y-m-d',strtotime($value['create_time'])) ?></li>
-									<li class="li003"><?php echo $value['name']; ?></li>
-									<li class="li004"><?php echo \OrderSaleDetail::getBuyType($value['buy_type']); ?></li>
-									<li class="li005"><?php echo $value['num'] ?></li>
-									<!--<li class="li006"><?php /*echo $value['re_num'] */?></li>
-									<li class="li007"><?php /*echo sprintf('%.2f',$value['price']*$value['rebate']/100) */?></li>
-									<li class="li008"><?php /*echo sprintf('%.2f',$value['num']?$value['price']*$value['rebate']/100/$value['num']:0); */?></li>
-									<li class="li009"><?php /*echo \PracticeOrderDetail::getLastTime($value["detail_id"]) */?></li>-->
-									<li><?php echo $max_num;?></li>
-									<li class="li010">
-										<input type="text" value="<?php echo $use_nums ?>" class="pos_cz_tow_two05 use_nums" data-max="<?php echo $max_num ?>" />
-									</li>
-									<li class="li012">
-										<input name="operators" class="operators" type="hidden" value="<?php echo $operators?>" />
-										<div class="pos_peifang action_mrs"><?php echo $operators_str ?></div>
-									</li>
-									<li class="li011" style="width: 112px;">
-										<input name="formula_ids" class="formula_ids" type="hidden" value="<?php echo $formula_id?>" />
-										<div class="pos_peifang action_pf"><?php echo $formula_str ?></div>
-									</li>
-								</ul>
-							</div>
-						<?php endforeach; ?>
-						<?php endif; ?>
+										if ($model) {
+											foreach ((array)$model->pros as $pro) {
+												if($pro['detail_id']==$value['detail_id'])
+												{
+													$checked='checked="checked"';
+													$use_nums=$pro['use_num'];
+													$sum_xm++;
+													$sum_lc+=$use_nums;
+													$formula_id=$pro['formula_id'];
+													$operators=$pro['operators'];
+													$formula_str=\ProjectFormula::getName($formula_id);
+													$operators_str=\EmployUser::getUserNames($operators);
+													break;
+												}
+											}
+										}
+								?>
+										<tr role="row">
+											<td>
+												<input class="detail_ids checkboxes" type="checkbox" value="<?php echo $value['detail_id'] ?>"  <?php echo $checked; ?>/>
+											</td>
+											<td><?php echo date('Y-m-d',strtotime($value['create_time'])) ?></td>
+											<td><?php echo $value['name']; ?></td>
+											<td><?php echo \OrderSaleDetail::getBuyType($value['buy_type']); ?></td>
+											<td><?php echo $value['num'] ?></td>
+											<td><?php echo $max_num;?></td>
+											<td>
+												<input type="text" value="<?php echo $use_nums ?>" class="pos_cz_tow_two05 use_nums" data-max="<?php echo $max_num ?>" />
+											</td>
+											<td >
+												<input name="operators" class="operators" type="hidden" value="<?php echo $operators?>" />
+												<span class="btn btn-info btn-xs action_mrs"><?php echo $operators_str ?></span>
+											</td>
+											<td>
+												<input name="formula_ids" class="formula_ids" type="hidden" value="<?php echo $formula_id?>" />
+												<span class="btn btn-info btn-xs action_pf"><?php echo $formula_str ?></span>
+											</td>
+										</tr>
+								<?php endforeach; ?>
+								<?php endif; ?>
+							</tbody>
+						</table>
 					</div>
-					<!--table_con_son!end--> 
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+		<!--备注-->
+		<div class="pos_cz_tow pos_cz_for_bz">
+			<div class="pos_cz_for_bz01">备注</div>
+			<div class="pos_cz_for_bz02">
+				<div class="pos_cz_for_bz02_son">
+					<textarea class="order_note" rows="4"><?php echo $model?$model->o_s->note:"" ?></textarea>
 				</div>
-				<!--table_con!end--> 
-			</div>
-			<!--table_containter!end-->
-			<div class="pos_cz_tow_two_two pos_cz_qr_top_02"> <span class="pos_gm_01">本次实操项目小计：<span class="pos_gm_03 xj_xm"><?php echo $sum_xm ?></span>个</span> <span class="pos_gm_01">本次实操疗次小计：<span class="pos_gm_04 xj_lc"><?php echo $sum_lc ?></span>次</span> </div>
-		</div>
-	</div>
-	<!--寄存商品!end--> 
-	
-	<!--备注-->
-	<div class="pos_cz_tow pos_cz_for_bz">
-		<div class="pos_cz_for_bz01">备注</div>
-		<div class="pos_cz_for_bz02">
-			<div class="pos_cz_for_bz02_son">
-				<textarea class="order_note" rows="4"><?php echo $model?$model->o_s->note:"" ?></textarea>
 			</div>
 		</div>
-	</div>
-	<!--备注!end-->
-	<div class="pos_cz_tow pos_cz_zh">
-		<?php if (!$model || $model->o_s->status==0): ?>
-		<a href="javascript:" class="pos_cz_zh_an c_submit">提交订单</a>
-		<?php endif ?>
-	</div>
-	<!--!end--> 
-	
+		<!--备注!end-->
+
+
+
+    </div>
 </div>
-<!--content_right_con!end--> 
 
 {__TOKEN__} 
 <script type="text/javascript">
@@ -285,21 +205,21 @@ $(function(){
 	//添加疗次
 	$('.use_nums').keyup(function(event) {
 		if ($(this).val()=='') {
-			$(this).parents('ul').find('.detail_ids').prop('checked',true);
+			$(this).parents('tr').find('.detail_ids').prop('checked',true);
 		}else{
-			$(this).parents('ul').find('.detail_ids').removeAttr('checked');
+			$(this).parents('tr').find('.detail_ids').removeAttr('checked');
 		}
-		$(this).parents('ul').find('.detail_ids').trigger('click');
+		$(this).parents('tr').find('.detail_ids').trigger('click');
 	});
 	//选中项目
 	$('.detail_ids').click(function(event) {
 		var xj_xm=xj_lc=0;
-		if ($(this).parents('ul').find('.use_nums').val()=='')
-			$(this).parents('ul').find('.use_nums').val(1);
+		if ($(this).parents('tr').find('.use_nums').val()=='')
+			$(this).parents('tr').find('.use_nums').val(1);
 		$('.detail_ids').each(function(index, el) {
 			if ($(this).is(':checked')) {
 				xj_xm++;
-				xj_lc+=parseInt($(this).parents('ul').find('.use_nums').val());
+				xj_lc+=parseInt($(this).parents('tr').find('.use_nums').val());
 			};
 		});
 		$('.xj_xm').html(xj_xm);
@@ -311,7 +231,7 @@ $(function(){
 		if(post_data==false){
 			return false;
 		}
-		$('.c_submit').html("正在提交订单...").addClass("pos_cz_zh_an_hover").removeClass("pos_cz_zh_an");
+		$('.c_submit').addClass("disabled");
 
 	<?php if ($model): ?>
 		var url="<?php echo $this->url('editSave',array('id'=>$model->o_s->id)) ?>";			
@@ -324,6 +244,7 @@ $(function(){
 				//转到付款界面
 				setTimeout(function(){to_url('<?php echo $this->url("pay");?>&id='+data.data)},3000);
 			}
+			$('.c_submit').removeClass("disabled");
 		}, "json");
 	});
 
@@ -333,7 +254,7 @@ $(function(){
 	//选择配方
 	$('.action_pf').click(function(event) {
 		var self=$(this)
-		var pro_id=self.parents('ul').find('.detail_ids').val();
+		var pro_id=self.parents('tr').find('.detail_ids').val();
 		var formula_ids=self.siblings('.formula_ids').val();
 		$.get('<?php echo $this->url("getpf") ?>&pro_id='+pro_id+'&formula_ids='+formula_ids, function(data) {
 				var d = Idialog({
@@ -399,13 +320,13 @@ $(function(){
 		//实操项目
 		data.pro=[];
 		$('.detail_ids:checkbox:checked').each(function(index, el) {
-			use_nums_obj=$(this).parents('ul').find('.use_nums');
+			use_nums_obj=$(this).parents('tr').find('.use_nums');
 			if (parseInt(use_nums_obj.val())>parseInt(use_nums_obj.attr('data-max'))) {
 				Idialog.tips('实操疗次不能超出可实操疗次!',2);
 				_is=true;
 				return false;
 			};
-			operators_obj=$(this).parents('ul').find('.operators')
+			operators_obj=$(this).parents('tr').find('.operators')
 			if (operators_obj.val()=='') {
 				Idialog.tips('没有选择本次实操美容师!',2);
 				_is=true;
@@ -415,8 +336,8 @@ $(function(){
 				data.pro.push({
 						"detail_id":$(this).val(),
 						"use_nums":use_nums_obj.val(),
-						"formula_id":$(this).parents('ul').find('.formula_ids').val(),
-						"operators":$(this).parents('ul').find('.operators').val()
+						"formula_id":$(this).parents('tr').find('.formula_ids').val(),
+						"operators":$(this).parents('tr').find('.operators').val()
 					})
 		});
 		if (_is) {return false;};

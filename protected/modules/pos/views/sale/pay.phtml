@@ -103,21 +103,17 @@
         </div>
 
 
-
-
-
-
 		<div class="row">
 			<div class="col-md-12">
-		        <div class="portlet portlet-table box blue-steel">
+		        <div class="portlet box blue-steel">
 		            <div class="portlet-title">
 		                <div class="caption">
 		                    <i class="fa fa-cogs"></i>商品付款信息
 		                </div>
-		                <!-- <div class="actions"><button class="btn red"><?php echo $model->o_s->pay_price; ?> 元</button></div> -->
 		            </div>
 		            <div class="portlet-body">
-			            <table class="table table-bordered table-hover pos_table" id="pay">
+	            		<div class="table-responsive">
+			            <table class="table table-bordered table-hover" id="pay">
 							<thead>
 								<tr>
 									<th style="min-width:150px;">付款商品</th>
@@ -138,7 +134,7 @@
 								<?php endforeach ?>
 							</tbody>
 						</table>
-		            	
+		            	</div>
 		            </div>
 		        </div>
 		    </div>

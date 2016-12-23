@@ -35,7 +35,8 @@ class BaseController extends \SController
 			->findAll();
 		}
 		//var_dump(\CompanyCapital::model()->lastSql);
-		$view=$view?"base/cuinfo":"base/cuinfo";
+	
+		$view=$view?"base/cuinfo_practice":"base/cuinfo";
 		return $this->view->assign(array(
 			"info"=>$info,
 			"capital_list"=>$capital_list

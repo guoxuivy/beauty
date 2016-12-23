@@ -314,10 +314,7 @@ a:hover.pos_cz_zh_an{background-color:#0abb73; }
 
 
 .zszh,.xjzh,.xzzh{color:#0077ff;cursor: pointer;}
-.pos_table_scroll{width: 100%;overflow-x: auto;overflow-y: hidden;}
-.pos_table_scroll .pos_table{border: none;}
-.pos_table {margin-bottom:0px;}
-.pos_table th{white-space: nowrap;}
 .rh_gm{height: 40px;line-height: 40px;font-size: 16px;}
 .r_o{background-color:#F3F3F3}
+.pos_table{border: none;margin-bottom:0px;}
 

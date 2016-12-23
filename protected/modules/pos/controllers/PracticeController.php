@@ -115,7 +115,7 @@ class PracticeController extends BaseController
 	public function addAction($id=null){
 		if(is_null($id))
 			throw new CException('无效客户id');
-		$cu_info=$this->getCuInfo($id);
+		$cu_info=$this->getCuInfo($id,true);
 		$CustomerReProject=\CustomerReProject::getReProList($id);
 		$this->view->assign(array(
 			"id"                =>$id,
@@ -196,7 +196,7 @@ class PracticeController extends BaseController
 		if(is_null($id))
 			throw new CException('无效订单');
 		$model = PracticeModel::model()->getPracticeModel($id,true);
-		$cu_info=$this->getCuInfo($model->o_s->cu_id);
+		$cu_info=$this->getCuInfo($model->o_s->cu_id,true);
 		$CustomerReProject=\CustomerReProject::getReProList($model->o_s->cu_id);
 
 		$this->view->assign(array(
@@ -219,7 +219,7 @@ class PracticeController extends BaseController
 		$res = PracticeModel::model()->PracticeHk($id);
 		if(!$res) $this->ajaxReturn(400,PracticeModel::model()->popErr());
 		$model=\PracticeOrder::model()->findByPk($id);
-		if(\CompanyInfo::getConfig('wx_practice_msg')=='true')
+		if(\CompanyInfo::getConfig('wx_practice_msg')=='true'){
 			\WemallApi::sendNew(
 				$model->comp_id,
 				$model->cu_id,
@@ -229,6 +229,7 @@ class PracticeController extends BaseController
 				'wechat_charge.jpg',
 				'meihui_practice'
 				);
+		}
 		
 		$this->ajaxReturn(200,"保存成功！",$res);
 	}

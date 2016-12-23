@@ -202,6 +202,7 @@ var d = Idialog({
 	 * @type {Object}
 	 */
 	Idialog.tips=function(msg,time){
+		if(msg==undefined) return;
 		if(time==undefined) time=2;
 		var tips=$('<div class="idialog_tips">'+msg+'</div>');
 		tips.appendTo("body");

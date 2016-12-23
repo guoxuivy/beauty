@@ -14,7 +14,7 @@ class IndexController extends BaseController
 	public function indexAction(){
 		//购买、还款、充值
 		$list1 = \OrderSale::model()
-		->field(array("t.id,t.sn, substring(t.sn,3,8) as day ,1 as ptype ,t.cu_id,t.type,t.status,cu.name as cu_name"))
+		->field(array("t.id,t.sn,t.create_time, substring(t.sn,3,8) as day ,1 as ptype ,t.cu_id,t.type,t.status,cu.name as cu_name"))
 		->join('customer_info cu on cu.id=t.cu_id')
 		->where(array(
 			't.md_id'	=>	array('eq',\Ivy::app()->user->dept_id),
@@ -26,7 +26,7 @@ class IndexController extends BaseController
 		$list1=$list1?$list1:array();
 		//实操单
 		$list2 = \PracticeOrder::model()
-		->field(array("t.id,t.sn, substring(t.sn,3,8) as day ,0 as ptype ,t.cu_id,t.type,t.status,cu.name as cu_name"))
+		->field(array("t.id,t.sn,t.last_time as create_time, substring(t.sn,3,8) as day ,0 as ptype ,t.cu_id,t.type,t.status,cu.name as cu_name"))
 		->join('customer_info cu on cu.id=t.cu_id')
 		->where(array(
 			't.md_id'	=>	array('eq',\Ivy::app()->user->dept_id),
