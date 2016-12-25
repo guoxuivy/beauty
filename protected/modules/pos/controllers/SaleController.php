@@ -106,7 +106,7 @@ class SaleController extends BaseController
 		}
 
 		$this->view->assign(array(
-			"cu_info"=>$this->getCuInfo($model->o_s->cu_id,$is_view),	//客户信息渲染
+			"cu_info"=>$this->getCuInfo($model->o_s->cu_id),	//客户信息渲染
 			"effect"=>$this->getEffect($id,$is_view),					//业绩比例渲染
 			"gift"=>$this->getGift($id,$is_view),						//业绩比例渲染
 			"model"=>$model,											//订单货物模型
