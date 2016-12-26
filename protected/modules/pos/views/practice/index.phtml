@@ -97,7 +97,7 @@
 		array(
 			'header' => '操作',
 			'rel'=>'id',
-			'template'=> '<a href="'.$this->url('view').'&id={$data[id]}" class="view khca"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看</a>',
+			'template'=> '<a href="javascript:;" data-status="{$data["status"]}" class="btn default btn-xs green-stripe view">查看</a>',
 		)
 	),
 ));?>
@@ -132,6 +132,19 @@ $(function(){
 		if(data64==false)
 			return false;
 		event.currentTarget.href = data64;
+	});
+
+	$(".view").click(function(event){
+		var status = $(this).attr("data-status");
+		var id = $(this).parent().attr("rel");
+		if(status==0){
+			var url = "<?php echo $this->url('pay') ?>";
+		}else{
+			var url = "<?php echo $this->url('view') ?>";
+		}
+		url = changeURL(url,"id",id);
+		to_url(url);
+
 	});
 
 });

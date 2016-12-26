@@ -1,211 +1,210 @@
-<!--content_right_con-->
+<link href="<?php echo $this->basePath('public');?>/css/pos.css" rel="stylesheet" type="text/css"/>
+<div class="row">
+	<div class="print_show col-md-12">
+		<div class="portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-pencil"></i>POS开单/实操单-查看
+                </div>
+                <div class="tools">
+	                	<button onclick="history.go(-1)" class="btn btn-sm blue table-group-action-submit"><i class="fa fa-mail-forward "></i>返回</button>
+                </div>
+            </div>
+        </div>
+		<?php $sum_lc = array_sum(array_column($model->pros, 'use_num')) ?>
+        <div class="row">
+			<div class="col-md-6 col-sm-12">
+	            <div class="portlet solid green-haze">
+	                <div class="portlet-title">
+	                    <div class="caption">
+	                        <i class="fa fa-cogs"></i>订单概况
+	                    </div>
+	                    <div class="actions">
+		                    <button class="btn red">疗次合计<?php echo $sum_lc ?></button>
+	                    </div>
+	                </div>
+	                <div class="portlet-body">
+	                    <div class="row static-info">
+	                        <div class="col-xs-5 name">实操单号：</div>
+	                        <div class="col-xs-7 value text-right">
+	                             <?php echo $model->o_s->sn ?>
+	                        </div>
+	                    </div>
+	                    <div class="row static-info">
+	                        <div class="col-xs-5 name">耗卡时间</div>
+	                        <div class="col-xs-7 value text-right">
+	                             <?php echo $model->o_s->pay_time?date('Y-m-d H:i:s',$model->o_s->pay_time):'未耗卡';?>
+	                        </div>
+	                    </div>
 
-<div class="content_right_con">
-	<div class="content_right_con_top"> 
-		<!--<div class="fjgl_top_r">
-               <a href="javascript:" class="khgl_02 fpkhn">分配客户</a><a href="javascript:" class="fjgl_top_r_01">筛选</a><a href="javascript:" class="fjgl_top_r_02 tjfjz">添加客户</a>
-             </div>-->
-		<div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>
-		POS开单><span>实操单-查看</span> </div>
-	
-	<!---->
-	<div class="jyjl_top jyjl_czda_top pos_cz_qr01">
-		<div class="jyjl_czda_top_l">
-			<div class="jyjl_czda_top_top"><!-- 请在邀约本中为客户分配房间<span style="background-color:#fff; display:inline-block; height:20px; line-height:20px; padding:0 5px 0 5px; margin-left:10px; cursor:pointer; font-size:12px; color:#666; border:solid 1px #ddd;">前往邀约本</span> --></div>
-			<div class="jyjl_czda_top_two">订单编号：<span><?php echo $model->o_s->sn ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 订单状态：<span class="spanll"><?php echo \PracticeOrder::getStatus($model->o_s->status);?></span></span></div>
-		</div>
-		<div class="pos_qr_right">
-			<?php if ($model->o_s->status==0): ?>
-		 	<a href="javascript:;" class="pos_qr_right_a"  id="cancelOrder">废弃订单</a>
-			|<a href="<?php echo $this->url('edit',array('id'=>$model->o_s->id)) ?>" class="pos_qr_right_a">修改订单</a>
-			<!-- <a href="javascript:" class="pos_qr_right_wait">稍后卡耗</a> -->
-			<a href="javascript:" class="pos_qr_right_gopay action_hk">确认卡扣</a>
-			<?php endif; ?>
-		</div>
-	</div>
-	<!----> 
-	
-	<!--订单跟踪-->
-	
-	<!--订单跟踪!end--> 
-	
-	<!--khgl_shouye-->
-	<?php echo $cu_info ?> 
-	<!--khgl_shouye!end--> 
-	
-	<!--订单信息-->
-	<div class="pos_cz_tow">
-		<div class="pos_cz_qr_02">订单信息</div>
-		<div class="pos_cz_tow_two pos_cz_qr_top"> 
-			<!--table_container-->
-			<div class="table_container"> 
-				
-				<!--table_con-->
-				<div class="table_con"> 
-					
-					<!--table_con_son-->
-					<div class="table_con_son">
-						<div class="pos_sp_title">本次实操项目疗次</div>
-						<div class="table_title pos_news_zeng">
-							<ul>
-								<li>项目</li>
-								<li>项目来源</li>
-								<li>购买次数</li>
-								<li>剩余次数</li>
-								<li>成交价格（元）</li>
-								<li>疗次单价（元）</li>
-								<li>上次实操该项目日期</li>
-								<li>本次实操次数（疗次）</li>
-								<li>本次实操配方</li>
-								<li>本次实操美容师</li>
-							</ul>
-						</div>
-						<?php 
-							$sum_xm=$sum_lc=0;
-							if($model->pros)
-							foreach ($model->pros as $key => $value): 
-								$ProjectInfo=\ProjectInfo::model()->findByPk($value['project_id']);
-								$OrderSaleDetail=\OrderSaleDetail::model()->findByPk($value['detail_id']);
-								$CustomerReProject=\CustomerReProject::model()->find("detail_id={$value['detail_id']}");
-								$ProjectFormula=\ProjectFormula::model()->findByPk($value['formula_id']);
-								$sum_xm++;
-								$sum_lc+=$value['use_num'];
-						?>
-							<div class="table_list">
-								<ul>
-									<li class="li001"><?php echo $ProjectInfo->name ?></li>
-									<li class="li002"><?php echo \OrderSaleDetail::getBuyType($OrderSaleDetail->buy_type); ?></li>
-									<li class="li003"><?php echo $OrderSaleDetail->num; ?></li>
-									<li class="li004"><?php echo $CustomerReProject->re_num; ?></li>
-									<li class="li005"><?php echo sprintf('%.2f',$OrderSaleDetail->pay_price); ?></li>
-									<li class="li006"><?php echo sprintf('%.2f',$OrderSaleDetail->num?$OrderSaleDetail->pay_price/$OrderSaleDetail->num:0); ?></li>
-									<li class="li007"><?php echo \PracticeOrderDetail::getLastTime($value["detail_id"]) ?></li>
-									<li class="li008"><?php echo $value['use_num'] ?></li>
-									<li class="li009"><?php echo $ProjectFormula->formula_name; ?></li>
-									<li class="li010"><?php echo \EmployUser::getUserNames($value['operators']); ?></li>
-								</ul>
-							</div>
-						<?php endforeach; ?>
-						<div class="pos_cz_tow_two_two pos_cz_qr_top_02"> 
-							<span class="pos_cz_tow_two04 "></span> 
-							<span class="pos_gm_01">本次实操项目小计：<span class="pos_gm_03"><?php echo $sum_xm ?></span>个</span> 
-							<span class="pos_gm_01">本次实操疗次小计：<span class="pos_gm_04"><?php echo $sum_lc ?></span></span> 
-						</div>
+	                    <div class="row static-info">
+	                        <div class="col-xs-5 name">订单状态：</div>
+	                        <div class="col-xs-7 value text-right">
+		                        <?php if (!$model): ?>
+	                        	<span class="label label-info label-sm">草稿</span>
+								<?php else: ?>
+	                        	<span class="label label-warning label-sm"><?php echo \PracticeOrder::getStatus($model->o_s->status);?></span>
+								<?php endif ?>
+	                        </div>
+	                    </div>
+	                    <div class="row static-info">
+	                        <div class="col-xs-5 name">本次实操项目：</div>
+	                        <div class="col-xs-7 value text-right">
+	                        	<font class="xj_xm"><?php echo count($model->pros) ?></font> 个
+	                        </div>
+	                    </div>
+	                    <div class="row static-info">
+	                        <div class="col-xs-5 name">本次实操疗次：</div>
+	                        <div class="col-xs-7 value text-right">
+                                <font class="xj_lc"><?php echo $sum_lc ?></font> 次
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+
+	        <div class="col-md-6 col-sm-12">
+	            <div class="portlet solid red-intense">
+	                <div class="portlet-body" style="padding-top: 10px;">
+	                    <?php echo $cu_info ?>
+	                </div>
+	            </div>
+	        </div>
+
+
+        </div>
+
+        <div class="row"> 
+        <div class="col-md-12">
+	        <div class="portlet box blue-steel">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-cogs"></i>本次实操项目疗次
+                    </div>
+                </div>
+                <div class="portlet-body">
+                	<div class="table-responsive"> 
+						<table class="table table-bordered table-hover " >
+							<thead>
+								<tr>
+									<th>项目</th>
+									<th>项目来源</th>
+									<th>购买次数</th>
+									<th>剩余次数</th>
+									<th>成交价格（元）</th>
+									<th>疗次单价（元）</th>
+									<th>上次实操该项目日期</th>
+									<th>本次实操次数（疗次）</th>
+									<th>本次实操配方</th>
+									<th>本次实操美容师</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php 
+									$sum_xm=$sum_lc=0;
+									if($model->pros)
+									foreach ($model->pros as $key => $value): 
+										$ProjectInfo=\ProjectInfo::model()->findByPk($value['project_id']);
+										$OrderSaleDetail=\OrderSaleDetail::model()->findByPk($value['detail_id']);
+										$CustomerReProject=\CustomerReProject::model()->find("detail_id={$value['detail_id']}");
+										$ProjectFormula=\ProjectFormula::model()->findByPk($value['formula_id']);
+										$sum_xm++;
+										$sum_lc+=$value['use_num'];
+								?>
+									<tr class="table_list">
+											<td class="li001"><?php echo $ProjectInfo->name ?></td>
+											<td class="li002"><?php echo \OrderSaleDetail::getBuyType($OrderSaleDetail->buy_type); ?></td>
+											<td class="li003"><?php echo $OrderSaleDetail->num; ?></td>
+											<td class="li004"><?php echo $CustomerReProject->re_num; ?></td>
+											<td class="li005"><?php echo sprintf('%.2f',$OrderSaleDetail->pay_price); ?></td>
+											<td class="li006"><?php echo sprintf('%.2f',$OrderSaleDetail->num?$OrderSaleDetail->pay_price/$OrderSaleDetail->num:0); ?></td>
+											<td class="li007"><?php echo \PracticeOrderDetail::getLastTime($value["detail_id"]) ?></td>
+											<td class="li008"><?php echo $value['use_num'] ?></td>
+											<td class="li009"><?php echo $ProjectFormula->formula_name; ?></td>
+											<td class="li010"><?php echo \EmployUser::getUserNames($value['operators']); ?></td>
+									</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
 					</div>
-					<!--table_con_son!end--> 
-					
-				</div>
-				<!--table_con!end--> 
-				<div class="pos_sp_title">耗卡时间:<?php echo $model->o_s->pay_time?date('Y-m-d H:i:s',$model->o_s->pay_time):'未耗卡';?></div>
-			</div>
-			<!--table_containter!end--> 
-		</div>
-	</div>
-	<!--订单信息!end--> 
-	
-	<!--备注-->
-	<div class="pos_cz_for_bz">
-		<div class="pos_cz_qr_top_07">备注</div>
-		<div class="pos_cz_for_bz02">
-			<div class="pos_cz_for_bz02_son">
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+
+		<?php if($list):?>
+		<div class="row"> 
+        <div class="col-md-12">
+	        <div class="portlet box blue-steel">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-wechat "></i>客户满意度反馈
+                    </div>
+                </div>
+                <div class="portlet-body">
+                	<div class="table-responsive"> 
+						<table class="table table-bordered table-hover " >
+							<thead>
+								<tr>
+									<?php foreach($list as $v):?>
+									<th><?php echo $v['title'];?></th>
+									<?php endforeach;?>
+									<th>备注</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php 
+									$sum_xm=$sum_lc=0;
+									if($model->pros)
+									foreach ($model->pros as $key => $value): 
+										$ProjectInfo=\ProjectInfo::model()->findByPk($value['project_id']);
+										$OrderSaleDetail=\OrderSaleDetail::model()->findByPk($value['detail_id']);
+										$CustomerReProject=\CustomerReProject::model()->find("detail_id={$value['detail_id']}");
+										$ProjectFormula=\ProjectFormula::model()->findByPk($value['formula_id']);
+										$sum_xm++;
+										$sum_lc+=$value['use_num'];
+								?>
+									<tr class="table_list">
+									<?php foreach($list as $v):?>
+									<td><?php echo $v['score'];?></td>
+									<?php endforeach;?>
+									<td><?php echo $list[0]['note']?$list[0]['note']:'无';?></td>
+									</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					</div>
+                </div>
+            </div>
+        </div>
+        </div>
+		<?php endif;?>
+
+
+		<!--备注-->
+		<div class="pos_cz_tow pos_cz_for_bz">
+			<div class="pos_cz_for_bz01">备注</div>
+			<div class="pos_cz_for_bz02">
+				<div class="pos_cz_for_bz02_son">
 				<?php echo $model?$model->o_s->note:"" ?>
-			</div>
-		</div>
-	</div>
-	<!--备注!end--> 
-	
-	<!---->
-	<?php if ($model->o_s->status==0): ?>
-	<div class="pos_cz_zh"><a href="javascript:;" class="pos_cz_zh_an action_hk">确认卡扣</a></div>
-	<?php endif;?>
-	<div class="pos_cz_zh_01">本次实操疗次合计：<span class="pos_scd01"><?php echo $sum_lc ?></span>&nbsp;次</div>
-	<!--!end--> 
-<?php if($list):?>
-	<div class="pos_cz_tow" style="margin-top: 40px;">
-		<div class="pos_cz_qr_02">客户满意度</div>
-		<div class="pos_cz_tow_two pos_cz_qr_top"> 
-			<!--table_container-->
-			<div class="table_container"> 
-				<!--table_con-->
-				<div class="table_con"> 
-					<!--table_con_son-->
-					<div class="table_con_son">
-						<div class="table_title pos_news_zeng">
-							<ul>
-								<?php foreach($list as $v):?>
-								<li><?php echo $v['title'];?></li>
-								<?php endforeach;?>
-								<li>备注</li>
-							</ul>
-						</div>
-						<div class="table_list">
-							<ul>
-								<?php foreach($list as $v):?>
-								<li><?php echo $v['score'];?></li>
-								<?php endforeach;?>
-								<li><?php echo $list[0]['note']?$list[0]['note']:'无';?></li>
-							</ul>
-						</div>
-					</div>
-					<!--table_con_son!end--> 
-					
 				</div>
-				<!--table_con!end--> 
 			</div>
-			<!--table_containter!end--> 
 		</div>
-	</div>
-<?php endif;?>
+		<!--备注!end-->
+
+		
+
+
+
+    </div>
 </div>
-<!--content_right_con!end-->
-<script type="text/javascript">
-	$("#cancelOrder").click(function(){
-        if(confirm("您确定要废弃此订单吗？")){
-            var data={};
-            data.__hash__ = $("input[name='__hash__']").val();//表单令牌
-            $.post("<?php echo $this->url('cancel',array('id'=>$model->o_s->id)) ?>",data,function(data){
-                Idialog.tips(data.msg,2);
-                if(data.code==200){
-                    setTimeout(function(){to_url('<?php echo $this->url("view",array('id'=>$model->o_s->id));?>')},2000);
-                }
-            }, "json");
-        }
-    });
-    //确认卡扣
-    $(".action_hk").click(function(){
-        if(confirm("确认卡扣?")){
-            var data={};
-            data.__hash__ = $("input[name='__hash__']").val();//表单令牌
-            $.post("<?php echo $this->url('paySave',array('id'=>$model->o_s->id)) ?>",data,function(data){
-                Idialog.tips(data.msg,2);
-                if(data.code==200){
-                	if(data.data===true){
-                		$.post("<?php echo $this->url('wxSendWj',array('id'=>$model->o_s->id)) ?>", '', function(data) {
-                			/*optional stuff to do after success */
-                		});
-                    	setTimeout(function(){to_url('<?php echo $this->url("view",array('id'=>$model->o_s->id));?>')},2000);
-                	}else{
-                		var html=' 耗卡成功。警告：您当前所扣实操项目的设置中，存在问题：<br>1. 项目的配方配置不完善，<br>2. 配方中的商品不存在。以上问题将会导致库存管理的准确性失去控制。<br>建议您尽快联系管理员，为所有项目建立配方，前台人员也需要为本店建立好期初库存。'+data.data;
-                		var d = Idialog({
-								top:120,
-								width:600,
-								title:'警告',
-								content:html,
-								ok:function(obj){
-									$.post("<?php echo $this->url('wxSendWj',array('id'=>$model->o_s->id)) ?>", '', function(data) {
-			                			/*optional stuff to do after success */
-			                		});
-									to_url('<?php echo $this->url("view",array('id'=>$model->o_s->id));?>');
-								},
-								cancel:false,
-								init:function(self){
-									self.parents('.idialog_body').find(".idialog_ok").html('我知道了');
-									self.parents('.idialog_body').siblings('.idialog_title').find('span').remove();
-								},
-							});
-                	}
-                }
-            }, "json");
-        }
-    });
-</script>
+
+{__TOKEN__} 
+
+
+
+
+
+
