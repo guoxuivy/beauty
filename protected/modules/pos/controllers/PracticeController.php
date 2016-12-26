@@ -115,7 +115,7 @@ class PracticeController extends BaseController
 	public function addAction($id=null){
 		if(is_null($id))
 			throw new CException('无效客户id');
-		$cu_info=$this->getCuInfo($id,true);
+		$cu_info=$this->getCuInfo($id);
 		$CustomerReProject=\CustomerReProject::getReProList($id);
 		$this->view->assign(array(
 			"id"                =>$id,

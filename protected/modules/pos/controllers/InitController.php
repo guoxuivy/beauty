@@ -114,7 +114,7 @@ class InitController extends BaseController
 			->where("status =1 and comp_id=".$this->company['id'] )
 			->findAll();
 		$this->view->assign(array(
-			"cu_info"=>$this->getCuInfo($model->o_s->cu_id,$is_view),	//客户信息渲染
+			"cu_info"=>$this->getCuInfo($model->o_s->cu_id),	//客户信息渲染
 			"gift"=>$this->getGift($id,$is_view),						//业绩比例渲染
 			"model"=>$model,											//订单货物模型
 			"capital_list"=>$capital_list,
@@ -170,7 +170,7 @@ class InitController extends BaseController
 			->where("status =1 and comp_id=".$this->company['id'] )
 			->findAll();
 		$this->view->assign(array(
-			"cu_info"=>$this->getCuInfo($model->o_s->cu_id,$is_view),	//客户信息渲染
+			"cu_info"=>$this->getCuInfo($model->o_s->cu_id),	//客户信息渲染
 			"gift"=>$this->getGift($id,$is_view),						//业绩比例渲染
 			"model"=>$model,											//订单货物模型
 			"capital_list"=>$capital_list,

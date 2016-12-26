@@ -1,158 +1,139 @@
-
-<!--content_right_con-->
-<div class="content_right_con">
-    <div class="content_right_con_top">
-        <!--<div class="fjgl_top_r">
-          <a href="javascript:" class="khgl_02 fpkhn">分配客户</a><a href="javascript:" class="fjgl_top_r_01">筛选</a><a href="javascript:" class="fjgl_top_r_02 tjfjz">添加客户</a>
-        </div>-->
-        <div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>POS开单><span>充值</span>>订单确认
-    </div>
-
-    <!---->
-    <div class="jyjl_top jyjl_czda_top pos_cz_qr01">
-        <div class="jyjl_czda_top_l">
-            <div class="jyjl_czda_top_top">订单提交成功</div>
-            <div class="jyjl_czda_top_two">
-                订单编号：<span><?php echo $model->o_s->sn;?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                订单状态：<span class="spanll"><?php echo $model->orderPayStatus ?></span></span>
+<link href="<?php echo $this->basePath('public');?>/css/pos.css" rel="stylesheet" type="text/css"/>
+<div class="row">
+    <div class="print_show col-md-12">
+        <div class="portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-eye-slash"></i>充值/订单确认
+                </div>
+                <div class="tools">
+                    <button onclick="to_url('<?php echo $this->url("edit");?>&id=<?php echo $_GET['id']?>')" class="btn btn-sm green table-group-action-submit"><i class="fa fa-mail-forward"></i>更新订单</button>
+                    <button onclick="to_url('<?php echo $this->url("pay",array('id'=>$model->o_s->id)) ?>')" class="btn btn-sm blue table-group-action-submit"><i class="fa fa-mail-forward "></i>付款</button>
+                    <button id="cancelOrder" class="btn btn-sm red table-group-action-submit"><i class="fa fa-eraser"></i>废除</button>
+                </div>
             </div>
         </div>
-        <div class="jyjl_czda_top_r">
-            <a href="javascript:" id="cancelOrder">废弃订单</a>|<a href="<?php echo $this->url("edit");?>&id=<?php echo $_GET['id']?>">修改</a>&nbsp;
-            <a href="<?php echo $this->url("add");?>&id=<?php echo $model->o_s->cu_id?>" class="aysh01">继续开单</a>
-            <a href="javascript:" class="aysh nowPay">立即付款</a></div>
-        <!--<div class="jyjl_czda_top_r"><select></select><a href="javascript:" class="aysh01">修改订单</a><a href="javascript:" class="aysh01">打印订单</a><a href="javascript:" class="aysh">审核订单</a><a href="javascript:" class="aysh02">审核已订单</a></div>-->
-    </div> <!---->
 
-    <!--订单跟踪-->
-    <div class="pos_cz_tow pos_cz_qr01" style="margin-bottom:20px">
-        <div class="pos_cz_tow_top pos_cz_qr_02">订单跟踪</div>
-        <div class="pos_cz_tow_two">
-            <!--table_container-->
-            <div class="table_container" style="border:none">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="portlet solid green-haze">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-cogs"></i>订单概况
+                        </div>
+                        <div class="actions"><button class="btn red"><font class="price_all"><?php echo empty($model)?0:$model->o_s->pay_price?></font>￥</button></div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row static-info">
+                            <div class="col-xs-5 name">订单号：</div>
+                            <div class="col-xs-7 value text-right">
+                                 <?php echo $model->o_s->sn ?>
+                            </div>
+                        </div>
+
+                        <div class="scroller" style="height:140px" data-rail-visible="1" data-rail-color="blue" data-handle-color="red">
+                            
+
+                           
+
+                            <div class="row static-info">
+                                <div class="col-xs-5 name">订单状态：</div>
+                                <div class="col-xs-7 value text-right">
+                                    <span class="label label-warning label-sm">
+                                    <?php 
+                                        if($model){
+                                            echo \OrderSale::getPayStatus($model->o_s->pay_status);
+                                        }else{
+                                            echo "新建";
+                                        }
+                                    ?>
+                                    </span>
+                                    <?php if($model->o_s->rh_id):?>
+                                    <span class="label label-success label-sm">新客入会</span>
+                                    <?php endif;?>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+                <div class="portlet solid red-intense">
+                    <div class="portlet-body" style="padding-top: 10px;">
+                        <?php echo $cu_info ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--销售人员及业绩比例-->
+        <?php echo $effect ?>
+        <!--销售人员及业绩比例!end-->
+
+
+        <div class="pos_cz_tow ">
+            <div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>充值账户</div>
+            <div class="pos_cz_tow_two">
+                <!--table_container-->
+                <div class="table_container">
                 <!--table_con-->
-                <div class="table_con" style="border:none; margin-right:0px;">
+                <div class="table_con" >
                     <!--table_con_son-->
-                    <div class="table_con_son">
-                        <div class="table_title pos_cz_qr_03">
-                            <ul>
-                                <li style="width: 200px;">处理时间</li>
-                                <li style="width: 500px;">处理信息</li>
-                                <li style="width: 200px;">操作人</li>
-                            </ul>
-                        </div>
-
-                        <div class="table_list">
-                            <ul>
-                                <li class="li001"><?php echo $model->o_s->create_time?></li>
-                                <li class="li002">您提交了订单，等待客户付款！</li>
-                                <li class="li003"><?php echo $model->employName ?></li>
-
-                            </ul>
-                        </div>
-
-                    </div><!--table_con!end-->
-                </div><!--table_con!end-->
-            </div>
-            <!--table_containter!end-->
-        </div>
-    </div><!--订单跟踪!end-->
-
-    <!--khgl_shouye-->
-    <?php echo $cu_info ?>
-    <!--khgl_shouye!end-->
-    <!--销售人员及业绩比例-->
-    <div class="pos_cz_tow">
-        <div class="pos_cz_tow_top pos_cz_qr_02">销售人员及业绩比例</div>
-        <div class="pos_cz_tow_two">
-
-            <div class="pos_cz_tow_two_top pos_cz_qr_04">
-                <?php foreach($effect_list as $effect):?>
-                    <?php echo $effect['name'].'('.$effect['position_name'].')';?>：<span><?php echo $effect['rate']?>%</span>
-                <?php endforeach;?>
-            </div>
-        </div>
-    </div>
-    <!--销售人员及业绩比例!end-->
-
-    <!--充值-->
-    <div class="pos_cz_tow">
-        <div class="pos_cz_tow_top pos_cz_qr_02">订单信息</div>
-        <div class="pos_cz_tow_two pos_cz_qr_top">
-            <!--table_container-->
-            <div class="table_container">
-                <!--<div class="table_title_tj  pos_cz_qr_top_01">...</div>-->
-                <!--table_con-->
-                <div class="table_con pos_cz_qr_top_04" style="margin-right:0px;">
-
-                    <!--table_con_son-->
-                    <div class="table_con_son">
-                        <div class="pos_sp_title">充值</div>
-                        <div class="table_title pos_news_zeng">
-                            <ul>
-                                <?php foreach($cu_capitals as $cu_capital):?>
-                                    <li><?php echo $cu_capital['name'];?></li>
-                                <?php endforeach;?>
-                            </ul>
-                        </div>
-
-                        <div class="table_list">
-                            <ul>
+                    <div class="table_con_son table-responsive">
+                        <table class="table table-bordered table-hover pos_table">
+                            <thead>
+                                <tr>
+                                    <?php foreach($cu_capitals as $cu_capital):?>
+                                    <th><?php echo $cu_capital['name'];?></th>
+                                    <?php endforeach;?>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="cz_money">
                                 <?php $i=1;foreach($cu_capitals as $cu_capital):?>
-                                    <li class="li00<?php echo $i;?>"><?php echo $cu_capital['price'];?></li>
+                                    <td class="li00<?php echo $i;?>"><?php echo $cu_capital['price'];?></td>
                                 <?php $i++;endforeach;?>
-                            </ul>
-                        </div>
+                                </tr>
+                            </tbody>
+                        </table>
 
-                        <div class="pos_cz_tow_two_two"><span class="pos_cz_tow_two04">应付金额：<em><?php echo $model->o_s->price;?></em>&nbsp;元</span></div>
 
+                        
                     </div><!--table_con_son!end-->
-
                 </div><!--table_con!end-->
+                </div>
+                <!--table_containter!end-->
+                <div class="pos_cz_tow_two_two pos_gm_02_border_top"><span class="pos_cz_tow_two04">应付金额：<em class="price_all"><?php echo empty($model)?0:$model->o_s->pay_price?></em>&nbsp;元</span></div>
             </div>
-            <!--table_containter!end-->
+        </div><!--购买项目!end-->
+
+        <!--赠送-->
+        <?php echo $gift_view;?>
+        <!--赠送!end-->
+
+        <!--备注-->
+        <div class="pos_cz_tow pos_cz_for_bz">
+            <div class="pos_cz_for_bz01">备注</div>
+            <div class="pos_cz_for_bz02">
+                <div class="pos_cz_for_bz02_son"><?php echo empty($model)?'':$model->o_s->note?></div>
+            </div>
+        </div><!--备注!end-->
 
 
-            <?php echo $gift_view;?>
 
-        </div>
-    </div><!--充值!end-->
-
-    <!--备注-->
-    <div class="pos_cz_tow pos_cz_for_bz">
-        <div class="pos_cz_for_bz01 pos_cz_qr_top_07">备注</div>
-        <div class="pos_cz_for_bz02">
-            <div class="pos_cz_for_bz02_son"><?php echo $model->o_s->note?></div>
-        </div>
-    </div><!--备注!end-->
-
-    <!---->
-    <div class="pos_cz_tow pos_cz_zh before">
-        <a href="javascript:" class="pos_cz_zh_an">立即付款</a>
-        <div class="pos_cz_zh_01">应付总金额：<span class="pos_cz_zh_02">￥<?php echo $model->o_s->price;?></span></div>
-    </div><!--!end-->
-
-    <!---->
-    <div class="pos_cz_tow pos_cz_zh after" style="display: none;">
-        <a href="javascript:" class="pos_cz_zh_an_hover">正在跳转到付款页面，请稍后...</a>
-        <div class="pos_cz_zh_01">应付总金额：<span class="pos_cz_zh_02">￥<?php echo $model->o_s->price;?></span></div>
-    </div><!--!end-->
-
-
+    </div>
 </div>
-<!--content_right_con!end-->
+
 
 {__TOKEN__}
 
 <script type="text/javascript">
-
-    //数据提交
-    $(".pos_cz_zh_an,.nowPay").click(function(){
-        //$('.c_submit img').attr("src","<?php echo $this->basePath('public');?>/images/pos_cz_011.png");
-        $('.pos_cz_tow.pos_cz_zh.before').hide();
-        $('.pos_cz_tow.pos_cz_zh.after').show();
-        setTimeout(function(){to_url('<?php echo $this->url("pay");?>&id=<?php echo $_GET['id']?>')},3000);
-    });
 
     function to_url(url){
         window.location.href=url;

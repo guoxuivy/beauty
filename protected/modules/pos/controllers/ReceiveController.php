@@ -148,7 +148,7 @@ class ReceiveController extends BaseController
         $this->view
             ->assign(
                 array(
-                    "cu_info"=>$this->getCuInfo($model->cu_id,$is_view),							//客户信息渲染
+                    "cu_info"=>$this->getCuInfo($model->cu_id),							//客户信息渲染
                     "detail_nums"=>$detail_nums,
                     "model"=>$model,
                     "storageProducts"=>$storageProducts,

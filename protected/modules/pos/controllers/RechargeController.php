@@ -103,6 +103,8 @@ class RechargeController extends BaseController
             "cu_capitals"=>$cu_capitals,				//客户充值账号和金额
             "gift_view"=>$gift_view,				//客户充值账号和金额
             "effect_list"=>$effect_list,				//客户充值账号和金额
+
+            "effect"=>$this->getEffect($id,true),                   //业绩比例渲染
             "light_nav"=>$this->url('add'),				//需要点亮的导航
         ))->display('order');
     }
@@ -135,7 +137,7 @@ class RechargeController extends BaseController
             $details[$detail['pro_id']] = $detail['price'];
         }
         $this->view->assign(array(
-            "cu_info"=>$this->getCuInfo($model->o_s->cu_id,$is_view),	//客户信息渲染
+            "cu_info"=>$this->getCuInfo($model->o_s->cu_id),	//客户信息渲染
             "effect"=>$this->getEffect($id,$is_view),					//业绩比例渲染
             "gift"=>$this->getGift($id,$is_view),						//业绩比例渲染
             "model"=>$model,											//订单货物模型

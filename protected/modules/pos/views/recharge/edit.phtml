@@ -1,81 +1,139 @@
+<link href="<?php echo $this->basePath('public');?>/css/pos.css" rel="stylesheet" type="text/css"/>
+<div class="row">
+    <div class="print_show col-md-12">
+        <div class="portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-eye-slash"></i>充值/订单编辑
+                </div>
+                <div class="tools">
+                    <?php if (!$model): ?>
+                        <button class="btn btn-sm green table-group-action-submit c_submit"><i class="fa fa-check"></i>提交订单</button>
+                    <?php else: ?>
+                        <button class="btn btn-sm green table-group-action-submit c_submit"><i class="fa fa-check"></i>更新订单</button>
+                        <button onclick="to_url('<?php echo $this->url("pay",array('id'=>$model->o_s->id)) ?>')" class="btn btn-sm blue table-group-action-submit"><i class="fa fa-mail-forward "></i>付款</button>
+                        <button onclick="to_url('<?php echo $this->url("del",array('id'=>$model->o_s->id)) ?>')" class="btn btn-sm red table-group-action-submit"><i class="fa fa-eraser"></i>废除</button>
+                    <?php endif ?>
+                </div>
+            </div>
+        </div>
 
-<!--content_right_con-->
-<div class="content_right_con">
-    <div class="content_right_con_top">
-        <!--<div class="fjgl_top_r">
-          <a href="javascript:" class="khgl_02 fpkhn">分配客户</a><a href="javascript:" class="fjgl_top_r_01">筛选</a><a href="javascript:" class="fjgl_top_r_02 tjfjz">添加客户</a>
-        </div>-->
-        <div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>POS开单><span>充值</span>>订单编辑
-    </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="portlet solid green-haze">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-cogs"></i>订单概况
+                        </div>
+                        <div class="actions"><button class="btn red"><font class="price_all">0</font>￥</button></div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row static-info">
+                            <div class="col-xs-5 name">订单号：</div>
+                            <div class="col-xs-7 value text-right">
+                                 <?php echo $model->o_s->sn ?>
+                            </div>
+                        </div>
 
-    <!--khgl_shouye-->
-    <?php echo $cu_info ?>
-    <!--khgl_shouye!end-->
-    <!--销售人员及业绩比例-->
-    <?php echo $effect ?>
-    <!--销售人员及业绩比例!end-->
+                        <div class="scroller" style="height:140px" data-rail-visible="1" data-rail-color="blue" data-handle-color="red">
+                          
+                            <div class="row static-info">
+                                <div class="col-xs-5 name">订单状态：</div>
+                                <div class="col-xs-7 value text-right">
+                                    <span class="label label-warning label-sm">
+                                    <?php 
+                                        if($model){
+                                            echo \OrderSale::getPayStatus($model->o_s->pay_status);
+                                        }else{
+                                            echo "新建";
+                                        }
+                                    ?>
+                                    </span>
+                                    <?php if($model->o_s->rh_id):?>
+                                    <span class="label label-success label-sm">新客入会</span>
+                                    <?php endif;?>
+                                </div>
+                            </div>
 
-    <!--充值-->
-    <div class="pos_cz_tow">
-        <div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>充值</div>
-        <div class="pos_cz_tow_two">
-            <!--table_container-->
-            <div class="table_container" style="border:none;">
-                <div class="table_title_tj pos_cz_tow_two06">...</div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+                <div class="portlet solid red-intense">
+                    <div class="portlet-body" style="padding-top: 10px;">
+                        <?php echo $cu_info ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--销售人员及业绩比例-->
+        <?php echo $effect ?>
+        <!--销售人员及业绩比例!end-->
+
+
+        <div class="pos_cz_tow ">
+            <div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>充值账户</div>
+            <div class="pos_cz_tow_two">
+                <!--table_container-->
+                <div class="table_container">
                 <!--table_con-->
-                <div class="table_con" style="border:none; margin-right:0px;">
+                <div class="table_con" >
                     <!--table_con_son-->
-                    <div class="table_con_son">
-                        <div class="table_title">
-                            <ul>
-                                <?php foreach($cu_capitals as $cu_capital):?>
-                                    <li><?php echo $cu_capital['name']?>（元）</li>
-                                <?php endforeach;?>
-                            </ul>
-                        </div>
-                        <?php //var_dump($cu_capitals);?>
-                        <div id="cz_money" class="table_list">
-                            <ul>
+                    <div class="table_con_son table-responsive">
+                        <table class="table table-bordered table-hover pos_table">
+                            <thead>
+                                <tr>
+                                    <?php foreach($cu_capitals as $cu_capital):?>
+                                    <th><?php echo $cu_capital['name'];?></th>
+                                    <?php endforeach;?>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="cz_money">
                                 <?php for($i=0;$i<count($cu_capitals);$i++):?>
-                                    <li class="li00<?php echo $i+1;?>">
+                                    <td class="li00<?php echo $i+1;?>">
                                         <input capitalid="<?php echo $cu_capitals[$i]['id']?>" type="text" class="pos_cz_tow_two05" value="<?php echo empty($details[$cu_capitals[$i]['id']])?'':(int)$details[$cu_capitals[$i]['id']];?>"/>
-                                    </li>
+                                    </td>
                                 <?php endfor;?>
-                            </ul>
-                        </div>
+                                </tr>
+                            </tbody>
+                        </table>
 
+
+                        
                     </div><!--table_con_son!end-->
                 </div><!--table_con!end-->
+                </div>
+                <!--table_containter!end-->
+                <div class="pos_cz_tow_two_two pos_gm_02_border_top"><span class="pos_cz_tow_two04">应付金额：<em class="price_all"><?php echo empty($model)?0:$model->o_s->pay_price?></em>&nbsp;元</span></div>
             </div>
-            <!--table_containter!end-->
-            <div class="pos_cz_tow_two_two pos_cz_qr_top_02"><span class="pos_cz_tow_two04">应付金额：<em><?php echo empty($model)?0:$model->o_s->pay_price?></em>&nbsp;元</span></div>
-        </div>
-    </div><!--充值!end-->
+        </div><!--购买项目!end-->
 
-    <!--赠送-->
-    <?php echo $gift ?>
-    <!--赠送!end-->
+        <!--赠送-->
+        <?php echo $gift ?>
+        <!--赠送!end-->
 
-    <!--备注-->
-    <div class="pos_cz_tow pos_cz_for_bz">
-        <div class="pos_cz_for_bz01">备注</div>
-        <div class="pos_cz_for_bz02">
-            <div class="pos_cz_for_bz02_son"><textarea class="order_note" rows="4"><?php echo empty($model)?'':$model->o_s->note?></textarea></div>
-        </div>
-    </div><!--备注!end-->
+        <!--备注-->
+        <div class="pos_cz_tow pos_cz_for_bz">
+            <div class="pos_cz_for_bz01">备注</div>
+            <div class="pos_cz_for_bz02">
+                <div class="pos_cz_for_bz02_son"><textarea class="order_note" rows="4"><?php echo empty($model)?'':$model->o_s->note?></textarea></div>
+            </div>
+        </div><!--备注!end-->
 
-    <!---->
-    <div class="pos_cz_tow pos_cz_zh before">
-        <a href="javascript:" class="pos_cz_zh_an">提交订单</a>
-        <div class="pos_cz_zh_01">应付总金额：<span class="pos_cz_zh_02">￥<?php echo empty($model)?0:$model->o_s->pay_price?></span></div>
-    </div><!--!end-->
-    <!---->
-    <div class="pos_cz_tow pos_cz_zh after" style="display: none;">
-        <a href="javascript:" class="pos_cz_zh_an_hover">正在提交订单，请稍后...</a>
-        <div class="pos_cz_zh_03">应付总金额：<span class="pos_cz_zh_02">￥<?php echo empty($model)?0:$model->o_s->pay_price?></span></div>
-    </div><!--!end-->
+
+
+    </div>
 </div>
-<!--content_right_con!end-->
+
+
 
 {__TOKEN__}
 
@@ -113,18 +171,16 @@
                 });
             }
         }
-        $('.pos_cz_tow_two04').find('em').text(total);
-        $('.pos_cz_zh_02').html('￥'+total);
+        $('.price_all').text(total);
     });
 
     //数据提交
-    $(".before .pos_cz_zh_an").click(function(){
+    $(".c_submit").click(function(){
         var post_data=submit_data();
         if(post_data==false){
             return false;
         }
-        $('.pos_cz_tow.pos_cz_zh.before').hide();
-        $('.pos_cz_tow.pos_cz_zh.after').show();
+        $('.c_submit').addClass("disabled");
 
         <?php if ($model): ?>
             var url="<?php echo $this->url('editSave',array('id'=>$model->o_s->id)) ?>";
@@ -132,12 +188,12 @@
             var url="<?php echo $this->url('addSave') ?>";
         <?php endif ?>
         $.post(url, post_data,function(data){
-            $('.c_submit img').attr("src","<?php echo $this->basePath('public');?>/images/pos_cz_10.png");
             Idialog.tips(data.msg,2);
             if(data.code==200){
                 //转到付款界面
                 setTimeout(function(){to_url('<?php echo $this->url("order");?>&id='+data.data)},1000);
             }
+            $('.c_submit').removeClass("disabled");
         }, "json");
     });
 
