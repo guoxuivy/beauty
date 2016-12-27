@@ -371,7 +371,7 @@ class RepayController extends BaseController
 		$this->view->assign(array(
 			"model"=>$model,	
 			"cu_info"=>$cu_info,							//客户信息渲染
-            "effect"=>$this->getEffect(null),
+            "effect"=>$this->getEffect($id,true),
             "effect_list"=>$effect_list,
 			"order_sale_detail"=>$order_sale_detail,
 			"light_nav"=>$this->url('index'),				//需要点亮的导航

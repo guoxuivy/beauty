@@ -1,113 +1,153 @@
-<style>
-    .add_capitals.cpm{
-        border: 1px solid #ccc;border-radius: 2px;height: 24px;text-align: center;color: #999999;font-size: 11px;cursor: pointer;
-    }
-</style>
-<!--content_right_con-->
-<div class="content_right_con">
-    <div class="content_right_con_top">
-        <!--<div class="fjgl_top_r">
-          <a href="javascript:" class="khgl_02 fpkhn">分配客户</a><a href="javascript:" class="fjgl_top_r_01">筛选</a><a href="javascript:" class="fjgl_top_r_02 tjfjz">添加客户</a>
-        </div>-->
-        <div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>POS开单><span>还款</span>
-    </div>
+<link href="<?php echo $this->basePath('public');?>/css/pos.css" rel="stylesheet" type="text/css"/>
 
-    <!--khgl_shouye-->
-    <?php echo $cu_info ?>
-    <!--khgl_shouye!end-->
-    <!--销售人员及业绩比例-->
-    <?php echo $effect ?>
-    <!--销售人员及业绩比例!end-->
+<div class="row">
+    <div class="print_show col-md-12">
+        <div class="portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-pencil"></i>POS开单/还款
+                </div>
+                <div class="tools">
+                    <button class="btn btn-sm green table-group-action-submit c_submit"><i class="fa fa-check"></i>提交订单</button>
+                </div>
+            </div>
+        </div>
 
-    <!--欠款订单-->
-    <div class="pos_cz_tow">
-        <div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>欠款订单</div>
-        <div class="pos_cz_tow_two">
-            <!--table_container-->
-            <div class="table_container" style="border:none;">
-                <!--table_con-->
-                <div class="table_con">
-                    <!--table_con_son-->
-                    <div class="table_con_son">
-                        <div class="table_title">
-                            <ul>
-                                <li style="width: 150px;">订单成交日期</li>
-                                <li>订单号</li>
-                                <li>欠款商品名称</li>
-                                <li>欠款金额(元)</li>
-                                <li style="width: 130px;">现金账户卡扣还款(元)</li>
-                                <li>现金还款(元)</li>
-                                <li>操作</li>
-                            </ul>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="portlet solid green-haze">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-money"></i>应付金额
                         </div>
-                        <?php $total=0; foreach($arrears_order_detail as $detail):?>
-                            <?php
-                                $order_sale = \OrderSale::model()->findByPk($detail['order_id']);
-                                $cpm = $detail['repay_capitals']['money'];
-                            ?>
-                            <div id="order_detail<?php echo $detail['id']?>" class="table_list khgl_com order_detail">
-                                <!--<div class="khgl_radio_list"><input value="<?php /*echo $detail['id'];*/?>" type="checkbox" /></div>-->
-                                <ul>
-                                    <li class="li001"><?php echo $detail['create_time'];?></li>
-                                    <li class="li002"><?php echo $order_sale->sn?></li>
-                                    <li class="li003"><?php echo $detail['pro_name'];?></li>
-                                    <li class="li004 arrears"><?php echo $detail['arrears']?></li>
-                                    <li class="li005">
-                                        <input type="hidden" name="capitals[]" value="<?php echo $detail['repay_capitals']['capital']?>">
-                                        <input type="hidden" name="proInfo[]" value="<?php echo $detail['pro_id'].'|'.$detail['pro_type'].'|'.$detail['id']?>">
-                                        <input value="<?php echo !empty($cpm)?$cpm:'点击选择还款账户'?>" class="add_capitals <?php echo !empty($cpm)?'pos_cz_tow_two05':'cpm'?>" datatype="<?php echo $detail['pro_id'].'|'.$detail['pro_type'].'|'.$detail['id']?>" type="text" readonly="readonly" style="cursor: pointer;"/>
-                                    </li>
-                                    <li class="li006"><input value="<?php echo empty($detail['repay_cash'])?'':(int)$detail['repay_cash'];?>" name="cash[]" type="text" class="pos_cz_tow_two05" /></li>
-                                    <li class="li006">
-                                        <a class="view khca" href="<?php echo $this->url('/pos/sale/edit',array('id'=>$order_sale->id));?>">
-                                            <span class="khca_son"><img src="<?php echo $this->basePath('public');?>/images/kh_05.png"></span>查看
-                                        </a>
-                                    </li>
-                                </ul>
+                        <div class="actions"><button class="btn red">
+                        <font class="money_all"><?php echo $model->o_s->pay_price; ?></font> 元</button>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row static-info">
+                            <div class="col-xs-5 name">订单号：</div>
+                            <div class="col-xs-7 value text-right">
+                                 <?php echo $model->o_s->sn ?>
                             </div>
-                        <?php $total+=$cpm+$detail['repay_cash'];endforeach;?>
-                    </div><!--table_con_son!end-->
-                </div><!--table_con!end-->
+                        </div>
+
+                    
+                  
+                        <div class="row static-info">
+                            <div class="col-xs-5 name">订单类型：</div>
+                            <div class="col-xs-7 value text-right">
+                                <?php echo $model->orderType ?>
+                            </div>
+                        </div>
+                        <div class="row static-info">
+                            <div class="col-xs-5 name">还款订单：</div>
+                            <div class="col-xs-7 value text-right">
+                                <?php echo count($arrears_order_detail);?> 个
+                            </div>
+                        </div>
+
+                        <div class="row static-info">
+                            <div class="col-xs-5 name">还款时间：</div>
+                            <div class="col-xs-7 value text-right">
+                                <?php echo $model->o_s->create_time ?>
+                            </div>
+                        </div>
+                        <div class="row static-info">
+                            <div class="col-xs-5 name">操作人：</div>
+                            <div class="col-xs-7 value text-right">
+                                <?php echo $model->employName ?>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
             </div>
-            <!--table_containter!end-->
-            <div class="pos_cz_tow_two_two">
-                <span class="pos_cz_tow_two04 pos_gm_02">应付金额：<em><?php echo sprintf("%.2f",$total);?></em>&nbsp;元</span>
-                <span class="pos_gm_01">还款订单<span class="pos_gm_03"><?php echo count($arrears_order_detail);?></span>个</span>
-                <span class="pos_gm_01">还款总额：<span class="pos_gm_04">￥<?php echo sprintf("%.2f",$total);?></span></span>
+
+            <div class="col-md-6 col-sm-12">
+                <div class="portlet solid red-intense">
+                    <div class="portlet-body" style="padding-top: 10px;">
+                        <?php echo $cu_info ?>
+                    </div>
+                </div>
             </div>
         </div>
-    </div><!--欠款订单!end-->
 
-    <!--备注-->
-    <div class="pos_cz_tow pos_cz_for_bz">
-        <div class="pos_cz_for_bz01">备注</div>
-        <div class="pos_cz_for_bz02">
-            <div class="pos_cz_for_bz02_son"><textarea rows="4"></textarea></div>
-        </div>
-    </div><!--备注!end-->
+        <!--销售人员及业绩比例-->
+        <?php echo $effect ?>
+        <!--销售人员及业绩比例!end-->
 
-    <!---->
-    <div class="pos_cz_tow pos_cz_zh before">
-        <a href="javascript:" class="pos_cz_zh_an">
-            <!--<img src="<?php /*echo $this->basePath('public');*/?>/images/pos_cz_10.png" />-->
-            提交订单
-        </a>
-        <div class="pos_cz_zh_01">应付总金额：<span class="pos_cz_zh_02">￥<?php echo sprintf("%.2f",$total);?></span></div>
-    </div><!--!end-->
+        <div class="row" style="margin-top:20px;">
+            <div class="col-md-12">
+                <div class="portlet box blue-steel">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-cogs"></i>欠款订单
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>订单成交日期</th>
+                                    <th>订单号</th>
+                                    <th>欠款商品名称</th>
+                                    <th>欠款金额(元)</th>
+                                    <th>现金账户卡扣还款(元)</th>
+                                    <th>现金还款(元)</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $total=0; foreach($arrears_order_detail as $detail):?>
+                                <?php
+                                    $order_sale = \OrderSale::model()->findByPk($detail['order_id']);
+                                    $cpm = $detail['repay_capitals']['money'];
+                                ?>
+                                <tr id="order_detail<?php echo $detail['id']?>" class="table_list khgl_com order_detail">
+                                        <td><?php echo $detail['create_time'];?></td>
+                                        <td><?php echo $order_sale->sn?></td>
+                                        <td><?php echo $detail['pro_name'];?></td>
+                                        <td class="arrears"><?php echo $detail['arrears']?></td>
+                                        <td>
+                                            <input type="hidden" name="capitals[]" value="<?php echo $detail['repay_capitals']['capital']?>">
+                                            <input type="hidden" name="proInfo[]" value="<?php echo $detail['pro_id'].'|'.$detail['pro_type'].'|'.$detail['id']?>">
+                                            <input value="<?php echo !empty($cpm)?$cpm:'点击选择还款账户'?>" class="add_capitals <?php echo !empty($cpm)?'pos_cz_tow_two05':'cpm'?>" datatype="<?php echo $detail['pro_id'].'|'.$detail['pro_type'].'|'.$detail['id']?>" type="text" readonly="readonly" style="cursor: pointer;"/>
+                                        </td>
+                                        <td><input value="<?php echo empty($detail['repay_cash'])?'':(int)$detail['repay_cash'];?>" name="cash[]" type="text" class="pos_cz_tow_two05" /></td>
+                                        <td>
+                                            <a class="btn default btn-xs green-stripe khca" href="<?php echo $this->url('/pos/sale/edit',array('id'=>$order_sale->id));?>">
+                                                查看
+                                            </a>
+                                        </td>
+                                </tr>
+                            <?php $total+=$cpm+$detail['repay_cash'];endforeach;?>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
 
-    <!---->
-    <div class="pos_cz_tow pos_cz_zh after" style="display: none;">
-        <a href="javascript:" class="pos_cz_zh_an_hover">
-            <!--<img src="<?php /*echo $this->basePath('public');*/?>/images/pos_cz_011.png" />-->
-            正在提交订单
-        </a>
-        <div class="pos_cz_zh_03">应付总金额：<span class="pos_cz_zh_02">￥<?php echo sprintf("%.2f",$total);?></span></div>
-    </div><!--!end-->
+        <!--备注-->
+        <div class="pos_cz_tow pos_cz_for_bz">
+            <div class="pos_cz_for_bz01">备注</div>
+            <div class="pos_cz_for_bz02">
+                <div class="pos_cz_for_bz02_son"><textarea rows="4"></textarea></div>
+            </div>
+        </div><!--备注!end-->
+
+
+    </div>
 </div>
-<!--content_right_con!end-->
+
+
 
 <!--tjfj-->
-<div class="tjfj" style="top:100px; display:none;z-index: 1;">
+<div class="tjfj" style="display:none;">
 
 </div>
 
@@ -115,18 +155,7 @@
 
 <script type="text/javascript">
 
-    //收起效果
-    $(".pos_cz_tow_top_r").click(function(){
-        var self=$(this);
-        self.parent().next().slideToggle("fast",function(){
-            //alert("Animation Done.");
-            if(self.hasClass("pos_cz_tow_top_rcl")){
-                self.removeClass("pos_cz_tow_top_rcl");
-            }else{
-                self.addClass("pos_cz_tow_top_rcl");
-            }
-        });
-    });
+
 
     $("input[name='cash[]']").blur(function(){
         var reg = /^\+?[1-9][0-9]*$/;
@@ -146,9 +175,7 @@
                 }
             });
         }
-        $('.pos_cz_tow_two04').find('em').text(total.toFixed(2));
-        $('.pos_cz_zh_02').html('￥'+total.toFixed(2));
-        $('.pos_gm_04').html('￥'+total.toFixed(2));
+        $('.money_all').html(total.toFixed(2));
     });
 
     $(".add_capitals").click(function(){
@@ -164,12 +191,6 @@
                     width:550,
                     title:title,
                     content:$('.tjfj'),
-                    close:function(e){
-                        $(".idialog").remove();
-                    },
-                    cancel:function(e){
-                        $(".idialog").remove();
-                    },
                     ok:function(obj){
                         var detail_id = $("#tck").val();
                         $('.tjfj').empty();
@@ -233,25 +254,21 @@
                                 total += parseInt($(this).val());
                             }
                         });
-                        $('.pos_cz_tow_two04').find('em').text(total.toFixed(2));
-                        $('.pos_cz_zh_02').html('￥'+total.toFixed(2));
-                        $('.pos_gm_04').html('￥'+total.toFixed(2));
+                        $('.money_all').html(total.toFixed(2));
                     }
                 });
-                table_flash();
 
         });
 
     });
 
     //数据提交
-    $(".before .pos_cz_zh_an").click(function(){
+    $(".c_submit").click(function(){
         var post_data=submit_data();
         if(post_data==false){
             return false;
         }
-        $('.pos_cz_tow.pos_cz_zh.before').hide();
-        $('.pos_cz_tow.pos_cz_zh.after').show();
+        $('.c_submit').addClass("disabled");
         <?php if ($model): ?>
             var url="<?php echo $this->url('editSave',array('id'=>$model->o_s->id)) ?>";
         <?php else: ?>

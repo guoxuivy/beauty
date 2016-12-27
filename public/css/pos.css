@@ -318,3 +318,15 @@ a:hover.pos_cz_zh_an{background-color:#0abb73; }
 .r_o{background-color:#F3F3F3}
 .pos_table{border: none;margin-bottom:0px;}
 
+.add_capitals.cpm{
+        border: 1px solid #ccc;border-radius: 2px;height: 24px;text-align: center;color: #999999;font-size: 11px;cursor: pointer;
+    }
+.cash_view,.capital_view,.capitals_view{
+    border-radius: 2px;
+    color: #1bab70;
+    font-size: 14px;
+    font-weight: bold;
+    height: 24px;
+    text-align: center;
+    width: 70px;
+}

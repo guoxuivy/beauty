@@ -1,37 +1,40 @@
 
 <input type="hidden" id="tck" value="<?php echo $data['detail_id']?>">
 <input type="hidden" id="tck_title" value="<?php echo $data['sn']?>">
-<div class="tjfj_two pos_gm_th">
-    <div class="pos_gm_th_01">
-        <div class="pos_hk_02">
-            欠款：<div class="pos_hk_01 pro_arrears">￥<?php echo $data['arrears']?></div>
-        </div>
-        <div class="tjfj_pna"><?php echo $data['pro_name'];?></div>
-    </div>
-    <!--table_container-->
-    <div class="table_container" style="margin-bottom:20px;">
+
+<!-- 选择账户分配弹出 -->
+<div>
+    <div class="pos_gm_th_01"><?php echo $data['pro_name'];?><div class="pos_hk_01 pro_arrears">欠款：￥<?php echo $data['arrears']?></div></div>
+    <!--table_container-->  
+    <div class="table_container">
         <!--table_con-->
-        <div class="table_con pos_cz_qr_top_04" style="margin-right:0px;">
+        <div class="table_con pos_cz_qr_top_04">
+
             <!--table_con_son-->
-            <div class="table_con_son">
-                <div class="table_title">
-                    <ul>
-                        <li>账户名称</li>
-                        <li>账户余额（元）</li>
-                        <li>还款金额（元）</li>
-                    </ul>
-                </div>
-                <?php foreach($cu_capitals as $cu_capital):?>
-                    <div class="table_list">
-                        <ul>
-                            <li class="li001"><?php echo $cu_capital['name'];?></li>
-                            <li class="li002"><?php echo $cu_capital['balance'];?></li>
-                            <li class="li003"><input id="add_capitals<?php echo $cu_capital['id']?>" balance="<?php echo $data['cu_capitals'][$cu_capital['id']]?>" arrears="<?php echo $data['arrears']?>" capitalid="<?php echo $cu_capital['id']?>" value="<?php echo (int)$data['capitals_arr'][$cu_capital['id']]==0?'':(int)$data['capitals_arr'][$cu_capital['id']]?>" name="add_capitals[]" style="width: 80px;" type="text" class="pos_cz_tow_two05"/></li>
-                        </ul>
-                    </div>
-                <?php endforeach;?>
+            <div class="table_con_son" >
+                <table class="table table-bordered table-hover ">
+                    <thead>
+                        <tr>
+                            <th>账户名称</th>
+                            <th>账户余额(元)</th>
+                            <th>还款金额(元)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach($cu_capitals as $cu_capital):?>
+                        <tr class="table_list">
+                                <td><?php echo $cu_capital['name'];?></td>
+                                <td><?php echo $cu_capital['balance'];?></td>
+                                <td><input id="add_capitals<?php echo $cu_capital['id']?>" balance="<?php echo $data['cu_capitals'][$cu_capital['id']]?>" arrears="<?php echo $data['arrears']?>" capitalid="<?php echo $cu_capital['id']?>" value="<?php echo (int)$data['capitals_arr'][$cu_capital['id']]==0?'':(int)$data['capitals_arr'][$cu_capital['id']]?>" name="add_capitals[]"  type="text" /></td>
+                        </tr>
+                    <?php endforeach;?>
+                    </tbody>
+                </table>
             </div><!--table_con_son!end-->
+
         </div><!--table_con!end-->
     </div>
-
+    <!--table_containter!end-->
 </div>
+<!-- 选择账户分配弹出 end-->
+
