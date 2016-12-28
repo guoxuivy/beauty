@@ -1,5 +1,6 @@
 /*老模版样式移植*/
 @charset "utf-8";
+ul{padding: 0;}
 li{list-style: none;}
 /*交易记录选中标记*/
 
@@ -10,7 +11,7 @@ li{list-style: none;}
 .top_com a{text-decoration:none;}
 .top_com .aaddys:hover{color: #fff;}
 .top_com div{display: inline;}
-.md_type{margin-bottom: 0px;}
+.jyjl_top .top_com:last-child{margin-bottom: 0px;}
 
 
 /*数据报表样式*/

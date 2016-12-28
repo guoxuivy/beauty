@@ -32,6 +32,21 @@
                             </div>
                         </div>
 
+                        <div class="row static-info">
+                            <div class="col-xs-5 name">订单状态：</div>
+                            <div class="col-xs-7 value text-right">
+                                <span class="label label-warning label-sm">
+                                <?php 
+                                    if($model){
+                                        echo \OrderSale::getPayStatus($model->o_s->pay_status);
+                                    }else{
+                                        echo "新建";
+                                    }
+                                ?>
+                                </span>
+                            </div>
+                        </div>
+
                     
                   
                         <div class="row static-info">
