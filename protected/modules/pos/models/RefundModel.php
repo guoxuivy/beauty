@@ -265,5 +265,15 @@ class RefundModel extends Model
 		return $res;
 	}
 
+	
+	//制单人姓名
+	public function getEmployName($id=null){
+		$id=is_null($id)?$this->o_s->made_id:$id;
+		$info = \EmployUser::model()->findByPk($id);
+		if($info)
+			return $info->netname;
+		return "";
+	}
+
 
 }

@@ -33,7 +33,6 @@ foreach ($model->pros as $pro) {
                 </div>
             </div>
         </div>
-		<?php $sum_lc = array_sum(array_column($model->pros, 'use_num')) ?>
         <div class="row">
 			<div class="col-md-6 col-sm-12">
 	            <div class="portlet solid green-haze">
@@ -65,22 +64,25 @@ foreach ($model->pros as $pro) {
 		                        <?php if (!$model): ?>
 	                        	<span class="label label-info label-sm">草稿</span>
 								<?php else: ?>
-	                        	<span class="label label-warning label-sm"><?php echo \OrderVoucher::getStatus($model->o_s->status);?></span>
+	                        	<span class="label label-warning label-sm"><?php echo \OrderRefund::getStatus($model->o_s->status);?></span>
 								<?php endif ?>
 	                        </div>
 	                    </div>
+
 	                    <div class="row static-info">
-	                        <div class="col-xs-5 name">本次实操项目：</div>
-	                        <div class="col-xs-7 value text-right">
-	                        	<font class="xj_xm"><?php echo count($model->pros) ?></font> 个
-	                        </div>
-	                    </div>
-	                    <div class="row static-info">
-	                        <div class="col-xs-5 name">本次实操疗次：</div>
-	                        <div class="col-xs-7 value text-right">
-                                <font class="xj_lc"><?php echo $sum_lc ?></font> 次
-	                        </div>
-	                    </div>
+                            <div class="col-xs-5 name">制单时间：</div>
+                            <div class="col-xs-7 value text-right">
+                                <?php echo $model->o_s->create_time ?>
+                            </div>
+                        </div>
+                        <div class="row static-info">
+                            <div class="col-xs-5 name">操作人：</div>
+                            <div class="col-xs-7 value text-right">
+                                <?php echo $model->employName ?>
+                            </div>
+                        </div>
+
+
 	                </div>
 	            </div>
 	        </div>

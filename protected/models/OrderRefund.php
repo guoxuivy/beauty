@@ -41,9 +41,9 @@ class OrderRefund extends ActiveRecord
 	 */
 	public static function  getStatus($Pk=null,$css=false){
 		$Array = array(
-			'1'		=> '正常',
+			'1'		=> '已退款',
 			'0'		=> '草稿',
-			'-1'	=> '删除',
+			'-1'	=> '已废弃',
 		);
 		if($Pk === null) {
 			return $Array;
