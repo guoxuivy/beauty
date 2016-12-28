@@ -83,7 +83,6 @@ class CustomerVoucher extends ActiveRecord
 		->field("cvc.pro_type,cvc.pro_id,cvc.num")
 		->join("config_voucher_compose cvc on t.voucher_id=cvc.voucher_id")
 		->findAll("t.id={$vo_id}");//卡券原有
-
 		$OrderVoucher=\OrderVoucher::model()
 		->field("osd.pro_type,osd.pro_id,osd.num")
 		->join("order_sale_detail osd on t.id=osd.order_id AND osd.buy_type=3")
