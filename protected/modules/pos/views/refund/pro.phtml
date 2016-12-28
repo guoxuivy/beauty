@@ -1,260 +1,329 @@
+
+<link href="<?php echo $this->basePath('public');?>/css/pos.css" rel="stylesheet" type="text/css"/>
 <style type="text/css">
-.xzzh,.tk{color:#0077ff;cursor: pointer;}
-.pos_kj_top_top,.pos_kj_top_two{margin:0;}
-.kj_title{margin-top: 15px;margin-bottom: 5px;}
+.tk{color:#0077ff;cursor: pointer;}
 .qk_name{color: #1bab70;cursor:pointer;}
 </style>
+<div class="row">
+	<div class="print_show col-md-12">
+		<div class="portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-pencil"></i>POS开单/退订单-查看
+                </div>
+                <div class="tools">
+	                <button class="btn btn-sm green table-group-action-submit c_submit"><i class="fa fa-check"></i>提交订单</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+			<div class="col-md-6 col-sm-12">
+	            <div class="portlet solid green-haze">
+	                <div class="portlet-title">
+	                    <div class="caption">
+	                        <i class="fa fa-cogs"></i>POS开单/退款单
+	                    </div>
+	                    <div class="actions">
+		                    <button class="btn red">退款合计 <font class="tk_all">0</font>元</button>
+	                    </div>
+	                </div>
+	                <div class="portlet-body">
 
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		<div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>POS开单><span>退项目/产品/卡券</span>
-	</div>
-  
-	<!--khgl_shouye-->
-	<?php echo $cu_info ?>
-	<!--khgl_shouye!end-->
-<?php if ($capital_list): ?>
-	<!--退款-->
-	<div class="pos_cz_tow">
-		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>退款</div>
-		<div class="pos_cz_tow_two">
-			<!--table_container-->  
-			<div class="table_container" style="border:none;">
-				 <!--table_con-->
-				 <div class="table_con">
+	                	<div class="row static-info">
+                            <div class="col-xs-5 name">退款单号：</div>
+                            <div class="col-xs-7 value text-right">
+                            </div>
+                        </div>
+	                    <div class="row static-info">
+	                        <div class="col-xs-5 name">订单状态：</div>
+	                        <div class="col-xs-7 value text-right">
+		                        <?php if (!$model): ?>
+	                        	<span class="label label-info label-sm">草稿</span>
+								<?php else: ?>
+	                        	<span class="label label-warning label-sm"><?php echo \OrderRefund::getStatus($model->o_s->status);?></span>
+								<?php endif ?>
+	                        </div>
+	                    </div>
+
+	                    <div class="row static-info">
+                            <div class="col-xs-5 name">制单时间：</div>
+                            <div class="col-xs-7 value text-right">
+                                <?php echo date("Y-m-d") ?>
+                            </div>
+                        </div>
+                        <div class="row static-info">
+                            <div class="col-xs-5 name">操作人：</div>
+                            <div class="col-xs-7 value text-right">
+                                <?php echo \Ivy::app()->user->netname ?>
+                            </div>
+                        </div>
+
+
+	                </div>
+	            </div>
+	        </div>
+
+	        <div class="col-md-6 col-sm-12">
+	            <div class="portlet solid red-intense">
+	                <div class="portlet-body" style="padding-top: 10px;">
+	                    <?php echo $cu_info ?>
+	                </div>
+	            </div>
+	        </div>
+        </div>
+
+        <?php if ($capital_list): ?>
+		<!--退款-->
+		<div class="pos_cz_tow">
+			<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>退款</div>
+			<div class="pos_cz_tow_two">
+				<!--table_container-->  
+				<div class="table_container">
+					 <!--table_con-->
+					 <div class="table_con">
+						<!--table_con_son-->
+						<div class="table_con_son table-responsive">
+						<table class="table table-bordered table-hover pos_table">
+							<thead>
+								<tr>
+									<th>账户类型</th>
+									<?php foreach ($capital_list as $value): ?>
+										<th><?php echo $value['name'] ?>（元）</th>
+									<?php endforeach ?>								
+								</tr>
+							<thead>
+							<tbody>
+								<tr class="table_list">
+									<td class="">账户余额（元）</td>
+									<?php foreach ($capital_list as $value): ?>
+										<td><?php echo $value['balance'] ?></td>
+									<?php endforeach ?>
+								</tr>
+								
+								<tr class="table_list">
+									<td class="">退款现金（元）</td>
+									<?php foreach ($capital_list as $value): ?>
+										<td><input data-max-value="<?php echo $value['balance'] ?>" data-id="<?php echo $value['capital_id'] ?>" type="text" class="pos_cz_tow_two05 capital_tk" /></td>
+									<?php endforeach ?>
+								</tr>
+							</tbody>
+						</table>
+					 </div><!--table_con_son!end-->
+					 </div><!--table_con!end-->
+				 </div>
+				<!--table_containter!end-->
+				<div class="pos_cz_tow_two_two pos_cz_qr_top_02">
+					<span class="pos_cz_tow_two04 ">退款小计:<span class="pos_cz_zh_02 c_tk_min_all">0</span>元</span>
+				</div>
+			</div>
+		</div><!--退款!end-->
+		<?php endif ?>
+
+        <?php if ($project_list): ?>
+		<!--可退项目-->
+		<div class="pos_cz_tow box_xm">
+			<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>可退项目</div>
+			<div class="pos_cz_tow_two">
+				<!--table_container-->  
+				<div class="table_container">
+				<!--table_con-->
+				<div class="table_con">
 					<!--table_con_son-->
-					<div class="table_con_son">
-					 <div class="table_title">
-						<ul>
-						<li>账户类型</li>
-						<?php foreach ($capital_list as $value): ?>
-							<li><?php echo $value['name'] ?>（元）</li>
-						<?php endforeach ?>
-						</ul>
+					<div class="table_con_son table-responsive">
+						<table class="table table-bordered table-hover pos_table">
+							<thead>
+								<tr>
+								<th>关联订单</th>
+								<th>项目名称</th>
+								<th>来源</th>
+								<th>购买次数</th>
+								<th>剩余次数</th>
+								<th>成交价格（元）</th>
+								<th>实收现金（元）</th>
+								<th>现金账户抵扣</th>
+								<th>赠送账户抵扣</th>
+								<th>欠款</th>
+								<th>需退次数</th>
+								<th>退入账户（元）</th>								
+								</tr>
+							<thead>
+							<tbody>
+							<?php foreach ($project_list as $pro):?>
+								<?php
+									$money_str=\pos\SaleModel::model()->proMoneyStr($pro['detail_id']);
+									if($pro['buy_type']==3){
+										$sn = \OrderVoucher::model()->findByPk($pro['order_id'])->sn;
+									}else{
+										$sn = \OrderSaleDetail::getSn($pro['detail_id']);
+									}
+								?>
+								<tr data-id="<?php echo $pro['id'] ?>" data-zh="<?php echo $money_str ?>" data-tk="<?php echo $pro['tk_money_str'] ?>" class="table_list">
+										<td><?php echo $sn; ?></td>
+										<td><?php echo $pro['name'] ?></td>
+										<td><?php echo  $pro['buy_type']?\OrderSaleDetail::getBuyType($pro['buy_type']):'不明' ?></td>
+										<td><?php echo $pro['num'] ?></td>
+										<td><?php echo $pro['re_num'] ?></td>
+										<td><?php echo $pro['price']*$pro['rebate']/100 ?></td>
+										<td><?php echo $pro['buy_type']!=2?$pro['price']*$pro['rebate']/100-$pro['card_cash']-$pro['card_gift']-$pro['arrears']:0 ?></td>
+										<td class="xj xzzh"><?php echo $pro['card_cash'] ?></td>
+										<td class="zs xzzh"><?php echo $pro['card_gift'] ?></td>
+										<td><?php echo $pro['arrears'] ?></td>
+										<td class=""><input  data-max-value="<?php echo $pro['re_num'] ?>" data-price="<?php echo $pro['num']?$pro['price']*$pro['rebate']/100/$pro['num']:0 ?>" data-xj="<?php echo $pro['num']?($pro['pay_price']/$pro['num']):0; ?>" data-max-xj="<?php echo $pro['var_price'] ?>"  data-zs="<?php echo $pro['num']?($pro['card_gift'])/$pro['num']:0; ?>" type="text" value="" class="pos_cz_tow_two05"></td>
+										<td class="tk">选择账户</td>
+								</tr>
+							<?php endforeach ?>
+							</tbody>
+						</table>
+					</div><!--table_con_son!end-->
+				</div><!--table_con!end-->
+				</div>
+				<!--table_containter!end-->
+				<div class="pos_cz_tow_two_two pos_cz_qr_top_02">
+					<span class="pos_cz_tow_two04 ">退款小计:<span class="pos_cz_zh_02 tk_min_all">0</span>元</span>
+				</div>
+			</div>
+		</div><!--可退项目!end-->
+		<?php endif ?>
+
+
+
+		<?php if ($product_list): ?>
+			<!--可退产品-->
+			<div class="pos_cz_tow box_cp">
+				<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>可退产品</div>
+				<div class="pos_cz_tow_two">
+					<!--table_container-->  
+					<div class="table_container">
+					<!--table_con-->
+					<div class="table_con">
+						<!--table_con_son-->
+						<div class="table_con_son table-responsive">
+						<table class="table table-bordered table-hover pos_table">
+							<thead>
+								<tr>
+									<th>关联订单</th>
+									<th>产品名称</th>
+									<th>来源</th>
+									<th>购买数量</th>
+									<th>剩余数量</th>
+									<th>成交价格（元）</th>
+									<th>实收现金（元）</th>
+									<th>现金账户抵扣</th>
+									<th>赠送账户抵扣</th>
+									<th>欠款</th>
+									<th>需退数量</th>
+									<th>退入账户（元）</th>
+								</tr>
+							</thead>
+							<tbody>
+							<?php foreach ($product_list as $pro): ?>
+								<?php $money_str=\pos\SaleModel::model()->proMoneyStr($pro['detail_id']); ?>
+
+								<tr data-id="<?php echo $pro['id'] ?>" data-zh="<?php echo $money_str ?>" data-tk="<?php echo $pro['tk_money_str'] ?>" class="table_list">
+										<td><?php echo \OrderSaleDetail::getSn($pro['detail_id']) ?></td>
+										<td><?php echo $pro['name'] ?></td>
+										<td><?php echo  $pro['buy_type']?\OrderSaleDetail::getBuyType($pro['buy_type']):'不明' ?></td>
+										<td><?php echo $pro['num'] ?></td>
+										<td><?php echo $pro['remain_num'] ?></td>
+										<td><?php echo $pro['price']*$pro['rebate']/100 ?></td>
+										<td><?php echo $pro['buy_type']!=2?$pro['price']*$pro['rebate']/100-$pro['card_cash']-$pro['card_gift']-$pro['arrears']:0 ?></td>
+										<td class="xj xzzh"><?php echo $pro['card_cash'] ?></td>
+										<td class="zs xzzh"><?php echo $pro['card_gift'] ?></td>
+										<td><?php echo $pro['arrears'] ?></td>
+										<td class=""><input  data-max-value="<?php echo $pro['remain_num'] ?>" data-price="<?php echo $pro['num']?$pro['price']*$pro['rebate']/100/$pro['num']:0 ?>"  data-xj="<?php echo $pro['num']?($pro['pay_price']/$pro['num']):0; ?>" data-max-xj="<?php echo $pro['var_price'] ?>" data-zs="<?php echo $pro['num']?($pro['card_gift'])/$pro['num']:0; ?>"  type="text" value="" class="pos_cz_tow_two05"></td>
+										<td class="tk">选择账户</td>
+								</tr>
+							<?php endforeach ?>
+							</tbody>
+						</table>
+						</div><!--table_con_son!end-->
+					</div><!--table_con!end-->
 					</div>
-
-					<div class="table_list">
-						<ul>
-						<li class="">账户余额（元）</li>
-						<?php foreach ($capital_list as $value): ?>
-							<li><?php echo $value['balance'] ?></li>
-						<?php endforeach ?>
-						</ul>
+					<!--table_containter!end-->
+					<div class="pos_cz_tow_two_two pos_cz_qr_top_02">
+						<span class="pos_cz_tow_two04 ">退款小计:<span class="pos_cz_zh_02 tk_min_all">0</span>元</span>
 					</div>
-					
-					<div class="table_list">
-						<ul>
-						<li class="">退款现金（元）</li>
-						<?php foreach ($capital_list as $value): ?>
-							<li><input data-max-value="<?php echo $value['balance'] ?>" data-id="<?php echo $value['capital_id'] ?>" type="text" class="pos_cz_tow_two05 capital_tk" /></li>
-						<?php endforeach ?>
-						</ul>
+				</div>
+			</div><!--可退产品!end-->
+		<?php endif ?>  
+		  
+		<?php if ($voucher_list): ?>
+			<!--可退卡券-->
+			<div class="pos_cz_tow box_kq">
+				<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>可退卡券</div>
+				<div class="pos_cz_tow_two">
+					<!--table_container-->  
+					<div class="table_container">
+					<!--table_con-->
+					<div class="table_con">
+						<!--table_con_son-->
+						<div class="table_con_son table-responsive">
+						<table class="table table-bordered table-hover pos_table">
+							<thead>
+								<tr>
+									<th>关联订单</th>
+									<th>卡券名称</th>
+									<th>来源</th>
+									<th>购买次数</th>
+									<th>剩余次数</th>
+									<th>成交价格（元）</th>
+									<th>实收现金（元）</th>
+									<th>现金账户抵扣</th>
+									<th>赠送账户抵扣</th>
+									<th>欠款</th>
+									<th>需退次数</th>
+									<th>退入账户（元）</th>
+								</tr>
+							</thead>
+							<tbody>
+							<?php foreach ($voucher_list as $pro): ?>
+								<?php $money_str=\pos\SaleModel::model()->proMoneyStr($pro['detail_id']); ?>
+
+								<tr data-id="<?php echo $pro['id'] ?>" data-zh="<?php echo $money_str ?>" data-tk="<?php echo $pro['tk_money_str'] ?>" class="table_list">
+										<td><?php echo \OrderSaleDetail::getSn($pro['detail_id']); ?></td>
+										<td class="qk_name"><?php echo $pro['name'] ?></td>
+										<td><?php echo  $pro['buy_type']?\OrderSaleDetail::getBuyType($pro['buy_type']):'不明' ?></td>
+										<td><?php echo $pro['num'] ?></td>
+										<td>1</td>
+										<td><?php echo $pro['price']*$pro['rebate']/100 ?></td>
+										<td><?php echo $pro['buy_type']!=2?$pro['price']*$pro['rebate']/100-$pro['card_cash']-$pro['card_gift']-$pro['arrears']:0 ?></td>
+										<td class="xj xzzh"><?php echo $pro['card_cash'] ?></td>
+										<td class="zs xzzh"><?php echo $pro['card_gift'] ?></td>
+										<td><?php echo $pro['arrears'] ?></td>
+										<td class=""><input  <?php echo $pro['arrears']>0?'disabled="disabled"':''?> data-max-value="<?php echo $pro['num'] ?>" data-price="<?php echo $pro['num']?$pro['price']*$pro['rebate']/100/$pro['num']:0 ?>"  data-xj="<?php echo $pro['num']?($pro['pay_price']/$pro['num']):0; ?>" data-max-xj="<?php echo $pro['var_price'] ?>" data-zs="<?php echo $pro['num']?($pro['card_gift'])/$pro['num']:0; ?>"   type="text" value="" class="pos_cz_tow_two05"></td>
+										<td class="tk">选择账户</td>
+								</tr>
+							<?php endforeach ?>
+							</tbody>
+						</table>
+						</div><!--table_con_son!end-->
+					</div><!--table_con!end-->
 					</div>
-					 
-				 </div><!--table_con_son!end-->
-				 </div><!--table_con!end-->
-			 </div>
-			<!--table_containter!end-->
-			<div class="pos_cz_tow_two_two pos_cz_qr_top_02">
-						<span class="pos_cz_tow_two04 ">退款现金小计:<span class="pos_cz_zh_02 c_tk_min_all">0</span>元</span>
-						<!--<span class="pos_gm_01">还款订单<span class="pos_gm_03">2</span>个</span>
-						<span class="pos_gm_01">还款总额：<span class="pos_gm_04">￥5000.00</span></span>-->
-			</div>
-		</div>
-	</div><!--退款!end-->
-<?php endif ?>
-
-<?php if ($project_list): ?>
-	<!--可退项目-->
-	<div class="pos_cz_tow box_xm">
-		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>可退项目</div>
-		<div class="pos_cz_tow_two">
-			<!--table_container-->  
-			<div class="table_container" style="border:none;">
-			<!--table_con-->
-			<div class="table_con">
-				<!--table_con_son-->
-				<div class="table_con_son">
-					<div class="table_title">
-						<ul>
-							<li >关联订单</li>
-							<li style="min-width:100px;">项目名称</li>
-							<li style="min-width:40px;">来源</li>
-							<li style="min-width:50px;">购买次数</li>
-							<li style="min-width:50px;">剩余次数</li>
-							<li style="min-width:50px;">成交价格（元）</li>
-							<li style="min-width:50px;">实收现金（元）</li>
-							<li>现金账户抵扣</li>
-							<li>赠送账户抵扣</li>
-							<li style="min-width:50px;">欠款</li>
-							<li>需退次数</li>
-							<li>退入账户（元）</li>
-						</ul>
+					<!--table_containter!end-->
+					<div class="pos_cz_tow_two_two pos_cz_qr_top_02">
+						<span class="pos_cz_tow_two04 ">退款小计:<span class="pos_cz_zh_02 tk_min_all">0</span>元</span>
 					</div>
-					<?php foreach ($project_list as $pro):?>
-						<?php
-							$money_str=\pos\SaleModel::model()->proMoneyStr($pro['detail_id']);
-							if($pro['buy_type']==3){
-								$sn = \OrderVoucher::model()->findByPk($pro['order_id'])->sn;
-							}else{
-								$sn = \OrderSaleDetail::getSn($pro['detail_id']);
-							}
-						?>
+				</div>
+			</div><!--可退产品!end-->
+		<?php endif ?>	
 
-						<div data-id="<?php echo $pro['id'] ?>" data-zh="<?php echo $money_str ?>" data-tk="<?php echo $pro['tk_money_str'] ?>" class="table_list">
-							<ul>
-								<li class=""><?php echo $sn; ?></li>
-								<li class=""><?php echo $pro['name'] ?></li>
-								<li><?php echo  $pro['buy_type']?\OrderSaleDetail::getBuyType($pro['buy_type']):'不明' ?></li>
-								<li><?php echo $pro['num'] ?></li>
-								<li><?php echo $pro['re_num'] ?></li>
-								<li><?php echo $pro['price']*$pro['rebate']/100 ?></li>
-								<li><?php echo $pro['buy_type']!=2?$pro['price']*$pro['rebate']/100-$pro['card_cash']-$pro['card_gift']-$pro['arrears']:0 ?></li>
-								<li class="xj xzzh"><?php echo $pro['card_cash'] ?></li>
-								<li class="zs xzzh"><?php echo $pro['card_gift'] ?></li>
-								<li><?php echo $pro['arrears'] ?></li>
-								<li class=""><input  data-max-value="<?php echo $pro['re_num'] ?>" data-price="<?php echo $pro['num']?$pro['price']*$pro['rebate']/100/$pro['num']:0 ?>" data-xj="<?php echo $pro['num']?($pro['pay_price']/$pro['num']):0; ?>" data-max-xj="<?php echo $pro['var_price'] ?>"  data-zs="<?php echo $pro['num']?($pro['card_gift'])/$pro['num']:0; ?>" type="text" value="" class="pos_cz_tow_two05"></li>
-								<li class="tk">选择账户</li>
-							</ul>
-						</div>
-					<?php endforeach ?>
 
-				</div><!--table_con_son!end-->
-			</div><!--table_con!end-->
+		<!--备注-->
+		<div class="pos_cz_tow pos_cz_for_bz">
+			<div class="pos_cz_for_bz01">备注</div>
+			<div class="pos_cz_for_bz02">
+				<div class="pos_cz_for_bz02_son"><textarea class="order_note" rows="4"></textarea></div>
 			</div>
-			<!--table_containter!end-->
-			<div class="pos_cz_tow_two_two pos_cz_qr_top_02">
-				<span class="pos_cz_tow_two04 ">退款小计:<span class="pos_cz_zh_02 tk_min_all">0</span>元</span>
-				<!--<span class="pos_gm_01">还款订单<span class="pos_gm_03">2</span>个</span>
-				<span class="pos_gm_01">还款总额：<span class="pos_gm_04">￥5000.00</span></span>-->
-			</div>
-		</div>
-	</div><!--可退项目!end-->
-<?php endif ?>
+		</div><!--备注!end-->
 
-<?php if ($product_list): ?>
-	<!--可退产品-->
-	<div class="pos_cz_tow box_cp">
-		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>可退产品</div>
-		<div class="pos_cz_tow_two">
-			<!--table_container-->  
-			<div class="table_container" style="border:none;">
-			<!--table_con-->
-			<div class="table_con">
-				<!--table_con_son-->
-				<div class="table_con_son">
-					<div class="table_title">
-						<ul>
-							<li >关联订单</li>
-							<li style="min-width:100px;">产品名称</li>
-							<li style="min-width:40px;">来源</li>
-							<li style="min-width:50px;">购买数量</li>
-							<li style="min-width:50px;">剩余数量</li>
-							<li style="min-width:50px;">成交价格（元）</li>
-							<li style="min-width:50px;">实收现金（元）</li>
-							<li>现金账户抵扣</li>
-							<li>赠送账户抵扣</li>
-							<li style="min-width:50px;">欠款</li>
-							<li>需退数量</li>
-							<li>退入账户（元）</li>
-						</ul>
-					</div>
-					<?php foreach ($product_list as $pro): ?>
-						<?php $money_str=\pos\SaleModel::model()->proMoneyStr($pro['detail_id']); ?>
+    </div>
+</div>
 
-						<div data-id="<?php echo $pro['id'] ?>" data-zh="<?php echo $money_str ?>" data-tk="<?php echo $pro['tk_money_str'] ?>" class="table_list">
-							<ul>
-								<li class=""><?php echo \OrderSaleDetail::getSn($pro['detail_id']) ?></li>
-								<li class=""><?php echo $pro['name'] ?></li>
-								<li><?php echo  $pro['buy_type']?\OrderSaleDetail::getBuyType($pro['buy_type']):'不明' ?></li>
-								<li><?php echo $pro['num'] ?></li>
-								<li><?php echo $pro['remain_num'] ?></li>
-								<li><?php echo $pro['price']*$pro['rebate']/100 ?></li>
-								<li><?php echo $pro['buy_type']!=2?$pro['price']*$pro['rebate']/100-$pro['card_cash']-$pro['card_gift']-$pro['arrears']:0 ?></li>
-								<li class="xj xzzh"><?php echo $pro['card_cash'] ?></li>
-								<li class="zs xzzh"><?php echo $pro['card_gift'] ?></li>
-								<li><?php echo $pro['arrears'] ?></li>
-								<li class=""><input  data-max-value="<?php echo $pro['remain_num'] ?>" data-price="<?php echo $pro['num']?$pro['price']*$pro['rebate']/100/$pro['num']:0 ?>"  data-xj="<?php echo $pro['num']?($pro['pay_price']/$pro['num']):0; ?>" data-max-xj="<?php echo $pro['var_price'] ?>" data-zs="<?php echo $pro['num']?($pro['card_gift'])/$pro['num']:0; ?>"  type="text" value="" class="pos_cz_tow_two05"></li>
-								<li class="tk">选择账户</li>
-							</ul>
-						</div>
-					<?php endforeach ?>
 
-				</div><!--table_con_son!end-->
-			</div><!--table_con!end-->
-			</div>
-			<!--table_containter!end-->
-			<div class="pos_cz_tow_two_two pos_cz_qr_top_02">
-				<span class="pos_cz_tow_two04 ">退款小计:<span class="pos_cz_zh_02 tk_min_all">0</span>元</span>
-				<!--<span class="pos_gm_01">还款订单<span class="pos_gm_03">2</span>个</span>
-				<span class="pos_gm_01">还款总额：<span class="pos_gm_04">￥5000.00</span></span>-->
-			</div>
-		</div>
-	</div><!--可退产品!end-->
-<?php endif ?>  
-  
-<?php if ($voucher_list): ?>
-	<!--可退卡券-->
-	<div class="pos_cz_tow box_kq">
-		<div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>可退卡券</div>
-		<div class="pos_cz_tow_two">
-			<!--table_container-->  
-			<div class="table_container" style="border:none;">
-			<!--table_con-->
-			<div class="table_con">
-				<!--table_con_son-->
-				<div class="table_con_son">
-					<div class="table_title">
-						<ul>
-							<li >关联订单</li>
-							<li style="min-width:100px;">卡券名称</li>
-							<li style="min-width:40px;">来源</li>
-							<li style="min-width:50px;">购买次数</li>
-							<li style="min-width:50px;">剩余次数</li>
-							<li style="min-width:50px;">成交价格（元）</li>
-							<li style="min-width:50px;">实收现金（元）</li>
-							<li>现金账户抵扣</li>
-							<li>赠送账户抵扣</li>
-							<li style="min-width:50px;">欠款</li>
-							<li>需退次数</li>
-							<li>退入账户（元）</li>
-						</ul>
-					</div>
-					<?php foreach ($voucher_list as $pro): ?>
-						<?php $money_str=\pos\SaleModel::model()->proMoneyStr($pro['detail_id']); ?>
+{__TOKEN__}
 
-						<div data-id="<?php echo $pro['id'] ?>" data-zh="<?php echo $money_str ?>" data-tk="<?php echo $pro['tk_money_str'] ?>" class="table_list">
-							<ul>
-								<li class=""><?php echo \OrderSaleDetail::getSn($pro['detail_id']); ?></li>
-								<li class="qk_name"><?php echo $pro['name'] ?></li>
-								<li><?php echo  $pro['buy_type']?\OrderSaleDetail::getBuyType($pro['buy_type']):'不明' ?></li>
-								<li><?php echo $pro['num'] ?></li>
-								<li>1</li>
-								<li><?php echo $pro['price']*$pro['rebate']/100 ?></li>
-								<li><?php echo $pro['buy_type']!=2?$pro['price']*$pro['rebate']/100-$pro['card_cash']-$pro['card_gift']-$pro['arrears']:0 ?></li>
-								<li class="xj xzzh"><?php echo $pro['card_cash'] ?></li>
-								<li class="zs xzzh"><?php echo $pro['card_gift'] ?></li>
-								<li><?php echo $pro['arrears'] ?></li>
-								<li class=""><input  <?php echo $pro['arrears']>0?'disabled="disabled"':''?> data-max-value="<?php echo $pro['num'] ?>" data-price="<?php echo $pro['num']?$pro['price']*$pro['rebate']/100/$pro['num']:0 ?>"  data-xj="<?php echo $pro['num']?($pro['pay_price']/$pro['num']):0; ?>" data-max-xj="<?php echo $pro['var_price'] ?>" data-zs="<?php echo $pro['num']?($pro['card_gift'])/$pro['num']:0; ?>"   type="text" value="" class="pos_cz_tow_two05"></li>
-								<li class="tk">选择账户</li>
-							</ul>
-						</div>
-					<?php endforeach ?>
 
-				</div><!--table_con_son!end-->
-			</div><!--table_con!end-->
-			</div>
-			<!--table_containter!end-->
-			<div class="pos_cz_tow_two_two pos_cz_qr_top_02">
-				<span class="pos_cz_tow_two04 ">退款小计:<span class="pos_cz_zh_02 tk_min_all">0</span>元</span>
-				<!--<span class="pos_gm_01">还款订单<span class="pos_gm_03">2</span>个</span>
-				<span class="pos_gm_01">还款总额：<span class="pos_gm_04">￥5000.00</span></span>-->
-			</div>
-		</div>
-	</div><!--可退产品!end-->
-
-	<!--卡券剩余弹出框-->
+<!--卡券剩余弹出框-->
 	<div class="pos_kj_top qk_detail" style="display:none;">
 		<div class="pos_kj_top_top">
 			<ul>
@@ -307,30 +376,6 @@
 		</div>
 	</div><!--卡券剩余弹出框!end-->
 
-<?php endif ?>	
-  
-
-	<!--备注-->
-	<div class="pos_cz_tow pos_cz_for_bz">
-		<div class="pos_cz_for_bz01">备注</div>
-		<div class="pos_cz_for_bz02">
-			<div class="pos_cz_for_bz02_son"><textarea class="order_note" rows="4"></textarea></div>
-		</div>
-	</div><!--备注!end-->
-  
-	
-	<div class="pos_cz_tow pos_cz_zh">
-		<a href="javascript:" class="pos_cz_zh_an c_submit">提交订单
-		<!-- <img src="<?php echo $this->basePath('public');?>/images/pos_cz_10.png" /> -->
-		</a>
-	<div class="pos_cz_zh_01">
-		<div class="pos_momey">退款现金合计：<span class="pos_cz_zh_02">￥<font class="tk_all">0.00</font></span></div>
-	</div>
-	</div>
-	
-</div>
-<!--content_right_con!end-->
-{__TOKEN__}
 
 <!-- 选择账户分配弹出 -->
 <div style="display:none">
@@ -342,16 +387,18 @@
 			<div style="margin-right:0px;" class="table_con pos_cz_qr_top_04">
 
 				<!--table_con_son-->
-				<div class="table_con_son" style="min-width: 564px;">
-					<!-- <div class="pos_cz_tow_top pos_cz_qr_02">赠送现金</div>-->
-					<div class="table_title">
-						<ul>
-						<li style="min-width:200px">账户类型</li>
-						<li>余额（元）</li>
-						<li style="min-width: 80px; border-right: medium none;">退还金额（元）</li>
-						</ul>
-					</div>
-
+				<div class="table_con_son">
+					<table class="table table-bordered table-hover">
+						<thead>
+							<tr>
+								<th>账户类型</th>
+								<th>余额(元)</th>
+								<th>抵扣金额(元)</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
 				</div><!--table_con_son!end-->
 
 			</div><!--table_con!end-->
@@ -399,7 +446,6 @@ $(function(){
 									content.find('.re_prod').append(s_list);
 							});
 						}
-						table_flash(content.find(".table_container"));
 					}
 				});
 			}else{
@@ -422,7 +468,7 @@ $(function(){
 	});
 
 	//现金金额组成
-	$('.table_container').on('click','.xzzh',function(){
+	$('.table').on('click','.xzzh',function(){
 		var table_list = $(this).closest('.table_list');
 		var capital_money=table_list.attr("data-zh");
 		var capital_list=capital_xj;
@@ -437,28 +483,24 @@ $(function(){
 			init:function(content){
 				$.each( capital_list, function(i, capital){
 					var money = str_money(capital_money,capital.id);
-					var s_list ='<div class="table_list"><ul>';
-						s_list+='<li class="">'+capital.name+'</li>';
-						s_list+='<li class="">'+capital.balance+'</li>';
-						s_list+='<li class="">'+money+'</li>';
-						s_list+='</ul></div>';
-						content.find('.table_con_son').append(s_list);
+					var s_list ='<tr>';
+						s_list+='<td>'+capital.name+'</td>';
+						s_list+='<td>'+capital.balance+'</td>';
+						s_list+='<td>'+money+'</td>';
+						s_list+='</tr>';
+						content.find('tbody').append(s_list);
 				});
-				table_flash(content);
 			}
 		});
 	});
 	//退款组成
-	$('.table_container').on('click','.tk',function(){
+	$('.table').on('click','.tk',function(){
 		var table_list = $(this).closest('.table_list');
 		var capital_money=table_list.attr("data-tk");
 		var capital_list=capital_xj.concat(capital_zs);
 		var _this_obj=$(this);
 		var _input_obj=_this_obj.prev().find('.pos_cz_tow_two05');
-		// if(_input_obj.attr('disabled')=='disabled'){
-		// 	Idialog.tips("有欠款,请先还款!",2);
-		// 	return false;
-		// }
+		
 		if (_input_obj.val()=='') {
 			Idialog.tips("请先填写需退次数!",2);
 			return false;
@@ -498,14 +540,13 @@ $(function(){
 						money=data_zs*parseInt(_input_obj.val());
 						first_zs=1;
 					};
-					var s_list ='<div class="table_list"><ul>';
-						s_list+='<li class="">'+capital.name+'</li>';
-						s_list+='<li class="">'+capital.balance+'</li>';
-						s_list+='<li class=""><input type="text" data-capital-type="'+capital.type+'" data-capital-id="'+capital.id+'" class="pos_cz_tow_two05 pos_gm_th_02" value="'+money+'"></li>';
-						s_list+='</ul></div>';
-						content.find('.table_con_son').append(s_list);
+					var s_list ='<tr>';
+						s_list+='<td>'+capital.name+'</td>';
+						s_list+='<td>'+capital.balance+'</td>';
+						s_list+='<td><input type="text" data-capital-type="'+capital.type+'" data-capital-id="'+capital.id+'" class="pos_cz_tow_two05 pos_gm_th_02" value="'+money+'"></td>';
+						s_list+='</tr>';
+						content.find('tbody').append(s_list);
 				});
-				table_flash(content);
 			},
 			ok:function(obj){
 				var content=obj._self;
@@ -554,7 +595,7 @@ $(function(){
 		if(post_data==false){
 			return false;
 		}
-		$('.c_submit').html("正在提交订单...").addClass("pos_cz_zh_an_hover").removeClass("pos_cz_zh_an");
+		$('.c_submit').addClass("disabled");
 		var url="<?php echo $this->url('save') ?>";	
 		$.post(url, post_data,function(data){
 			Idialog.tips(data.msg,2);

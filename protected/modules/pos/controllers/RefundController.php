@@ -86,6 +86,7 @@ class RefundController extends BaseController
 		$product_list = \CustomerProdStorageDetail::getReProList($id);
 
 		$voucher_list = \CustomerVoucher::getReProList($id);
+		//var_dump($voucher_list);die;
 		
 		$this->view->assign(array(
 			"capital_list"=>$capital_list,								//卡内剩余项目

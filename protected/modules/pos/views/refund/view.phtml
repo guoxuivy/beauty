@@ -46,13 +46,13 @@ foreach ($model->pros as $pro) {
 	                </div>
 	                <div class="portlet-body">
 	                    <div class="row static-info">
-	                        <div class="col-xs-5 name">实操单号：</div>
+	                        <div class="col-xs-5 name">订单号：</div>
 	                        <div class="col-xs-7 value text-right">
 	                             <?php echo $model->o_s->sn ?>
 	                        </div>
 	                    </div>
 	                    <div class="row static-info">
-	                        <div class="col-xs-5 name">耗卡时间</div>
+	                        <div class="col-xs-5 name">退款时间</div>
 	                        <div class="col-xs-7 value text-right">
 	                             <?php echo $model->o_s->pay_time?date('Y-m-d H:i:s',$model->o_s->pay_time):'未耗卡';?>
 	                        </div>
