@@ -50,16 +50,16 @@ class OrderRefund extends ActiveRecord
 		}else {
 			if(array_key_exists($Pk, $Array)) {
 				if($css&&$Pk=='-1')
-					return '<span class="khgl_04">'.$Array[$Pk].'</span>';
+					return '<span class="label label-danger label-sm">'.$Array[$Pk].'</span>';
 				if($css&&$Pk=='1')
-					return '<span class="khgl_05">'.$Array[$Pk].'</span>';
+					return '<span class="label label-info label-sm">'.$Array[$Pk].'</span>';
 				return $Array[$Pk];
 			}else {
 				return false;
 			}
 		}
 	}
-
+ 
 	/**
 	 * 获取付款状态
 	 * @param  $Pk 
