@@ -9,7 +9,7 @@
 		<div class="portlet">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-pencil"></i>POS开单/退订单-查看
+                    <i class="fa fa-pencil"></i>POS开单/退订单-新建
                 </div>
                 <div class="tools">
 	                <button class="btn btn-sm green table-group-action-submit c_submit"><i class="fa fa-check"></i>提交订单</button>
@@ -325,13 +325,13 @@
 
 <!--卡券剩余弹出框-->
 	<div class="pos_kj_top qk_detail" style="display:none;">
-		<div class="pos_kj_top_top">
+		<div>
 			<ul>
-				<li style="border-bottom:none;">可兑金额：<font class="re_money">0</font></li>
+				<li style="border-bottom:none;background:#fafafa;padding: 10px;border: 1px solid #ddd;">可兑金额：<font class="re_money">0</font></li>
 			</ul>
 		</div>
 	
-		<div class="pos_kj_top_two">
+		<div class="">
 			<div class="kj_title">可兑项目：</div>
 			<div class="">
 				<!--table_container-->  
@@ -339,21 +339,19 @@
 					<!--table_con-->
 					<div class="table_con">
 						<!--table_con_son-->
-						<div class="table_con_son re_proj">
-							<div class="table_title">
-								<ul>
-									<li style="min-width:200px">项目名称</li>
-									<li style="border-right: medium none;">剩余次数</li>
-								</ul>
-							</div>
-
+						<div class="table_con_son ">
+							<table class="table table-bordered table-hover">
+							<thead><tr><th>项目名称</th><th>剩余次数</th></tr></thead>
+							<tbody class="re_proj">
+							</tbody>
+							</table>
 						</div><!--table_con_son!end-->
 					</div><!--table_con!end-->
 				</div><!--table_containter!end-->
 			</div>
 		</div>
 	
-		<div class="pos_kj_top_two">
+		<div class="">
 			<div class="kj_title">可兑产品：</div>
 			<div class="">
 				<!--table_container-->  
@@ -361,14 +359,12 @@
 					<!--table_con-->
 					<div class="table_con">
 						<!--table_con_son-->
-						<div class="table_con_son re_prod">
-							<div class="table_title">
-								<ul>
-									<li style="min-width:200px">产品名称</li>
-									<li style="border-right: medium none;">剩余次数</li>
-								</ul>
-							</div>
-
+						<div class="table_con_son ">
+							<table class="table table-bordered table-hover">
+							<thead><tr><th>产品名称</th><th>剩余次数</th></tr></thead>
+							<tbody class="re_prod">
+							</tbody>
+							</table>
 						</div><!--table_con_son!end-->
 					</div><!--table_con!end-->
 				</div><!--table_containter!end-->
@@ -420,8 +416,6 @@ $(function(){
 		$.post(url,function(data){
 			if(data.code==200){
 				var dd = Idialog({
-					top:150,
-					width:600,
 					title:'卡券剩余',
 					content:$('.qk_detail'),
 					cancel:false,
@@ -430,19 +424,19 @@ $(function(){
 						content.find(".re_money").html(re.money);
 						if(re.xm){
 							$.each( re.xm, function(i, pro){
-								var s_list ='<div class="table_list"><ul>';
-									s_list+='<li class="">'+pro.name+'</li>';
-									s_list+='<li class="">'+pro.re_num+'</li>';
-									s_list+='</ul></div>';
+								var s_list ='<tr>';
+									s_list+='<td class="">'+pro.name+'</td>';
+									s_list+='<td class="">'+pro.re_num+'</td>';
+									s_list+='</tr>';
 									content.find('.re_proj').append(s_list);
 							});
 						}
 						if(re.cp){
 							$.each( re.cp, function(i, pro){
-								var s_list ='<div class="table_list"><ul>';
-									s_list+='<li class="">'+pro.name+'</li>';
-									s_list+='<li class="">'+pro.re_num+'</li>';
-									s_list+='</ul></div>';
+								var s_list ='<tr>';
+									s_list+='<td>'+pro.name+'</td>';
+									s_list+='<td>'+pro.re_num+'</td>';
+									s_list+='</tr>';
 									content.find('.re_prod').append(s_list);
 							});
 						}
