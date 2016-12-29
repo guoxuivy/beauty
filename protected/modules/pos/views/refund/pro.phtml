@@ -324,53 +324,53 @@
 
 
 <!--卡券剩余弹出框-->
-	<div class="pos_kj_top qk_detail" style="display:none;">
-		<div>
-			<ul>
-				<li style="border-bottom:none;background:#fafafa;padding: 10px;border: 1px solid #ddd;">可兑金额：<font class="re_money">0</font></li>
-			</ul>
-		</div>
-	
+<div class="pos_kj_top qk_detail" style="display:none;">
+	<div>
+		<ul>
+			<li style="border-bottom:none;background:#fafafa;padding: 10px;border: 1px solid #ddd;">可兑金额：<font class="re_money">0</font></li>
+		</ul>
+	</div>
+
+	<div class="">
+		<div class="kj_title">可兑项目：</div>
 		<div class="">
-			<div class="kj_title">可兑项目：</div>
-			<div class="">
-				<!--table_container-->  
-				<div class="table_container">
-					<!--table_con-->
-					<div class="table_con">
-						<!--table_con_son-->
-						<div class="table_con_son ">
-							<table class="table table-bordered table-hover">
-							<thead><tr><th>项目名称</th><th>剩余次数</th></tr></thead>
-							<tbody class="re_proj">
-							</tbody>
-							</table>
-						</div><!--table_con_son!end-->
-					</div><!--table_con!end-->
-				</div><!--table_containter!end-->
-			</div>
+			<!--table_container-->  
+			<div class="table_container">
+				<!--table_con-->
+				<div class="table_con">
+					<!--table_con_son-->
+					<div class="table_con_son ">
+						<table class="table table-bordered table-hover">
+						<thead><tr><th>项目名称</th><th>剩余次数</th></tr></thead>
+						<tbody class="re_proj">
+						</tbody>
+						</table>
+					</div><!--table_con_son!end-->
+				</div><!--table_con!end-->
+			</div><!--table_containter!end-->
 		</div>
-	
+	</div>
+
+	<div class="">
+		<div class="kj_title">可兑产品：</div>
 		<div class="">
-			<div class="kj_title">可兑产品：</div>
-			<div class="">
-				<!--table_container-->  
-				<div class="table_container">
-					<!--table_con-->
-					<div class="table_con">
-						<!--table_con_son-->
-						<div class="table_con_son ">
-							<table class="table table-bordered table-hover">
-							<thead><tr><th>产品名称</th><th>剩余次数</th></tr></thead>
-							<tbody class="re_prod">
-							</tbody>
-							</table>
-						</div><!--table_con_son!end-->
-					</div><!--table_con!end-->
-				</div><!--table_containter!end-->
-			</div>
+			<!--table_container-->  
+			<div class="table_container">
+				<!--table_con-->
+				<div class="table_con">
+					<!--table_con_son-->
+					<div class="table_con_son ">
+						<table class="table table-bordered table-hover">
+						<thead><tr><th>产品名称</th><th>剩余次数</th></tr></thead>
+						<tbody class="re_prod">
+						</tbody>
+						</table>
+					</div><!--table_con_son!end-->
+				</div><!--table_con!end-->
+			</div><!--table_containter!end-->
 		</div>
-	</div><!--卡券剩余弹出框!end-->
+	</div>
+</div><!--卡券剩余弹出框!end-->
 
 
 <!-- 选择账户分配弹出 -->
@@ -449,21 +449,11 @@ $(function(){
 	});
 
 
-	//收起效果
-	$(".pos_cz_tow_top_r").click(function(){
-		var self=$(this);
-		self.parent().next().slideToggle("fast",function(){
-			if(self.hasClass("pos_cz_tow_top_rcl")){
-				self.removeClass("pos_cz_tow_top_rcl");
-			}else{
-				self.addClass("pos_cz_tow_top_rcl");
-			}
-		});
-	});
+
 
 	//现金金额组成
 	$('.table').on('click','.xzzh',function(){
-		var table_list = $(this).closest('.table_list');
+		var table_list = $(this).closest('tr');
 		var capital_money=table_list.attr("data-zh");
 		var capital_list=capital_xj;
 		if($(this).hasClass("zs")) capital_list=capital_zs;
@@ -489,7 +479,7 @@ $(function(){
 	});
 	//退款组成
 	$('.table').on('click','.tk',function(){
-		var table_list = $(this).closest('.table_list');
+		var table_list = $(this).closest('tr');
 		var capital_money=table_list.attr("data-tk");
 		var capital_list=capital_xj.concat(capital_zs);
 		var _this_obj=$(this);
@@ -618,7 +608,7 @@ $(function(){
 	function tk_min_all(){
 		$(".tk_min_all").each(function(i){
 			var tk_min_all=0;
-			$(this).closest('.pos_cz_tow').find(".tk").map(function(){
+			$(this).closest('.table-responsive').find(".tk").map(function(){
 				tk_min_all+= $.isNumeric(parseInt($(this).html()))?parseInt($(this).html()):0;
 			});
 			$(this).html(tk_min_all);

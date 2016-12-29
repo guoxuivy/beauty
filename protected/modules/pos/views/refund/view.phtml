@@ -319,13 +319,13 @@ foreach ($model->capital as $value) {
 
 <!--卡券剩余弹出框-->
 <div class="pos_kj_top qk_detail" style="display:none;">
-	<div class="pos_kj_top_top">
+	<div>
 		<ul>
-			<li style="border-bottom:none;">可兑金额：<font class="re_money">0</font></li>
+			<li style="border-bottom:none;background:#fafafa;padding: 10px;border: 1px solid #ddd;">可兑金额：<font class="re_money">0</font></li>
 		</ul>
 	</div>
 
-	<div class="pos_kj_top_two">
+	<div class="">
 		<div class="kj_title">可兑项目：</div>
 		<div class="">
 			<!--table_container-->  
@@ -333,21 +333,19 @@ foreach ($model->capital as $value) {
 				<!--table_con-->
 				<div class="table_con">
 					<!--table_con_son-->
-					<div class="table_con_son re_proj">
-						<div class="table_title">
-							<ul>
-								<li style="min-width:200px">项目名称</li>
-								<li style="border-right: medium none;">剩余次数</li>
-							</ul>
-						</div>
-
+					<div class="table_con_son ">
+						<table class="table table-bordered table-hover">
+						<thead><tr><th>项目名称</th><th>剩余次数</th></tr></thead>
+						<tbody class="re_proj">
+						</tbody>
+						</table>
 					</div><!--table_con_son!end-->
 				</div><!--table_con!end-->
 			</div><!--table_containter!end-->
 		</div>
 	</div>
 
-	<div class="pos_kj_top_two">
+	<div class="">
 		<div class="kj_title">可兑产品：</div>
 		<div class="">
 			<!--table_container-->  
@@ -355,14 +353,12 @@ foreach ($model->capital as $value) {
 				<!--table_con-->
 				<div class="table_con">
 					<!--table_con_son-->
-					<div class="table_con_son re_prod">
-						<div class="table_title">
-							<ul>
-								<li style="min-width:200px">产品名称</li>
-								<li style="border-right: medium none;">剩余次数</li>
-							</ul>
-						</div>
-
+					<div class="table_con_son ">
+						<table class="table table-bordered table-hover">
+						<thead><tr><th>产品名称</th><th>剩余次数</th></tr></thead>
+						<tbody class="re_prod">
+						</tbody>
+						</table>
 					</div><!--table_con_son!end-->
 				</div><!--table_con!end-->
 			</div><!--table_containter!end-->
@@ -373,15 +369,15 @@ foreach ($model->capital as $value) {
 
 <!-- 选择账户分配弹出 -->
 <div style="display:none">
-	<div class="zszhdk">
-		<div class="pos_gm_th_01">购买《肽美白》1疗次，原价：1000 元</div>
+	<div class="tjfj_two pos_gm_th zszhdk">
+
 		<!--table_container-->  
-		<div class="table_container">
+		<div style="margin-bottom:0px;" class="table_container">
 			<!--table_con-->
-			<div class="table_con pos_cz_qr_top_04">
+			<div style="margin-right:0px;" class="table_con pos_cz_qr_top_04">
 
 				<!--table_con_son-->
-				<div class="table_con_son" >
+				<div class="table_con_son">
 					<table class="table table-bordered table-hover">
 						<thead>
 							<tr>
@@ -399,9 +395,9 @@ foreach ($model->capital as $value) {
 		</div>
 		<!--table_containter!end-->
 	</div>
+
 </div>
 <!-- 选择账户分配弹出 end-->
-
 
 <script type="text/javascript">
 $(function(){
@@ -411,13 +407,11 @@ $(function(){
 	//卡券剩余显示
 	$(".qk_name").click(function(){
 		//客户持有的卡券id
-		var re_id = $(this).closest('.table_list').attr("data-id");
+		var re_id = $(this).closest('tr').attr("data-id");
 		var url="<?php echo $this->url('voucherRe') ?>&id="+re_id;	
 		$.post(url,function(data){
 			if(data.code==200){
 				var dd = Idialog({
-					top:150,
-					width:600,
 					title:'卡券剩余',
 					content:$('.qk_detail'),
 					cancel:false,
@@ -426,19 +420,19 @@ $(function(){
 						content.find(".re_money").html(re.money);
 						if(re.xm){
 							$.each( re.xm, function(i, pro){
-								var s_list ='<div class="table_list"><ul>';
-									s_list+='<li class="">'+pro.name+'</li>';
-									s_list+='<li class="">'+pro.re_num+'</li>';
-									s_list+='</ul></div>';
+								var s_list ='<tr>';
+									s_list+='<td class="">'+pro.name+'</td>';
+									s_list+='<td class="">'+pro.re_num+'</td>';
+									s_list+='</tr>';
 									content.find('.re_proj').append(s_list);
 							});
 						}
 						if(re.cp){
 							$.each( re.cp, function(i, pro){
-								var s_list ='<div class="table_list"><ul>';
-									s_list+='<li class="">'+pro.name+'</li>';
-									s_list+='<li class="">'+pro.re_num+'</li>';
-									s_list+='</ul></div>';
+								var s_list ='<tr>';
+									s_list+='<td>'+pro.name+'</td>';
+									s_list+='<td>'+pro.re_num+'</td>';
+									s_list+='</tr>';
 									content.find('.re_prod').append(s_list);
 							});
 						}
@@ -454,7 +448,7 @@ $(function(){
 
 	//退款组成
 	$('.table').on('click','.tk',function(){
-		var table_list = $(this).closest('.table_list');
+		var table_list = $(this).closest('tr');
 		var capital_money=table_list.attr("data-tk");
 		var capital_list=capital_xj.concat(capital_zs);
 		var d = Idialog({
@@ -502,7 +496,7 @@ $(function(){
 	function tk_min_all(){
 		$(".tk_min_all").each(function(i){
 			var tk_min_all=0;
-			$(this).closest('.pos_cz_tow').find(".tk").map(function(){
+			$(this).closest('.table-responsive').find(".tk").map(function(){
 				tk_min_all+= $.isNumeric(parseInt($(this).html()))?parseInt($(this).html()):0;
 			});
 			$(this).html(tk_min_all);
@@ -511,7 +505,6 @@ $(function(){
 		$('.c_tk_min_all').html(eval($('.capital_tk').map(function(){
 			return $.isNumeric($(this).val())?parseInt($(this).val()):0;
 		}).get().join('+')));
-
 		tk_all();
 	}
 	//总退款合计填充

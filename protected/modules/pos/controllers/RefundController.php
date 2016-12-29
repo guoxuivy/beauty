@@ -51,26 +51,6 @@ class RefundController extends BaseController
 		))->display();
 	}
 
-	/**
-	 * 订单退款
-	 * @param [int] $id [订单id order_sale]
-	 * @return [type] [description]
-	 */
-	public function orderAction($id=113){
-		$model=SaleModel::model()->getOrderModel($id,true);
-		//var_dump($model);die;
-		$capital_list=\CompanyCapital::model()
-			->where("type=2 and status =1 and comp_id=".$this->company['id'] )
-			->findAll();
-		
-		$this->view->assign(array(
-			"capital_list"=>$capital_list,								//赠送现金账户
-			"cu_info"=>$this->getCuInfo($model->o_s->cu_id),			//客户信息渲染
-			'model'=>$model,
-			"light_nav"=>$this->url('pos/index/index'),					//需要点亮的导航
-		))->display();
-
-	}
 
 
 	/**
