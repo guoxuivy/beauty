@@ -58,7 +58,7 @@ class IndexController extends Controller {
 			$this->redirect('login');
 		} else {
 			$return_url = Ivy::app()->user->getReturnUrl();
-			if($return_url)
+			if($return_url && $_SERVER['HTTP_REFERER']!=$return_url)
 				$this->redirect($return_url);
 			$this->redirect($this->getLoninUrl());
 		}

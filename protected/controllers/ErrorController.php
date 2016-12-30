@@ -13,7 +13,7 @@ class ErrorController extends Controller {
 	public $layout=null;
 
 	public function indexAction($code='404',$msg='哎哟...  您访问的页面不存在！') {
-		$this->view->assign(array('code'=>$code,'msg'=>$msg))->display();
+		$this->view->assign(array('code'=>$code,'msg'=>$msg))->display("404");
 	}
     
 }
