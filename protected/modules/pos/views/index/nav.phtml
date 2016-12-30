@@ -98,7 +98,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="tile bg-green-meadow pos_zc_bj" data-url="<?php $company_info=\Ivy::app()->user->getState('company_info');echo $company_info['has_invo']!='Y'?$this->url('noinvo/recipients/edit'):$this->url('invo/out/edit',array('type'=>2)) ?>">
+		<div class="tile bg-green-meadow pos_ly_bj" data-url="<?php $company_info=\Ivy::app()->user->getState('company_info');echo $company_info['has_invo']!='Y'?$this->url('noinvo/recipients/edit'):$this->url('invo/out/edit',array('type'=>2)) ?>">
 			<div class="tile-body">
 				<i class="fa fa-laptop"></i>
 			</div>
@@ -235,6 +235,12 @@ $(function(){
     	$(".ch_cu button").eq(1).hide();
         to_order($(this),"<?php echo $this->url('pos/receive/add');?>");
     });
+    //寄存领取流程
+    $(".pos_ly_bj").click(function(){
+    	var url = $(this).attr("data-url");
+        to_url(url);
+    });
+
     //实操单 开放跨店
     $(".pos_sc_bj").click(function(){
     	$(".ch_cu button").eq(1).show();

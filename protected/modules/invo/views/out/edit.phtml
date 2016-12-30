@@ -1,19 +1,16 @@
-
+<link href="<?php echo $this->basePath('public');?>/css/invo.css" rel="stylesheet" type="text/css"/>
         <!--content_right_con-->
-        <div class="content_right_con">
-          <div class="content_right_con_top">
-             <!--<div class="fjgl_top_r">
-              <a href="javascript:" class="fjgl_top_r_04">导出</a><a href="javascript:" class="fjgl_top_r_01">筛选</a><a href="javascript:" class="fjgl_top_r_02 tjfjz">新建出库</a>
-             </div>-->
+        <div class="row">
+          <div class="col-md-12 content_right_con_top">
              仓库管理>出库记录>新建出库
           </div>
-          <div class="fjgl_two" >
+          <div class="col-md-12" >
                <div class="ck_splb_ckjl_01 ck_splb_ckjl_01_l">出库日期：<?php echo $model->create_time?date('Y-m-d',$model->create_time):date('Y-m-d'); ?></div>
                <div class="ck_splb_ckjl_01 ck_splb_ckjl_01_m">部门：<?php echo \EmployDept::getSName($model->dept_id?$model->dept_id:\Ivy::app()->user->dept_id); ?></div>
                <div class="ck_splb_ckjl_01 ck_splb_ckjl_01_r">制单人：<?php echo \EmployUser::getUserNames($model->create_user?$model->create_user:\Ivy::app()->user->id); ?></div>
           </div>
           
-         <div class="ck_splb_ckjl_top">
+         <div class="col-md-12 ck_splb_ckjl_top">
              <div class="ck_splb_ckjl_top_l">出库类型：</div>
              <div class="ck_splb_ckjl_top_r">
                  <div class="ck_splb_ckjl_top_r_son">
@@ -26,7 +23,7 @@
          </div> 
          
          
-         <div class="ck_splb_ckjl_top">
+         <div class="col-md-12 ck_splb_ckjl_top">
              <div class="ck_splb_ckjl_top_l">出库商品：</div>
              <div class="ck_splb_ckjl_top_r">
                  <div class="ck_splb_ckjl_top_r_son">
@@ -40,38 +37,36 @@
                                <!--table_con-->
                                <div class="table_con">
                                   <!--table_con_son-->
-                                   <div class="table_con_son">
-                                     <div class="table_title">
-                                       <ul>
-                                         <li>商品分类</li>
-                                         <li>品牌或系列</li>
-                                         <li>商品名称</li>
-                                         <li>商品编码</li>
-                                         <li>规格</li>
-                                         <li>单位</li>
-                                         <li>出库数量</li>
-                                         <li>操作</li>
-          
-                                       </ul>
-                                    </div>
- 
+                                   <div class="table_con_son table-responsive">
+                                    <table class="table table-bordered table-hover " >
+                                     <thead>
+                                         <th>商品分类</th>
+                                         <th>品牌或系列</th>
+                                         <th>商品名称</th>
+                                         <th>商品编码</th>
+                                         <th>规格</th>
+                                         <th>单位</th>
+                                         <th>出库数量</th>
+                                         <th>操作</th>
+                                    </thead>
+                                    <tbody>
+    
                                     <?php if ($model):?>
                                         <?php if($model->detail)foreach ($model->detail as $pro): ?>
-                                        <div  data-id="<?php echo $pro['product_id']; ?>"  class="table_list">
-                                            <ul>
-                                                <li class="li001"><?php echo $pro['top_name'] ?></li>
-                                                <li class="li002"><?php echo $pro['c_name'] ?></li>
-                                                <li class="li003"><?php echo $pro['p_name'] ?></li>
-                                                <li class="li004"><?php echo $pro['p_code'] ?></li>
-                                                <li class="li005"><?php echo $pro['p_specs'] ?></li>
-                                                <li class="li006"><?php echo $pro['p_unit'] ?></li>
-                                                <li class="li007"><input type="text" value="<?php echo $pro['out_num'] ?>" data-pro-id="<?php echo $pro['product_id'];?>" data-max-num="<?php echo $pro['max_num'] ?>" class="pos_cz_tow_two05"></li>
-                                                <li class="li008"><a class="delete c_del" href="javascript:">删除</a></li>
-                                            </ul>
-                                        </div>
+                                        <tr  data-id="<?php echo $pro['product_id']; ?>"  class="table_list">
+                                                <td class="li001"><?php echo $pro['top_name'] ?></td>
+                                                <td class="li002"><?php echo $pro['c_name'] ?></td>
+                                                <td class="li003"><?php echo $pro['p_name'] ?></td>
+                                                <td class="li004"><?php echo $pro['p_code'] ?></td>
+                                                <td class="li005"><?php echo $pro['p_specs'] ?></td>
+                                                <td class="li006"><?php echo $pro['p_unit'] ?></td>
+                                                <td class="li007"><input type="text" value="<?php echo $pro['out_num'] ?>" data-pro-id="<?php echo $pro['product_id'];?>" data-max-num="<?php echo $pro['max_num'] ?>" class="pos_cz_tow_two05"></td>
+                                                <td class="li008"><a class="delete c_del" href="javascript:">删除</a></td>
+                                        </tr>
                                         <?php endforeach ?>
                                      <?php endif ?>
-
+                                     </tbody>
+                                    </table>
                                  </div><!--table_con_son!end-->
                                </div><!--table_con!end-->
                              </div>
@@ -84,7 +79,7 @@
          </div> 
          
          
-         <div class="ck_splb_ckjl_top">
+         <div class="col-md-12 ck_splb_ckjl_top">
              <div class="ck_splb_ckjl_top_l">备注：</div>
              <div class="ck_splb_ckjl_top_r">
                  <div class="ck_splb_ckjl_top_r_son">
@@ -94,7 +89,7 @@
          </div> 
          
          
-         <div class="ck_splb_ckjl_top">
+         <div class="col-md-12 ck_splb_ckjl_top">
              <div class="ck_splb_ckjl_top_l"></div>
              <div class="ck_splb_ckjl_top_r">
                  <div class="ck_splb_ckjl_top_r_son">
@@ -169,21 +164,20 @@
                     //如果存在 则略过
                     if(has_list.filter("[data-id='"+p_id+"']").length>0) return ;
 
-                    var str  ='<div class="table_list" data-id="'+p_id+'"><ul>';
-                        str +='<li class="li001">'+pro.attr('data-top_name')+'</li>';
-                        str +='<li class="li002">'+pro.attr('data-c_name')+'</li>';
-                        str +='<li class="li003">'+p_name+'</li>';
-                        str +='<li class="li004">'+pro.attr('data-code')+'</li>';
-                        str +='<li class="li005">'+pro.attr('data-specs')+'</li>';
-                        str +='<li class="li006">'+p_unit+'</li>';
-                        str +='<li class="li007"><input type="text" class="pos_cz_tow_two05" value="1" data-pro-id="'+p_id+'" data-max-num="'+max_num+'" /></li>';
-                        str +='<li class="li008"><a href="javascript:" class="delete c_del">删除</a></li>';
-                        str +='</ul></div>';
+                    var str  ='<tr class="table_list" data-id="'+p_id+'">';
+                        str +='<td class="li001">'+pro.attr('data-top_name')+'</td>';
+                        str +='<td class="li002">'+pro.attr('data-c_name')+'</td>';
+                        str +='<td class="li003">'+p_name+'</li>';
+                        str +='<td class="li004">'+pro.attr('data-code')+'</td>';
+                        str +='<td class="li005">'+pro.attr('data-specs')+'</td>';
+                        str +='<td class="li006">'+p_unit+'</td>';
+                        str +='<td class="li007"><input type="text" class="pos_cz_tow_two05" value="1" data-pro-id="'+p_id+'" data-max-num="'+max_num+'" /></td>';
+                        str +='<td class="li008"><a href="javascript:" class="delete c_del">删除</a></td>';
+                        str +='</tr>';
                     
-                    $('.table_con_son').append(str);
+                    $('tbody').append(str);
                     pro_k++;
                 });
-                table_flash();
             }
         });
     });

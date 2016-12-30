@@ -2,7 +2,10 @@
 @charset "utf-8";
 ul{padding: 0;}
 li{list-style: none;}
-/*交易记录选中标记*/
+
+a{text-decoration:none;}
+a:hover{text-decoration:none;}
+
 
 .aaddys ,.span_01{background-color: #f3565d;background-image: none;padding: 2px 5px;color: #fff;}
 .aaddys,.span_01{text-decoration:none;color: #fff;}

@@ -1,0 +1,90 @@
+/*老模版样式移植*/
+@charset "utf-8";
+li{list-style: none;}
+/*交易记录选中标记*/
+a{text-decoration:none;}
+a:hover{text-decoration:none;}
+
+/*仓库管理-商品列表*/
+.ck_splb_01{ padding:0px 13px; height:22px; line-height:22px; display:inline-block; border-radius:3px; background:#0077ff; margin-left:10px; color:#FFF;}
+.ck_splb_foot{ margin-right:20px; margin-top:20px;font-family:"宋体"; font-size:12px; color:#ff0000; line-height:40px;}
+.ck_splb_foot_01{height:34px;line-height:34px;padding-left:20px;padding-right:20px; min-width:100px; text-align:center;font-size:14px;color:#fff;margin-right:10px;border-radius:3px;display:inline-block;background: #1BAB70 none repeat scroll 0px 0px;
+border: 1px solid #129E65;
+box-shadow: 0px 1px 1px #54C094 inset;}
+.ck_splb_foot_02{height:34px;line-height:34px;padding-left:20px;padding-right:20px; min-width:100px; text-align:center;font-size:14px; background-color:#fff; border:solid 1px #ccc; display:inline-block; color:#666;border-radius:3px;}
+
+.ck_splb_checked input{ width:14px; height:14px;}
+.ck_splb_tctitle{font-family:"宋体";font-size:12px;color:red;height:25px}
+.ck_splb_tctitle span{ float:right; padding-right:20px;}
+.ck_splb_tctitle input{ width:160px; height:24px;border:1px solid #cccccc; border-radius:3px; }
+.ck_splb_tctitle a{ float:right; margin-left:10px; display:inline;}
+.ck_splb_tctitle_01{min-height:35px; height:auto !important; padding-left:20px; padding-top:13px;font-family:"宋体"; background:#fafafa; font-size:12px; color:#666666;border:none; margin-right:20px; margin-right:-20px; margin-top:-20px;}
+
+
+/*仓库管理-出库记录*/
+.ck_splb_ckjl_01{ width:33%; float:left;font-family:"宋体"; background:#fafafa; font-size:12px; color:#666666;}
+.ck_splb_ckjl_01_l{box-sizing:border-box; padding-left:20px;}
+.ck_splb_ckjl_01_m{ text-align:center;}
+.ck_splb_ckjl_01_r{ text-align:right;}
+
+.ck_splb_ckjl_top{overflow:hidden;margin-top:20px;font-family:"宋体";font-size:12px;color:#666666;}
+.ck_splb_ckjl_top_l{ float:left; width:80px; position:relative; margin-right:-80px;overflow:hidden;}
+.ck_splb_ckjl_top_r{ float:right; width:100%;overflow:hidden;}
+.ck_splb_ckjl_top_r_son{ margin-left:80px;}
+.ck_splb_ckjl_top_01{ height:28px; width:260px;border:1px solid #dddddd; margin-right:60px;}
+.ck_splb_ckjl_top_02{ padding-right:20px;}
+
+.ck_splb_ckjl_top_03{display:inline-block;width:72px;height:21px;text-align:center;line-height:21px;border:1px solid #dddddd;font-family:"宋体";font-size:12px;cursor:pointer;color:#666666;}
+.ck_splb_ckjl_top_03:hover{ border:solid 1px #09F; color:#07f;}
+.ck_splb_ckjl_top_04{ display:inline-block; width:100px; height:30px; text-align:center; line-height:30px;border:1px solid #dddddd; font-size:14px; color:#666666; margin-right:17px; border-radius:3px;}
+.ck_splb_ckjl_top_05{border:1px solid #19a96e; font-size:14px; color:#ffffff; background:#22c381;}
+
+
+.ck_splb_ckjl_two{ margin-right:20px;border:1px solid #dddddd; font-size:12px; color:#444444; margin-top:20px; line-height:50px; padding-left:20px;}
+.ck_splb_ckjl_two a{ font-size:12px; color:#0077ff; margin-right:106px;}
+
+.sjbb_ddkl_one_r_son .sjbb_ddklchanga{ color:#FFF; height:24px; padding-left:10px; padding-right:10px; border-radius:3px; background:#2099ff; line-height:24px;}
+
+.ck_splb_kcbg_01{ width:95px; height:24px;border:1px solid #dddddd;border-radius:3px; margin:0 5px;}
+
+.khgl_com_ck{ padding-left:102px; position:relative; zoom:1;}
+.khgl_com_ck_tilte{ width:101px;border-right:1px solid #dddddd; position:absolute; text-align:center; left:0px; height:23px; padding-top:7px;}
+.khgl_com_ck_list{ width:102px; position:absolute; text-align:center; left:0px; height:31px;padding-top:17px; line-height:21px;}
+.khgl_com_ck_list_01{ background:#f5fffb;}
+
+/*仓库管理-库存报告*/
+
+.cktable_con{ margin-right:20px; overflow:hidden; margin-top:20px; border-bottom:none;}
+.cktable_con_table{border-collapse:collapse;font-family:"宋体";font-size:12px;color:#666666;border:1px solid #dddddd;width:100%;box-sizing:border-box;text-align:center;}
+.cktable_con_table th{ height:25px;border:1px solid #dddddd; line-height:25px; padding:0;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.cktable_con_table tr{border-bottom:1px solid #dddddd;}
+.cktable_con_table tr:hover{background-color:#ffffdd;}
+.cktable_con_table td{ text-align:center; height:48px;border:none;padding:0;text-align:center; line-height:48px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.cktable_con_table td a{font-family:"宋体"; font-size:12px; color:#666666;display:inline-block; height:22px; padding-left:8px; padding-right:8px; line-height:22px; background:#dddddd; text-align:center; margin:0 5px; border-radius:2px; margin-top:0px;}
+.cktable_con_table tr:last-child{ border-bottom:none;}
+
+
+/*仓库管理-盘库*/
+.khgl_pk_01{background:url(../images/pk_02.png) no-repeat 0px 0px;font-family:"宋体"; font-size:12px; color:#ffffff; display:inline-block; width:72px; height:26px; position:relative; top:8px; padding-right:0px;} 
+
+.khgl_pk_butom{ height:40px; padding:10px; background-color:#fafafa;}
+
+.khgl_pk_top{font-family:"宋体";font-size:12px;color:#666666;border:1px solid #dddddd;padding:12px;background:#fafafa;margin-bottom:15px;}
+.khgl_pk_top_01{ height:28px; width:192px;border:1px solid #dddddd; border-radius:3px; padding-left:4px; margin-right:12px;}
+.khgl_pk_top_02{ display:inline-block; height:28px; width:78px;border: 1px solid #129E65; line-height:28px; text-align:center; border-radius:3px; background:#1BAB70 ; font-size:14px; color:#ffffff;cursor:pointer;box-shadow: 0px 1px 1px #54C094 inset;}
+
+.khgl_pk_two{ line-height:25px; padding-bottom:5px;font-family:"宋体"; font-size:12px; color:#ff2c7b;}
+.khgl_pk_two span{ float:right;font-family:"宋体"; font-size:12px; color:#444444;}
+
+.khgl_pk_th{ overflow:hidden; text-align:center;}
+.khgl_pk_th_top{ text-align:center; font-size:24px; color:#1bab70; padding-bottom:20px;}
+.khgl_pk_th_top img{ position:relative; top:14px; left:-6px;}
+.khgl_pk_th_two{ text-align:center; font-size:14px; color:#666666; margin-bottom:20px;}
+
+/*仓库管理-库存周期表*/
+.khgl_kczq_01{ width:150px; height:24px; border-radius:3px;border:1px solid #dddddd;}
+
+.khgl_rk{ overflow:hidden; border-bottom:1px dashed #dddddd;font-family:"宋体"; font-size:12px; color:#102; margin-left:17px;}
+.khgl_rk label{ display:inline-block; width:76px;}
+.khgl_rk .khgl_rk_01{ width:260px; height:28px;border:1px solid #dddddd; border-radius:3px; margin-right:48px;}
+
