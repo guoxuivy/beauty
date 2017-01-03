@@ -1,78 +1,88 @@
+<link href="<?php echo $this->basePath('public');?>/css/oldAdmin.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
 <script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
 
 <script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/PCASClass.js"></script>
-<!--content_right_con-->
-<div class="content_right_con">
-    <div class="content_right_con_top">
-        <div class="fjgl_top_r">
-            <span><a href="javascript:" class="fjgl_top_r_02 tjfjz">新增房间</a></span>
-        </div>
-         房间管理
-    </div>
-
-<?php 
-$s_data=array();
-foreach ($store_list as $value) {
-	$s_data[$value['id']]=$value['dept_name'];
-}
-
-?>
-<!--  模版引擎扩展 -->
-<?php echo $this->datagrid(array(
-	'id'=>'order-list',
-	'dataProvider'=>$pager,
-	'search'=>$is_store?false:true,
-	'columns'=>array(
-		array(
-			'header' => '门店',
-			'name' => 'store_id',
-			'value'=>'{\EmployDept::getSName($data["store_id"])}',
-			'filter'=>array('store_id',$s_data)
-		),
-		array(
-			'header' => '房间名称',
-			'name' => 'name',
-		),
-		array(
-			'header' => '床位数',
-			'name' => 'bad_num',
-			'value'=>'{\CompanyRoomBed::model()->getBedNum($data["id"])}',
-		),
-		array(
-			'header' => '床位名称',
-			'name' => 'bed_name',
-			'value'=>'{\CompanyRoomBed::model()->getBedStr($data["id"])}',
-		),
-		array(
-			'header' => '状态',
-			'name' => 'status',
-			'value'=>'{$data["status"]==1?"启用":"<fone style=\"color:red\">停用</font>"}</a>'
-		),
-		array(
-			'header' => '操作',
-			'name' => 'status',
-			'rel'=>'id',
-			'template'=>'<a rel="{$data["id"]}" href="javascript:" class="btn default btn-xs blue-hoki-stripe change">{$data["status"]==0?"启用":"停用"}</a>
-				<a class="btn default btn-xs green-stripe edit" href="javascript:">修改</a>
-				<a href="javascript:;" class="btn default btn-xs red-stripe delete">删除</a>'
-		),
-	),
-));?>
 
 
-	<?php if(!empty($_GET['yd'])):?>
-		<div class="zhezhao">
-			<div class="zhezhao_center">
-				<span>第三步</span>
-				<a class="zhezhao_center_back" href="<?php echo $this->url('/admin/employ/index',array('yd'=>1));?>">返回上一步</a>
-				<a class="zhezhao_center_next" href="<?php echo $this->url('/admin/membership/index',array('yd'=>1));?>">进入下一步</a>
+<div class="row"> 
+	<div class="col-md-12">
+		<div class="portlet no_mb">
+	        <div class="portlet-title">
+	            <div class="actions btn-set">
+					<a href="javascript:;" class="btn default yellow-stripe tjfjz"><i class="fa fa-plus"></i><span class="hidden-480">新增房间</span></a>
+				</div>
+	        </div>
+	    </div>
+	</div>
+
+
+    <div class="col-md-12">
+        <?php 
+		$s_data=array();
+		foreach ($store_list as $value) {
+			$s_data[$value['id']]=$value['dept_name'];
+		}
+
+		?>
+		<!--  模版引擎扩展 -->
+		<?php echo $this->datagrid(array(
+			'id'=>'order-list',
+			'title'=>'房间列表',
+			'dataProvider'=>$pager,
+			'search'=>$is_store?false:true,
+			'columns'=>array(
+				array(
+					'header' => '门店',
+					'name' => 'store_id',
+					'value'=>'{\EmployDept::getSName($data["store_id"])}',
+					'filter'=>array('store_id',$s_data)
+				),
+				array(
+					'header' => '房间名称',
+					'name' => 'name',
+				),
+				array(
+					'header' => '床位数',
+					'name' => 'bad_num',
+					'value'=>'{\CompanyRoomBed::model()->getBedNum($data["id"])}',
+				),
+				array(
+					'header' => '床位名称',
+					'name' => 'bed_name',
+					'value'=>'{\CompanyRoomBed::model()->getBedStr($data["id"])}',
+				),
+				array(
+					'header' => '状态',
+					'name' => 'status',
+					'value'=>'{$data["status"]==1?"启用":"<fone style=\"color:red\">停用</font>"}</a>'
+				),
+				array(
+					'header' => '操作',
+					'name' => 'status',
+					'rel'=>'id',
+					'template'=>'<a rel="{$data["id"]}" href="javascript:" class="btn default btn-xs blue-hoki-stripe change">{$data["status"]==0?"启用":"停用"}</a>
+						<a class="btn default btn-xs green-stripe edit" href="javascript:">修改</a>
+						<a href="javascript:;" class="btn default btn-xs red-stripe delete">删除</a>'
+				),
+			),
+		));?>
+
+
+		<?php if(!empty($_GET['yd'])):?>
+			<div class="zhezhao">
+				<div class="zhezhao_center">
+					<span>第三步</span>
+					<a class="zhezhao_center_back" href="<?php echo $this->url('/admin/employ/index',array('yd'=>1));?>">返回上一步</a>
+					<a class="zhezhao_center_next" href="<?php echo $this->url('/admin/membership/index',array('yd'=>1));?>">进入下一步</a>
+				</div>
 			</div>
-		</div>
-	<?php endif;?>
-    
-</div>
-<!--content_right_con!end-->
+		<?php endif;?>
+
+
+	</div>
+</div>	
+
 
 
 <!--tjfj-->

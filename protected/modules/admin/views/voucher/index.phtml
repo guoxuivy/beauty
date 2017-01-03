@@ -4,7 +4,7 @@ $child_cate=array();
 if(isset($_GET['t_search']['c_t.id']))
 	$child_cate=\ProCate::model()->findAll('fid='.(int)$_GET['t_search']['c_t.id']);
 ?>
-
+<link href="<?php echo $this->basePath('public');?>/css/oldAdmin.css" rel="stylesheet" type="text/css"/>
 
 
 <!--content_right_con-->

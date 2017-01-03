@@ -6,12 +6,10 @@ if(isset($_GET['t_search']['c_t.id']))
 	$tmp_cate=\ProCate::model()->findAll('fid='.(int)$_GET['t_search']['c_t.id'].' and comp_id='.\Ivy::app()->user->comp_id);
 	$child_cate = $this->optArr($tmp_cate,'id','name');
 ?>
-
+<link href="<?php echo $this->basePath('public');?>/css/oldAdmin.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
 <script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
 <script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/html5uploader/jquery.html5uploader.js"></script>
-
-
 
 <div class="row">
 	<div class="col-md-12">

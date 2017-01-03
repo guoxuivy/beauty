@@ -230,15 +230,20 @@ var d = Idialog({
 $.fn.help = function(){
     this.each(function(){
         var exp = $(this).attr('explain');
+        var css_width = $(this).attr('css-width');
+        if (css_width) {
+        	$(this).html('<div class="help_ms" style="width:'+css_width+'"><div class="help_icon"></div><span class="help_ti">'+exp+'</span></div>');
+        }else{
+        	$(this).html('<div class="help_ms"><div class="help_icon"></div><span class="help_ti">'+exp+'</span></div>');
+		}
 
-        $(this).html('<div class="help_ms"><div class="help_icon"></div><span class="help_ti">'+exp+'</span></div>');
     });
     this.hover(
         function(){
             $(".help_ms").hide();
             $(this).find(".help_ms").show();
         },function(){
-            $(this).find(".help_ms").hide();
+            $(this).find(".help_ms").show();
     });
     return this;
 

@@ -1,65 +1,69 @@
+<link href="<?php echo $this->basePath('public');?>/css/oldAdmin.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
 <script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
 
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		<div class="fjgl_top_r">
-			<span><a href="javascript:" class="fjgl_top_r_01 filter_search">筛选</a></span>
-			<span><a href="<?php echo $this->url('capitaledit') ?>" class="fjgl_top_r_02 tjfjz">新增会员账户</a></span>
-		</div>
-		功能设置>会员账户设置
+
+<div class="row"> 
+	<div class="col-md-12">
+		<div class="portlet no_mb">
+	        <div class="portlet-title">
+	            <div class="actions btn-set">
+					<a href="<?php echo $this->url('capitaledit') ?>" class="btn default yellow-stripe tjfjz"><i class="fa fa-plus"></i><span class="hidden-480">新增会员账户</span></a>
+				</div>
+	        </div>
+	    </div>
 	</div>
-<?php echo $this->datagrid(array(
-	'id'=>'table-list',
-	'dataProvider'=>$pager,
-	'columns'=>array(
-		array(
-			'header' => '账户名称',
-			'name' => 'name',
-			'filter'=>'t.name',
+	<div class="col-md-12">
+	<?php echo $this->datagrid(array(
+		'id'=>'table-list',
+		'dataProvider'=>$pager,
+		'columns'=>array(
+			array(
+				'header' => '账户名称',
+				'name' => 'name',
+				'filter'=>'t.name',
+			),
+			array(
+				'header' => '账户类型',
+				'name' => 'type',
+				'value'=>'{\CompanyCapital::getType($data["type"])}',
+				'filter'=>array('t.type',\CompanyCapital::getType()),
+			),
+			array(
+				'header' => '状态',
+				'name' => 'status',
+				'filter'=>array('t.status',\CompanyCapital::getStatus()),
+				'value'=>'{\CompanyCapital::getStatus($data["status"])}',
+			),
+			array(
+				'header' => '购买项目',
+				'name' => 'is_project',
+				'value'=>'{\CompanyCapital::getYN($data["is_project"])}',
+				'filter'=>array('t.is_project',\CompanyCapital::getYN()),
+			),
+			array(
+				'header' => '购买产品',
+				'name' => 'is_product',
+				'value'=>'{\CompanyCapital::getYN($data["is_product"])}',
+				'filter'=>array('t.is_product',\CompanyCapital::getYN()),
+			),
+			array(
+				'header' => '购买卡劵',
+				'name' => 'is_voucher',
+				'value'=>'{\CompanyCapital::getYN($data["is_voucher"])}',
+				'filter'=>array('t.is_product',\CompanyCapital::getYN()),
+			),
+			array(
+				'header' => '账户说明',
+				'name' => 'note',
+			),
+			array(
+				'header' => '操作',
+				'rel'=>'id',
+				'value'=> '<a href="'.$this->url("capitaledit").'&id={$data["id"]}" class="edit">编辑</a>',
+			)
 		),
-		array(
-			'header' => '账户类型',
-			'name' => 'type',
-			'value'=>'{\CompanyCapital::getType($data["type"])}',
-			'filter'=>array('t.type',\CompanyCapital::getType()),
-		),
-		array(
-			'header' => '状态',
-			'name' => 'status',
-			'filter'=>array('t.status',\CompanyCapital::getStatus()),
-			'value'=>'{\CompanyCapital::getStatus($data["status"])}',
-		),
-		array(
-			'header' => '购买项目',
-			'name' => 'is_project',
-			'value'=>'{\CompanyCapital::getYN($data["is_project"])}',
-			'filter'=>array('t.is_project',\CompanyCapital::getYN()),
-		),
-		array(
-			'header' => '购买产品',
-			'name' => 'is_product',
-			'value'=>'{\CompanyCapital::getYN($data["is_product"])}',
-			'filter'=>array('t.is_product',\CompanyCapital::getYN()),
-		),
-		array(
-			'header' => '购买卡劵',
-			'name' => 'is_voucher',
-			'value'=>'{\CompanyCapital::getYN($data["is_voucher"])}',
-			'filter'=>array('t.is_product',\CompanyCapital::getYN()),
-		),
-		array(
-			'header' => '账户说明',
-			'name' => 'note',
-		),
-		array(
-			'header' => '操作',
-			'rel'=>'id',
-			'value'=> '<a href="'.$this->url("capitaledit").'&id={$data["id"]}" class="edit">编辑</a>',
-		)
-	),
-));?>
+	));?>
 
 	<?php if(!empty($_GET['yd'])):?>
 		<div class="zhezhao">
@@ -71,12 +75,14 @@
 		</div>
 	<?php endif;?>
 
+	</div>
 </div>
-<!--content_right_con!end-->
+
+
 
 
 <!--tjfj-->
-<div class="tjfj add_card none" style="display: block;">
+<div class="tjfj add_card none" style="display: none;">
 	<div class="tjfj_two">
 		<form method="post">
 
@@ -111,7 +117,7 @@ function validate(classname){
 	 * 修改会员账户
 	 */
 	$(document).on('click','.tjfjz,.edit',function(){
-		var obj = $(this).parent().parent().parent();
+		var obj = $(this).parent().parent();
 		var is_new=$(this).hasClass('tjfjz');
 		var _url=$(this).attr('href'),yd='<?php echo $_GET['yd'];?>';
 		$.get(_url, { ajax: 1 },function(html){
@@ -141,7 +147,7 @@ function validate(classname){
 	 * 修改会员账户状态
 	 */
 	$(document).on('click','.change',function(){
-		var obj = $(this).parent().parent().parent();
+		var obj = $(this).parent().parent();
 		var id = obj.attr('rel');
 		var thisobj = $(this);
 		$.get("<?php echo $this->url('change') ?>", { id: id },function(html){
@@ -156,7 +162,7 @@ function validate(classname){
 	 * 删除会员账户
 	 */
 	$(document).on('click','.delete',function(){
-		var obj = $(this).parent().parent().parent();
+		var obj = $(this).parent().parent();
 		var _url=$(this).attr('href');
 		var d = Idialog({
 			top:120,

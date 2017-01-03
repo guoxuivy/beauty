@@ -9,13 +9,9 @@ class ConfigController extends \SController
 		$config=\CompanyInfo::getConfig('order_show');
 		if ($_POST) {
 			if ($model=\CompanyInfo::setConfig('order_show',$_POST['order_show'])){
-				$this->ajaxReturn ( 200, "ok", array (
-						
-				) );
+				$this->ajaxReturn ( 200, "ok");
 			}else{
-				$this->ajaxReturn ( 400, "no", array (
-						
-				) );
+				$this->ajaxReturn ( 400, "no");
 			}
 		}
 		$this->view->assign(array(
@@ -27,13 +23,9 @@ class ConfigController extends \SController
 		$config=\CompanyInfo::getConfig('score_config');
 		if ($_POST) {
 			if ($model=\CompanyInfo::setConfig('score_config',$_POST['score_config'])){
-				$this->ajaxReturn ( 200, "ok", array (
-						
-				) );
+				$this->ajaxReturn ( 200, "ok");
 			}else{
-				$this->ajaxReturn ( 400, "no", array (
-						
-				) );
+				$this->ajaxReturn ( 400, "no");
 			}
 		}
 		$this->view->assign(array(
@@ -138,13 +130,9 @@ class ConfigController extends \SController
 				
 			}
 			if ($model=\CompanyInfo::setConfig('payee',$_POST)){
-				$this->ajaxReturn ( 200, "ok", array (
-						
-				) );
+				$this->ajaxReturn ( 200, "ok");
 			}else{
-				$this->ajaxReturn ( 400, "no", array (
-						
-				) );
+				$this->ajaxReturn ( 400, "no");
 			}
 		}
 		$this->view->assign(array(
@@ -158,13 +146,9 @@ class ConfigController extends \SController
 		if ($_POST) {
 			unset($_POST['__hash__']);
 			if ($model=\CompanyInfo::setConfig('sale_access',$_POST)){
-				$this->ajaxReturn ( 200, "ok", array (
-						
-				) );
+				$this->ajaxReturn ( 200, "ok");
 			}else{
-				$this->ajaxReturn ( 400, "no", array (
-						
-				) );
+				$this->ajaxReturn ( 400, "no");
 			}
 		}
 		$this->view->assign(array(
@@ -177,13 +161,9 @@ class ConfigController extends \SController
 		if ($_POST) {
 			unset($_POST['__hash__']);
 			if ($model=\CompanyInfo::setConfig('member_config',$_POST['member_config'])){
-				$this->ajaxReturn ( 200, "ok", array (
-						
-				) );
+				$this->ajaxReturn ( 200, "ok");
 			}else{
-				$this->ajaxReturn ( 400, "no", array (
-						
-				) );
+				$this->ajaxReturn ( 400, "no");
 			}
 		}
 		$this->view->assign(array(

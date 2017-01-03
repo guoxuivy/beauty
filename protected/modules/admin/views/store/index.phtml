@@ -1,3 +1,4 @@
+<link href="<?php echo $this->basePath('public');?>/css/oldAdmin.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
 <script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
 <script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/PCASClass.js"></script>
@@ -6,57 +7,61 @@
 .tjfj_two .mdgl_06{padding:0}
 </style>
 <script src="http://api.map.baidu.com/api?v=1.4"></script>
-<!--content_right_con-->
-<div class="content_right_con">
-    <div class="content_right_con_top">
-        <div class="fjgl_top_r">
-            <span><a href="javascript:" class="fjgl_top_r_02 stop_store">已停用门店</a></span>
-        </div>
-         门店管理
-    </div>
-    <!--table_container-->    
-    <div class="table_container">
-        
-        <!--table_con-->
-        <div class="table_con">
-            <!--table_con_son-->
-            <div class="table_con_son">
-                <div class="table_title">
-                    <ul>
-                        <li>门店名称</li>
-                        <li>门店地址</li>
-                        <li>状态</li>
-                        <li>操作</li>
-                    </ul>
+
+<div class="row"> 
+	<div class="col-md-12">
+		<div class="portlet no_mb">
+	        <div class="portlet-title">
+	            <div class="actions btn-set">
+					<a href="javascript:;" class="btn default blue-stripe stop_store"><i class="fa fa-mail-forward"></i><span class="hidden-480">已停用门店</span></a>
+				</div>
+	        </div>
+	    </div>
+	</div>
+
+    <div class="col-md-12">
+        <div class="portlet box blue-steel">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>门店列表
                 </div>
-                
-                <?php if ($list): ?>
-                    <?php foreach ($list as $store): ?>
-                        <div class="table_list" rel="<?php echo $store['id'];?>">
-                            <ul>
-                                <li class="li001"><?php echo $store['dept_name'] ?></li>
-                                <li class="li002"><?php echo $store['address'] ?></li>
-                                <li class="li002"><?php echo $store['status']==1?"启用":"<fone style=\"color:red\">停用</font>" ?></li>
-                                <li class="xmlb_02  li014">
-									<a rel="<?php echo $store['id'] ?>" href="javascript:" class="change" <?php echo $store['status']==0?'':'style="background-color: #ddd;color: #666;"' ?>><?php echo $store['status']==0?"启用":"停用" ?></a>
-									<a href="javascript:" class="edit">修改</a><!-- <a href="javascript:" class="delete">删除</a> -->
-								</li>
-                            </ul>
-                        </div>
-                    <?php endforeach ?>
-                <?php endif ?>
-                    <div class="table_search" style=" background:#FFF; position:relative; height:40px; padding-top:0px; line-height:40px;display:block;">
-            <!-- 标准版最多可创建3家门店，超过3家门店请申请新增门店 --><a href="javascript:" class="md_04 s_add"></a></div>
-                
-            </div><!--table_con!end-->
-            
-        </div><!--table_con!end-->
-        
-    </div>
-    <!--table_containter!end-->
-    
-</div>
-<!--content_right_con!end-->
+            </div>
+            <div class="portlet-body">
+	            <div class="table-responsive">
+					<table class="table table-bordered table-hover" >
+					<thead>
+						<tr>
+							<th>可用门店名称</th><th>门店地址</th><th>状态</th><th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+					<?php if ($list): ?>
+	                    <?php foreach ($list as $store): ?>
+	                        <tr class="table_list" rel="<?php echo $store['id'];?>">
+	                                <td><?php echo $store['dept_name'] ?></td>
+	                                <td><?php echo $store['address'] ?></td>
+	                                <td><?php echo $store['status']==1?"启用":"<fone style=\"color:red\">停用</font>" ?></td>
+	                                <td class="xmlb_02">
+										<a rel="<?php echo $store['id'] ?>" href="javascript:" class="change" <?php echo $store['status']==0?'':'style="background-color: #ddd;color: #666;"' ?>><?php echo $store['status']==0?"启用":"停用" ?></a>
+										<a href="javascript:" class="edit">修改</a><!-- <a href="javascript:" class="delete">删除</a> -->
+									</td>
+	                        </tr>
+	                    <?php endforeach ?>
+	                <?php endif ?>
+						
+					</tbody>
+					</table>
+	                <div class="table_search" style=" background:#FFF; position:relative; height:40px; padding-top:0px; line-height:40px;display:block;">
+	            <!-- 标准版最多可创建3家门店，超过3家门店请申请新增门店 --><a href="javascript:" class="md_04 s_add"></a></div>
+	            </div><!--table_con!end-->
+            </div>
+
+        </div>
+
+
+	</div>
+</div>	                
+
 
 <?php if(!empty($_GET['yd'])):?>
 <div class="zhezhao">
@@ -202,7 +207,7 @@
 	});
 	
 	$(document).on('click','.change',function(){
-		var obj = $(this).parent().parent().parent();
+		var obj = $(this).parent().parent();
 		var id = obj.attr('rel');
 		var thisobj = $(this);
 		$.get("<?php echo $this->url('change') ?>", { id: id },function(html){
@@ -211,7 +216,7 @@
 	});
 	
 	$(document).on('click','.edit',function(){
-		var obj = $(this).parent().parent().parent();
+		var obj = $(this).parent().parent();
 		var id = obj.attr('rel'),yd = '<?php echo $_GET['yd'];?>';
 		var thisobj = $(this);
 		$.get("<?php echo $this->url('edit') ?>", { id: id },function(html){

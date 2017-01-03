@@ -193,7 +193,7 @@ class SidebarWidget extends Widget
             '商品管理'=>'icon-basket-loaded',
             '项目管理'=>'icon-social-dropbox',
             '活动管理'=>'icon-support',
-            '卡券管理'=>'icon--credit-card',
+            '卡券管理'=>'icon-credit-card',
             '功能设置'=>'icon-settings',
             '数据报表'=>'icon-bar-chart',
             '寄存管理'=>'icon-pin',
