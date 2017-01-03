@@ -4,9 +4,15 @@ use Ivy\core\Widget;
 use Ivy\core\CException;
 class SidebarWidget extends Widget
 {
-    
-	public function run($light_nav=null) {
-		$res = $this->_show($this->getNav(),$light_nav);
+    //light_nav 使用param 变量名替换，防止误读
+	public function run($param=null) {
+        $nav_light=$param[0];//点亮参数
+        $nav_ext=$param[1];//面包屑扩展参数
+        if(is_string($param)){
+            $nav_light=$param;//点亮参数
+            $nav_ext="";//面包屑扩展参数
+        }
+		$res = $this->_show($this->getNav(),$nav_light,$nav_ext);
 		return $res;
 	}
 
@@ -205,14 +211,13 @@ class SidebarWidget extends Widget
      *@param array $_nav 导航数组，中文索引，支持2级
      *@return string 
      */ 
-    public function _show($_nav,$light_url){
+    public function _show($_nav,$light_url=null,$bar_ext=""){
         if(!is_array($_nav)) throw new CException(500,'导航无效参数！');
         //需要被点亮的URL
         $light_url = is_null($light_url)?$this->getCUrl():$light_url;
         $nav_list = array();
 
         $page_bar = array();//面包屑导航
-
         $i=0;
         $end = end($_nav);
         foreach ($_nav as $key => $nav) {
@@ -259,6 +264,13 @@ class SidebarWidget extends Widget
             }
             $nav_list[]= $tmp;
         }
+
+        if($bar_ext){
+            if(is_array($bar_ext))
+                array_merge($page_bar,$bar_ext);
+            else
+                $page_bar[]=$bar_ext;
+        }   
         \Ivy::app()->user->setState('page_bar',$page_bar);
         return $this->assign(array('nav_list'=>$nav_list))->render();
     }

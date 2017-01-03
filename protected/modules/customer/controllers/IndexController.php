@@ -220,10 +220,10 @@ class IndexController extends \SController
 		if(empty($model))
 			throw new CException("无此客户！");
 			
-
 		$this->view->assign(array(
 			'model'=>$model,
 			'id'=>$id,
+			"light_nav"=>array($this->url('customer/index/index'),"客户详情"),//需要点亮的导航
 		))->display();
 	}
 	//修改和添加
@@ -244,6 +244,7 @@ class IndexController extends \SController
 		
 		$this->view->assign(array(
 			'model'=>$model,
+			"light_nav"=>array($this->url('customer/index/index'),"新建客户"),//需要点亮的导航
 		))->display();
 		
 	}

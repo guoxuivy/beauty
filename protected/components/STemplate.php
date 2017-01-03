@@ -8,7 +8,7 @@ class STemplate extends Template
 {
 
 	public function init(){
-		//默认电亮当前action导航
+		//默认电亮当前action导航 无bar扩展
 		$uri=implode('/', $this->controller->getRouter());
 		$this->assign('light_nav',$this->url($uri));
 	}

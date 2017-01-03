@@ -15,6 +15,7 @@ class SController extends Controller
 	protected $company=null; //登录用户公司信息
 
 	protected $is_store=false; //是否为门店职位
+	
 	protected $store_name=""; //门店名称
 	
 	public function init() {
@@ -25,11 +26,11 @@ class SController extends Controller
 			\Ivy::app()->user->setReturnUrl($return_url);
 			$this->redirect('index/login');
 		}else{
-			// $company=\Ivy::app()->user->getState('company_info');
-			// if(empty($company)){
+			$company=\Ivy::app()->user->getState('company_info');
+			if(empty($company)){
 				$company = \CompanyInfo::model()->findByPk(\Ivy::app()->user->comp_id);
 				\Ivy::app()->user->setState('company_info', $company);//强制更新公司信息
-			// }
+			}
 			$this->company = $company;
 
 			if(\Ivy::app()->user->position_id==1)
