@@ -13,7 +13,8 @@
 		<div class="portlet no_mb">
 	        <div class="portlet-title">
 	            <div class="actions btn-set">
-					<a href="javascript:;" class="btn default blue-stripe stop_store"><i class="fa fa-mail-forward"></i><span class="hidden-480">已停用门店</span></a>
+	            	<a href="javascript:;" class="btn default yellow-stripe s_add"><i class="fa fa-plus"></i>新增门店</a>
+					<a href="javascript:;" class="btn default blue-stripe stop_store"><i class="fa fa-mail-forward"></i>已停用门店</a>
 				</div>
 	        </div>
 	    </div>
@@ -42,8 +43,8 @@
 	                                <td><?php echo $store['address'] ?></td>
 	                                <td><?php echo $store['status']==1?"启用":"<fone style=\"color:red\">停用</font>" ?></td>
 	                                <td class="xmlb_02">
-										<a rel="<?php echo $store['id'] ?>" href="javascript:" class="change" <?php echo $store['status']==0?'':'style="background-color: #ddd;color: #666;"' ?>><?php echo $store['status']==0?"启用":"停用" ?></a>
-										<a href="javascript:" class="edit">修改</a><!-- <a href="javascript:" class="delete">删除</a> -->
+										<a rel="<?php echo $store['id'] ?>" href="javascript:" class="btn default btn-xs red-stripe change" >停用</a>
+										<a href="javascript:" class="btn default btn-xs blue-stripe edit">修改</a>
 									</td>
 	                        </tr>
 	                    <?php endforeach ?>
@@ -51,8 +52,6 @@
 						
 					</tbody>
 					</table>
-	                <div class="table_search" style=" background:#FFF; position:relative; height:40px; padding-top:0px; line-height:40px;display:block;">
-	            <!-- 标准版最多可创建3家门店，超过3家门店请申请新增门店 --><a href="javascript:" class="md_04 s_add"></a></div>
 	            </div><!--table_con!end-->
             </div>
 
@@ -94,7 +93,7 @@
 		array(
 			'header' => '操作',
 			'rel'=>'id',
-			'template'=>'<a href="javascript:;" class="delete">恢复</a>'
+			'template'=>'<a href="javascript:;" class="btn default btn-xs green-stripe delete">恢复</a>'
 		),
 	),
 ));?>
