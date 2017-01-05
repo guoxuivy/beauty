@@ -7,7 +7,7 @@ a{text-decoration:none;}
 a:hover{text-decoration:none;}
 .no_mb{margin-bottom:0!important;}
 .aaddys ,.span_01{background-color: #f3565d;background-image: none;padding: 2px 5px;color: #fff;}
-.aaddys,.span_01{text-decoration:none;color: #fff;}
+.aaddys,.span_01{text-decoration:none;color: #fff!important;}
 .top_com{margin-bottom: 10px; font-size: 14px;}
 .top_com .spanl{font-weight:bold }
 .top_com a{text-decoration:none;}

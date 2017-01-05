@@ -5,17 +5,8 @@ if(isset($_GET['t_search']['tpc.id']))
     $tmp_cate=\ProCate::model()->findAll('status=1 AND fid='.(int)$_GET['t_search']['tpc.id']);
     $child_cate = $this->optArr($tmp_cate,'id','name');
 ?>
-<!--content_right_con-->
-<div class="content_right_con">
-    <div class="content_right_con_top">
-        <div class="fjgl_top_r">
-            <span><a href="javascript:" class="fjgl_top_r_05 c_update">导出</a></span>
-            <!-- <span><a href="javascript:" class="fjgl_top_r_01 filter_search">筛选</a></span> -->
-            <span><a href="<?php echo $this->url('edit') ?>" class="fjgl_top_r_02 c_add">新建损溢</a></span>
-        </div>
-        仓库管理>损溢流水
-    </div>
-
+<div class="row">
+    <div class="col-md-12">
 
     <!--  模版引擎扩展 -->
     <?php  echo $this->datagrid(array(
@@ -80,7 +71,5 @@ if(isset($_GET['t_search']['tpc.id']))
     ));?>
 
 
-
-
+    </div>
 </div>
-<!--content_right_con!end-->

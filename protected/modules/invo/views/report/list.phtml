@@ -2,60 +2,44 @@
 <?php 
 	$md_list=\EmployDept::getList(true);
 ?>
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		<div class="fjgl_top_r"><span><a class="fjgl_top_r_05" href="javascript:">导出</a></span></div>
-		仓库管理><span>出入库记录</span>
-	</div>
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="note note-info">
+            <div class="top_com">
+                <span class="spanl">门店范围：</span>
+                <div class="choose_md">
+                <?php foreach ($md_list as $key => $value): ?>
+                <a href="javascript:" rel="<?php echo $key ?>"><span><?php echo $value ?></span></a>
+                <?php endforeach ?>
+                </div>
+            </div>
 
-	<!--sjbb_ddkl_one-->
-	<div class="sjbb_ddkl_one">
-		<ul>
-            <li>
-                <div class="sjbb_ddkl_one_l">门店：</div>
-                <div class="sjbb_ddkl_one_r">
-                    <div class="sjbb_ddkl_one_r_son choose_md">
-                        <?php foreach ($md_list as $key => $value): ?>
-                        <a href="javascript:" rel="<?php echo $key ?>" class="sjbb_ddklchanga"><?php echo $value ?></a>
-                        <?php endforeach ?>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="sjbb_ddkl_one_l">类型：</div>
-                <div class="sjbb_ddkl_one_r">
-                    <div class="sjbb_ddkl_one_r_son choose_type">
-                        <a href="javascript:" rel="1" class="sjbb_ddklchanga">入库</a>
-                        <a href="javascript:" rel="2" class="">出库</a>
-                        <a href="javascript:" rel="3" class="">损益</a>
-                    </div>
-                </div>
-            </li>
-            <li>
-              <div class="sjbb_ddkl_one_l">月份：</div>
-              <div class="sjbb_ddkl_one_r">
-                <div class="sjbb_ddkl_one_r_son" id="choose_time">
-                </div>
-              </div>
-            </li>
-    		<li class="lastli">
-				<div class="sjbb_ddkl_one_l">
-				</div>
-				<div class="sjbb_ddkl_one_r">
-					<div class="sjbb_ddkl_one_r_son">
-						<a href="javascript:" class="changa01">搜索</a>
-					</div>
-				</div>
-    		</li>
-		</ul>
-	</div> <!--sjbb_index_onesjbb_ddkl_oneend-->
-<!--  模版引擎扩展 -->
+            <div class="top_com">
+                <span class="spanl">类型：</span>
+                <span class="choose_type">
+                    <a href="javascript:" rel="1" class="span_01">入库</a>
+                    <a href="javascript:" rel="2" class="">出库</a>
+                    <a href="javascript:" rel="3" class="">损益</a>
+                </span>
+            </div>
+
+            
+            <div class="top_com stime">
+                <span class="spanl">月份：</span>
+                <span  id="choose_time"></span>
+            </div>
+
+            <a href="javascript:" class="btn btn-success changa01">搜索</a>
+            <a href="javascript:;" download="库存报告.xls" class="btn purple-plum to_excel">导出</a>
+        </div>
+
+
+
 
     <?php echo $this->datagrid(array(
         'id'=>'list',
         'dataProvider'=>$pager,
-        'search'=>false,
+        'search'=>true,
         'columns'=>array(
             array(
                 'header' => '单号',
@@ -94,10 +78,8 @@
         ),
     ));?>
 
-	
+    </div>	
 </div>
-<!--content_right_con!end-->
-
 
 
 <script type="text/javascript">
@@ -118,13 +100,13 @@ $(function(){
 	//门店、范围选择
 	$(".choose_md a").click(function(){
 		var rel=$(this).attr("rel");
-		$(this).siblings('.sjbb_ddklchanga').removeClass('sjbb_ddklchanga');
-        $(this).addClass('sjbb_ddklchanga');
+		$(this).siblings('.span_01').removeClass('span_01');
+        $(this).addClass('span_01');
 	});
     //选择
     $(".choose_type a").click(function(){
-        $(this).siblings('.sjbb_ddklchanga').removeClass('sjbb_ddklchanga');
-        $(this).addClass('sjbb_ddklchanga');
+        $(this).siblings('.span_01').removeClass('span_01');
+        $(this).addClass('span_01');
     });
 
     <?php if (isset($_GET['type'])): ?>
@@ -138,7 +120,7 @@ $(function(){
             return;
         }
         var begin=$(".itime").find(".b_y").val()+""+$(".itime").find(".b_m").val();
-        var type =$(".choose_type .sjbb_ddklchanga").attr('rel');
+        var type =$(".choose_type .span_01").attr('rel');
         to_url('<?php echo $this->url("list") ?>&type='+type+'&md_id='+md_id+'&begin='+begin);
     });
 
@@ -157,10 +139,10 @@ $(function(){
 <?php endif ?>
 
 	function getMd(){
-		if($(".choose_md a[rel='0']").hasClass("sjbb_ddklchanga"))
+		if($(".choose_md a[rel='0']").hasClass("span_01"))
 			return "0";
 		var l = $(".choose_md a").map(function(){
-			if($(this).hasClass("sjbb_ddklchanga"))
+			if($(this).hasClass("span_01"))
 				return $(this).attr("rel");
 		}).get().join(",");
 		return l;

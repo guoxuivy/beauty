@@ -1,12 +1,6 @@
 <!--content_right_con-->
-<div class="content_right_con">
-    <div class="content_right_con_top">
-        <div class="fjgl_top_r">
-            <span><a href="<?php echo $this->url('edit') ?>" class="fjgl_top_r_02 c_add">新建采购单</a></span>
-        </div>
-        仓库管理>采购记录
-    </div>
-
+<div class="row">
+    <div class="col-md-12 ">
 
     <!--  模版引擎扩展 -->
     <?php  echo $this->datagrid(array(
@@ -44,9 +38,4 @@
         ),
     ));?>
 </div>
-<!--content_right_con!end-->
-<script type="text/javascript">
-    $(document).ready(function(){
-        $(".table_table tbody td").css("width","10px");
-    });
-</script>
+</div>

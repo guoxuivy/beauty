@@ -1,30 +1,23 @@
 <?php 
 $sex_list=\CustomerInfo::getSex();
 $member_list=\ConfigMembership::getList();
-
 ?>
-
 <link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
 <script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
 <script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/html5uploader/jquery.html5uploader.js"></script>
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		<div class="fjgl_top_r"><!-- span选中添加 button_visit 样式--> 
-			<span><a href="javascript:" class="fjgl_top_r_01 filter_search">筛选</a></span>
+<div class="row">
+	<div class="col-md-12">
+		<div class="portlet no_mb">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-users"></i>待开账客户列表
+				</div>
+				<div class="actions btn-set">
+					<a href="<?php echo $this->url('index') ?>" class="btn default gray-stripe">待建期初客户</a>
+					<a href="javascript:" class="btn default red-stripe">待开账客户列表</a>
+				</div>
+			</div>
 		</div>
-	<div class="khgl_01"><img src="<?php echo $this->basePath('public') ?>/images/kh_01.png"></div>
-	期初开账
-	</div>
-	<div class="jyjl_top">
-		<div class="top_com">
-			<a href="<?php echo $this->url('index');?>">待建期初客户 </a>
-			<a href="javascript:void(0);" class="aaddys">待开账客户列表</a>
-		</div>
-	</div>
-	<!--  模版引擎扩展 -->
-
-
 <?php echo $this->datagrid(array(
 	'id'=>'table-list',
 	'dataProvider'=>$pager,
@@ -88,10 +81,6 @@ $member_list=\ConfigMembership::getList();
 		)
 	),
 ));?>
-	
+	</div>
+
 </div>
-<!--content_right_con!end-->
-
-<script type="text/javascript">
-
-</script>

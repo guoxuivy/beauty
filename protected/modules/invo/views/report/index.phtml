@@ -1,4 +1,5 @@
 <script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Itime.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath('public');?>/js/Itable2excel.js" charset="utf-8"></script>
 <?php 
 	$md_list=\EmployDept::getList(true);
 ?>
@@ -9,44 +10,32 @@ if(isset($_GET['t_search']['tpc.id']))
     $tmp_cate=\ProCate::model()->findAll('fid='.(int)$_GET['t_search']['tpc.id']);
     $child_cate = $this->optArr($tmp_cate,'id','name');
 ?>
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		<div class="fjgl_top_r"><span><a class="fjgl_top_r_05" href="javascript:">导出</a></span></div>
-		仓库管理><span>库存报告</span>
-	</div>
 
-	<!--sjbb_ddkl_one-->
-	<div class="sjbb_ddkl_one">
-		<ul>
-    <li>
-      <div class="sjbb_ddkl_one_l">日期：</div>
-      <div class="sjbb_ddkl_one_r">
-        <div class="sjbb_ddkl_one_r_son" id="choose_time">
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="note note-info">
+            <div class="top_com">
+                <span class="spanl">门店范围：</span>
+                <div class="choose_md">
+                <?php foreach ($md_list as $key => $value): ?>
+                <a href="javascript:" rel="<?php echo $key ?>"><span><?php echo $value ?></span></a>
+                <?php endforeach ?>
+                </div>
+            </div>
+            
+            <div class="top_com stime">
+                <span class="spanl">日期：</span>
+                <span  id="choose_time"></span>
+            </div>
+
+            <a href="javascript:" class="btn btn-success changa01">搜索</a>
+            <a href="javascript:;" download="库存报告.xls" class="btn purple-plum to_excel">导出</a>
         </div>
-      </div>
-    </li>
-		<li>
-			<div class="sjbb_ddkl_one_l">部门：</div>
-			<div class="sjbb_ddkl_one_r">
-				<div class="sjbb_ddkl_one_r_son choose_md">
-					<?php foreach ($md_list as $key => $value): ?>
-					<a href="javascript:" rel="<?php echo $key ?>" class="sjbb_ddklchanga"><?php echo $value ?></a>
-					<?php endforeach ?>
-				</div>
-			</div>
-		</li>
-		<li class="lastli">
-				<div class="sjbb_ddkl_one_l">
-				</div>
-				<div class="sjbb_ddkl_one_r">
-					<div class="sjbb_ddkl_one_r_son">
-						<a href="javascript:" class="changa01">搜索</a>
-					</div>
-				</div>
-		</li>
-		</ul>
-	</div> <!--sjbb_index_onesjbb_ddkl_oneend-->
+
+
+
+
+
 <!--  模版引擎扩展 -->
     <?php echo $this->datagrid(array(
         'id'=>'list',
@@ -110,9 +99,8 @@ if(isset($_GET['t_search']['tpc.id']))
         ),
     ));?>
 
-	
+	</div>
 </div>
-<!--content_right_con!end-->
 
 
 
@@ -133,8 +121,8 @@ $(function(){
 	//门店、范围选择
 	$(".choose_md a").click(function(){
 		var rel=$(this).attr("rel");
-		$(this).siblings('.sjbb_ddklchanga').removeClass('sjbb_ddklchanga');
-    $(this).addClass('sjbb_ddklchanga');
+		$(this).siblings('.span_01').removeClass('span_01');
+    $(this).addClass('span_01');
 	});
   //搜索提交
   $(".changa01").click(function(){
@@ -164,16 +152,25 @@ $(function(){
   <?php endif ?>
 <?php endif ?>
 	function getMd(){
-		if($(".choose_md a[rel='0']").hasClass("sjbb_ddklchanga"))
+		if($(".choose_md a[rel='0']").hasClass("span_01"))
 			return "0";
 		var l = $(".choose_md a").map(function(){
-			if($(this).hasClass("sjbb_ddklchanga"))
+			if($(this).hasClass("span_01"))
 				return $(this).attr("rel");
 		}).get().join(",");
 		return l;
 	}
 
-
+    $(".to_excel").click(function(event){
+        var t = Itable2excel({
+            worksheet:'库存报告',
+            table: $('#list table')
+        });
+        var data64 = t.uri();
+        if(data64==false)
+            return false;
+        event.currentTarget.href = data64;
+    });
 
 });
 </script>

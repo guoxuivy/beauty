@@ -1,15 +1,5 @@
-
-
-<!--content_right_con-->
-<div class="content_right_con">
-    <div class="content_right_con_top">
-        <div class="fjgl_top_r">
-            <span><a href="javascript:" class="fjgl_top_r_01 filter_search">筛选</a></span>
-            <span><a href="<?php echo $this->url('add');?>" class="fjgl_top_r_06 c_pan">盘库</a></span>
-        </div>
-        仓库管理>库存盘点记录
-    </div>
-
+<div class="row">
+    <div class="col-md-12">
     <!--  模版引擎扩展 -->
     <?php echo $this->datagrid(array(
         'id'=>'product-list',
@@ -66,9 +56,6 @@
         ),
     ));?>
 
-    <script type="text/javascript">
-
-    </script>
-
+  
+    </div>
 </div>
-<!--content_right_con!end-->

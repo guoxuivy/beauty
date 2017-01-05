@@ -5,20 +5,14 @@ if(isset($_GET['t_search']['tpc.id']))
     $tmp_cate=\ProCate::model()->findAll('status=1 AND fid='.(int)$_GET['t_search']['tpc.id']);
     $child_cate = $this->optArr($tmp_cate,'id','name');
 ?>
-<!--content_right_con-->
-<div class="content_right_con">
-    <div class="content_right_con_top">
-        <div class="fjgl_top_r">
-            <span><a href="javascript:" class="fjgl_top_r_05 c_update">导出</a></span>
-            <!-- <span><a href="javascript:" class="fjgl_top_r_01 filter_search">筛选</a></span> -->
-            <span><a href="<?php echo $this->url('add') ?>" class="fjgl_top_r_02 c_add">新建入库</a></span>
-        </div>
-        仓库管理>入库流水
-    </div>
-    <div class="fjgl_two none" style=" background:#ffecec;">
-        <div class="fjgl_two_son" style=" background:none; padding-left:20px;color:#000000;">管理员新建了10个商品<a href="#" class="ck_splb_01">查看</a>
-        </div>
-    </div>
+<div class="row">
+    <div class="col-md-12">
+
+        <!-- <div class="note note-danger">
+            <p>
+                 有 <span style=" color:#ec314b;"><?php echo $membership_off_count; ?></span> 个客户未设定客户等级，将会影响部分统计数据准确性。
+            </p>
+        </div> -->
 
 
     <!--  模版引擎扩展 -->
@@ -91,7 +85,5 @@ if(isset($_GET['t_search']['tpc.id']))
     <div class="ck_splb_foot none">
         <a href="javascript:" class="ck_splb_foot_01">确认建立商品期初库存（20）</a>注：期初商品确认建立后将不可更改期初库存！确认商品期初库存只可操作一次，请谨慎操作！
     </div>
-
-
+    </div>
 </div>
-<!--content_right_con!end-->
