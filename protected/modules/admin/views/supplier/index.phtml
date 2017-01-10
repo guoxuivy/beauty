@@ -3,20 +3,25 @@
 <script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
 
 <script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/PCASClass.js"></script>
-<!--content_right_con-->
-<div class="content_right_con">
-    <div class="content_right_con_top">
-        <div class="fjgl_top_r">
-        	<span><a href="javascript:" class="fjgl_top_r_02 relation">关联供应商</a></span>
-            <span><a href="javascript:" class="fjgl_top_r_02 tjfjz">新增供应商</a></span>
-        </div>
-         供应商管理
-    </div>
 
 
-	<div id="supplier-list" class="table_table ">
-		<div class="table_hiddle">
-		<table width="100%" cellspacing="0" cellpadding="0" border="0" last-float="false">
+<div class="row">
+	<div class="col-md-12">
+		<div class="portlet no_mb">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-users"></i>供应商管理 
+				</div>
+				<div class="actions btn-set">
+					<a href="javascript:;" class="btn default yellow-stripe tjfjz"><i class="fa fa-plus"></i>新增供应商</a>
+					<a href="javascript:;" class="btn default yellow-stripe relation">关联供应商</a>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover">
 			<thead>
 				<tr class="table_title">
 					<th>供应商名称</th>
@@ -40,9 +45,9 @@
 
 					<td>
 					<?php if ($store['beauty_id']==\Ivy::app()->user->comp_id): ?>
-						<a href="javascript:" class="edit">修改</a><a href="javascript:" class="delete">删除</a>
+						<a href="javascript:" class="btn default btn-xs green-stripe edit">修改</a><a href="javascript:" class="btn default btn-xs red-stripe delete">删除</a>
 					<?php else: ?>
-						<a href="javascript:" class="red_button_bg">删除</a>
+						<a href="javascript:" class="btn default btn-xs red-stripe red_button_bg">删除</a>
 					<?php endif ?>
 					
 					</td>
@@ -51,12 +56,13 @@
 			<?php endif ?>
 			</tbody>
 		</table>
-		</div><!--table_hiddle!end-->
-		
+		</div>
+
+
 	</div>
-	<!--table_container-->
 </div>
-<!--content_right_con!end-->
+
+
 
 
 <!--tjfj-->
@@ -91,22 +97,20 @@
 		<span class="xjxm_ok_buttom" style="position: relative;top: 2px;cursor: pointer;">搜索</span></div>
 	</div>
 	<div class="list">
-		<div id="supplier-search" class="table_table ">
-			<div class="table_hiddle">
-			<table width="100%" cellspacing="0" cellpadding="0" border="0" last-float="false" style="min-width:100%">
-				<thead>
-					<tr class="table_title">
-						<th></th>
-						<th>供应商</th>
-						<th>联系人</th>
-						<th>联系电话</th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
-			</div><!--table_hiddle!end-->
-		</div>
+		<div class="table-responsive">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr class="table_title">
+					<th></th>
+					<th>供应商</th>
+					<th>联系人</th>
+					<th>联系电话</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		</div><!--table_hiddle!end-->
 	</div>
 </div>
 </div>

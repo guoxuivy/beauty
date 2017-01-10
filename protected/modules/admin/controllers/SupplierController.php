@@ -179,6 +179,7 @@ class SupplierController extends \SController {
         	}
 			$this->ajaxReturn( 200, "", $list);
         }
+		$this->ajaxReturn( 400, "");
 	}
 
 

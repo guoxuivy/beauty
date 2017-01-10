@@ -1,5 +1,5 @@
-<?php 
-?>
+
+<link href="<?php echo $this->basePath('public');?>/css/oldAdmin.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
 <script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
 <style type="text/css">
@@ -8,6 +8,7 @@
     margin-top: 10px;
     overflow: hidden;
     min-height: 250px;
+    border: 1px:so;
   }
 </style>
 <script type="text/javascript">
@@ -85,18 +86,12 @@ $(function(){
 </script>
 <!--content_right_con-->
 		<div class="content_right_con">
-		  <div class="content_right_con_top">
-				<div class="khgl_01"><img src="<?php echo $this->basePath('public') ?>/images/kh_01.png" /></div>客户管理>
-				<?php if($model->id):?>
-				<span><?php echo $model->name; ?></span>><span class="khgl_da_01">个人档案</span>
-				<?php else: ?>
-				<span>新建客户</span>
-				<?php endif; ?> 
-		  </div>
+		  
 		  
 		  <div class="khgl_da_top">
 				<ul>
 					<li class="khgl_da_03">个人档案</li>
+					<li> <a href="<?php echo $this->url('view',array('id'=>$model->id)) ?>">客户信息</a> </li>
 					<!-- <li>身体档案</li> -->
 				</ul>
 			

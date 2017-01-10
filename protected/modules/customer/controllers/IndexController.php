@@ -241,10 +241,10 @@ class IndexController extends \SController
 			else
 				throw new CException(\CustomerInfo::model()->popErr());
 		}
-		
+		$tag = $id?"客户详情":"新建客户";
 		$this->view->assign(array(
 			'model'=>$model,
-			"light_nav"=>array($this->url('customer/index/index'),"新建客户"),//需要点亮的导航
+			"light_nav"=>array($this->url('customer/index/index'),$tag),//需要点亮的导航
 		))->display();
 		
 	}

@@ -6,16 +6,20 @@ if(isset($_GET['t_search']['c_t.id']))
 ?>
 <link href="<?php echo $this->basePath('public');?>/css/oldAdmin.css" rel="stylesheet" type="text/css"/>
 
-
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		<div class="fjgl_top_r">
-			<span><a href="javascript:" class="fjgl_top_r_01 filter_search">筛选</a></span>
-			<span><a href="<?php echo $this->url('edit') ?>" class="fjgl_top_r_02">新增卡券</a></span>
+<div class="row">
+	<div class="col-md-12">
+		<div class="portlet no_mb">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-users"></i>卡券管理
+				</div>
+				<div class="actions btn-set">
+					<a href="<?php echo $this->url('edit') ?>" class="btn default yellow-stripe tjfjz"><i class="fa fa-plus"></i>新增卡券</a>
+				</div>
+			</div>
 		</div>
-	卡券管理
-	</div>
+
+
 
 	<!--  模版引擎扩展 -->
 <?php echo $this->datagrid(array(
@@ -64,25 +68,22 @@ if(isset($_GET['t_search']['c_t.id']))
 		),
 		array(
 			'header' => '状态',
-			'headerCss'=>'min-width:60px',
 			'name' => 'status',
 			'value'=>'{$data["status"]==1?"启用":"<fone style=\"color:red\">停用</font>"}'
 		),
 		array(
 			'header' => '操作',
-			'headerCss'=>'min-width:281px',
 			'rel'=>'id',
-			'template'=>'<a rel="{$data[id]}" href="javascript:" class="change" {$data["status"]==0?"":"style=\"background-color: #ddd;color: #666;\""}>{$data["status"]==0?"启用":"停用"}</a>
-				<a class="edit" href="'.$this->url('view').'&id={$data["id"]}">查看</a>'
+			'template'=>'<a rel="{$data[id]}" href="javascript:" class="btn default btn-xs red-stripe change" >{$data["status"]==0?"启用":"停用"}</a>
+				<a class="btn default btn-xs green-stripe edit" href="'.$this->url('view').'&id={$data["id"]}">查看</a>'
 		)
 	),
 ));?>
 
 	
 
-
+	</div>
 </div>
-<!--content_right_con!end-->
 
 
 <!--tjfj-->
@@ -107,15 +108,6 @@ if(isset($_GET['t_search']['c_t.id']))
 
 
 
-<!--tjfj03-->
-<div class="update none" title="批量上传">
-	<div class="tjfj_two">
-	<p>请严格按照我们提供的项目格式编辑并上传。<a href="#">下载商品信息模板</a></p>
-	<p style=" text-align:center; margin-top:20px;"><img src="<?php echo $this->basePath('public') ?>/images/pl_02.png" /></p>
-	<p style=" text-align:center; margin-top:-20px;"><a href="javascript:"><img src="<?php echo $this->basePath('public') ?>/images/pl_03.png" /></a></p>
-	<p style=" text-align:center; margin-top:-20px;">（上传文档必须小于2MB</p>
-	</div>
-</div>
 
 
 
@@ -138,22 +130,7 @@ $(function(){
 			thisobj.parent().prev().attr('title',status==1?"启用":"停用").html(status==1?"启用":'<fone style="color:red">停用</fone>');
 		});
 	});
-	//批量上传 
-	$('.c_update').click(function(){
-		var d = Idialog({
-			top:150,
-			width:500,
-			title:'批量上传',
-			content:$('.update'),
-			ok:function(obj){
-				//console.log(obj);
-				return false;
-			},
-			init:function(content){
-				//content.html('222');
-			}
-		});
-	});
+
 
 
 

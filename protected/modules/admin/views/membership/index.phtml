@@ -2,15 +2,20 @@
 <link href="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_style.css" rel="stylesheet">
 <script type="text/javascript" src="<?php echo $this->basePath("public"); ?>/js/Validform/Validform_v5.3.2_min.js"></script>
 
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		<div class="fjgl_top_r">
-			<span><a href="javascript:" class="fjgl_top_r_01 filter_search">筛选</a></span>
-			<span><a href="javascript:" class="fjgl_top_r_02 tjfjz">新增会员卡</a></span>
+<div class="row">
+	<div class="col-md-12">
+		<div class="portlet no_mb">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-users"></i>会员卡管理 
+				</div>
+				<div class="actions btn-set">
+					<a href="javascript:;" class="btn default yellow-stripe tjfjz"><i class="fa fa-plus"></i>新增会员卡</a>
+				</div>
+			</div>
 		</div>
-		会员卡管理
-	</div>
+
+
 
 	<!--table_container-->
 <!--  模版引擎扩展 -->
@@ -29,7 +34,6 @@
 		),
 		array(
 			'header' => '是否正式会员',
-			'headerCss'=>'min-width:60px',
 			'name' => 'is_member',
 			'value'=>'{$data["is_member"]==1?"正式会员":"非正式会员"}'
 		),
@@ -41,28 +45,28 @@
 		),
 		array(
 			'header' => '操作',
-			'headerCss'=>'min-width:281px',
 			'rel'=>'id',
-			'template'=>'<a rel="{$data[id]}" href="javascript:" class="change" {$data["status"]==0?"":"style=\"background-color: #ddd;color: #666;\""}>{$data["status"]==0?"启用":"停用"}</a>
-				<a href="javascript:" class="edit">修改</a>
-				<a href="javascript:" class="delete">删除</a>'
+			'template'=>'<a rel="{$data[id]}" href="javascript:" class="btn default btn-xs blue-stripe change">{$data["status"]==0?"启用":"停用"}</a>
+				<a href="javascript:" class="btn default btn-xs green-stripe edit">修改</a>
+				<a href="javascript:" class="btn default btn-xs red-stripe delete">删除</a>'
 		)
 	),
 ));?>
-	<!--table_containter!end-->
-
-	<?php if(!empty($_GET['yd'])):?>
-		<div class="zhezhao">
-			<div class="zhezhao_center">
-				<span>第四步</span>
-				<a class="zhezhao_center_back" href="<?php echo $this->url('/admin/room/index',array('yd'=>1));?>">返回上一步</a>
-				<a class="zhezhao_center_next" href="<?php echo $this->url('/admin/config/capital',array('yd'=>1));?>">进入下一步</a>
-			</div>
-		</div>
-	<?php endif;?>
-
+	</div>
 </div>
-<!--content_right_con!end-->
+
+
+
+<?php if(!empty($_GET['yd'])):?>
+	<div class="zhezhao">
+		<div class="zhezhao_center">
+			<span>第四步</span>
+			<a class="zhezhao_center_back" href="<?php echo $this->url('/admin/room/index',array('yd'=>1));?>">返回上一步</a>
+			<a class="zhezhao_center_next" href="<?php echo $this->url('/admin/config/capital',array('yd'=>1));?>">进入下一步</a>
+		</div>
+	</div>
+<?php endif;?>
+
 
 
 <!--tjfj-->

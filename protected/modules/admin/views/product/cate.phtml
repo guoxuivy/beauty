@@ -1,54 +1,58 @@
 <link href="<?php echo $this->basePath('public');?>/css/oldAdmin.css" rel="stylesheet" type="text/css"/>
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		<!-- <div class="fjgl_top_r">
-			<a href="javascript:" class="fjgl_top_r_01">筛选</a><a href="javascript:" class="fjgl_top_r_02 tjfjz">新增一级类别</a>
-		</div> -->
-		商品管理>商品分类
-	</div>
 
 
-	<?php foreach ($topCate as $key => $value): ?>
-	<!--fjgl_th-->
-	<div class="fjgl_th sp_fenlei_top">
-		<div class="sp_fenlei_top_1">
-        	<span class="span"><a href="javascript:" class="tjfjz01" rel="<?php echo $key ?>">添加二级类别</a></span>
-			<span class="spfl_0121">
-				<?php echo $value ?>
-				<em>
-					<span>（包含二级类别 <em><?php echo count($childCate[$key]) ?></em> 个）</span>
-					<a href="#">点击展开</a>
-				</em>
-			</span>
-        </div>
-
-
-		<div class="fjgl_th top_cate" rel="<?php echo $key ?>" style="padding:0px; margin:10px 20px 20px 20px; border-bottom:none;display:none">
-			<div class="fjgl_th_top">
-				<ul>
-					<li class="sp_fenlei_01">二级类别名称</li>
-					<li class="sp_fenlei_02">操作</li>
-				</ul>
+<div class="row">
+	<div class="col-md-12">
+		<div class="portlet no_mb">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-users"></i>商品分类 
+				</div>
+				<div class="actions btn-set">
+				</div>
 			</div>
-			<?php if ($childCate[$key]): ?>
-			<?php foreach ($childCate[$key] as $child): ?>
-			<div class="fjgl_th_th clear">
-				<ul>
-					<li class="sp_fenlei_011" rel="<?php echo $child['id'] ?>"><?php echo $child['name'] ?></li>
-					<li class="sp_fenlei_021"><a href="javascript:" rel="<?php echo $child['id'] ?>" class="flxg_01">修改</a><a class="del_cate" rel="<?php echo $child['id'] ?>" href="javascript:">删除</a></li>
-				</ul>
-			</div>
-			<?php endforeach ?>
-			<?php endif ?>
 		</div>
 
+		<?php foreach ($topCate as $key => $value): ?>
+		<!--fjgl_th-->
+		<div class="fjgl_th sp_fenlei_top">
+			<div class="sp_fenlei_top_1">
+	        	<span class="span"><a href="javascript:" class="tjfjz01" rel="<?php echo $key ?>">添加二级类别</a></span>
+				<span class="spfl_0121">
+					<?php echo $value ?>
+					<em>
+						<span>（包含二级类别 <em><?php echo count($childCate[$key]) ?></em> 个）</span>
+						<a href="#">点击展开</a>
+					</em>
+				</span>
+	        </div>
 
-	</div><!--fjgl_th!end-->
-	<?php endforeach ?>
 
+			<div class="fjgl_th top_cate" rel="<?php echo $key ?>" style="padding:0px; margin:10px 20px 20px 20px; border-bottom:none;display:none">
+				<div class="fjgl_th_top">
+					<ul>
+						<li class="sp_fenlei_01">二级类别名称</li>
+						<li class="sp_fenlei_02">操作</li>
+					</ul>
+				</div>
+				<?php if ($childCate[$key]): ?>
+				<?php foreach ($childCate[$key] as $child): ?>
+				<div class="fjgl_th_th clear">
+					<ul>
+						<li class="sp_fenlei_011" rel="<?php echo $child['id'] ?>"><?php echo $child['name'] ?></li>
+						<li class="sp_fenlei_021"><a href="javascript:" rel="<?php echo $child['id'] ?>" class="flxg_01">修改</a><a class="del_cate" rel="<?php echo $child['id'] ?>" href="javascript:">删除</a></li>
+					</ul>
+				</div>
+				<?php endforeach ?>
+				<?php endif ?>
+			</div>
+
+
+		</div><!--fjgl_th!end-->
+		<?php endforeach ?>
+
+	</div>
 </div>
-<!--content_right_con!end-->
 
 
 <!--tjfj01-->

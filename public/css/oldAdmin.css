@@ -61,9 +61,9 @@
 .fjgl_th_for .fenye{background:none repeat scroll 0 0 #1EB488;color:#FFF;border:1px solid #1EB488}
 .fjgl_th_for .fenye:hover{background:none repeat scroll 0 0 #1EB488;color:#FFF;border:1px solid #1EB488}
 
-.tjfj_01{width:474px; overflow:hidden; position:fixed; left:50%; top:250px; margin-left:-237px; display:none; z-index:999;}
-.tjfj_02{width:474px; overflow:hidden; position:fixed; left:50%; top:200px; margin-left:-237px; display:none; z-index:999;}
-.tjfj_03{width:474px; overflow:hidden; position:fixed; left:50%; top:200px; margin-left:-337px; display:none; z-index:999;}
+.tjfj_01{width:474px; overflow:hidden; position:fixed; left:50%; top:250px; margin-left:-237px; display:none; z-index:999;border: 1px solid #ddd;}
+.tjfj_02{width:474px; overflow:hidden; position:fixed; left:50%; top:200px; margin-left:-237px; display:none; z-index:999;border: 1px solid #ddd;}
+.tjfj_03{width:474px; overflow:hidden; position:fixed; left:50%; top:200px; margin-left:-337px; display:none; z-index:999;border: 1px solid #ddd;}
 .tjfj_04{width:474px; overflow:hidden;}
 
 /*商品管理-商品列表*/
@@ -342,3 +342,44 @@ a.but_no{ background-color:#f30; color:#fff;}
 .xjxm_con_031 a:hover{ color:#f30; text-decoration:underline;}
 
 /*------------------项目管理-新建项目--end-------------------------*/
+
+
+/*客户管理-个人档案*/
+.khgl_da_01{ background:url(../images/kh_da_01.png) no-repeat right 16px; padding-right:12px;}
+.khgl_da_02{ padding-right:58px;}
+.khgl_da_top{ height:28px; border-bottom:1px solid #dddddd; line-height:28px; margin-right:20px; margin-bottom:20px; padding-left:10px;}
+.khgl_da_top ul li{float:left;height:28px;line-height:28px;font-size:12px;color:#666666;border-top-left-radius:3px;border-top-right-radius:3px;border-top:1px solid #dddddd;border-left:1px solid #dddddd;border-right:1px solid #dddddd;margin-right:10px;display:inline;cursor:pointer;padding-right:10px;padding-left:10px;}
+.khgl_da_top ul li a{ display:block; font-size:12px; color:#666666;padding-left:5px;padding-right:5px;}
+.khgl_da_top .khgl_da_03{ color:#1bab70; font-weight:bold; height:28px; background:#FFF;}
+.khgl_da_032{ display:none;}
+.khgl_da_033{ display:block;}
+
+.khgl_da_con{ overflow:hidden; display:none;}
+.khgl_da_con_toggl{ display:block;}
+.khgl_da_two{overflow:hidden;}
+.khgl_da_two_top{ font-size:12px; color:#000000; padding:10px 0px; border-bottom:1px solid #dddddd; margin-top:10px; font-weight:700; padding-left:10px;}
+.khgl_da_two_top a{ float:right; margin-right:30px; display:inline; color:#0077ff;}
+.khgl_da_two_two{ padding:20px 0px 0px 0px; overflow:hidden; font-size:12px;color:#666666;}
+.khgl_da_two_two ul li{float:left;width:40%;min-height:70px;height:auto !important;}
+.khgl_da_two_two input{ width:70%; height:27px;border:1px solid #dddddd; border-radius:3px;}
+.khgl_da_two_two select{width:70%; height:27px;border:1px solid #dddddd;border-radius:3px;}
+.khgl_da_two_two .inse{border:1px solid #ff0000;}
+.khgl_da_two_two label{ display:inline-block; float:left; width:84px; font-size:12px;color:#666666;}
+.khgl_da_two_two .input{ width:12px; height:12px;border:none; margin-left:6px; margin-right:6px;}
+.khgl_da_two_two_01{ padding-left:5px; font-size:12px;color:#666666;}
+.khgl_da_two_two_02{height:16px;border:1px solid #a9d6c3;height:16px;background:#f3fffa;margin-top:6px;width:160px;text-align:center;display:block;}
+.khgl_da_two_two_03{min-height:16px; height:auto !important;width:160px; font-size:12px;color:#ff0000; }
+.khgl_da_two_two_03 a{ font-size:12px;color:#0077ff;}
+.khgl_da_two_th{background:#fffdf6;border:1px solid #e1dece!important;}
+.khgl_da_two_th_01{ font-size:12px;color:#0077ff; padding-top:20px; padding-left:84px;}
+.action_tab{
+padding: 0 10px;
+margin-top: 10px;
+overflow: hidden;
+min-height: 250px;
+border:1px solid #fff;
+}
+
+/*业绩分配--提示*/
+.yeji_title{ background-color:#fafafa; border:solid 1px #ddd; display:block; margin-bottom:15px;}
+.yeji_title_list{ height:45px; line-height:45px; padding:0 10px 0 10px; font-size:12px; font-family:"宋体"; color:#666; display:block; clear:both;}
