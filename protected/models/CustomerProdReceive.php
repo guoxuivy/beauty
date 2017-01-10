@@ -93,6 +93,7 @@ class CustomerProdReceive extends ActiveRecord
                 $m->out_time = time();
                 if(!$m->save()) throw new CException("出库失败！");
             }
+
             foreach($receiveDetails as $receiveDetail){
                 $storegeDetail = \CustomerProdStorageDetail::model()->findByPk($receiveDetail['storage_detail_id']);
                 $before_num = $storegeDetail->remain_num;

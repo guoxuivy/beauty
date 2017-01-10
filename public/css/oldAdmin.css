@@ -1,5 +1,6 @@
 /*老模版样式移植-公司管理员*/
 
+.clear{clear: both;}
 /*---------------部门管理样式--------------*/
 .content_right_con_two{ color:#ff0101; font-size:12px; padding-bottom:11px; padding-left:20px; background:url(../images/bu_025.png) no-repeat;}/*部门管理标题下方提醒*/
 

@@ -1,83 +1,133 @@
+<link href="<?php echo $this->basePath('public');?>/css/pos.css" rel="stylesheet" type="text/css"/>
+<div class="row">
+    <div class="print_show col-md-12">
+        <div class="portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-pencil"></i>POS开单/寄存领取
+                </div>
+                <div class="tools">
+                        <button onclick="history.go(-1)" class="btn btn-sm blue table-group-action-submit"><i class="fa fa-mail-forward "></i>返回</button>
+                </div>
+            </div>
+        </div>
 
-<!--content_right_con-->
-<div class="content_right_con">
-    <div class="content_right_con_top">
-        <!--<div class="fjgl_top_r">
-          <a href="javascript:" class="khgl_02 fpkhn">分配客户</a><a href="javascript:" class="fjgl_top_r_01">筛选</a><a href="javascript:" class="fjgl_top_r_02 tjfjz">添加客户</a>
-        </div>-->
-        <div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>POS开单><span>寄存领取</span>>订单详细
-    </div>
-
-    <!--khgl_shouye-->
-    <?php echo $cu_info ?>
-    <!--khgl_shouye!end-->
-
-
-    <!--寄存商品-->
-    <div class="pos_cz_tow">
-        <div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>寄存商品</div>
-        <div class="pos_cz_tow_two">
-            <!--table_container-->
-            <div class="table_container" style="border:none;">
-                <!--table_con-->
-                <div class="table_con">
-                    <!--table_con_son-->
-                    <div class="table_con_son">
-                        <div class="table_title">
-                            <ul>
-                                <!--<li><input type="checkbox" /></li>-->
-                                <li>关联订单</li>
-                                <li>商品名称</li>
-                                <li>寄存数量</li>
-                                <li>规格</li>
-                                <li>领取数量</li>
-                                <li>剩余数量</li>
-                            </ul>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="portlet solid green-haze">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-cogs"></i>订单概况
                         </div>
-                        <?php $pnum=0; foreach($storageProducts as $storageProduct):?>
-                            <?php if(array_key_exists($storageProduct['id'],$detail_nums)):?>
-                            <div class="table_list">
-                                <ul>
-                                    <!--<li class="li001"><input type="checkbox" /></li>-->
-                                    <li class="li001"><a href="#"><?php $orderSale = \OrderSale::model()->findByPk($storageProduct['order_id']);echo $orderSale->sn?></a></li>
-                                    <li class="li001"><?php $productInfo = \ProductInfo::model()->findByPk($storageProduct['product_id']);echo $productInfo->name?></li>
-                                    <li class="li002"><?php echo $detail_nums[$storageProduct['id']]['before_num'];?></li>
-                                    <li class="li003"><?php echo $productInfo->unit?></li>
-                                    <li class="li004 lq_num"><?php echo $detail_nums[$storageProduct['id']]['num'];?></li>
-                                    <li class="li004 lq_num"><?php echo $detail_nums[$storageProduct['id']]['after_num'];?></li>
-                                </ul>
+                        <div class="actions">
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row static-info">
+                            <div class="col-xs-5 name">领取单号：</div>
+                            <div class="col-xs-7 value text-right">
+                                 <?php echo $model->sn ?>
                             </div>
-                            <?php $pnum+=$detail_nums[$storageProduct['id']]['num'];endif;?>
-                        <?php endforeach;?>
+                        </div>
 
-                    </div><!--table_con_son!end-->
-                </div><!--table_con!end-->
+
+                        <div class="row static-info">
+                            <div class="col-xs-5 name">订单状态：</div>
+                            <div class="col-xs-7 value text-right">
+                                <?php if (!$model): ?>
+                                <span class="label label-info label-sm">草稿</span>
+                                <?php else: ?>
+                                <span class="label label-warning label-sm"><?php echo \CustomerProdReceive::getPayStatus($model->status);?></span>
+                                <?php endif ?>
+                            </div>
+                        </div>
+                        <div class="row static-info">
+                            <div class="col-xs-5 name">本次领取数：</div>
+                            <div class="col-xs-7 value text-right">
+                                <font class="all_num">0</font>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!--table_containter!end-->
-            <div class="pos_cz_tow_two_two pos_cz_qr_top_02">
-                <span class="pos_cz_tow_two04">领取商品小计：<em><?php echo $pnum;?></em></span>
+
+            <div class="col-md-6 col-sm-12">
+                <div class="portlet solid red-intense">
+                    <div class="portlet-body" style="padding-top: 10px;">
+                        <?php echo $cu_info ?>
+                    </div>
+                </div>
             </div>
         </div>
-    </div><!--寄存商品!end-->
 
-    <!--备注-->
-    <div class="pos_cz_tow pos_cz_for_bz">
-        <div class="pos_cz_for_bz01 pos_cz_qr_top_07">备注</div>
-        <div class="pos_cz_for_bz02">
-            <div class="pos_cz_for_bz02_son">
-                <p class="pos_cz_qr_top_06"><?php echo $model->remark ?></p>
+        <!--寄存商品-->
+        <div class="pos_cz_tow">
+            <div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>寄存商品</div>
+            <div class="pos_cz_tow_two">
+                <!--table_container-->
+                <div class="table_container">
+                    <!--table_con-->
+                    <div class="table_con table-responsive">
+                        <!--table_con_son-->
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>关联订单</th>
+                                    <th>商品名称</th>
+                                    <th>寄存数量</th>
+                                    <th>规格</th>
+                                    <th>领取数量</th>
+                                    <th>剩余数量</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php $pnum=0; foreach($storageProducts as $storageProduct):?>
+                                <?php if(array_key_exists($storageProduct['id'],$detail_nums)):?>
+                                <tr>
+                                    <td class="li001"><a href="#"><?php $orderSale = \OrderSale::model()->findByPk($storageProduct['order_id']);echo $orderSale->sn?></a></td>
+                                    <td class="li001"><?php $productInfo = \ProductInfo::model()->findByPk($storageProduct['product_id']);echo $productInfo->name?></td>
+                                    <td class="li002"><?php echo $detail_nums[$storageProduct['id']]['before_num'];?></td>
+                                    <td class="li003"><?php echo $productInfo->unit?></td>
+                                    <td class="li004 lq_num"><?php echo $detail_nums[$storageProduct['id']]['num'];?></td>
+                                    <td class="li004 lq_num"><?php echo $detail_nums[$storageProduct['id']]['after_num'];?></td>
+                                </tr>
+                                <?php $pnum+=$detail_nums[$storageProduct['id']]['num'];endif;?>
+                            <?php endforeach;?>
+                            </tbody>
+                        </table><!--table_con_son!end-->
+                    </div><!--table_con!end-->
+                </div>
+                <!--table_containter!end-->
+                <div class="pos_cz_tow_two_two pos_cz_qr_top_02">
+                    <span class="pos_cz_tow_two04">领取商品小计：<em><?php echo $pnum;?></em></span>
+                </div>
+            </div>
+        </div><!--寄存商品!end-->
+
+        <!--备注-->
+        <div class="pos_cz_tow pos_cz_for_bz">
+            <div class="pos_cz_for_bz01 pos_cz_qr_top_07">备注</div>
+            <div class="pos_cz_for_bz02">
+                <div class="pos_cz_for_bz02_son">
+                    <p class="pos_cz_qr_top_06"><?php echo $model->remark ?></p>
+                </div>
             </div>
         </div>
+        <!--备注!end-->
+
+
+
     </div>
-    <!--备注!end-->
 </div>
-<!--content_right_con!end-->
 
 
 {__TOKEN__}
 
 <script type="text/javascript">
-    //table_flash();
+$(function(){
+    $(".all_num").html(<?php echo $pnum;?>);
+
+})
     //收起效果
     $(".pos_cz_tow_top_r").click(function(){
         var self=$(this);

@@ -1,103 +1,154 @@
-
-<!--content_right_con-->
-<div class="content_right_con">
-    <div class="content_right_con_top">
-        <!--<div class="fjgl_top_r">
-          <a href="javascript:" class="khgl_02 fpkhn">分配客户</a><a href="javascript:" class="fjgl_top_r_01">筛选</a><a href="javascript:" class="fjgl_top_r_02 tjfjz">添加客户</a>
-        </div>-->
-        <div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>POS开单><span>寄存领取</span>
-    </div>
-
-    <!--khgl_shouye-->
-    <?php echo $cu_info ?>
-    <!--khgl_shouye!end-->
-
-
-    <!--寄存商品-->
-    <div class="pos_cz_tow">
-        <div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>寄存商品</div>
-        <div class="pos_cz_tow_two">
-            <!--table_container-->
-            <div class="table_container" style="border:none;">
-                <!--table_con-->
-                <div class="table_con">
-                    <!--table_con_son-->
-                    <div class="table_con_son">
-                        <div class="table_title">
-                            <ul>
-                                <!--<li><input type="checkbox" /></li>-->
-                                <li>关联订单</li>
-                                <li>商品名称</li>
-                                <li>来源</li>
-                                <li>寄存数量</li>
-                                <li>规格</li>
-                                <li>可领取数量</li>
-                                <li>领取数量</li>
-                            </ul>
+<link href="<?php echo $this->basePath('public');?>/css/pos.css" rel="stylesheet" type="text/css"/>
+<div class="row">
+    <div class="print_show col-md-12">
+        <div class="portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-pencil"></i>POS开单/寄存领取
+                </div>
+                <div class="tools">
+                    <button class="btn btn-sm green table-group-action-submit c_submit"><i class="fa fa-check"></i>提交订单</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="portlet solid green-haze">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-cogs"></i>订单概况
                         </div>
-                        <?php $pnum=0; foreach($storageProducts as $storageProduct):?>
-                            <?php
-                                $order_sale_detail = \OrderSaleDetail::model()->findByPk($storageProduct['detail_id']);
-                                
-                                if(is_null($order_sale_detail)) continue;
+                        <div class="actions">
+                            <?php if (!$model): ?>
+                            <button class="btn red">订单新建</button>
+                            <?php else: ?>
+                            <button class="btn red">订单编辑</button>
+                            <?php endif ?>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row static-info">
+                            <div class="col-xs-5 name">领取单号：</div>
+                            <div class="col-xs-7 value text-right">
+                                 <?php echo $model->sn ?>
+                            </div>
+                        </div>
 
-                                if($order_sale_detail['pay_price']>0)
-                                    $max_num = floor($order_sale_detail['var_price']*$order_sale_detail['num']/$order_sale_detail['price']*$order_sale_detail['rebate']/100);
-                                else
-                                    $max_num = $storageProduct['remain_num'];
+                        <div class="row static-info">
+                            <div class="col-xs-5 name">订单状态：</div>
+                            <div class="col-xs-7 value text-right">
+                                <?php if (!$model): ?>
+                                <span class="label label-info label-sm">草稿</span>
+                                <?php else: ?>
+                                <span class="label label-warning label-sm"><?php echo \CustomerProdReceive::getStatus($model->status);?></span>
+                                <?php endif ?>
+                            </div>
+                        </div>
+                        <div class="row static-info">
+                            <div class="col-xs-5 name">本次领取数：</div>
+                            <div class="col-xs-7 value text-right">
+                                <font class="all_num">0</font>
+                            </div>
+                        </div>
 
-                                if($order_sale_detail->buy_type==3){
-                                    $orderVoucher = \OrderVoucher::model()->findByPk($storageProduct['order_id']);
-                                    $sn = $orderVoucher->sn;
-                                }else{
-                                    $orderSale = \OrderSale::model()->findByPk($storageProduct['order_id']);
-                                    $sn = $orderSale->sn;
-                                }
-                            ?>
-                            <div class="table_list">
-                                <ul>
+
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+                <div class="portlet solid red-intense">
+                    <div class="portlet-body" style="padding-top: 10px;">
+                        <?php echo $cu_info ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--寄存商品-->
+        <div class="pos_cz_tow">
+            <div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>寄存商品</div>
+            <div class="pos_cz_tow_two">
+                <!--table_container-->
+                <div class="table_container">
+                    <!--table_con-->
+                    <div class="table_con table-responsive">
+                        <!--table_con_son-->
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>关联订单</th>
+                                    <th>商品名称</th>
+                                    <th>来源</th>
+                                    <th>寄存数量</th>
+                                    <th>规格</th>
+                                    <th>可领取数量</th>
+                                    <th>领取数量</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $pnum=0; foreach($storageProducts as $storageProduct):?>
+                                <?php
+                                    $order_sale_detail = \OrderSaleDetail::model()->findByPk($storageProduct['detail_id']);
+                                    
+                                    if(is_null($order_sale_detail)) continue;
+
+                                    if($order_sale_detail['pay_price']>0)
+                                        $max_num = floor($order_sale_detail['var_price']*$order_sale_detail['num']/$order_sale_detail['price']*$order_sale_detail['rebate']/100);
+                                    else
+                                        $max_num = $storageProduct['remain_num'];
+
+                                    if($order_sale_detail->buy_type==3){
+                                        $orderVoucher = \OrderVoucher::model()->findByPk($storageProduct['order_id']);
+                                        $sn = $orderVoucher->sn;
+                                    }else{
+                                        $orderSale = \OrderSale::model()->findByPk($storageProduct['order_id']);
+                                        $sn = $orderSale->sn;
+                                    }
+                                ?>
+
+
+                                <tr class="table_list">
                                     <!--<li class="li001"><input type="checkbox" /></li>-->
-                                    <li class="li001"><a href="#"><?php echo $sn;?></a></li>
-                                    <li class="li001"><?php $productInfo = \ProductInfo::model()->findByPk($storageProduct['product_id']);echo $productInfo->name?></li>
-                                    <li class="li003"><?php echo \OrderSaleDetail::getBuyType($order_sale_detail->buy_type)?></li>
-                                    <li class="li002"><?php echo $storageProduct['remain_num'];?></li>
-                                    <li class="li003"><?php echo $productInfo->unit?></li>
-                                    <li class="li003"><?php echo $max_num?></li>
-                                    <li class="li004 lq_num"><input value="<?php echo $detail_nums[$storageProduct['id']]['num'];?>" type="text" class="pos_cz_tow_two05" /></li>
+                                    <td class="li001"><a href="#"><?php echo $sn;?></a></td>
+                                    <td class="li001"><?php $productInfo = \ProductInfo::model()->findByPk($storageProduct['product_id']);echo $productInfo->name?></td>
+                                    <td class="li003"><?php echo \OrderSaleDetail::getBuyType($order_sale_detail->buy_type)?></td>
+                                    <td class="li002"><?php echo $storageProduct['remain_num'];?></td>
+                                    <td class="li003"><?php echo $productInfo->unit?></td>
+                                    <td class="li003"><?php echo $max_num?></td>
+                                    <td class="li004 lq_num"><input value="<?php echo $detail_nums[$storageProduct['id']]['num'];?>" type="text" class="pos_cz_tow_two05" /></td>
                                     <input type="hidden" name="order_detail_id[]" value="<?php echo $storageProduct['detail_id'];?>">
                                     <input type="hidden" name="storage_detail_id[]" value="<?php echo $storageProduct['id'];?>">
                                     <input type="hidden" name="remain_num[]" value="<?php echo $storageProduct['remain_num'];?>">
                                     <input type="hidden" name="product_id[]" value="<?php echo $storageProduct['product_id'];?>">
-                                </ul>
-                            </div>
-                        <?php $pnum+=$detail_nums[$storageProduct['id']]['num'];endforeach;?>
-
-                    </div><!--table_con_son!end-->
-                </div><!--table_con!end-->
+                                </tr>
+                                <?php $pnum+=$detail_nums[$storageProduct['id']]['num'];?>
+                               
+                            <?php endforeach;?>
+                            </tbody>
+                        </table><!--table_con_son!end-->
+                    </div><!--table_con!end-->
+                </div>
+                <!--table_containter!end-->
+                <div class="pos_cz_tow_two_two pos_cz_qr_top_02">
+                    <span class="pos_cz_tow_two04">领取商品小计：<em><?php echo $pnum;?></em></span>
+                </div>
             </div>
-            <!--table_containter!end-->
-            <div class="pos_cz_tow_two_two pos_cz_qr_top_02">
-                <span class="pos_cz_tow_two04">领取商品小计：<em><?php echo $pnum;?></em></span>
-                <!--<span class="pos_gm_01">还款订单<span class="pos_gm_03">2</span>个</span>
-                <span class="pos_gm_01">还款总额：<span class="pos_gm_04">￥5000.00</span></span>-->
+        </div><!--寄存商品!end-->
+
+        <!--备注-->
+        <div class="pos_cz_for_bz">
+            <div class="pos_cz_for_bz01">备注</div>
+            <div class="pos_cz_for_bz02">
+                <div class="pos_cz_for_bz02_son"><textarea rows="4"></textarea></div>
             </div>
-        </div>
-    </div><!--寄存商品!end-->
+        </div><!--备注!end-->
 
-    <!--备注-->
-    <div class="pos_cz_for_bz">
-        <div class="pos_cz_for_bz01">备注</div>
-        <div class="pos_cz_for_bz02">
-            <div class="pos_cz_for_bz02_son"><textarea rows="4"></textarea></div>
-        </div>
-    </div><!--备注!end-->
-
-    <!---->
-    <div class="pos_cz_zh">
-        <a href="javascript:" class="pos_cz_zh_an">领取</a>
-    </div><!--!end-->
+    </div>
 </div>
-<!--content_right_con!end-->
 
 
 {__TOKEN__}
@@ -138,10 +189,11 @@
             }
         }
         $('.pos_cz_tow_two04').find('em').text(total);
+        $(".all_num").html(total);
     });
 
     //数据提交
-    $(".pos_cz_zh_an").click(function(){
+    $(".c_submit").click(function(){
         var post_data = submit_data();
         if(post_data.receive.length<=0){
             Idialog.tips('请先填写领取数量!',2);
@@ -173,10 +225,10 @@
         $('.lq_num .pos_cz_tow_two05').each(function(i){
             if($(this).val()!=''){
                 data.receive.push({
-                    "order_detail_id":$(this).parents('ul').find("input[name='order_detail_id[]']").val(),
-                    "storage_detail_id":$(this).parents('ul').find("input[name='storage_detail_id[]']").val(),
-                    "remain_num":$(this).parents('ul').find("input[name='remain_num[]']").val(),
-                    "product_id":$(this).parents('ul').find("input[name='product_id[]']").val(),
+                    "order_detail_id":$(this).parents('tr').find("input[name='order_detail_id[]']").val(),
+                    "storage_detail_id":$(this).parents('tr').find("input[name='storage_detail_id[]']").val(),
+                    "remain_num":$(this).parents('tr').find("input[name='remain_num[]']").val(),
+                    "product_id":$(this).parents('tr').find("input[name='product_id[]']").val(),
                     "num":$(this).val()
                 });
             }

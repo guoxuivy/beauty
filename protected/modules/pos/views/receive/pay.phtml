@@ -1,146 +1,143 @@
-
-<!--content_right_con-->
-<div class="content_right_con">
-    <div class="content_right_con_top">
-        <!--<div class="fjgl_top_r">
-          <a href="javascript:" class="khgl_02 fpkhn">分配客户</a><a href="javascript:" class="fjgl_top_r_01">筛选</a><a href="javascript:" class="fjgl_top_r_02 tjfjz">添加客户</a>
-        </div>-->
-        <div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>POS开单><span>寄存领取-确认</span>
-    </div>
-
-    <!---->
-    <div class="jyjl_top jyjl_czda_top pos_cz_qr01">
-        <div class="jyjl_czda_top_l">
-            <div class="jyjl_czda_top_top">订单提交成功</div>
-            <div class="jyjl_czda_top_two">订单编号：
-                <span><?php echo $model->sn;?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 订单状态：
-                    <span class="spanll"><?php echo $model->re_status==1?'已领取':'未领取'?></span>
-                </span>
+<link href="<?php echo $this->basePath('public');?>/css/pos.css" rel="stylesheet" type="text/css"/>
+<div class="row">
+    <div class="print_show col-md-12">
+        <div class="portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-pencil"></i>POS开单/寄存领取-确认
+                </div>
+                <div class="tools">
+                    <?php if($model->o_s->status==0): ?>
+                        <button class="btn btn-sm blue table-group-action-submit c_submit"><i class="fa fa-check"></i>确认领取</button>
+                        <button id="cancelOrder" class="btn btn-sm red table-group-action-submit"><i class="fa fa-eraser"></i>废弃订单</button>
+                        <button onclick="to_url('<?php echo $this->url('edit',array('id'=>$model->id)) ?>')" class="btn btn-sm green table-group-action-submit"><i class="fa fa-mail-forward "></i>修改订单</button>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
-        <!--<div class="jyjl_czda_top_r"><a href="javascript:">废弃订单</a>|<a href="javascript:">修改</a>&nbsp;<a href="javascript:" class="aysh01">继续开单</a><a href="javascript:" class="aysh">立即付款</a></div>-->
-        <div class="pos_qr_right">
-            <a href="javascript:" class="pos_qr_right_a" id="cancelOrder">废弃订单</a>|
-            <a href="<?php echo $this->url('edit',array('id'=>$model->id)) ?>" class="pos_qr_right_a">修改订单</a>
-            <a href="<?php echo $this->url('add',array('id'=>$model->cu_id)) ?>" class="pos_qr_right_wait">继续开单</a>
-            <a href="javascript:" class="pos_qr_right_gopay">确认领取</a>
-        </div>
-    </div>
-    <!---->
 
-    <!--订单跟踪-->
-    <div class="pos_cz_tow pos_cz_qr01">
-        <div class="pos_cz_qr_02">订单跟踪</div>
-        <div class="pos_cz_tow_two">
-            <!--table_container-->
-            <div class="table_container" style="border:none;">
-                <!--table_con-->
-                <div class="table_con">
-                    <!--table_con_son-->
-                    <div class="table_con_son">
-                        <div class="table_title pos_cz_qr_03">
-                            <ul>
-                                <li style="width: 200px;">处理时间</li>
-                                <li style="width: 500px;">处理信息</li>
-                                <li style="width: 200px;">操作人</li>
-                            </ul>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="portlet solid green-haze">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-cogs"></i>订单概况
                         </div>
-                        <div class="table_list">
-                            <ul>
-                                <li class="li001"><?php echo $model->create_time?></li>
-                                <li class="li002">您提交了寄存领取订单，等待客户确认领取</li>
-                                <li class="li003"><?php echo \pos\SaleModel::model()->getEmployName($model->create_user);?></li>
-                            </ul>
+                        <div class="actions">
+                            <button class="btn red"><?php echo \CustomerProdReceive::getStatus($model->status);?></button>
                         </div>
                     </div>
-                    <!--table_con!end-->
-                </div>
-                <!--table_con!end-->
-            </div>
-            <!--table_containter!end-->
-        </div>
-    </div>
-    <!--订单跟踪!end-->
-
-    <!--khgl_shouye-->
-    <?php echo $cu_info ?>
-    <!--khgl_shouye!end-->
-
-    <!--订单信息-->
-    <div class="pos_cz_tow">
-        <div class="pos_cz_tow_top pos_cz_qr_02">订单信息</div>
-        <div class="pos_cz_tow_two pos_cz_qr_top">
-            <!--table_container-->
-            <div class="table_container">
-
-                <!--table_con-->
-                <div class="table_con pos_cz_qr_top_04" style="margin-right:0px;">
-
-                    <!--table_con_son-->
-                    <div class="table_con_son">
-                        <div class="pos_sp_title">领取寄存商品</div>
-                        <div class="table_title pos_news_zeng">
-                            <ul>
-                                <li>商品名称</li>
-                                <li>寄存数量</li>
-                                <li>规格</li>
-                                <li>领取数量</li>
-                            </ul>
-                        </div>
-                        <?php $num=0; foreach($details as $detail):?>
-                            <div class="table_list">
-                                <ul>
-                                    <li class="li001"><?php echo $detail['name'];?></li>
-                                    <li class="li002"><?php echo $detail['before_num'];?></li>
-                                    <li class="li003"><?php echo $detail['unit'];?></li>
-                                    <li class="li006"><?php echo $detail['num'];?></li>
-                                </ul>
+                    <div class="portlet-body">
+                        <div class="row static-info">
+                            <div class="col-xs-5 name">领取单号：</div>
+                            <div class="col-xs-7 value text-right">
+                                 <?php echo $model->sn ?>
                             </div>
-                            <?php $num += $detail['num'];?>
-                        <?php endforeach;?>
-                        <div class="pos_cz_tow_two_two pos_cz_qr_top_02">
-                            <span class="pos_cz_tow_two04">领取商品小计：<em><?php echo $num;?></em></span>
                         </div>
-                    </div><!--table_con_son!end-->
 
-                </div><!--table_con!end-->
+
+                        <div class="row static-info">
+                            <div class="col-xs-5 name">订单状态：</div>
+                            <div class="col-xs-7 value text-right">
+                                <span class="label label-warning label-sm"><?php echo $model->re_status==1?'已领取':'未领取'?></span>
+                            </div>
+                        </div>
+                        <div class="row static-info">
+                            <div class="col-xs-5 name">本次领取数：</div>
+                            <div class="col-xs-7 value text-right">
+                                <font class="all_num">0</font>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!--table_containter!end-->
-        </div>
-    </div><!--订单信息!end-->
 
-    <!--备注-->
-    <div class="pos_cz_tow pos_cz_for_bz">
-        <div class="pos_cz_for_bz01 pos_cz_qr_top_07">备注</div>
-        <div class="pos_cz_for_bz02">
-            <div class="pos_cz_for_bz02_son">
-                <p class="pos_cz_qr_top_06"><?php echo $model->remark ?></p>
+            <div class="col-md-6 col-sm-12">
+                <div class="portlet solid red-intense">
+                    <div class="portlet-body" style="padding-top: 10px;">
+                        <?php echo $cu_info ?>
+                    </div>
+                </div>
             </div>
         </div>
+        <!--订单信息-->
+        <div class="pos_cz_tow">
+            <div class="pos_cz_tow_top"><span class="pos_cz_tow_top_r">收起</span>订单信息</div>
+            <div class="pos_cz_tow_two">
+                <!--table_container-->
+                <div class="table_container">
+                    <!--table_con-->
+                    <div class="table_con table-responsive">
+                        <!--table_con_son-->
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>商品名称</th>
+                                    <th>寄存数量</th>
+                                    <th>规格</th>
+                                    <th>领取数量</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php $num=0; foreach($details as $detail):?>
+                                <tr class="table_list">
+                                    <td class="li001"><?php echo $detail['name'];?></td>
+                                    <td class="li002"><?php echo $detail['before_num'];?></td>
+                                    <td class="li003"><?php echo $detail['unit'];?></td>
+                                    <td class="li006"><?php echo $detail['num'];?></td>
+                                </tr>
+                                <?php $num += $detail['num'];?>
+                            <?php endforeach;?>
+                            </tbody>
+                        </table><!--table_con_son!end-->
+                    </div><!--table_con!end-->
+                </div>
+                <!--table_containter!end-->
+                <div class="pos_cz_tow_two_two pos_cz_qr_top_02">
+                    <span class="pos_cz_tow_two04">领取商品小计：<em><?php echo $num;?></em></span>
+                </div>
+            </div>
+        </div><!--订单信息!end-->
+
+        <!--备注-->
+        <div class="pos_cz_tow pos_cz_for_bz">
+            <div class="pos_cz_for_bz01 pos_cz_qr_top_07">备注</div>
+            <div class="pos_cz_for_bz02">
+                <div class="pos_cz_for_bz02_son">
+                    <p class="pos_cz_qr_top_06"><?php echo $model->remark ?></p>
+                </div>
+            </div>
+        </div>
+        <!--备注!end-->
+
+
+
+
     </div>
-    <!--备注!end-->
-
-    <!---->
-    <div class="pos_cz_zh">
-        <a href="javascript:" class="pos_cz_zh_an">确认领取</a>
-    </div>
-    <!--!end-->
-
-
-
-
 </div>
-<!--content_right_con!end-->
+
+
 
 {__TOKEN__}
 
 <script type="text/javascript">
+$(function(){
+    $(".all_num").html(<?php echo $num;?>);
 
-    $(function(){
-        $(".pos_cz_fk_top_04").click(function(){
-            $(".pos_cz_fk_two").slideToggle();
+})
+    //收起效果
+    $(".pos_cz_tow_top_r").click(function(){
+        var self=$(this);
+        self.parent().next().slideToggle("fast",function(){
+            //alert("Animation Done.");
+            if(self.hasClass("pos_cz_tow_top_rcl")){
+                self.removeClass("pos_cz_tow_top_rcl");
+            }else{
+                self.addClass("pos_cz_tow_top_rcl");
+            }
         });
     });
+
 
     function to_url(url){
         window.location.href=url;
@@ -158,7 +155,7 @@
     }
 
     //数据提交
-    $(".pos_cz_zh_an,.pos_qr_right_gopay").click(function(){
+    $(".c_submit").click(function(){
         var post_data = submit_data();
         $.post("<?php echo $this->url('paySave',array('id'=>$model->id)) ?>", post_data,function(data){
             Idialog.tips(data.msg,2);

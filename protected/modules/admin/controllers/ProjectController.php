@@ -79,7 +79,7 @@ class ProjectController extends \SController
 			$model = \ProjectInfo::model()->getEditModel($id);
 			$this->view->assign(array(
 				'model'=>$model,
-				'light_nav'=>$this->url('admin/project/index'),//强制点亮导航
+				'light_nav'=>array($this->url('admin/project/index'),"编辑项目"),//强制点亮导航
 			))->display();
 		}
 

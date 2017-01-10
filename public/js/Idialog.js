@@ -243,7 +243,7 @@ $.fn.help = function(){
             $(".help_ms").hide();
             $(this).find(".help_ms").show();
         },function(){
-            $(this).find(".help_ms").show();
+            $(this).find(".help_ms").hide();
     });
     return this;
 
