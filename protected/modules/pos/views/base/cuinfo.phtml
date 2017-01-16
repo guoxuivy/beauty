@@ -4,13 +4,13 @@
 <div class="row cu_info" data-id="<?php echo $info->id ?>">
     <div class="col-xs-3">
     	<div class="row static-info">
-    		<div class="col-xs-12 ">
-            <img width="102" height="102" src="<?php echo $cu_avatar;?>">
+    		<div class="col-md-8 col-xs-12 ">
+                <img  width="100%" src="<?php echo $cu_avatar;?>">
             </div>
         </div>
         <div class="row static-info">
-            <div class="col-xs-12 name"><?php echo $info->name ?> <span class="label label-success"><?php echo mb_substr($info->cu_type,0,1,'utf-8');?></span></div>
-            <div class="col-xs-12 name">
+            <div class="col-md-6 col-xs-12 name"><?php echo $info->name ?> <span class="label label-success"><?php echo mb_substr($info->cu_type,0,1,'utf-8');?></span></div>
+            <div class="col-md-6 col-xs-12 name">
                 <?php echo $info->store_name ?>
             </div>
         </div>
@@ -18,19 +18,17 @@
 
     </div>
     <div class="col-xs-9">
-
-        <div class="scroller" style="height:213px" data-rail-visible="1" data-rail-color="blue" data-handle-color="red">
-	        <div class="row static-info">
-	            <div class="col-xs-6 name">账户欠款：</div>
-	            <div class="col-xs-6 value text-right">
-	                <font class="cu_arrears"><?php echo $info->arrears ?></font>
-	            </div>
-	        </div>
-
+        <div class="scroller" style="height:150px" data-rail-visible="1" data-rail-color="blue" data-handle-color="green">
+            <div class="row static-info">
+                <div class="col-xs-7 name">账户欠款：</div>
+                <div class="col-xs-5 value text-right">
+                    <font class="cu_arrears"><?php echo $info->arrears ?></font>
+                </div>
+            </div>
 	        <?php foreach ($capital_list as $key => $capital): ?>
 			<div class="row static-info">
-	            <div class="col-xs-6 name"><?php echo $capital['name'] ?>余额：</div>
-	            <div class="col-xs-6 value text-right">
+	            <div class="col-xs-7 name"><?php echo $capital['name'] ?>余额：</div>
+	            <div class="col-xs-5 value text-right">
 	                <?php echo $capital['balance'] ?> 元
 	            </div>
 	        </div>
