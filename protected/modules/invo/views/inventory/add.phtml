@@ -1,50 +1,57 @@
-<!--content_right_con-->
-<div class="content_right_con">
-    <div class="content_right_con_top">
-        仓库管理>库存盘点记录>盘库
-    </div>
-    <div class="khgl_pk_top" style="margin-bottom: 0;">
-        <span class="khgl_pk_top_02 c_add" style="width: 100px;">选择盘库商品</span>
-    </div>
-    <div class="khgl_pk_two" style="display: none;">
-        <span>
-            <input value="1" name="is_extra_num" type="checkbox" style="margin: 7px 5px;"/>
-            <span>不盘点额用量外</span>
-        </span>
-    </div>
-
-    <!--table_container-->
-    <div class="table_container clear box_cp" style="display: none;">
-        <!--table_con-->
-        <div class="table_con">
-            <!--table_con_son-->
-            <div class="table_con_son">
-                <div class="table_title">
-                    <ul>
-                        <li>商品分类</li>
-                        <li>商品系列</li>
-                        <li>商品名称</li>
-                        <li>商品编码</li>
-                        <li>实时库存</li>
-                        <li>寄存（实时数据）</li>
-                        <li>额外用量（实时数据）</li>
-                        <li>盘点数量</li>
-                        <li class="extra_num">盘点额外用量</li>
-                    </ul>
+<div class="row">
+    <div class="print_show col-md-12">
+        <div class="portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-eye-slash"></i>盘库
                 </div>
-                <div id="pro_list" style="max-height:500px; overflow:auto;">
-
+                <div class="tools"  style="display: none;">
+                    <button class="btn btn-sm green table-group-action-submit c_submit"><i class="fa fa-check"></i>提交订单</button>
                 </div>
-            </div><!--table_con_son!end-->
-        </div><!--table_con!end-->
-        <div class="khgl_pk_butom">
-            <a href="javascript:" class="ck_splb_foot_01">保存盘库</a>
-            <a href="javascript:" class="ck_splb_foot_02">取消</a>
+            </div>
         </div>
-    </div>
-    <!--table_containter!end-->
+
+        <button class="btn btn-sm yellow table-group-action-submit c_add">选择盘库商品</button>
+
+        <!--table_container-->
+        <div class="table_container box_cp" style="display: none;">
+            <label>
+                <input value="1" name="is_extra_num" type="checkbox" />不盘点额用量外
+            </label>
+            <!--table_con-->
+            <div class="table_con">
+                <!--table_con_son-->
+                <div class="table_con_son table-responsive">
+                    <table class="table table-bordered table-hover">
+                    <thead class="table_title">
+                        <tr>
+                            <th>商品分类</th>
+                            <th>商品系列</th>
+                            <th>商品名称</th>
+                            <th>商品编码</th>
+                            <th>实时库存</th>
+                            <th>寄存（实时数据）</th>
+                            <th>额外用量（实时数据）</th>
+                            <th>盘点数量</th>
+                            <th class="extra_num">盘点额外用量</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pro_list">
+
+                    </tbody>
+                    </table>
+                </div><!--table_con_son!end-->
+            </div><!--table_con!end-->
+            <div class="khgl_pk_butom">
+            </div>
+        </div>
+        <!--table_containter!end-->
+
+
+   </div>
 </div>
-<!--content_right_con!end-->
+
+
 
 <div class="none" id="widget_product">
     <?php echo \Ivy::app()->widget('common/selectProduct',"rich"); ?>
@@ -86,11 +93,10 @@
                 setTimeout(function(){
                     $.post('<?php echo $this->url("pro_list")?>',{ids:ids.join(',')}, function(data) {
                         $("#pro_list").append(data);
-                        $(".table_title ul li:last-child").css('min-width','110px');
                         if(ids.length>0){
-                            $(".khgl_pk_two,.box_cp").show();
+                            $(".box_cp,.tools").show();
                         }
-                        table_flash();
+                        
                         $('#loading').remove();
                     });
                 },500);
@@ -98,27 +104,10 @@
         })
     });
 
-    $("input[name=is_extra_num]").click(function(){
-        if($(this).attr('checked')=='checked'){
-            $(this).attr('checked',false);
-            $(this).val('1');
-            $(".table_title").find("li.extra_num").show();
-            $(".table_list").find("li.extra_num").show();
-        } else{
-            $(this).attr('checked',true);
-            $(this).val('0');
-            $(".table_title").find("li.extra_num").hide();
-            $(".table_list").find("li.extra_num").hide();
-        }
-    });
 
-    function to_url(url){
-        window.location.href=url;
-    }
-
-    $(".ck_splb_foot_01").click(function(){
+    $(".c_submit").click(function(){
         var data={},i= 0,flat=false;
-        var is_check_ext = $("input[name=is_extra_num]").val();
+        var is_check_ext = $("input[name=is_extra_num]").is(':checked')?1:0;
         var _html = "<div id='loading' style='position:fixed;left:0;width:100%;height:100%;top:0;background:rgb(0, 0, 0);opacity:0.5;filter:alpha(opacity=50);'><div style='position:absolute;  cursor1:wait;left:50%;top:50%;width:auto;height:16px;padding:13px 22px 28px 30px;background: url(<?php echo $this->basePath('public');?>/images/loading.gif) no-repeat scroll 5px 10px;text-indent: -99999px;color:#000;'>正在加载，请等待...</div></div>";
         $('body').append(_html);
         $(".table_list").each(function(){

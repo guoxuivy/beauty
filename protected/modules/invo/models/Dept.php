@@ -77,12 +77,12 @@ class Dept extends ActiveRecord
 		$action = '';
 		if($status!=-2){
 			if($status==0){
-				$action .= '<a class="change" href="javascript:" rel="'.$id.'">启用</a>';
+				$action .= '<a class="btn default btn-xs blue-stripe change" href="javascript:" rel="'.$id.'">启用</a>';
 			}else{
-				$action .= '<a style="background-color: #ddd;color: #666;" class="change" href="javascript:" rel="'.$id.'">停用</a>';
+				$action .= '<a class="btn default btn-xs yellow-stripe change" href="javascript:" rel="'.$id.'">停用</a>';
 			}
 		}
-		$action .= '<a rel="'.$id.'" href="javascript:;" class="delete">删除</a>';
+		$action .= '<a rel="'.$id.'" href="javascript:;" class="btn default btn-xs red-stripe delete">删除</a>';
 		return $action;
 	}
 

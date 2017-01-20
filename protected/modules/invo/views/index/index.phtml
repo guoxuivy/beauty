@@ -11,6 +11,7 @@ $child_cate = $this->optArr($tmp_cate,'id','name');
         <div class="portlet no_mb">
             <div class="portlet-title">
                 <div class="caption">
+                    <i class="fa fa-eye-slash"></i>商品库存
                 </div>
                 <div class="actions btn-set">
                     <a href="<?php echo $this->url('invo/inventory/add');?>" class="btn default yellow-stripe">盘库</a>
@@ -157,7 +158,7 @@ $child_cate = $this->optArr($tmp_cate,'id','name');
                     }
                 });
                 $(".table_title ul li:last-child").css('min-width','110px');
-                table_flash();
+                
                 $('#loading').remove();
             });
         },500);
@@ -192,7 +193,7 @@ $child_cate = $this->optArr($tmp_cate,'id','name');
         $.post('<?php echo $this->url("begin_pro")?>',{page:page,search:search}, function(data) {
             $('.idialog').find('.page_pro_list').html(data);
             $(".table_title ul li:last-child").css('min-width','110px');
-            table_flash();
+            
             $(".pro_loader").hide();
         });
     }

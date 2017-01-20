@@ -2,152 +2,146 @@
 <?php 
 	$md_list=\EmployDept::getList(true);
 ?>
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		<div class="fjgl_top_r"><span><a class="fjgl_top_r_05" href="javascript:">导出</a></span></div>
-		仓库管理><span>库存报告</span>><span><?php echo $product_name;?></span>
-	</div>
 
-	<!--sjbb_ddkl_one-->
-	<div class="sjbb_ddkl_one">
-		<ul>
-    <li>
-      <div class="sjbb_ddkl_one_l">日期：</div>
-      <div class="sjbb_ddkl_one_r">
-        <div class="sjbb_ddkl_one_r_son" id="choose_time">
+<div class="row">
+    <div class="print_show col-md-12">
+        <div class="portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-eye-slash"></i><?php echo $product_name;?>库存
+                </div>
+                <div class="tools" >
+                </div>
+            </div>
         </div>
-      </div>
-    </li>
-		<li>
-			<div class="sjbb_ddkl_one_l">门店范围：</div>
-			<div class="sjbb_ddkl_one_r">
-				<div class="sjbb_ddkl_one_r_son choose_md">
-					<?php foreach ($md_list as $key => $value): ?>
-					<a href="javascript:" rel="<?php echo $key ?>"><span></span><?php echo $value ?></a>
-					<?php endforeach ?>
-				</div>
-			</div>
-		</li>
-		<li class="lastli">
-				<div class="sjbb_ddkl_one_l">
-				</div>
-				<div class="sjbb_ddkl_one_r">
-					<div class="sjbb_ddkl_one_r_son">
-						<a href="javascript:" class="changa01">搜索</a>
-					</div>
-				</div>
-		</li>
-		</ul>
-	</div> <!--sjbb_index_onesjbb_ddkl_oneend-->
 
-    <!--table_container-->
-    <div class="table_container">
-        <!-- <div class="table_title_tj">...</div>-->
-        <!--table_con-->
-        <div class="table_con">
-            <!--table_con_son-->
-            <div class="table_con_son">
-                <div class="table_title khgl_com_ck">
-                    <div class="khgl_com_ck_tilte"></div>
-                    <ul>
-                        <li>业务类型</li>
-                        <li>业务日期</li>
-                        <li>交易部门</li>
-                        <li>入库</li>
-                        <li>出库</li>
-                        <li>报损</li>
-                        <li>报溢</li>
-                        <li>结存</li>
-                        <li>客户存</li>
-                        <li>客户取</li>
-                        <li>客户退</li>
-                        <li>寄存结存</li>
-                    </ul>
+        <div class="note note-info">
+            <div class="top_com">
+                <span class="spanl">门店范围：</span>
+                <div class="choose_md">
+                <?php foreach ($md_list as $key => $value): ?>
+                <a href="javascript:" rel="<?php echo $key ?>"><span><?php echo $value ?></span></a>
+                <?php endforeach ?>
                 </div>
+            </div>
+            
+            <div class="top_com stime">
+                <span class="spanl">日期：</span>
+                <span  id="choose_time"></span>
+            </div>
 
-                <div class="table_list khgl_com_ck clear khgl_com_ck_list_01">
-                    <div class="khgl_com_ck_list">期初</div>
-                    <ul>
-                        <li class="li001"></li>
-                        <li class="li002"></li>
-                        <li class="li003"></li>
-                        <li class="li004"></li>
-                        <li class="li005"></li>
-                        <li class="li006"></li>
-                        <li class="li007"></li>
-                        <li class="li008"><?php echo $qckc['num']?></li>
-                        <li class="li009"></li>
-                        <li class="li009"></li>
-                        <li class="li009"></li>
-                        <li class="li009"><?php echo $qckc['storage_num']?></li>
-                    </ul>
-                </div>
+            <a href="javascript:" class="btn btn-success changa01">搜索</a>
+        </div>
 
-                <?php $rk_total=0;$ck_total=0;$baos_total=0;$baoy_total=0;$khc_num_total=0;$khq_num_total=0;$kht_num_total=0;$jcjc_num=$qckc['storage_num']?>
-                <?php foreach($data as $item):?>
-                    <div class="table_list khgl_com_ck clear">
-                        <div class="khgl_com_ck_list"></div>
-                        <ul>
-                            <li class="li001"><?php echo $item['type']?></li>
-                            <li class="li002"><?php echo $item['create_time']?></li>
-                            <li class="li003"><?php echo $item['dept_name']?></li>
-                            <li class="li004"><?php echo $item['rk']?></li>
-                            <li class="li005"><?php echo $item['ck']?></li>
-                            <li class="li006"><?php echo $item['baos']?></li>
-                            <li class="li007"><?php echo $item['baoy']?></li>
-                            <li class="li008"><?php echo $item['jc_num']?></li>
-                            <li class="li009"><?php echo $item['khc_num']?></li>
-                            <li class="li009"><?php echo $item['khq_num']?></li>
-                            <li class="li009"><?php echo $item['kht_num']?></li>
-                            <li class="li009"><?php $jcjc_num +=$item['jcjc_num']; echo $item['jcjc_num']!='/'?$jcjc_num:'/';?></li>
-                            <?php if($item['jc_num']!='/') $jc_num = $item['jc_num'];?>
-                        </ul>
-                    </div>
-                    <?php
-                        $rk_total += $item['rk'];
-                        $ck_total += $item['ck'];
-                        $baos_total += $item['baos'];
-                        $baoy_total += $item['baoy'];
-                        $khc_num_total += $item['khc_num'];
-                        $khq_num_total += $item['khq_num'];
-                        $kht_num_total += $item['kht_num'];
-                    ?>
-                <?php endforeach;?>
+        <!--table_container-->
+        <div class="table_container">
+            <!-- <div class="table_title_tj">...</div>-->
+            <!--table_con-->
+            <div class="table_con">
+                <!--table_con_son-->
+                <div class="table_con_son table-responsive">
+                    <table class="table table-bordered table-hover">
+                    <thead class="table_title khgl_com_ck">
+                        <tr>
+                            <th>业务类型</th>
+                            <th>业务日期</th>
+                            <th>交易部门</th>
+                            <th>入库</th>
+                            <th>出库</th>
+                            <th>报损</th>
+                            <th>报溢</th>
+                            <th>结存</th>
+                            <th>客户存</th>
+                            <th>客户取</th>
+                            <th>客户退</th>
+                            <th>寄存结存</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="table_list khgl_com_ck clear khgl_com_ck_list_01">
+                        <td class="khgl_com_ck_list">期初</td>
+                        
+                            <td class="li001"></td>
+                            <td class="li003"></td>
+                            <td class="li004"></td>
+                            <td class="li005"></td>
+                            <td class="li006"></td>
+                            <td class="li007"></td>
+                            <td class="li008"><?php echo $qckc['num']?></td>
+                            <td class="li009"></td>
+                            <td class="li009"></td>
+                            <td class="li009"></td>
+                            <td class="li009"><?php echo $qckc['storage_num']?></td>
+                        
+                    </tr>
 
-                <div class="table_list khgl_com_ck clear khgl_com_ck_list_01">
-                    <div class="khgl_com_ck_list">合计</div>
-                    <ul>
-                        <li class="li001"></li>
-                        <li class="li002"></li>
-                        <li class="li003"></li>
-                        <li class="li004"><?php echo $rk_total;?></li>
-                        <li class="li005"><?php echo $ck_total;?></li>
-                        <li class="li006"><?php echo $baos_total;?></li>
-                        <li class="li007"><?php echo $baoy_total;?></li>
-                        <li class="li008"><?php echo $jc_num;?></li>
-                        <li class="li009"><?php echo $khc_num_total;?></li>
-                        <li class="li009"><?php echo $khq_num_total;?></li>
-                        <li class="li009"><?php echo $kht_num_total;?></li>
-                        <li class="li009"><?php echo $jcjc_num;?></li>
-                    </ul>
-                </div>
+                    <?php $rk_total=0;$ck_total=0;$baos_total=0;$baoy_total=0;$khc_num_total=0;$khq_num_total=0;$kht_num_total=0;$jcjc_num=$qckc['storage_num']?>
+                    <?php foreach($data as $item):?>
+                        <tr class="table_list khgl_com_ck clear">
+                            
+                                <td class="li001"><?php echo $item['type']?></td>
+                                <td class="li002"><?php echo $item['create_time']?></td>
+                                <td class="li003"><?php echo $item['dept_name']?></td>
+                                <td class="li004"><?php echo $item['rk']?></td>
+                                <td class="li005"><?php echo $item['ck']?></td>
+                                <td class="li006"><?php echo $item['baos']?></td>
+                                <td class="li007"><?php echo $item['baoy']?></td>
+                                <td class="li008"><?php echo $item['jc_num']?></td>
+                                <td class="li009"><?php echo $item['khc_num']?></td>
+                                <td class="li009"><?php echo $item['khq_num']?></td>
+                                <td class="li009"><?php echo $item['kht_num']?></td>
+                                <td class="li009"><?php $jcjc_num +=$item['jcjc_num']; echo $item['jcjc_num']!='/'?$jcjc_num:'/';?></td>
+                                <?php if($item['jc_num']!='/') $jc_num = $item['jc_num'];?>
+                            
+                        </tr>
+                        <?php
+                            $rk_total += $item['rk'];
+                            $ck_total += $item['ck'];
+                            $baos_total += $item['baos'];
+                            $baoy_total += $item['baoy'];
+                            $khc_num_total += $item['khc_num'];
+                            $khq_num_total += $item['khq_num'];
+                            $kht_num_total += $item['kht_num'];
+                        ?>
+                    <?php endforeach;?>
 
+                    <tr class="table_list khgl_com_ck clear khgl_com_ck_list_01">
+                        <td class="khgl_com_ck_list">合计</td>
+                        
+                            <td class="li002"></td>
+                            <td class="li003"></td>
+                            <td class="li004"><?php echo $rk_total;?></td>
+                            <td class="li005"><?php echo $ck_total;?></td>
+                            <td class="li006"><?php echo $baos_total;?></td>
+                            <td class="li007"><?php echo $baoy_total;?></td>
+                            <td class="li008"><?php echo $jc_num;?></td>
+                            <td class="li009"><?php echo $khc_num_total;?></td>
+                            <td class="li009"><?php echo $khq_num_total;?></td>
+                            <td class="li009"><?php echo $kht_num_total;?></td>
+                            <td class="li009"><?php echo $jcjc_num;?></td>
+                        
+                    </tr>
+                    </tbody>
+                    </table>
+                </div><!--table_con!end-->
             </div><!--table_con!end-->
-        </div><!--table_con!end-->
-    </div>
-    <!--table_containter!end-->
+        </div>
+        <!--table_containter!end-->
 
+
+
+
+    </div>
 </div>
-<!--content_right_con!end-->
+        
+
 
 
 
 <script type="text/javascript">
 
 $(function(){
-    $(".table_title ul li").css('min-width','73px');
-    table_flash();
+    
 	var t = Itime({
 		content:$('#choose_time'),
 		<?php if (isset($_GET['begin'])): ?>

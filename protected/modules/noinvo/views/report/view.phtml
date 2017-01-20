@@ -7,65 +7,74 @@
         $child_cate = $this->optArr($tmp_cate,'id','name');
 
 ?>
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		<div class="fjgl_top_r"><span><a class="fjgl_top_r_05" href="javascript:">导出</a></span></div>
-		<span> <a href="<?php echo $this->url('JCGL') ?>">客户寄存/领取报表</a> >  <?php echo $cuname ?> 寄存商品</span>
-	</div>
 
+<div class="row">
+    <div class="print_show col-md-12">
+        <div class="portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-user"></i><?php echo $cuname ?>的寄存商品
+                </div>
+                <div class="tools">
+                        <button onclick="history.go(-1)" class="btn btn-sm blue table-group-action-submit"><i class="fa fa-mail-forward "></i>返回</button>
+                </div>
+            </div>
+        </div>
 
+        <!--  模版引擎扩展 -->
+        <?php echo $this->datagrid(array(
+            'id'=>'list',
+            'dataProvider'=>$pager,
+            'columns'=>array(
+                array(
+                    'header' => '寄存日期',
+                    'name'  => 'last_time',
+                ),
+                array(
+                    'header' => '关联订单',
+                    'name'  => 'sn',
+                    'value'=> '<a href="'.$this->url("pos/sale/edit").'&id={$data["order_id"]}" >{$data["sn"]}</a>',
+                ),
+                array(
+                    'header' => '商品来源',
+                    'name'  => 'buy_type',
+                    'value'=> '{\CustomerProdStorage::getType($data["buy_type"])}',
+                ),
+                array(
+                    'header' => '商品名称',
+                    'name' => 'name',
+                ),
+                array(
+                    'header' => '成交单价',
+                    'name' => 'dj',
+                ),
+                array(
+                    'header' => '寄存数量',
+                    'name' => 'total_num',
+                ),
+                array(
+                    'header' => '已领取数量',
+                    'value'=> '{$data["total_num"]-$data["remain_num"]}',
+                ),
+                array(
+                    'header' => '剩余寄存数量',
+                    'name' => 'remain_num',
+                ),
+                 array(
+                    'header' => '操作',
+                    'rel'=>'id',
+                    'template'=>'<a href="javascript:;" class="btn default btn-xs green-stripe khca">查看领取记录</a>',
+                ),
+               
+            ),
+        ));?>
 
-
-	 <!--  模版引擎扩展 -->
-    <?php echo $this->datagrid(array(
-        'id'=>'list',
-        'dataProvider'=>$pager,
-        'columns'=>array(
-            array(
-                'header' => '寄存日期',
-                'name'  => 'last_time',
-            ),
-            array(
-                'header' => '关联订单',
-                'name'  => 'sn',
-                'value'=> '<a href="'.$this->url("pos/sale/edit").'&id={$data["order_id"]}" >{$data["sn"]}</a>',
-            ),
-            array(
-                'header' => '商品来源',
-                'name'  => 'buy_type',
-                'value'=> '{\CustomerProdStorage::getType($data["buy_type"])}',
-            ),
-            array(
-                'header' => '商品名称',
-                'name' => 'name',
-            ),
-            array(
-                'header' => '成交单价',
-                'name' => 'dj',
-            ),
-            array(
-                'header' => '寄存数量',
-                'name' => 'total_num',
-            ),
-            array(
-                'header' => '已领取数量',
-                'value'=> '{$data["total_num"]-$data["remain_num"]}',
-            ),
-            array(
-                'header' => '剩余寄存数量',
-                'name' => 'remain_num',
-            ),
-             array(
-                'header' => '操作',
-                'rel'=>'id',
-                'template'=>'<a href="javascript:;" class="btn default btn-xs green-stripe khca">查看领取记录</a>',
-            ),
-           
-        ),
-    ));?>
+    </div>
 </div>
-<!--content_right_con!end-->
+
+
+
+
 
 <div id="inlist" class="none">
 <div class="table_table">
