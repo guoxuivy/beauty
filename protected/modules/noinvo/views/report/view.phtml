@@ -59,7 +59,7 @@
              array(
                 'header' => '操作',
                 'rel'=>'id',
-                'template'=>'<a style="width:100px" href="javascript:;" class="khca"><span class="khca_son"><img src="'.$this->basePath('public').'/images/kh_05.png"></span>查看领取记录</a>',
+                'template'=>'<a href="javascript:;" class="btn default btn-xs green-stripe khca">查看领取记录</a>',
             ),
            
         ),
@@ -100,7 +100,7 @@ $(function(){
                     cancel:false,
                     init:function(self){
                         $.each( json.data, function(i,v){
-                            self.find('tbody').append('<tr class="table_list"><td>'+v.receive_time+'</td><td>'+v.num+'</td><td>'+v.after_num+'</td><td><a target="_blank" href="<?php echo $this->url('pos/receive/edit') ?>&id='+v.id+'">查看领用订单</a></td></tr>');
+                            self.find('tbody').append('<tr class="table_list"><td>'+v.receive_time+'</td><td>'+v.num+'</td><td>'+v.after_num+'</td><td><a target="_blank" class="btn default btn-xs green-stripe" href="<?php echo $this->url('pos/receive/edit') ?>&id='+v.id+'">查看领用订单</a></td></tr>');
                         });
                     }
                 })

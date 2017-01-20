@@ -68,7 +68,7 @@
 					<td><?php echo $value['netname']  ?></td>
 					<td>\</td>
 					<td><?php echo \noinvo\Recipients::getStatus($value['state'])   ?></td> 
-					<td><a target="_blank" class="view khca" href="<?php echo $this->url('noinvo/recipients/view',array('id'=>$value['id'])) ?>"><span class="khca_son"><img src="<?php echo $this->basePath('public') ?>/images/kh_05.png"></span>查看</a></td>
+					<td><a target="_blank" class="btn default btn-xs green-stripe" href="<?php echo $this->url('noinvo/recipients/view',array('id'=>$value['id'])) ?>">查看</a></td>
 				</tr>
 			<?php endforeach ?>
 
@@ -81,7 +81,7 @@
 					<td><?php echo $value['netname']  ?></td>
 					<td><?php echo $value['cu_name']  ?></td>
 					<td><?php echo \CustomerProdReceive::getPayStatus($value['status'])   ?></td>
-					<td><a target="_blank" class="view khca" href="<?php echo $this->url('pos/receive/edit',array('id'=>$value['id'])) ?>"><span class="khca_son"><img src="<?php echo $this->basePath('public') ?>/images/kh_05.png"></span>查看</a></td>
+					<td><a target="_blank" class="btn default btn-xs green-stripe" href="<?php echo $this->url('pos/receive/edit',array('id'=>$value['id'])) ?>">查看</a></td>
 				</tr>
 			<?php endforeach ?>
 				

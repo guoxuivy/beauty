@@ -1,272 +1,423 @@
+<style type="text/css">
+    .dashboard-stat .details .number{padding-top: 10px;}
+</style>
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat blue-madison">
+            <div class="visual">
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                     <?php echo $target['xj_m'] ?>
+                </div>
+                <div class="desc">
+                     月销售业绩
+                </div>
+                <div class="desc">目标：<?php echo $target['sale_target'] ?></div>
+            </div>
+            <a class="more" href="#">
+            View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat green-haze">
+            <div class="visual">
+                <i class="fa fa-gavel"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                     <?php echo $target['sc_m'] ?>
+                </div>
+                <div class="desc">
+                     月实操业绩
+                </div>
+                <div class="desc">目标：<?php echo $target['prac_target'] ?></div>
+            </div>
+            <a class="more" href="#">
+            View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat purple-plum">
+            <div class="visual">
+                <i class="fa fa-female"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                     <?php echo $target['kk_m'] ?>
+                </div>
+                <div class="desc">
+                     月客流
+                </div>
+                <div class="desc">成交人头：<?php echo $target['cj_m'] ?></div>
+            </div>
+            <a class="more" href="#">
+            View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat red-intense">
+            <div class="visual">
+                <i class="fa fa-bar-chart-o"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                     <?php echo $target['xj_d'] ?>
+                </div>
+                <div class="desc">
+                     日销售业绩
+                </div>
+                <div class="desc">完成率：<?php echo round($target['xj_m']/$target['sale_target'],2)*100 ?>%</div>
+
+            </div>
+            <a class="more" href="#">
+            View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat red-pink">
+            <div class="visual">
+                <i class="fa fa-flask"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                     <?php echo $target['sc_d'] ?>
+                </div>
+                <div class="desc">
+                     日实操业绩
+                </div>
+                <div class="desc">完成率：<?php echo round($target['sc_m']/$target['prac_target'],2)*100 ?>%</div>
+            </div>
+            <a class="more" href="#">
+            View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat yellow-casablanca">
+            <div class="visual">
+                <i class="fa fa-globe"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                     <?php echo $target['kk_d'] ?>
+                </div>
+                <div class="desc">
+                     日客流
+                </div>
+                <div class="desc">成交人头：<?php echo $target['cj_d'] ?></div>
+            </div>
+            <a class="more" href="#">
+            View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- END DASHBOARD STATS -->
+<div class="clearfix"></div>
+
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="portlet box blue tabbable">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>月销售曲线图
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="tabbable portlet-tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="">
+                            <a href="#portlet_tab2" data-toggle="tab" class="kl_tab2">客流 </a>
+                        </li>
+                        <li class="active">
+                            <a href="#portlet_tab1" data-toggle="tab" class="kl_tab1">业绩 </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="portlet_tab1"></div>
+                        <div class="tab-pane" id="portlet_tab2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BEGIN BASIC CHART PORTLET-->
+        <div class="portlet box purple">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>30天内将流失客户数<span class="badge badge-danger pull-right"><?php echo $out["A"]+$out["B"]+$out["C"]+$out["D"]+$out["E"] ?></span>
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                    <a href="javascript:;" class="reload"></a>
+                    <a href="javascript:;" class="remove"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div id="chart_1_2" class="chart">
+                </div>
+            </div>
+        </div>
+        <!-- END BASIC CHART PORTLET-->
+    </div>
+</div>
 
 <script src="<?php echo $this->basePath('public');?>/js/Highcharts/highcharts.js"></script>
-<script src="<?php echo $this->basePath('public');?>/js/Highcharts/modules/exporting.js"></script>
-<script src="<?php echo $this->basePath('public');?>/js/Highcharts/modules/draggable-legend.js"></script>
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		<div class="fjgl_top_r khuihu" style=" padding-top:0px;margin-top:18px">
-		<a class="jlsy_one_01"><?php $weekarray=array("日","一","二","三","四","五","六"); echo date('Y-m-d'),"&nbsp;&nbsp;&nbsp;星期".$weekarray[date("w")] ?></a>
-		<big class="jlsy_one_02" style="display:none;"><a href="javascript:"><img src="<?php echo $this->basePath('public'); ?>/images/jlsy_02.png" /></a></big>
-		</div>
-		<?php echo $store_name ?>
-	</div>
-		
-	<!--jlsy_top-->
-	<div class="jlsy_top clear">
-		<div class="jlsy_top_l">
-			<div class="jlsy_top_01"><span class="jlsy_top_l_02"><big class="jlsy_top_l_03"><?php echo $target['xj_d'] ?></big>元</span>今日销售业绩<span class="jlsy_top_l_01">现金</span></div>
-			<div class="jlsy_top_02">本月累计销售业绩：<?php echo $target['xj_m'] ?>&nbsp;元</div>
-			<div class="jlsy_top_01 jlsy_top_03"><span class="jlsy_top_l_02"><big class="jlsy_top_l_03"><?php echo $target['cj_d'] ?></big>人</span>今日成交人头</div>
-			<div class="jlsy_top_02">本月累计成交：<?php echo $target['cj_m'] ?>&nbsp;人</div>
-			<div class="jlsy_top_01 jlsy_top_04"><span class="jlsy_top_l_06"><?php echo round($target['xj_m']/$target['sale_target'],2)*100 ?>%</span>业绩完成率：<span class="jlsy_top_l_05"><?php echo $target['xj_m'] ?></span> / <?php echo $target['sale_target'] ?></div>
-		</div>
-		<div class="jlsy_top_r">
-			<div class="jlsy_top_01 jlsy_top_05"><span class="jlsy_top_l_02"><big class="jlsy_top_l_03"><?php echo $target['sc_d'] ?></big>元</span>今日实操业绩</div>
-			<div class="jlsy_top_02">本月累计实操业绩：<?php echo $target['sc_m'] ?>&nbsp;元</div>
-			<div class="jlsy_top_01 jlsy_top_03"><span class="jlsy_top_l_02"><big class="jlsy_top_l_03"><?php echo $target['kk_d'] ?></big>人</span>今日客流</div>
-			<div class="jlsy_top_02">本月累计客流：<?php echo $target['kk_m'] ?>&nbsp;人</div>
-			<div class="jlsy_top_01 jlsy_top_04"><span class="jlsy_top_l_06"><?php echo round($target['sc_m']/$target['prac_target'],2)*100 ?>%</span>业绩完成率：<span class="jlsy_top_l_05"><?php echo $target['sc_m'] ?></span> / <?php echo $target['prac_target'] ?></div>
-		</div>
-	</div><!--jlsy_top-->
-		
-	<!--jlsy_two-->
-	<div class="jlsy_two">
-		<div class="jlsy_two_top">
-		<span class="jlsy_two_top_02">
-			<a href="javascript:" data="container" class="chart_b jlchan">业绩</a><a href="javascript:" data="container1" class="chart_b">客流</a>
-		</span>
-		<a href="javascript:" class="jlsy_two_top_01">月数据曲线图</a>
-		</div>
-		<div class="jlsy_two_two">
-			<div id="container" style="height: 300px;"></div>
-	        <div id="container1" style="height: 300px;"></div>
-		</div>
-	
-	</div><!--jlsy_two-->
-		
-	<div class="jlsy_th">
-		<div class="jlsy_two_top" style=" padding-left:23px; padding-right:23px;"><span class="jlsy_two_top_02"><a href="javascript:" class="jlchan">30天内</a><!-- <a href="javascript:">一周内</a> --></span><a href="javascript:" class="jlsy_two_top_01 jlsy_th_01">将流失客户</a><span class="jlsy_th_02"><?php echo $out["A"]+$out["B"]+$out["C"]+$out["D"]+$out["E"] ?></span></div>
-		<div class="jlsy_th_two">
-		<?php $store_id = \Ivy::app()->user->dept_id; ?>
-			<ul>
-				<li>
-					<div class="jlsy_th_two_l">
-						<div class="jlsy_th_two_l_top_01">A</div>
-						<p>A类客户</p>
-					</div>
-					<div class="jlsy_th_two_r">
-						<div><span class="jlsy_th_two_r_top"><?php echo $out["A"] ?></span>人</div>
-						<div><a href='<?php echo $this->url("customer/index/outlist",array("store_id"=>$store_id,"cu_type"=>"A")) ?>'>查看</a></div>
-					</div>
-				</li>
-				<li>
-					<div class="jlsy_th_two_l">
-						<div class="jlsy_th_two_l_top_02">B</div>
-						<p>B类客户</p>
-					</div>
-					<div class="jlsy_th_two_r">
-						<div><span class="jlsy_th_two_r_top"><?php echo $out["B"] ?></span>人</div>
-						<div><a href='<?php echo $this->url("customer/index/outlist",array("store_id"=>$store_id,"cu_type"=>"B")) ?>'>查看</a></div>
-					</div>
-				</li>
-				<li>
-					<div class="jlsy_th_two_l">
-						<div class="jlsy_th_two_l_top_03">C</div>
-						<p>C类客户</p>
-					</div>
-					<div class="jlsy_th_two_r">
-						<div><span class="jlsy_th_two_r_top"><?php echo $out["C"] ?></span>人</div>
-						<div><a href='<?php echo $this->url("customer/index/outlist",array("store_id"=>$store_id,"cu_type"=>"C")) ?>'>查看</a></div>
-					</div>
-				</li>
-				<li>
-					<div class="jlsy_th_two_l">
-						<div class="jlsy_th_two_l_top_04">D</div>
-						<p>D类客户</p>
-					</div>
-					<div class="jlsy_th_two_r">
-						<div><span class="jlsy_th_two_r_top"><?php echo $out["D"] ?></span>人</div>
-						<div><a href='<?php echo $this->url("customer/index/outlist",array("store_id"=>$store_id,"cu_type"=>"D")) ?>'>查看</a></div>
-					</div>
-				</li>
-				<li style=" border-right:none;">
-					<div class="jlsy_th_two_l">
-						<div class="jlsy_th_two_l_top_05">E</div>
-						<p>E类客户</p>
-					</div>
-					<div class="jlsy_th_two_r">
-						<div><span class="jlsy_th_two_r_top"><?php echo $out["E"] ?></span>人</div>
-						<div><a href='<?php echo $this->url("customer/index/outlist",array("store_id"=>$store_id,"cu_type"=>"E")) ?>'>查看</a></div>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</div><!--jlsy_th-->
-	
-	<!--jlsy_footer-->
-	<div class="jlsy_footer">
-		<a href="#">关于美慧</a>|<a href="#">服务条款 </a>&nbsp;Copyright©2014 &nbsp;&nbsp;&nbsp;&nbsp;美慧（武汉）商业技术有限责任公司
-	</div><!--jlsy_footer-->
 
-
-</div>
 <!--content_right_con!end-->
 <script type="text/javascript">
 $(function () {
-	$('#container').highcharts({
-		title: {
-			text: '',
-			x: -20 //center
-		},
-		colors: ['#91e8e1','#f15c80','#e4d354', '#8085e9','#7cb5ec',   '#90ed7d', '#434348',  '#8085e8', '#8d4653', '#f7a35c'],
-		subtitle: {
-			text: '',
-			x: -20
-		},
-		xAxis: {
-			type: 'datetime',
-			dateTimeLabelFormats: { // don't display the dummy year
-				day: '%e日'   
-			}
-		},
-		exporting: {
-			enabled: false
-		},
-		yAxis: {
-			title: {
-				text: ''
-			},
-			plotLines: [{
-				value: 0,
-				width: 1,
-				color: '#808080'
-			}]
-		},
-		tooltip: {
-			enabled: true,
-			crosshairs: true,
-			formatter: function() {
-				return Highcharts.dateFormat('%e', this.x)+'日<br><b>'+ this.series.name +'</b>: '+ this.y +'元';
-			}
-		},
-		legend: {
-			layout: 'vertical',
-			backgroundColor: 'white',
-			align: 'right',
-			verticalAlign: 'top',
-			y: 20,
-			x: -20,
-			borderWidth: 1,
-			borderRadius: 0,
-			title: {
-				text: ':: 拖动'
-			},
-			floating: true,
-			draggable: true,
-			zIndex: 20
-		},
-		series: [{
-			name: '现金业绩',
-			data: [
-			<?php 
-			$str=array();
-			foreach($data['sale_list'] as $index=>$v){
-				$str[] = "[Date.UTC(".date('Y').",".(date('n')-1).",$index),$v]";//UTC 时间月份减1 0~11
-			}
-			echo implode(",",$str);
-			?>]
-		}, {
-			name: '现金实耗',
-			data: [
-			<?php 
-			$str=array();
-			foreach($data['prac_list'] as $index=>$v){
-				$str[] = "[Date.UTC(".date('Y').",".(date('n')-1).",$index),$v]";
-			}
-			echo implode(",",$str);
-			?>]
-		}]
-	});
+    portlet_tab1();
+    portlet_tab2();
+    portlet_tab3();
+
+    function portlet_tab1(){
+        $('#portlet_tab1').highcharts({
+            chart: {
+                backgroundColor: 'rgba(0,0,0,0)'
+            },
+            title: {
+                text: '',
+                x: -20 //center
+            },
+            colors: ['#91e8e1','#f15c80','#e4d354', '#8085e9','#7cb5ec',   '#90ed7d', '#434348',  '#8085e8', '#8d4653', '#f7a35c'],
+            subtitle: {
+                text: '',
+                x: -20
+            },
+            xAxis: {
+                type: 'datetime',
+                gridLineColor: '#f7f7f7',
+                gridLineWidth: 1,
+                dateTimeLabelFormats: { // don't display the dummy year
+                    day: '%e日'   
+                }
+            },
+            exporting: {
+                enabled: false
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                },
+                gridLineColor: '#f7f7f7',
+                gridLineWidth: 1,
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                enabled: true,
+                crosshairs: true,
+                formatter: function() {
+                    return Highcharts.dateFormat('%e', this.x)+'日<br><b>'+ this.series.name +'</b>: '+ this.y +'元';
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                y: 20,
+                x: -20,
+                borderWidth: 1,
+                borderRadius: 0,
+                floating: true,
+                draggable: true,
+                zIndex: 20
+            },
+            series: [{
+                name: '现金业绩',
+                data: [
+                <?php 
+                $str=array();
+                foreach($data['sale_list'] as $index=>$v){
+                    $str[] = "[Date.UTC(".date('Y').",".(date('n')-1).",$index),$v]";//UTC 时间月份减1 0~11
+                }
+                echo implode(",",$str);
+                ?>]
+            }, {
+                name: '现金实耗',
+                data: [
+                <?php 
+                $str=array();
+                foreach($data['prac_list'] as $index=>$v){
+                    $str[] = "[Date.UTC(".date('Y').",".(date('n')-1).",$index),$v]";
+                }
+                echo implode(",",$str);
+                ?>]
+            }]
+        });
+    }
+
 	
-	$('#container1').highcharts({
-		title: {
-			text: '',
-			x: -20 //center
-		},
-		subtitle: {
-			text: '',
-			x: -20
-		},
-		xAxis: {
-			type: 'datetime',
-			dateTimeLabelFormats: { // don't display the dummy year
-				day: '%e日'   
-			}
-		},
-		exporting: {
-			enabled: false
-		},
-		yAxis: {
-			title: {
-				text: ''
-			},
-			plotLines: [{
-				value: 0,
-				width: 1,
-				color: '#808080'
-			}]
-		},
-		tooltip: {
-			enabled: true,
-			crosshairs: true,
-			formatter: function() {
-				return Highcharts.dateFormat('%e', this.x)+'日<br><b>'+ this.series.name +'</b>: '+ this.y +'人';
-			}
-		},
-		legend: {
-			layout: 'vertical',
-			backgroundColor: 'white',
-			align: 'right',
-			verticalAlign: 'top',
-			y: 20,
-			x: -20,
-			borderWidth: 1,
-			borderRadius: 0,
-			title: {
-				text: ':: 拖动'
-			},
-			floating: true,
-			draggable: true,
-			zIndex: 20
-		},
-		series: [{
-			name: '到店客流',
-			data: [
-			<?php 
-			$str=array();
-			foreach($data['kk_list'] as $index=>$v){
-				$str[] = "[Date.UTC(".date('Y').",".(date('n')-1).",$index),$v]";
-			}
-			echo implode(",",$str);
-			?>]
-		}]
-	});
-	$("#container1").hide(); 
-	
-	
-   
-	$(".chart_b").click(function(){
-		var forid=$(this).attr('data');
-		$("#container").hide();
-		$("#container1").hide();
-		$("#"+forid).show();
-		
-		$(".chart_b").removeClass("jlchan");
-		$(this).addClass("jlchan");
-		
-	});
+	   
+    function portlet_tab2(){
+        $('#portlet_tab2').highcharts({
+            chart: {
+                backgroundColor: 'rgba(0,0,0,0)'
+            },
+            title: {
+                text: '',
+                x: -20 //center
+            },
+            subtitle: {
+                text: '',
+                x: -20
+            },
+            xAxis: {
+                type: 'datetime',
+                gridLineColor: '#f7f7f7',
+                gridLineWidth: 1,
+                dateTimeLabelFormats: { // don't display the dummy year
+                    day: '%e日'   
+                }
+            },
+            exporting: {
+                enabled: false
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                },
+                gridLineColor: '#f7f7f7',
+                gridLineWidth: 1,
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                enabled: true,
+                crosshairs: true,
+                formatter: function() {
+                    return Highcharts.dateFormat('%e', this.x)+'日<br><b>'+ this.series.name +'</b>: '+ this.y +'人';
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                y: 20,
+                x: -20,
+                borderWidth: 1,
+                borderRadius: 0,
+                floating: true,
+                draggable: true,
+                zIndex: 20
+            },
+            series: [{
+                name: '到店客流',
+                data: [
+                <?php 
+                $str=array();
+                foreach($data['kk_list'] as $index=>$v){
+                    $str[] = "[Date.UTC(".date('Y').",".(date('n')-1).",$index),$v]";
+                }
+                echo implode(",",$str);
+                ?>]
+            }]
+        });
+    }
+
+    function portlet_tab3(){
+        $('#chart_1_2').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: ['<a>A类客户</a>', 'B类客户', 'C类客户', 'D类客户', 'E类客户'],
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: null,
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                valueSuffix: ' 人'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                y: 20,
+                x: -20,
+                borderWidth: 1,
+                borderRadius: 0,
+                floating: true,
+                draggable: true,
+                zIndex: 20
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                },
+                series: {
+                    cursor: 'pointer',
+                    events: {
+                        click: function(e) {
+                            //location.href = e.point.url; //上面是当前页跳转，如果是要跳出新页面，那就用
+                            window.open(e.point.url);
+                            //这里的url要后面的data里给出
+                        }
+                    },
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: '即将流失人数',
+                data: [
+                {y:<?php echo $out["A"] ?>,url:'<?php echo $this->url("customer/index/outlist") ?>&cu_type=A'}, 
+                {y:<?php echo $out["B"] ?>,url:'<?php echo $this->url("customer/index/outlist") ?>&cu_type=B'}, 
+                {y:<?php echo $out["C"] ?>,url:'<?php echo $this->url("customer/index/outlist") ?>&cu_type=C'}, 
+                {y:<?php echo $out["D"] ?>,url:'<?php echo $this->url("customer/index/outlist") ?>&cu_type=D'}, 
+                {y:<?php echo $out["E"] ?>,url:'<?php echo $this->url("customer/index/outlist") ?>&cu_type=E'}
+                ]
+            }]
+        });
+    }
+
+
+    $('.kl_tab2').click(function(){
+        setTimeout("$('#portlet_tab2').highcharts().reflow()", 10 );
+    });
+    $('.kl_tab1').click(function(){
+        setTimeout("$('#portlet_tab1').highcharts().reflow()", 10 );
+    });
 	
 });
-
 </script>
+
+
+
+
