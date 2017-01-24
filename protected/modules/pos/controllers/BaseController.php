@@ -17,7 +17,7 @@ class BaseController extends \SController
 	 * @param  boolean $render [是否字符串排版显示]
 	 * @return [type]          [description]
 	 */
-	protected function getCuInfo($id=null,$view=false){
+	protected function getCuInfo($id=null,$view=false,$css=""){
 		$info = \CustomerInfo::model()
 		->field('t.*,m.level_name as membership_name,s.dept_name as store_name')
 		->join("employ_dept as s on s.id=t.store_id")
@@ -39,6 +39,7 @@ class BaseController extends \SController
 		$view=$view?"base/cuinfo_practice":"base/cuinfo";
 		return $this->view->assign(array(
 			"info"=>$info,
+			"css"=>$css,
 			"capital_list"=>$capital_list
 		))->render($view);
 	}

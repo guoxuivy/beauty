@@ -68,7 +68,7 @@ class ReceiveController extends BaseController
 	public function addAction($id=null){
 		if(is_null($id))
 			throw new CException('无效客户id');
-		$cu_info=$this->getCuInfo($id);
+		$cu_info=$this->getCuInfo($id,false,"height:120px");
         $storageProducts = $this->getStorageProducts($id,false);
         $detail_nums = array();
         if(!empty($_GET['rid'])){
@@ -148,7 +148,7 @@ class ReceiveController extends BaseController
         $this->view
             ->assign(
                 array(
-                    "cu_info"=>$this->getCuInfo($model->cu_id),							//客户信息渲染
+                    "cu_info"=>$this->getCuInfo($model->cu_id,false,"height:120px"),							//客户信息渲染
                     "detail_nums"=>$detail_nums,
                     "model"=>$model,
                     "storageProducts"=>$storageProducts,
