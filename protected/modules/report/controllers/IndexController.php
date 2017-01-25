@@ -62,7 +62,7 @@ class IndexController extends \SController
 			}
 		$this->view->assign(array(
 			'model'=>$model,
-			'light_nav'=>$this->url("index")
+			'light_nav'=>array($this->url("index"),"到店客流")
 			))->display();
 	}
 	/**
@@ -102,7 +102,7 @@ class IndexController extends \SController
 		}
 		$this->view->assign(array(
 			'model'=>$list,
-			'light_nav'=>$this->url("index")
+			'light_nav'=>array($this->url("index"),"经营报表")
 			))->display();
 	}
 	/**
@@ -120,75 +120,60 @@ class IndexController extends \SController
 		$stime=$times['stime']?$times['stime']:strtotime(date('Y-m-d'));
 		$etime=$times['etime']?$times['etime']:strtotime(date('Y-m-d'));
 		$mdids=	ReportModel::model()->getMDIDS($md_ids);
-		echo	'<div class="table_container">
-		                     <!--table_con-->
-		                     <div class="table_con pos_cz_qr_top_04" style="margin-right:0px;">
+		echo	'<!--table_con-->
+		                     <div class="table_con table-responsive">
 		                        
 		                        <!--table_con_son-->
-		                         <div class="table_con_son" style="min-width: 695px;">
-		                          <!-- <div class="pos_cz_tow_top pos_cz_qr_02">赠送现金</div>-->
-		                           <div class="table_title">
-		                             <ul>
-		                               <li>业务明细</li>
+		                         <table class="table_con_son table table-bordered table-hover">
+		                           <tr>
+		                               <td>业务明细</td>
 		                               ';
 		                               foreach ((array)$mdids as $value) {
-		                               	echo "<li>{$value['dept_name']}</li>";
+		                               	echo "<td>{$value['dept_name']}</td>";
 		                               }
 		                               
 		                               
-		echo                       ' </ul>
-		                          </div>';
+		echo              '</tr>';
 
-        echo              '<div class="table_list">
-                                    <ul>
-                                      <li  style="width: 130px;">购买项目消耗</li>';
+        echo              '<tr>
+                                      <td>购买项目消耗</td>';
                                       foreach ((array)$mdids as $key=>$value) {
                                       	$_money= ReportModel::model()->getXJSHYJ($value['id'],$stime,$etime);
                                       	$mdids[$key]=array_merge($mdids[$key],ReportModel::model()->getMDYJ_SC($value['id'],$stime,$etime));//实操部分
-		                               	echo "<li style=\"width: 130px;\">{$_money}</li>";
+		                               	echo "<td>{$_money}</td>";
 		                               	$_money_sum[$value['id']]+=$_money;
 		                               }
 
-        echo                        '</ul>
-                            </div>';
+        echo              '</tr>';
                           
-        echo              '<div class="table_list">
-                                    <ul>
-                                      <li  style="width: 130px;">赠送项目消耗(疗次)</li>';
+        echo              '<tr>
+                                      <td>赠送项目消耗(疗次)</td>';
                                       foreach ((array)$mdids as $value) {
                                       	$_money=$value['ZSXH']?$value['ZSXH']:0;
-		                               	echo "<li style=\"width: 130px;\">{$_money}</li>";
-		                               	//$_money_sum[$value['id']]+=$_money;
+		                               	echo "<td>{$_money}</td>";
 		                               }
 
-        echo                        '</ul>
-                            </div>';                 
-        echo              '<div class="table_list">
-                                    <ul>
-                                      <li  style="width: 130px;">卡券内项目消耗(疗次)</li>';
+        echo              '</tr>';                 
+        echo              '<tr>
+                                      <td>卡券内项目消耗(疗次)</td>';
                                       foreach ((array)$mdids as $value) {
                                       	$_money=$value['KJXH']?$value['KJXH']:0;
-		                               	echo "<li style=\"width: 130px;\">{$_money}</li>";
-		                               	//$_money_sum[$value['id']]+=$_money;
+		                               	echo "<td>{$_money}</td>";
 		                               }
 
-        echo                        '</ul>
-                            </div>';                  
+        echo              '</tr>';                  
        
-        echo              '<div class="pos_cz_tow_two_two table_list sjbb_ddkl_tablefoot">
-                             <ul>
-                                 <li class="li001" style="width: 130px;">合计</li>';
+        echo              '<tr>
+                                 <td>合计</td>';
                                  foreach ((array)$mdids as $value) {
-		                               	echo "<li style=\"width: 130px;\">{$_money_sum[$value['id']]}</li>";
+		                               	echo "<td>{$_money_sum[$value['id']]}</td>";
 		                               	
 		                               }
 
-         echo                '</ul>
-                          </div>
-                       </div><!--table_con_son!end-->
+         echo             '</tr>
+                       </table><!--table_con_son!end-->
                        
-                     </div><!--table_con!end-->
-                   </div>';
+                     </div><!--table_con!end-->';
 	}
 	/**
 	 * 经营报表-现金收入
@@ -206,28 +191,25 @@ class IndexController extends \SController
 		$etime=$times['etime']?$times['etime']:strtotime(date('Y-m-d'));
 		$mdids=	ReportModel::model()->getMDIDS($md_ids);
 		
-		echo	'<div class="table_container">
-		                     <!--table_con-->
-		                     <div class="table_con pos_cz_qr_top_04" style="margin-right:0px;">
-		                        
+		echo	'<!--table_con-->
+		                     <div class="table_con table-responsive">
 		                        <!--table_con_son-->
-		                         <div class="table_con_son" style="min-width: 695px;">
-		                          <!-- <div class="pos_cz_tow_top pos_cz_qr_02">赠送现金</div>-->
-		                           <div class="table_title">
-		                             <ul>
-		                               <li>业务明细</li>
+		                         <table class="table_con_son table table-bordered table-hover">
+		                           <thead class="table_title">
+		                             <tr>
+		                               <th>业务明细</th>
 		                               ';
 		                               foreach ((array)$mdids as $value) {
-		                               	echo "<li>{$value['dept_name']}</li>";
+		                               	echo "<th>{$value['dept_name']}</th>";
 		                               }
 		                               
 		                               
-		echo                       ' </ul>
-		                          </div>';
+		echo                       ' </tr>
+		                          </thead>';
 
-        echo              '<div class="table_list">
-                                    <ul>
-                                      <li >到店总客流</li>';
+        echo              '<tr>
+                                    
+                                      <td>到店总客流</td>';
                                       foreach ((array)$mdids as $value) {
                                       	$_money='0.00';
                                       	$model= ReportModel::model()->getJYBB_KL($value['id'],$stime,$etime);
@@ -238,16 +220,14 @@ class IndexController extends \SController
                                       			break;
                                       		}
                                       	}
-		                               	echo "<li  class=\"li002\">{$_money}</li>";
+		                               	echo "<td  >{$_money}</td>";
 		                               	$_money_sum[$value['id']]+=$_money;
 		                               }
 
-        echo                        '</ul>
-                            </div>';
+        echo              '</tr>';
                           
-        echo              '<div class="table_list">
-                                    <ul>
-                                      <li >到店有效客流</li>';
+        echo              '<tr>
+                                      <td>到店有效客流</td>';
                                       foreach ((array)$mdids as $value) {
                                       	$_money='0.00';
                                       	$model= ReportModel::model()->getJYBB_KL($value['id'],$stime,$etime);
@@ -258,15 +238,14 @@ class IndexController extends \SController
                                       			break;
                                       		}
                                       	}
-		                               	echo "<li  class=\"li002\">{$_money}</li>";
+		                               	echo "<td>{$_money}</td>";
 		                               	$_money_sum[$value['id']]+=$_money;
 		                               }
 
-        echo                        '</ul>
-                            </div>';                 
-        echo              '<div class="table_list">
-                                    <ul>
-                                      <li >到店总人头</li>';
+        echo              '</tr>';                 
+        echo              '<tr>
+                                    
+                                      <td>到店总人头</td>';
                                       foreach ((array)$mdids as $value) {
                                       	$_money='0.00';
                                       	$model= ReportModel::model()->getJYBB_KL($value['id'],$stime,$etime);
@@ -277,15 +256,14 @@ class IndexController extends \SController
                                       			break;
                                       		}
                                       	}
-		                               	echo "<li  class=\"li002\">{$_money}</li>";
+		                               	echo "<td>{$_money}</td>";
 		                               	$_money_sum[$value['id']]+=$_money;
 		                               }
 
-        echo                        '</ul>
-                            </div>';                  
-        echo              '<div class="table_list">
-                                    <ul>
-                                      <li >到店总有效人头</li>';
+        echo              '</tr>';                  
+        echo              '<tr>
+                                   
+                                      <td>到店总有效人头</td>';
                                       foreach ((array)$mdids as $value) {
                                       	$_money='0.00';
                                       	$model= ReportModel::model()->getJYBB_KL($value['id'],$stime,$etime);
@@ -296,30 +274,25 @@ class IndexController extends \SController
                                       			break;
                                       		}
                                       	}
-		                               	echo "<li  class=\"li002\">{$_money}</li>";
+		                               	echo "<td>{$_money}</td>";
 		                               	$_money_sum[$value['id']]+=$_money;
 		                               }
 
-        echo                        '</ul>
-                            </div>'; 
-        echo              '<div class="table_list">
-                                    <ul>
-                                      <li >成交人头</li>';
+        echo              '</tr>'; 
+        echo              '<tr>
+                                    
+                                      <td>成交人头</td>';
                                       foreach ((array)$mdids as $value) {
                                       	$_money=ReportModel::model()->getCJRT($value['id'],$stime,$etime);
                                       	
-		                               	echo "<li  class=\"li002\">{$_money}</li>";
+		                               	echo "<td>{$_money}</td>";
 		                               	$_money_sum[$value['id']]+=$_money;
 		                               }
 
-        echo                        '</ul>
-                            </div>';
+        echo               '</tr>';
 
-         echo                '
-                       </div><!--table_con_son!end-->
-                       
-                     </div><!--table_con!end-->
-                   </div>';
+        echo           '</table><!--table_con_son!end-->
+                     </div><!--table_con!end-->';
 	}
 	/**
 	 * 经营报表-现金收入
@@ -337,28 +310,23 @@ class IndexController extends \SController
 		$etime=$times['etime']?$times['etime']:strtotime(date('Y-m-d'));
 		$mdids=	ReportModel::model()->getMDIDS($md_ids);
 		
-		echo	'<div class="table_container">
-		                     <!--table_con-->
-		                     <div class="table_con pos_cz_qr_top_04" style="margin-right:0px;">
-		                        
+		echo	'<!--table_con-->
+		                     <div class="table_con table-responsive">
 		                        <!--table_con_son-->
-		                         <div class="table_con_son" style="min-width: 695px;">
-		                          <!-- <div class="pos_cz_tow_top pos_cz_qr_02">赠送现金</div>-->
-		                           <div class="table_title">
-		                             <ul>
-		                               <li>业务明细</li>
+		                         <table class="table_con_son table table-bordered table-hover">
+		                           <thead>
+		                             <tr>
+		                               <th>业务明细</th>
 		                               ';
 		                               foreach ((array)$mdids as $value) {
-		                               	echo "<li>{$value['dept_name']}</li>";
+		                            	echo "<th>{$value['dept_name']}</th>";
 		                               }
-		                               
-		                               
-		echo                       ' </ul>
-		                          </div>';
+		echo                       ' </tr>
+		                          </thead>';
 
-        echo              '<div class="table_list">
-                                    <ul>
-                                      <li >购买项目/疗程</li>';
+        echo              '<tr>
+                                
+                                      <td>购买项目/疗程</td>';
                                       foreach ((array)$mdids as $value) {
                                       	$_money='0.00';
                                       	$model= ReportModel::model()->getJYBB_XJSR($value['id'],$stime,$etime);
@@ -369,16 +337,15 @@ class IndexController extends \SController
                                       			break;
                                       		}
                                       	}
-		                               	echo "<li  class=\"li002\">{$_money}</li>";
+		                               	echo "<td  >{$_money}</td>";
 		                               	$_money_sum[$value['id']]+=$_money;
 		                               }
 
-        echo                        '</ul>
-                            </div>';
+        echo              '</tr>';
                           
-        echo              '<div class="table_list">
-                                    <ul>
-                                      <li >购买产品</li>';
+        echo              '<tr>
+                                    
+                                      <td>购买产品</td>';
                                       foreach ((array)$mdids as $value) {
                                       	$_money='0.00';
                                       	$model= ReportModel::model()->getJYBB_XJSR($value['id'],$stime,$etime);
@@ -389,15 +356,14 @@ class IndexController extends \SController
                                       			break;
                                       		}
                                       	}
-		                               	echo "<li  class=\"li002\">{$_money}</li>";
+		                               	echo "<td  >{$_money}</td>";
 		                               	$_money_sum[$value['id']]+=$_money;
 		                               }
 
-        echo                        '</ul>
-                            </div>';                 
-        echo              '<div class="table_list">
-                                    <ul>
-                                      <li >购买卡券</li>';
+        echo              '</tr>';                 
+        echo              '<tr>
+                                    
+                                      <td>购买卡券</td>';
                                       foreach ((array)$mdids as $value) {
                                       	$_money='0.00';
                                       	$model= ReportModel::model()->getJYBB_XJSR($value['id'],$stime,$etime);
@@ -408,15 +374,14 @@ class IndexController extends \SController
                                       			break;
                                       		}
                                       	}
-		                               	echo "<li  class=\"li002\">{$_money}</li>";
+		                               	echo "<td  >{$_money}</td>";
 		                               	$_money_sum[$value['id']]+=$_money;
 		                               }
 
-        echo                        '</ul>
-                            </div>';                  
-        echo              '<div class="table_list">
-                                    <ul>
-                                      <li >会员充值</li>';
+        echo              '</tr>';                  
+        echo              '<tr>
+                                    
+                                      <td>会员充值</td>';
                                       foreach ((array)$mdids as $value) {
                                       	$_money='0.00';
                                       	$model= ReportModel::model()->getJYBB_XJSR($value['id'],$stime,$etime);
@@ -427,15 +392,14 @@ class IndexController extends \SController
                                       			break;
                                       		}
                                       	}
-		                               	echo "<li  class=\"li002\">{$_money}</li>";
+		                               	echo "<td  >{$_money}</td>";
 		                               	$_money_sum[$value['id']]+=$_money;
 		                               }
 
-        echo                        '</ul>
-                            </div>'; 
-        echo              '<div class="table_list">
-                                    <ul>
-                                      <li >现金还款</li>';
+        echo              '</tr>'; 
+        echo              '<tr>
+                                    
+                                      <td>现金还款</td>';
                                       foreach ((array)$mdids as $value) {
                                       	$_money='0.00';
                                       	$model= ReportModel::model()->getJYBB_XJSR($value['id'],$stime,$etime);
@@ -446,27 +410,22 @@ class IndexController extends \SController
                                       			break;
                                       		}
                                       	}
-		                               	echo "<li  class=\"li002\">{$_money}</li>";
+		                               	echo "<td  >{$_money}</td>";
 		                               	$_money_sum[$value['id']]+=$_money;
 		                               }
 
-        echo                        '</ul>
-                            </div>';
+        echo              '</tr>';
 
-        echo              '<div class="pos_cz_tow_two_two table_list sjbb_ddkl_tablefoot">
-                             <ul>
-                                 <li class="li001">合计</li>';
-                                 foreach ((array)$mdids as $value) {
-		                               	echo "<li  class=\"li002\">{$_money_sum[$value['id']]}</li>";
-		                               	
-		                               }
-
-         echo                '</ul>
-                          </div>
-                       </div><!--table_con_son!end-->
-                       
-                     </div><!--table_con!end-->
-                   </div>';
+        echo              '<tfoot">
+                             <tr>
+                                <td class="li001">合计</td>';
+                                foreach ((array)$mdids as $value) {
+		                            echo "<td>{$_money_sum[$value['id']]}</td>";
+		                        }
+         echo                '</tr>
+                          </tfoot>
+                       </table><!--table_con_son!end-->
+                     </div><!--table_con!end-->';
 	}
 
 	/**
@@ -508,7 +467,7 @@ class IndexController extends \SController
 			$data[0]['zs_kq'] = sprintf('%.2f',$zs_kq);
 		}
 		echo $this->view->assign(array(
-			'light_nav'=>$this->url("index"),
+			'light_nav'=>array($this->url("index"),"现金卡扣"),
 			'md_info'=>$md_info,
 			'data'=>$data,
 		))->render();
@@ -566,7 +525,7 @@ class IndexController extends \SController
 			'model'=>$model,
 			'xm_list'=>$xm_list,
 			'cp_list'=>$cp_list,
-			'light_nav'=>$this->url("index")
+			'light_nav'=>array($this->url("index"),"品项业绩"),
 			))->display();
 	}
 	/**
@@ -603,7 +562,7 @@ class IndexController extends \SController
 		
 		$this->view->assign(array(
 			'model'=>$list,
-			'light_nav'=>$this->url("index")
+			'light_nav'=>array($this->url("index"),"门店业绩"),
 			))->display();
 	}
 	/**
@@ -648,7 +607,7 @@ class IndexController extends \SController
 			'model'=>$model,
 			'xm_list'=>$xm_list,
 			'cp_list'=>$cp_list,
-			'light_nav'=>$this->url("index")
+			'light_nav'=>array($this->url("index"),"客户购买分析报"),
 			))->display();
 	}
 	/**
@@ -681,7 +640,7 @@ class IndexController extends \SController
 		$this->view->assign(array(
 			'model'=>$model,
 			'xm_list'=>$xm_list,
-			'light_nav'=>$this->url("index")
+			'light_nav'=>array($this->url("index"),"客户实操分析报"),
 			))->display();
 	}
 	/**
@@ -711,7 +670,7 @@ class IndexController extends \SController
 		$this->view->assign(array(
 			'model'=>$model,
 			'xm_list'=>$xm_list,
-			'light_nav'=>$this->url("index")
+			'light_nav'=>array($this->url("index"),"项目覆盖"),
 			))->display();
 	}
 	/*************k*end****************/
@@ -727,7 +686,7 @@ class IndexController extends \SController
 			$list = ReportModel::model()->getXJLS($md_id,$month);//现金流水
 		$this->view->assign(array(
 			'list'=>$list,
-			'light_nav'=>$this->url("index")
+			'light_nav'=>array($this->url("index"),"现金流水"),
 		))->display();
 	}
 	/**
@@ -738,7 +697,7 @@ class IndexController extends \SController
 		$list = ReportModel::model()->getXJLS_X($md_id,$day);//现金流水日详细
 		$this->view->assign(array(
 			'list'=>$list,
-			'light_nav'=>$this->url("index")
+			'light_nav'=>array($this->url("index"),"现金流水明细"),
 		))->display();
 	}
 	/**
@@ -750,7 +709,7 @@ class IndexController extends \SController
 			$list = ReportModel::model()->getRYYJ($user_ids,$begin,$end);//人员业绩
 		$this->view->assign(array(
 			'list'=>$list,
-			'light_nav'=>$this->url("index")
+			'light_nav'=>array($this->url("index"),"人员业绩"),
 		))->display();
 	}
 	/**
@@ -762,7 +721,7 @@ class IndexController extends \SController
 			$list = ReportModel::model()->getRYYJ_X($user_id,$begin,$end);//人员业绩
 		$this->view->assign(array(
 			'list'=>$list,
-			'light_nav'=>$this->url("index")
+			'light_nav'=>array($this->url("index"),"人员业绩详细"),
 		))->display();
 	}
 
@@ -775,7 +734,7 @@ class IndexController extends \SController
 			$list = ReportModel::model()->getPLYJ($md_id,$begin,$end,$xm,$cp);
 		$this->view->assign(array(
 			'list'=>$list,
-			'light_nav'=>$this->url("index")
+			'light_nav'=>array($this->url("index"),"品类业绩"),
 		))->display();
 	}
 
@@ -788,7 +747,7 @@ class IndexController extends \SController
 			$list = ReportModel::model()->getTKFX($md_id,$month);//退款分析
 		$this->view->assign(array(
 			'list'=>$list,
-			'light_nav'=>$this->url("index")
+			'light_nav'=>array($this->url("index"),"退款分析"),
 		))->display();
 	}
 
@@ -821,7 +780,7 @@ class IndexController extends \SController
 			'list'=>$list,
 			'list_pre'=>$list_pre,
 			'list_kk'=>$list_kk,
-			'light_nav'=>$this->url("index")
+			'light_nav'=>array($this->url("index"),"负债分析"),
 		))->display();
 	}
 
@@ -852,7 +811,7 @@ class IndexController extends \SController
 			}
 		}
         $this->view->assign(array(
-            'light_nav'=>$this->url('index'),
+			'light_nav'=>array($this->url("index"),"美容师服务分析"),
             'mrs_list'=>$mrs_list,
             'year'=>$year,
             'month'=>$month,
@@ -884,7 +843,7 @@ class IndexController extends \SController
 			}
 		}
 		$this->view->assign(array(
-			'light_nav'=>$this->url('index'),
+			'light_nav'=>array($this->url("index"),"月客流分析"),
 			'dept_ids'=>$dept_ids,
 			'year'=>$year,
 			'month'=>$month,
@@ -928,7 +887,7 @@ class IndexController extends \SController
 		}
 
 		$this->view->assign(array(
-			'light_nav'=>$this->url('index'),
+			'light_nav'=>array($this->url("index"),"月客流分析详细"),
 			'type'=>$type,
 			'dept_ids'=>$dept_ids,
 			'year'=>$year,
@@ -964,7 +923,7 @@ class IndexController extends \SController
 		}
 
 		$this->view->assign(array(
-			'light_nav'=>$this->url('index'),
+			'light_nav'=>array($this->url("index"),"新客分析"),
 			'type'=>$type,
 			'dept_ids'=>$dept_ids,
 			'year'=>$year,
@@ -997,7 +956,7 @@ class IndexController extends \SController
 			}
 		}
 		$this->view->assign(array(
-			'light_nav'=>$this->url('index'),
+			'light_nav'=>array($this->url("index"),"新客分析详细"),
 			'dept_name'=>\EmployDept::model()->findByPk($dept_id)->dept_name,
 			'year'=>$year,
 			'month'=>$month,
@@ -1025,7 +984,7 @@ class IndexController extends \SController
 			$data[$item['cu_name']]['total'] = $_data['total'][$item['cu_id']];
 		}
 		$this->view->assign(array(
-			'light_nav'=>$this->url('index'),
+			'light_nav'=>array($this->url("index"),"客户年消费分析"),
 			'data'=>$data,
 		))->display();
 	}

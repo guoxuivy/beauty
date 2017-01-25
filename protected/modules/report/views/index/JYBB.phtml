@@ -3,50 +3,32 @@
 <?php 
 	$md_list=\EmployDept::getList(true);
 ?>
-<!--content_right_con-->
-<div class="content_right_con">
-	<div class="content_right_con_top">
-		<div class="fjgl_top_r"><span><a href="#" download="经营报表.xls"class="to_excel fjgl_top_r_05">导出</a></span></div>
-		<div class="khgl_01"><img src="<?php echo $this->basePath('public');?>/images/kh_01.png" /></div>
-		数据报表><span>经营报表</span> </div>
-	
-	<!--sjbb_ddkl_one-->
-	<div class="sjbb_ddkl_one">
-		<ul>
-			<li>
-				<div class="sjbb_ddkl_one_l">门店范围：</div>
-				<div class="sjbb_ddkl_one_r">
-					<div class="sjbb_ddkl_one_r_son choose_md">
-						<?php if(!$this->controller->is_store):?>
-						<a href="javascript:" rel="0"><span ></span>全连锁</a>
-						<?php endif;?>
-						<?php foreach ($md_list as $key => $value): ?>
-						<a href="javascript:" rel="<?php echo $key ?>"><span></span><?php echo $value ?></a>
-						<?php endforeach ?>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="sjbb_ddkl_one_l">日期：</div>
-				<div class="sjbb_ddkl_one_r">
-					<div class="sjbb_ddkl_one_r_son" id="choose_time">
-					</div>
-				</div>
-			</li>
-			<li class="lastli">
-					<div class="sjbb_ddkl_one_l">
-					</div>
-					<div class="sjbb_ddkl_one_r">
-						<div class="sjbb_ddkl_one_r_son">
-							<a href="javascript:" class="changa01">搜索</a>
-						</div>
-					</div>
-			</li>
-		</ul>
-	</div>
-	<!--sjbb_index_onesjbb_ddkl_oneend--> 
-	
-	<!--  模版引擎扩展 -->
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="note note-info">
+            <div class="top_com">
+                <span class="spanl">门店范围：</span>
+                <div class="choose_md">
+                <?php if(!$this->controller->is_store):?>
+                <a href="javascript:" rel="0"><span >全连锁</span></a>
+                <?php endif;?>
+                <?php foreach ($md_list as $key => $value): ?>
+                <a href="javascript:" rel="<?php echo $key ?>"><span><?php echo $value ?></span></a>
+                <?php endforeach ?>
+                </div>
+            </div>
+            
+            <div class="top_com stime">
+                <span class="spanl">日期：</span>
+                <span  id="choose_time">
+                </span>
+            </div>
+
+            <a href="javascript:" class="btn btn-sm btn-success changa01">搜索</a>
+            <a href="javascript:;" download="经营报表.xls" class="btn btn-sm purple-plum to_excel">导出</a>
+        </div>
+
+    <!--  模版引擎扩展 -->
 	<?php echo $this->datagrid(array(
 		'id'=>'order-list',
 		'dataProvider'=>array('list'=>$model),
@@ -79,8 +61,11 @@
 			
 		),
 	));?>
-</div>
-<!--content_right_con!end-->
+
+    </div>
+</div>    
+
+
 <script type="text/javascript">
 $('.action_xjsr').click(function(event) {
 	var _url=window.location.href;
@@ -94,7 +79,6 @@ $('.action_xjsr').click(function(event) {
 				ok:true,
 				cancel:false
 			});
-		$(".table_title ul li").css('min-width','80px');
 		
 	});
 });
@@ -110,7 +94,6 @@ $('.action_xjhk').click(function(event) {
 			ok:true,
 			cancel:false
 		});
-		$(".table_title ul li").css('min-width','80px');
 		
 	});
 });
@@ -126,7 +109,6 @@ $('.action_shyj').click(function(event) {
 				ok:true,
 				cancel:false
 			});
-		$(".table_title ul li").css('min-width','80px');
 		
 	});
 });
@@ -142,7 +124,6 @@ $('.action_kl').click(function(event) {
 				ok:true,
 				cancel:false
 			});
-		$(".table_title ul li").css('min-width','80px');
 		
 	});
 });
