@@ -270,3 +270,11 @@
 	</a>
 	</div>
 </div>
+<script type="text/javascript">
+	$(function(){
+		$(".dashboard-stat").click(function(){
+			var url = $(this).find("a").attr("href");
+			to_url(url);
+		})
+	})
+</script>
